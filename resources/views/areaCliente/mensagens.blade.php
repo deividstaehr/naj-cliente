@@ -166,7 +166,7 @@
                                         <label for="endereco_tipo" class="col-sm-3 control-label label-center">Tipo de Endereço</label>
                                         <div class="col-sm-5">
                                             <div class="input-group">
-                                                <select name="endereco_tipo" id="tipoEnderecoAlteracao" class="form-control select2">
+                                                <select name="endereco_tipo" id="tipoEnderecoAlteracao" class="form-control">
                                                     <option value="Rua">Rua</option>
                                                     <option value="Avenida">Avenida</option>
                                                     <option value="Passarela">Passarela</option>
@@ -232,7 +232,7 @@
                                         <label for="uf" class="col-sm-3 control-label label-center">Estado</label>
                                         <div class="col-sm-6">
                                             <div class="input-group">
-                                                <select name="uf" id="estado" class="form-control select2">
+                                                <select name="uf" id="estado" class="form-control">
                                                     <option value="AC">Acre (AC)</option>
                                                     <option value="AL">Alagoas (AL)</option>
                                                     <option value="AP">Amapá (AP)</option>
