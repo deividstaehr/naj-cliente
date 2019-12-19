@@ -4,10 +4,12 @@
 
 @section('css')
     <link href="/css/acessoUsuario.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/ampleAdmin/assets/libs/select2/dist/css/select2.min.css">
 @endsection
 
 @section('active-layer', 'mensagens')
 @section('content')
+    <div id="loading" class="loader loader-default" is-active data-half></div>
     <div class="page-content container-fluid p-4" style="min-height: calc(100vh - 111px); !important">
         <div class="card mb-0" style="box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1) !important;">
             <ul class="nav nav-tabs manage-tabs" role="tablist">
@@ -28,7 +30,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#permissaoUsuario" role="tab">
+                    <a class="nav-link" data-toggle="tab" href="#dispositivos" role="tab">
                         <span class="hidden-sm-up">
                             <h4><i class="ti-receipt"></i></h4>
                         </span>
@@ -276,84 +278,169 @@
                             </div>
                         </form>
                         <div class="d-flex align-items-center p-2 content-footer-custom">
-                            <div class="ml-auto">
-                                <button class="btn btn-info text-white btn-rounded py-2 px-3" onclick="onClickAvancar('#cadastro', '#permissaoUsuario');">Próximo <i class="ti-arrow-right ml-2"></i></button>
+                            <p class="mt-2" style="font-weight: 500;">Usuário já cadastrado, atualize os dados se necessário.</p>
+                            <div class="ml-auto">                                
+                                <button class="btn btn-info text-white btn-rounded py-2 px-3" onclick="onClickAvancar('#cadastro', '#dispositivos');">Próximo <i class="ti-arrow-right ml-2"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="permissaoUsuario" role="tabpanel">
+                <div class="tab-pane" id="dispositivos" role="tabpanel">
                     <div class="bg-light">
-                        <div class="table-responsive border-top manage-table px-4 py-3">
-                            <table class="table no-wrap">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="border-0"></th>
-                                        <th scope="col" class="border-0"></th>
-                                        <th scope="col" class="border-0">Name</th>
-                                        <th scope="col" class="border-0">Position</th>
-                                        <th scope="col" class="border-0">Joined</th>
-                                        <th scope="col" class="border-0">Location</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="advanced-table">
-                                        <td class="pl-3">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="c9">
-                                                <label class="custom-control-label" for="c9">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <img src="../../assets/images/users/1.jpg" class="rounded-circle" width="30">
-                                        </td>
-                                        <td>Andrew Simons</td>
-                                        <td>Modulator</td>
-                                        <td>6 May 2016</td>
-                                        <td>Gujrat, India</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="p-3 tab-content-custom">
+                            <div class="table-responsive">
+                                <table class="table text-muted mb-0 no-wrap recent-table font-light">
+                                    <thead>
+                                        <tr class="text-uppercase">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">Name</th>
+                                            <th class="border-0">Status</th>
+                                            <th class="border-0">Date</th>
+                                            <th class="border-0">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="txt-oflo">Elite admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-success label-rouded">SALE</span> </td>
+                                            <td class="txt-oflo">April 18, 2017</td>
+                                            <td><span class="text-success">$24</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center p-2">
-                            <div class="ml-auto">
-                                <button class="btn btn-info text-white btn-rounded py-2 px-3" onclick="onClickAvancar('#permissaoUsuario', '#finalizar');">Próximo <i class="ti-arrow-right ml-2"></i></button>
+                        <div class="d-flex align-items-center p-2 content-footer-custom">
+                            <div class="ml-auto">                                
+                                <button class="btn btn-info text-white btn-rounded py-2 px-3" onclick="onClickAvancar('#dispositivos', '#finalizar');">Próximo <i class="ti-arrow-right ml-2"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="finalizar" role="tabpanel">
-                    <div class="bg-light">
-                        <div class="table-responsive border-top manage-table px-4 py-3">
-                            <table class="table no-wrap">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="border-0"></th>
-                                        <th scope="col" class="border-0"></th>
-                                        <th scope="col" class="border-0">Name</th>
-                                        <th scope="col" class="border-0">Position</th>
-                                        <th scope="col" class="border-0">Location</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="advanced-table">
-                                        <td class="pl-3">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="c13">
-                                                <label class="custom-control-label" for="c13">&nbsp;</label>
-                                            </div>
-                                        </td>
-                                        <td>Andrew Simons</td>
-                                        <td>Modulator</td>
-                                        <td>6 May 2016</td>
-                                        <td>Gujrat, India</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="bg-light ">
+                        <div class="tab-pane-header-custom-fixed">
+                            <div class="form-group row p-3">
+                                <label for="pessoa" class="col-sm-1 control-label label-center">Pesquisar</label>
+                                <div class="col-sm-5">
+                                    <div class="input-group">
+                                        <select class="select2-data-ajax form-control" name="pessoa" style="width: 540px !important;"></select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center p-2">
+                        <div class="p-3 tab-content-custom-finalizar">
+                            <div class="table-responsive">
+                                <table class="table text-muted mb-0 no-wrap recent-table font-light">
+                                    <thead>
+                                        <tr class="text-uppercase">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">Name</th>
+                                            <th class="border-0">Status</th>
+                                            <th class="border-0">Date</th>
+                                            <th class="border-0">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="txt-oflo">Elite admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-success label-rouded">SALE</span> </td>
+                                            <td class="txt-oflo">April 18, 2017</td>
+                                            <td><span class="text-success">$24</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td><span class="badge badge-pill text-uppercase text-white font-medium badge-info label-rouded">EXTENDED</span></td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-2 content-footer-custom">
                             <div class="ml-auto">
-                                <button class="btn btn-info text-white btn-rounded py-2 px-3">Finalizar <i class="ti-arrow-right ml-2"></i></button>
+                                <button class="btn btn-info text-white btn-rounded py-2 px-3">Finalizar <i class="far fa-paper-plane"></i></button>
                             </div>
                         </div>
                     </div>
@@ -363,10 +450,9 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script src="/js/input-mask/jquery.inputmask.js"></script>
-    <script src="/js/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="/js/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="/js/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
+@section('scripts')    
     <script src="/js/acessoUsuario.js"></script>
+    <script src="/ampleAdmin/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/ampleAdmin/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/ampleAdmin/dist/js/pages/forms/select2/select2.init.js"></script>
 @endsection

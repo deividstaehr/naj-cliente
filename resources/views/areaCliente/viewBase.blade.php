@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">    
+    <meta name="author" content="">
 
     <link href="/css/app.css" rel="stylesheet">
     <link href="/ampleAdmin/dist/css/style.min.css" rel="stylesheet">
@@ -191,6 +191,12 @@
     <script src="/ampleAdmin/dist/js/waves.js"></script>
     <script src="/ampleAdmin/dist/js/sidebarmenu.js"></script>
     <script src="/ampleAdmin/dist/js/custom.min.js"></script>
+
+    <script src="/js/input-mask/jquery.inputmask.js"></script>
+    <script src="/js/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/js/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="/js/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
+
     <script>
 
         $(window).on('load', () => {

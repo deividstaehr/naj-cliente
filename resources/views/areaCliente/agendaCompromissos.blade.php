@@ -8,5 +8,9 @@
 @section('active-layer', 'agendaCompromissos')
 @section('content')
     <div class="page-content container-fluid p-2">
+        
     </div>
+@endsection
+@section('scripts')
+    <script src="/js/agendaCompromissos.js"></script>
 @endsection
