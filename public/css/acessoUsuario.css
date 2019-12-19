@@ -1,0 +1,28 @@
+.user-box-wrapper .user-box {
+    background: #fff;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    margin: 2.5%;
+}
+
+.tab-content-custom {
+    overflow-x: hidden !important;
+    max-height: calc(100vh - 305px);
+}
+
+.label-center {
+    padding-top: 7px;
+}
+
+.content-footer-custom {
+    border-top: 0.5px solid #b3c2cc8a;
+}
+
+.iconError {
+    color: red;
+}
+
+.iconSuccess {
+    color: #10de10;
+}
