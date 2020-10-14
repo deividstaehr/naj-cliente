@@ -1,3 +1,0 @@
-[submodule "public/--force"]
-	path = public/--force
-	url = https://github.com/deivid-js/naj-datatable.git

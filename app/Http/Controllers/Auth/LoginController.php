@@ -50,8 +50,5 @@ class LoginController extends Controller {
     protected function guard() {
         return Auth::guard('web');
     }
-
-    // public function authenticate(Request $request) {
-    //     return true;
-    // }
+    
 }

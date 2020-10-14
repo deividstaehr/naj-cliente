@@ -36,12 +36,46 @@ Route::group([
 ], function($router) {
     Route::get('{route}', 'HomeController@index')->where('route', 'index|home');
 
-    //Mensagem
-    Route::get('mensagens'         , 'MensagemController@index')->name('mensagens.index');
+    //EMPRESA
+    Route::get('empresas/identificador'      , 'EmpresaController@getIdentificadorEmpresa')->name('empresa.identificador-empresa');
+    Route::get('empresas/getNomeFirstEmpresa', 'EmpresaController@getNomeFirstEmpresa')->name('empresa.first-empresa');
 
-    //Processo
-    Route::get('processos'         , 'ProcessoController@index')->name('processos.index');
+    //Mensagem
+    Route::get('mensagens'              , 'MensagemController@index')->name('mensagens.index');
+    Route::get('mensagens/hasChat/{id}' , 'MensagemController@hasChat')->name('mensagens.has-chat');    
+
+    //CHAT - MENSAGEM
+    Route::get('chat/mensagens'            , 'AtendimentoController@allMessages')->name('atendimento.all-messages');
+    Route::get('chat/mensagem/publico/{id}', 'ChatMensagemController@getAllMensagensChatPublico')->name('atendimento.all-messages-chat-publico');
+    Route::post('chat/mensagem'            , 'ChatMensagemController@store')->name('atendimento.chat.mensagem.store');
+
+    //CHAT - ANEXO
+    Route::post('chat/mensagem/anexo'               , 'AnexoChatStorageController@uploadAnexoChat')->name('anexo-chat.upload');
+    Route::post('chat/mensagem/shareAnexo'          , 'AnexoChatStorageController@shareAnexoChat')->name('anexo-chat.share');
+    Route::get('chat/mensagem/download/{parameters}', 'AnexoChatStorageController@downloadAnexoChat')->name('anexo-chat.download');
+
+    //CHAT - ATENDIMENTO
+    Route::post('chat/atendimento'     , 'ChatAtendimentoController@store')->name('chat.atendimento.store');
+    Route::post('chat/novo/atendimento', 'ChatAtendimentoController@novoAtendimento')->name('chat.novo-atendimento.store');
+    Route::put('chat/atendimento/{id}' , 'ChatAtendimentoController@update')->name('chat.atendimento.update');
+
+    //PROCESSOS
+    Route::get('processos'                   , 'ProcessoController@index')->name('processos.index');
+    Route::get('processos/create'            , 'ProcessoController@create')->name('processo.create');
+    Route::get('processos/paginate'          , 'ProcessoController@paginate')->name('processos.paginate');
+    Route::get('processos/proximo'           , 'ProcessoController@proximo')->name('processos.proximo');
+    Route::get('processos/show/{key}'        , 'ProcessoController@show')->name('processos.show');
+    Route::post('processos'                  , 'ProcessoController@store')->name('processos.store');
+    Route::put('processos'                   , 'ProcessoController@update')->name('processos.update');
+    Route::get('processos/anexos/{key}'      , 'ProcessoController@anexos')->name('processos.anexos');
+    Route::get('processos/partes/{key}'      , 'ProcessoController@getPartes')->name('processos.partes');
+    Route::get('processos/prcqualificacao'   , 'ProcessoController@getPrcQualificacao')->name('processos.prcqualificacao');
+    Route::get('processos/prcorgao'          , 'ProcessoController@getPrcOrgao')->name('processos.prcorgao');
+    Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');
 
     //Agenda
     Route::get('agendaCompromissos', 'AgendaCompromissoController@index')->name('agendaCompromissos.index');
+
+    //DOCUMENTOS
+    Route::get('documentos/show/{key}', 'DocumentosChatController@documentos')->name('documentos-show');
 });

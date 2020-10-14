@@ -37,6 +37,4 @@ class Usuario extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
-    protected $connection = 'cpanel';
-
 }
