@@ -40,3 +40,8 @@
     height: 75px;
     border-bottom: 0.5px solid #b3c2cc8a;
 }
+
+.containerLiberarAcesso {
+    max-height: calc(100vh - 111px) !important;
+    min-height: calc(100vh - 111px) !important;
+}
