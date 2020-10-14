@@ -1142,3 +1142,26 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .color-no-odd-naj-no-usuario-cliente-message {
     background-color: #f1f1f1 !important;
 }
+
+.td-nome-parte-cliente {
+    font-weight: 500;
+    color: #000;
+}
+
+.icone-parte-processo {
+    font-size: 15px !important;
+}
+
+.icone-informaçoes-processo {
+    font-size: 15px !important;
+    margin-top: 5px;
+}
+
+.badge-status-processo, .badge-informacoes-processo {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+.row-status-processo, .row-informacoes-processo {
+    margin-left: 10% !important;
+}

@@ -42,11 +42,6 @@ class ProcessoModel extends NajModel {
       $this->setOrder('SITUACAO, PRC.DATA_CADASTRO');
       $this->addAllColumns();
       $this->addRawFilter("PRC.CODIGO_CLIENTE IN ({$codigoCliente})");
-      // $this->addRawFilter("PRC.CODIGO IN (
-      //    SELECT CODIGO_PROCESSO
-      //       FROM PRC_GRUPO_CLIENTE
-      //       WHERE CODIGO_CLIENTE IN ({$codigoCliente})
-      // )");
       $this->setRawBaseSelect("
                SELECT [COLUMNS]
                FROM PRC
@@ -107,6 +102,16 @@ class ProcessoModel extends NajModel {
                FROM PRC_GRUPO_ADVERSARIO PGA
                WHERE PGA.CODIGO_PROCESSO = PRC.CODIGO
          ) AS QTDE_ADVERSARIOS")
+         ->addRawColumn("(
+            SELECT COUNT(0) 
+              FROM PRC_ANEXOS
+             WHERE PRC_ANEXOS.CODIGO_PROCESSO = PRC.CODIGO
+         ) AS QTDE_ANEXOS_PROCESSO")
+         ->addRawColumn("(
+            SELECT COUNT(0) 
+              FROM ATIVIDADE
+             WHERE ATIVIDADE.CODIGO_PROCESSO = PRC.CODIGO
+         ) AS QTDE_ATIVIDADE_PROCESSO")
          ->addRawColumn("P3.NOME AS NOME_RESPONSAVEL")
          ->addRawColumn("P3.CODIGO AS CODIGO_RESPONSAVEL")
          ->addRawColumn("P4.NOME AS NOME_ADVOGADO")

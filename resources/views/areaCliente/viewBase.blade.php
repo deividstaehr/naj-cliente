@@ -11,11 +11,11 @@
 
     <link href="{{ env('APP_URL') }}ampleAdmin/dist/css/style.min.css" rel="stylesheet">
     <link href="{{ env('APP_URL') }}css/app.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatable/styles/alert.css">
-    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatable/styles/loading.css">
-    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatable/styles/modal.css">
-    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatable/styles/index.css">
-    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatable/styles/scrollbar.css">
+    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatables/styles/alert.css">
+    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatables/styles/loading.css">
+    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatables/styles/modal.css">
+    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatables/styles/index.css">
+    <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatables/styles/scrollbar.css">
 
     <title>@yield('title')</title>
 
@@ -90,7 +90,7 @@
             </div>
         </aside>
         <!--loader do najFunctions é aplicado sobre o "page-wrapper" por default-->
-        <div class="page-wrapper" style="display: block; height: 100%;">
+        <div class="page-wrapper" style="display: block; height: 100vh;">
             @yield('content')
         </div>
     </div>
@@ -150,12 +150,12 @@
 
     </script>
     <script src="{{ env('APP_URL') }}js/datatable/api.js"></script>
-    <script src="{{ env('APP_URL') }}naj-datatable/src/sweetalert2.min.js"></script>
-    <script src="{{ env('APP_URL') }}naj-datatable/src/functions.js"></script>
-    <script src="{{ env('APP_URL') }}naj-datatable/src/TableModel.js"></script>
-    <script src="{{ env('APP_URL') }}naj-datatable/src/Table.js"></script>
-    <script src="{{ env('APP_URL') }}naj-datatable/src/alerts.js"></script>
-    <script src="{{ env('APP_URL') }}naj-datatable/src/masks.js"></script>
+    <script src="{{ env('APP_URL') }}naj-datatables/src/sweetalert2.min.js"></script>
+    <script src="{{ env('APP_URL') }}naj-datatables/src/functions.js"></script>
+    <script src="{{ env('APP_URL') }}naj-datatables/src/TableModel.js"></script>
+    <script src="{{ env('APP_URL') }}naj-datatables/src/Table.js"></script>
+    <script src="{{ env('APP_URL') }}naj-datatables/src/alerts.js"></script>
+    <script src="{{ env('APP_URL') }}naj-datatables/src/masks.js"></script>
 
     @yield('scripts')
 

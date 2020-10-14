@@ -10,112 +10,117 @@ class ProcessosTable extends Table {
         this.openLoaded   = true;
         this.isItEditable = false;
         this.showTitle    = false;
+        this.defaultFilters = false;
         var countLinha    = 0;
 
         this.addField({
-            name: 'codigo',
+            name: 'CODIGO_PROCESSO',
             title: 'Código',
-            width: 10,
-            onLoad:(data) => formatDate(data)
-            
+            width: 10
         });
         
         this.addField({
             name: 'nome_partes',
             title: 'Nome das Partes',
-            width: 20,
-            onLoad:(data) => formatDate(data)
-            
+            width: 30,
+            onLoad: (data, row) =>  {
+                return `
+                    <table>
+                        <tr>
+                            <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE}) <i class="ml-2 fas fa-users icone-parte-processo"></i></td>
+                        </tr>
+                        ${(row.NOME_ADVERSARIO)
+                            ?
+                            `<tr>
+                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.NOME_ADVOGADO)
+                            ?
+                            `<tr>
+                                <td>${row.NOME_ADVOGADO}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.NOME_RESPONSAVEL) 
+                          ?
+                          `<tr>
+                               <td>${row.NOME_RESPONSAVEL}</td>
+                           </tr>
+                          `
+                          : ``
+                        }
+                    </table>
+                `;
+            }
         });
         
         this.addField({
             name: 'informacao_processo',
             title: 'Informações do Processo',
-            width: 40
+            width: 35,
+            onLoad: (data, row) =>  {
+                return `
+                    <table>
+                        <tr>
+                            <td>${row.NUMERO_PROCESSO_NEW}</td>
+                        </tr>                        
+                        ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
+                            ?
+                            `<tr>
+                                <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.ULTIMO_ANDAMENTO_DESCRICAO)
+                            ?
+                            `<tr>
+                                <td>${row.ULTIMO_ANDAMENTO_DESCRICAO}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                    </table>
+                `;
+            }
         });
         
         this.addField({
             name: 'situacao',
             title: 'Situação',
             width: 10,
-            onLoad: (data,linha) =>  {
-                let result = '';
-                if(data != null){
-                    //Verifica quais atributos serão apresentados
-                    let tipoRegistro = linha.id_processo != null ? `` : `<span class="badge badge-pill badge-secondary">Citação</span>`;
-                    let linha1 = `<span class="font-medium ">${linha.secao ? linha.secao : linha.diario_nome}</span><br>`;
-                    let linha2 = `<span class="text-muted">${linha.tipo  ? linha.tipo  : linha.diario_competencia}</span><br>`;
-                    let linha3 = `<button type="button" class="btnLeiaNaIntegra btn btn-sm waves-effect waves-light btn-rounded btn-outline-dark" data-id-movimentacao="${linha.id}" data-index-linha="${countLinha}" data-toggle="modal" data-target="#intimacao_content1"><i class="fas fa-search"></i> Leia na Íntegra</button>&emsp;`;
-                        linha3 += `<span class="font-medium">Página: ${linha.pagina}</span>&emsp;${tipoRegistro} &emsp;`;
-                        linha3 += linha.lido == "N"  ? `<span id="tag-new-${linha.id}" class="badge text-white font-normal badge-pill badge-warning blue-grey-text text-darken-4 mr-2">Nova</span>`: "";
-                        result +=  `
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            ${linha1}
-                                            ${linha2}
-                                            ${linha3}
-                                        </td>
-                                    </tr>
-                                <tbody>
-                            </table>`;
-                }
-                //verifica se a linha corrente é inferior ao total de linhas por página
-                if(countLinha < tableDiario.data.resultado.length - 1){
-                    //Incrementa o contador de linha
-                    countLinha++;
-                } else {
-                    //Reseta o contador de linha
-                    countLinha = 0;
-                }
-                return result;
+            onLoad: (data, row) =>  {
+                let classeCss = (row.SITUACAO == "ENCERRADO") ? 'badge-danger' : 'badge-success';
+                let situacao  = (row.SITUACAO == "ENCERRADO") ? 'Baixado' : 'Em andamento';
+                return `
+                    <table class="row-status-processo">
+                        <tr>
+                            <td><span class="badge ${classeCss} badge-rounded badge-status-processo">${situacao}</span></td>
+                        </tr>
+                    </table>
+                `;
             }
         });
         
         this.addField({
             name: 'outras_informacao',
             title: 'Outras Informações',
-            width: 20,
-            onLoad: (data,linha) =>  {
-                let result = '';
-                let linha1 = '';
-                let linha2 = '';
-                let linha3 = '';
-                //Verifica se tem processo relacionado a esta movimentação (FK da tb monitora_termo_processo)
-                if(linha.id_processo != null){
-                    //Verifica se tem o número novo do processo, essa informação vem da Escavador 
-                    if(linha.processo.numero_novo != null){
-                        //Verifica se tem código de processo (FK ta tb PRC), se tiver significa que o processo já está cadastrado no BD
-                        if(linha.processo.codigo_processo != null){
-                            linha1 = `<span class="font-medium">Código: ${linha.processo.codigo_processo}<img src="${appUrl}imagens/external-link.png" alt="link externo"/></span><br>`;
-                            linha3 = `<span class="badge badge-success">Cadastrado</span>`;
-                        } else{
-                            linha3 = `<span class="badge badge-pill badge-danger">Pendente</span>`;
-                        }
-                        //tags                 = `<span class="badge badge-success">Monitorado</span>`;
-                        linha2 = `<span>Processo: <span class="font-medium">${linha.processo.numero_novo}</span></span><br>`;
-                    } else {
-                        linha2 = `<span class="text-muted">Não conseguimos identificar o processo </span><i class="icon-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Localizamos o termo de pesquisa mas não foi possível identificar o processo"></i><br>`;
-                        linha3 = `<span class="badge badge-secondary">Descartado</span>`;
-                    }
-                } else if(linha.id_processo == null){
-                    linha1 = `<span class="text-muted">Não conseguimos identificar o processo </span><br>`;
-                    linha2 = `<span class="badge badge-pill badge-danger">Pendente</span>`;
-                }
-                result +=  `
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td> 
-                                    ${linha1}
-                                    ${linha2}
-                                    ${linha3}
-                                </td>
-                            </tr>
-                        <tbody>
-                    </table>`;
-                return result;
+            width: 15,
+            onLoad: (data, row) =>  {
+                return `
+                    <table class="row-informacoes-processo">
+                        <tr>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-2"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ANEXOS_PROCESSO} Documentos Anexos</span></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-2"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ATIVIDADE_PROCESSO} Atividades</span></td>
+                        </tr>
+                    </table>
+                `;
             }
         });
     }
