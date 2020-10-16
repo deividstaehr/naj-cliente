@@ -262,7 +262,7 @@ async function sendAnexos(dropzone) {
 async function onClickDownloadAnexoChat(id_message, arquivoName) {
     loadingStart('loading-message-chat');
     let parametros = btoa(JSON.stringify({id_message, identificador}));
-    let result     = await NajApi.getData(`chat/mensagem/download/${parametros}?XDEBUG_SESSION_START`, true);
+    let result     = await NajApi.getData(`chat/mensagem/download/${parametros}`, true);
     let name       = arquivoName.split('.')[0];
     let ext        = arquivoName.split('.')[1];
 

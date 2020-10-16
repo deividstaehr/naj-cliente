@@ -3,26 +3,26 @@ class ProcessosTable extends Table {
     constructor() {
         super();
         
-        this.target       = 'datatable-processos';
-        this.name         = 'Processos';
-        this.route        = `processos`;
-        this.key          = ['codigo'];
-        this.openLoaded   = true;
-        this.isItEditable = false;
-        this.showTitle    = false;
-        this.defaultFilters = false;
-        var countLinha    = 0;
+        this.target           = 'datatable-processos';
+        this.name             = 'Processos';
+        this.route            = `processos`;
+        this.key              = ['codigo'];
+        this.openLoaded       = true;
+        this.isItEditable     = false;
+        this.isItDestructible = false;
+        this.showTitle        = false;
+        this.defaultFilters   = false;
 
         this.addField({
             name: 'CODIGO_PROCESSO',
             title: 'Código',
-            width: 10
+            width: 5
         });
         
         this.addField({
             name: 'nome_partes',
             title: 'Nome das Partes',
-            width: 30,
+            width: 35,
             onLoad: (data, row) =>  {
                 return `
                     <table>
@@ -114,10 +114,10 @@ class ProcessosTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ANEXOS_PROCESSO} Documentos Anexos</span></td>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span></td>
                         </tr>
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ATIVIDADE_PROCESSO} Atividades</span></td>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span></td>
                         </tr>
                     </table>
                 `;
@@ -184,10 +184,6 @@ class ProcessosTable extends Table {
         this.notifyActions();
 
         loadingDestroy(loading);
-        
-        // carregaBadgeNovasPublicacoes();
-        // carregaBadgePendentes();
-        
     }
 
 }

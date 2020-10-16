@@ -14,4 +14,10 @@ $(document).ready(function() {
     $('#content-atividades').on('click', function() {
         window.location.href = `${baseURL}atividades`;
     });
+
+    let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
+
+    if(nomeEmpresa) {
+        $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`;
+    }
 });

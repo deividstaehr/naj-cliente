@@ -39,7 +39,8 @@ Route::group([
     //EMPRESA
     Route::get('empresas/identificador'      , 'EmpresaController@getIdentificadorEmpresa')->name('empresa.identificador-empresa');
     Route::get('empresas/getNomeFirstEmpresa', 'EmpresaController@getNomeFirstEmpresa')->name('empresa.first-empresa');
-
+    Route::get('empresas/getLogoEmpresa'     , 'EmpresaController@getLogoEmpresa')->name('empresa.logo');
+    
     //Mensagem
     Route::get('mensagens'              , 'MensagemController@index')->name('mensagens.index');
     Route::get('mensagens/hasChat/{id}' , 'MensagemController@hasChat')->name('mensagens.has-chat');    
@@ -72,6 +73,20 @@ Route::group([
     Route::get('processos/prcqualificacao'   , 'ProcessoController@getPrcQualificacao')->name('processos.prcqualificacao');
     Route::get('processos/prcorgao'          , 'ProcessoController@getPrcOrgao')->name('processos.prcorgao');
     Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');
+
+    //PROCESSOS ANEXOS
+    Route::get('anexos/processos/paginate', 'ProcessoAnexoController@paginate')->name('processos.anexo.paginate');
+
+    //ATIVIDADES
+    Route::get('atividades'                , 'AtividadeController@index')->name('atividades.index');
+    Route::get('atividades/paginate'       , 'AtividadeController@paginate')->name('atividades.paginate');
+    Route::get('atividades/totalHoras'     , 'AtividadeController@totalHoras')->name('atividades.total-horas');
+
+    //ATIVIDADES ANEXO
+    Route::get('atividades/anexos/paginate', 'AtividadeAnexoController@paginate')->name('atividades.anexo.paginate');
+
+    //ATIVIDADE
+    Route::get('atividades/processo/paginate', 'AtividadeProcessoController@paginate')->name('atividades.processo.paginate');
 
     //Agenda
     Route::get('agendaCompromissos', 'AgendaCompromissoController@index')->name('agendaCompromissos.index');

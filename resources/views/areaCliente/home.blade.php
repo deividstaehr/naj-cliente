@@ -69,11 +69,11 @@
                     <div class="card" id="content-meus-processos">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-center">
-                                <img src="{{ env('APP_URL') }}imagens/logo2.png" alt="logo-cliente" class="dark-logo" style="height: 200px;"/>
+                                <img src="{{ env('APP_URL') }}imagens/logo_escritorio.png" alt="logo-cliente" class="dark-logo" style="height: 200px; width: 250px;"/>
                             </div>
                             <div class="mt-4 d-flex align-items-center justify-content-center">
                                 <div class="ml-4">
-                                    <h3 class="font-medium">NAJ SISTEMAS EM INFORMÁTICA LTDA - ME</h3>
+                                    <h3 class="font-medium" id="nomeEmpresa"></h3>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +116,31 @@
             </div>
         </div>
     </div> -->
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card" id="content-meus-processos">
+                        <div class="pt-0 pb-4 card-body">
+                            <div class="mt-4 d-flex align-items-center justify-content-center">
+                                <div class="ml-4">
+                                    <h3 class="font-medium">Acesse no seu celular baixando o nosso APP EXCLUSIVO para clientes do escritório</h3>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img src="{{ env('APP_URL') }}imagens/applestore.png" alt="logo-apple-store" class="dark-logo mr-4" style="height: 40px;"/>
+                                <img src="{{ env('APP_URL') }}imagens/playstore.png" alt="logo-play-store" class="dark-logo"  style="height: 40px;"/>
+                            </div>
+                            <div class="mt-2 d-flex align-items-center justify-content-center">
+                                <h5 class="font-medium">Baixe gratuitamente</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- <div class="row">

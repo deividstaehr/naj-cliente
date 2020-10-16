@@ -72,4 +72,10 @@ class EmpresaController extends NajController {
         return response()->json($empresa[0]->NOME);
     }
 
+    public function getLogoEmpresa() {
+        $empresa = $this->getModel()->getFirstEmpresa();
+
+        return response()->json(base64_encode($empresa[0]->LOGO));
+    }
+
 }

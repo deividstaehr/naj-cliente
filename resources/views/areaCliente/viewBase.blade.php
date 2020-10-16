@@ -139,12 +139,23 @@
 
                     sessionStorage.setItem('@NAJ_CLIENTE/identificadorEmpresa', response.data);
                 });
+
+                //Busca os dados da empresa
+                axios({
+                    method: 'get',
+                    url: `${baseURL}empresas/getNomeFirstEmpresa`
+                }).then(response => {
+                    if (!response.data) return;
+                    sessionStorage.setItem('@NAJ_CLIENTE/nomeEmpresa', response.data);
+                });
             }
 
             $('#logout').on('click', onClickLogout);
         });
 
         function onClickLogout() {
+            localStorage.clear();
+            sessionStorage.clear();
             window.location.href = "{{ url('auth/logout') }}";
         }
 
