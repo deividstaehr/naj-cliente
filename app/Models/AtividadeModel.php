@@ -47,7 +47,7 @@ class AtividadeModel extends NajModel {
       //    $aCodigo[] = $relacionamento->pessoa_codigo;
       // }
 
-      request()->request->remove('f');
+      // request()->request->remove('f');
 
       // return $aCodigo;
       return [1, 2, 3];

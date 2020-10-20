@@ -1,4 +1,5 @@
 <div class="modal fade" id="modal-anexo-atividade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="loading-download-anexo-atividade" class="loader loader-default" data-half></div>
     <div class="modal-dialog modal-extra-large" role="document" style="min-width: 60% !important;">
         <div class="modal-content modal-content-shadow-naj">
             <div class="modal-header modal-header-naj">

@@ -21,7 +21,7 @@ class AnexoProcessoTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
-                            <td><i class="fas fa-download icone-download-processo-atividade" title="Baixar Anexo"></i></td>
+                            <td><i class="fas fa-download icone-download-processo-atividade" title="Baixar Anexo" onclick="onClickDownloadAnexoProcesso(${row.id}, '${row.descricao}');"></i></td>
                         </tr>
                     </table>
                 `;
@@ -46,7 +46,6 @@ class AnexoProcessoTable extends Table {
             width: 25
         });
 
-        debugger;
         this.addFixedFilter('codigo_processo', 'I', processoCodigoFilter);
     }
     

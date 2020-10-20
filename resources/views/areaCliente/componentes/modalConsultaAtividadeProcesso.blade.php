@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-atividade-processo" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-extra-large" role="document" style="min-width: 60% !important;">
+    <div class="modal-dialog modal-extra-large" role="document">
         <div class="modal-content modal-content-shadow-naj">
             <div class="modal-header modal-header-naj">
                 <p class="titulo-modal-naj">Atividades do Processo</p>

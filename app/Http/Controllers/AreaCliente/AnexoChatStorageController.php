@@ -106,6 +106,46 @@ class AnexoChatStorageController extends NajController {
         return file_get_contents($pathStorage . "/" . $nameFile);
     }
 
+    public function downloadAnexoAtividade($parameters) {
+        $parametros   = json_decode(base64_decode($parameters));
+        $pathStorage  = $this->getModel()->getPathStorage();
+        $originalName = $parametros->original_name;
+
+        if(!$originalName) {
+            return response()->json(['status_code' => 400, 'mensagem' => 'Anexo não encontrado!']);
+        }
+
+        $nameFile = $parametros->identificador . "/atividade_anexos/" . $parametros->codigo;
+        //Verificando se é para subir pro GCP
+        if($this->getModel()->isSyncGoogleStorage()) {
+            $GCSController = new GoogleCloudStorageController($this->getModel()->getKeyFileGoogleStorage(), $pathStorage);
+
+            return $GCSController->downloadFile($nameFile);
+        }
+
+        return file_get_contents($pathStorage . "/" . $nameFile);
+    }
+
+    public function downloadAnexoProcesso($parameters) {
+        $parametros   = json_decode(base64_decode($parameters));
+        $pathStorage  = $this->getModel()->getPathStorage();
+        $originalName = $parametros->original_name;
+
+        if(!$originalName) {
+            return response()->json(['status_code' => 400, 'mensagem' => 'Anexo não encontrado!']);
+        }
+
+        $nameFile = $parametros->identificador . "/prc_anexos/" . $parametros->codigo;
+        //Verificando se é para subir pro GCP
+        if($this->getModel()->isSyncGoogleStorage()) {
+            $GCSController = new GoogleCloudStorageController($this->getModel()->getKeyFileGoogleStorage(), $pathStorage);
+
+            return $GCSController->downloadFile($nameFile);
+        }
+
+        return file_get_contents($pathStorage . "/" . $nameFile);
+    }
+
     public function shareAnexoChat() {
         $files       = request()->get('files');
         $pathStorage = $this->getModel()->getPathStorage();

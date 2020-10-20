@@ -21,7 +21,7 @@ class AnexoAtividadeTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
-                            <td><i class="fas fa-download icone-download-processo-atividade" title="Baixar Anexo"></i></td>
+                            <td><i class="fas fa-download icone-download-processo-atividade" title="Baixar Anexo" onclick="onClickDownloadAnexoAtividade(${row.id}, '${row.descricao}');"></i></td>
                         </tr>
                     </table>
                 `;

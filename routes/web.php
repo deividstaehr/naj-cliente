@@ -75,7 +75,8 @@ Route::group([
     Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');
 
     //PROCESSOS ANEXOS
-    Route::get('anexos/processos/paginate', 'ProcessoAnexoController@paginate')->name('processos.anexo.paginate');
+    Route::get('anexos/processos/paginate'             , 'ProcessoAnexoController@paginate')->name('processos.anexo.paginate');
+    Route::get('anexos/processos/download/{parameters}', 'AnexoChatStorageController@downloadAnexoProcesso')->name('processos.download.anexo');
 
     //ATIVIDADES
     Route::get('atividades'                , 'AtividadeController@index')->name('atividades.index');
@@ -83,7 +84,8 @@ Route::group([
     Route::get('atividades/totalHoras'     , 'AtividadeController@totalHoras')->name('atividades.total-horas');
 
     //ATIVIDADES ANEXO
-    Route::get('atividades/anexos/paginate', 'AtividadeAnexoController@paginate')->name('atividades.anexo.paginate');
+    Route::get('atividades/anexos/paginate'     , 'AtividadeAnexoController@paginate')->name('atividades.anexo.paginate');
+    Route::get('atividade/download/{parameters}', 'AnexoChatStorageController@downloadAnexoAtividade')->name('atividades.download.anexo');
 
     //ATIVIDADE
     Route::get('atividades/processo/paginate', 'AtividadeProcessoController@paginate')->name('atividades.processo.paginate');
