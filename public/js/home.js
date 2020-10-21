@@ -1,3 +1,5 @@
+const NajApi  = new Naj();
+
 $(document).ready(function() {
     
     //Evento do click no bloco MINHAS MENSAGENS
@@ -20,4 +22,6 @@ $(document).ready(function() {
     if(nomeEmpresa) {
         $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`;
     }
+
+    // let result = await NajApi.getData(`processos/${parametros}`, true);
 });

@@ -63,10 +63,10 @@
             </div>
         </div>
 
-        <script src="/js/jquery.js"></script>
-        <script src="/ampleAdmin/assets/libs/jquery/dist/jquery.min.js"></script>        
-        <script src="/ampleAdmin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-        <script src="/ampleAdmin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>        
+        <script src="{{ env('APP_URL') }}js/jquery.js"></script>
+        <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/jquery/dist/jquery.min.js"></script>        
+        <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+        <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>        
         <script>
             $('[data-toggle="tooltip"]').tooltip();
             $(".preloader").fadeOut();

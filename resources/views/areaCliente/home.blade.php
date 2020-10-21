@@ -49,12 +49,12 @@
                             <div class="d-flex align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-primary"></i></h2>
                                 <div class="cursorActive" style="margin-left: 30% !important;">
-                                    <h3 class="font-medium">3</h3>
-                                    <h5 class="text-info mb-0"><i class="fas fa-search text-info"></i> Ativos</h5>
+                                    <h3 class="ml-3 font-medium">3</h3>
+                                    <h5 class="text-info mb-0">Ativos</h5>
                                 </div>
                                 <div class="ml-4 cursorActive" style="margin-left: 15% !important;">
-                                    <h3 class="font-medium">7</h3>
-                                    <h5 class="text-info mb-0"><i class="fas fa-search text-info"></i> Baixados</h5>
+                                    <h3 class="ml-3 font-medium">7</h3>
+                                    <h5 class="text-info mb-0">Baixados</h5>
                                 </div>
                             </div>
                         </div>
