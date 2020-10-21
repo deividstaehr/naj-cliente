@@ -72,7 +72,7 @@
         <aside class="left-sidebar">
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
+                    <ul id="sidebarnav" style="background-color: #20222a !important;">
                         <li class="sidebar-item"> <a class="sidebar-link" href="{{ url('ac/home') }}" aria-expanded="false"><i class="fas fa-home"></i>
 							<span class="hide-menu">Início</span></a>
 						</li>
