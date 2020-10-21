@@ -4,8 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="stylesheet" href="{{ env('APP_URL') }}naj-datatables/styles/alert.css">
         <link href="{{ env('APP_URL') }}ampleAdmin/dist/css/style.min.css" rel="stylesheet">
         <link href="{{ env('APP_URL') }}imagens/logo-naj-2020_N - Cópia.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+        <script src="{{ env('APP_URL') }}naj-datatables/src/sweetalert2.min.js"></script>
+        <script src="{{ env('APP_URL') }}naj-datatables/src/alerts.js"></script>
 
         <title>NAJ Cliente - Login</title>
     </head>
@@ -53,8 +57,10 @@
                                 </div>
 
                                 <br>
-                                @if(Session::has('loginFails'))
-                                    <p class="alert {{ Session::get('alertClass', 'alert-info') }}">{{ Session::get('loginFails') }}</p>
+                                @if ($errors->has('login'))
+                                <script>
+                                    NajAlert.toastError("Verifique se os dados informados estão corretos e se o seu usuário está ativo!");
+                                </script>
                                 @endif
                             </div>
                         </div>
