@@ -50,5 +50,20 @@ class LoginController extends Controller {
     protected function guard() {
         return Auth::guard('web');
     }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $credentials                    = $request->only($this->username(), 'password');
+        $credentials['status']          = 'A';
+        $credentials['usuario_tipo_id'] = '3';
+
+        return $credentials;
+    }
     
 }
