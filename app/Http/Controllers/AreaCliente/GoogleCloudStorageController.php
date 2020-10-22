@@ -50,7 +50,7 @@ class GoogleCloudStorageController extends NajController {
             return $file->downloadAsString();
         }
 
-        return false;
+        return null;
     }
 
     public function copyFile($originalName, $nameFile) {

@@ -19,7 +19,9 @@ class AtividadeModel extends NajModel {
 
       $this->setTable('atividade');
       $this->addColumn('CODIGO', true)->setHidden();
-      $this->setOrder('A.DATA');
+
+      $this->setOrder('A.DATA DESC, A.HORA_INICIO', 'DESC');
+
       $this->addAllColumns();
       $this->addRawFilter("A.CODIGO_CLIENTE IN ({$codigoCliente})");
       $this->setRawBaseSelect("
@@ -68,6 +70,7 @@ class AtividadeModel extends NajModel {
          ->addRawColumn("CL.CLASSE")
          ->addRawColumn("CA.CARTORIO")
          ->addRawColumn("CO.COMARCA")
+         ->addRawColumn("CO.UF AS COMARCA_UF")
          ->addRawColumn("PC.VALOR_CAUSA")
          ->addRawColumn("PC.DATA_CADASTRO")
          ->addRawColumn("PC.DATA_DISTRIBUICAO")
@@ -80,13 +83,14 @@ class AtividadeModel extends NajModel {
          ");
    }
 
-    public function getTotalHoras() {
+    public function getTotalHoras($data_inicial, $data_final) {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
         $total_horas = DB::select("
             SELECT time_format( SEC_TO_TIME( SUM( TIME_TO_SEC( tempo ) ) ),'%H:%i:%s')  AS total_horas 
               FROM atividade 
              WHERE CODIGO_CLIENTE IN({$codigoCliente})
+               AND data BETWEEN '{$data_inicial}' AND '{$data_final}'
         ");
 
         return $total_horas;

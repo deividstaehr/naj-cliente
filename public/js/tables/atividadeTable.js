@@ -39,7 +39,7 @@ class AtividadeTable extends Table {
             title: 'Informações do Processo',
             width: 20,
             onLoad: (data, row) =>  {
-                if(!row.NUMERO_PROCESSO_NEW && !row.CARTORIO && !row.COMARCA && !row.VALOR_CAUSA) {
+                if(!row.NUMERO_PROCESSO_NEW && !row.CARTORIO && !row.COMARCA) {
                     return 'Sem informações'
                 }
 
@@ -52,19 +52,19 @@ class AtividadeTable extends Table {
                             </tr>
                             `
                             : ``
-                        }                     
-                        ${(row.CARTORIO && row.COMARCA)
+                        }
+                        ${(row.CLASSE)
                             ?
                             `<tr>
-                                <td>${row.CARTORIO} - ${row.COMARCA}</td>
+                                <td>R$${row.CLASSE}</td>
                             </tr>
                             `
                             : ``
                         }
-                        ${(row.VALOR_CAUSA)
+                        ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
                             ?
                             `<tr>
-                                <td>R$${row.VALOR_CAUSA}</td>
+                                <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
                             </tr>
                             `
                             : ``
@@ -82,10 +82,13 @@ class AtividadeTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
+                            <td class="weight-500 text-dark">Responsável:</td>
+                        </tr>
+                        <tr>
                             <td>${row.NOME_USUARIO}</td>
                         </tr>
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ANEXOS_ATIVIDADE} Documento(s) Anexos</span></td>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});">${row.QTDE_ANEXOS_ATIVIDADE} Documento(s) Anexos</span></td>
                         </tr>
                     </table>
                 `;
@@ -291,6 +294,30 @@ class AtividadeTable extends Table {
         if (oldLimit !== this.limit) this.page = 1;
 
         try {
+            let f2 = false;
+
+            let filters2 = this.filtersForSearch.concat(this.fixedFilters);
+
+            if (filters2) f2 = '&f=' + this.toBase64(filters2);
+
+            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&XDEBUG_SESSION_START`);
+
+            let dataInicial = $('#filter-data-inicial').val();
+            let dataFinal   = $('#filter-data-final').val();
+
+            //limpa filtros 
+            this.filtersForSearch = [];
+
+            if(dataInicial && dataFinal){
+                let filter2        = {};
+                filter2.val    = formatDate(dataInicial, false);
+                filter2.val2   = formatDate(dataFinal, false);
+                filter2.op     = "B";
+                filter2.col    = "A.DATA";
+                filter2.origin = btoa(filter2);
+                this.filtersForSearch.push(filter2);
+            }
+
             let f = false;
 
             let filters = this.filtersForSearch.concat(this.fixedFilters);
@@ -332,10 +359,17 @@ class AtividadeTable extends Table {
 
         this.notifyActions();
 
-        let responseTotalHoras = await api.get(`atividades/totalHoras`);
+        let data_inicial = `${$('#filter-data-inicial').val().split('/')[2]}-${$('#filter-data-inicial').val().split('/')[1]}-${$('#filter-data-inicial').val().split('/')[0]}`;
+        let data_final   = `${$('#filter-data-final').val().split('/')[2]}-${$('#filter-data-final').val().split('/')[1]}-${$('#filter-data-final').val().split('/')[0]}`;
+
+        let responseTotalHoras = await api.get(`atividades/totalHoras/${btoa(JSON.stringify({data_inicial, data_final}))}`);
 
         if(responseTotalHoras.data.total_horas) {
-            $('#total_horas')[0].innerHTML = `${responseTotalHoras.data.total_horas[0].total_horas}`;
+            if(responseTotalHoras.data.total_horas[0].total_horas == null) {
+                $('#total_horas')[0].innerHTML = `00:00:00`;
+            } else {
+                $('#total_horas')[0].innerHTML = `${responseTotalHoras.data.total_horas[0].total_horas}`;
+            }
         }
 
         loadingDestroy(loading);

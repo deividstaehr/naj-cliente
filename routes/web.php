@@ -36,6 +36,9 @@ Route::group([
 ], function($router) {
     Route::get('{route}', 'HomeController@index')->where('route', 'index|home');
 
+    //ATUALIZAR SENHA USUARIO
+    Route::get('password/update', 'HomeController@indexUpdateSenha')->name('password.update');
+
     //EMPRESA
     Route::get('empresas/identificador'      , 'EmpresaController@getIdentificadorEmpresa')->name('empresa.identificador-empresa');
     Route::get('empresas/getNomeFirstEmpresa', 'EmpresaController@getNomeFirstEmpresa')->name('empresa.first-empresa');
@@ -79,9 +82,9 @@ Route::group([
     Route::get('anexos/processos/download/{parameters}', 'AnexoChatStorageController@downloadAnexoProcesso')->name('processos.download.anexo');
 
     //ATIVIDADES
-    Route::get('atividades'                , 'AtividadeController@index')->name('atividades.index');
-    Route::get('atividades/paginate'       , 'AtividadeController@paginate')->name('atividades.paginate');
-    Route::get('atividades/totalHoras'     , 'AtividadeController@totalHoras')->name('atividades.total-horas');
+    Route::get('atividades'                        , 'AtividadeController@index')->name('atividades.index');
+    Route::get('atividades/paginate'               , 'AtividadeController@paginate')->name('atividades.paginate');
+    Route::get('atividades/totalHoras/{parameters}', 'AtividadeController@totalHoras')->name('atividades.total-horas');
 
     //ATIVIDADES ANEXO
     Route::get('atividades/anexos/paginate'     , 'AtividadeAnexoController@paginate')->name('atividades.anexo.paginate');
@@ -95,4 +98,7 @@ Route::group([
 
     //DOCUMENTOS
     Route::get('documentos/show/{key}', 'DocumentosChatController@documentos')->name('documentos-show');
+
+    //USUÁRIO
+    Route::put('usuarios/atualizarDados/{id}' , 'UsuarioController@atualizarDados')->name('usuario.atualizar-dados');
 });

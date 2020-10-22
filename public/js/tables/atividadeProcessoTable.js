@@ -16,7 +16,10 @@ class AtividadeProcessoTable extends Table {
         this.addField({
             name: 'DATA_INICIO',
             title: 'Data e Hora',
-            width: 15
+            width: 15,
+            onLoad: (data, row) =>  {
+                return `${row.DATA_INICIO} ${row.HORA_INICIO}`;
+            }
         });
         
         this.addField({
@@ -27,13 +30,13 @@ class AtividadeProcessoTable extends Table {
         
         this.addField({
             name: 'DESCRICAO',
-            title: 'Descrição',
+            title: 'Histórico',
             width: 45
         });
 
         this.addField({
             name: 'NOME_USUARIO',
-            title: 'Usuário',
+            title: 'Responsável',
             width: 30
         });
 

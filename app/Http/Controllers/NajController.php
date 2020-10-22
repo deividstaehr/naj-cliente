@@ -88,6 +88,11 @@ abstract class NajController extends Controller {
                 $this->middleware('check-jwt-token')->except(['login']);
             }
         }
+
+        //VALIDA SE TA COMO PROVISORIA A SENHA DO USUÁRIO
+        if($checkPasswordProvisoria) {
+            $this->middleware('check-password-provisoria');
+        }
     }
 
     public function index() {

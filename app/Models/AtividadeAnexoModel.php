@@ -17,9 +17,10 @@ class AtividadeAnexoModel extends NajModel {
       $this->addColumn('id', true);
       $this->addColumn('codigo_atividade');
       $this->addColumn('descricao');
-      $this->addColumn('data');
+      $this->addColumn('data_arquivo');
+      $this->addColumn('file_size');
 
-      $this->setOrder('data');
+      $this->setOrder('data_arquivo');
    }
 
 }

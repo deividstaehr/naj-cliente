@@ -17,7 +17,9 @@ class AtividadeProcessoModel extends NajModel {
    protected function loadTable() {
       $this->setTable('atividade');
       $this->addColumn('CODIGO', true)->setHidden();
-      $this->setOrder('A.DATA');
+
+      $this->setOrder('A.DATA DESC, A.HORA_INICIO', 'DESC');
+
       $this->addAllColumns();
       $this->setRawBaseSelect("
                SELECT [COLUMNS]

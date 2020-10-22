@@ -18,6 +18,7 @@ class ProcessoAnexoModel extends NajModel {
       $this->addColumn('codigo_processo');
       $this->addColumn('descricao');
       $this->addColumn('data_arquivo');
+      $this->addColumn('file_size');
 
       $this->setOrder('data_arquivo');
    }

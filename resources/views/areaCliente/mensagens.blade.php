@@ -14,7 +14,7 @@
 
 <div class="row height-100 bg-content-messages">
     <div class="col-8 pr-0 pl-0" style="margin-left: 16%;">
-        <div class="pt-2 chat-box data-table-content naj-scrollable content-chat-box-full" style="overflow-x: hidden;" id="pololo">
+        <div class="chat-box data-table-content naj-scrollable content-chat-box-full" style="overflow-x: hidden; border-top: none !important;" id="pololo">
             <div id="loading-message-chat" class="loader loader-default" data-half></div>
             <div class="mail-compose bg-white w-100" id="content-upload-anexos-chat" style="overflow: hidden !important; height: 100%;">
                 <div class="card-header bg-info row">
@@ -54,10 +54,10 @@
                     </div>
                 </div>
                 <div class="card-footer-naj">
-                    <div style="position: fixed; bottom: 10px;">
+                    <div style="position: fixed; bottom: 10px; width: 100%;">
                         <button type="button" class="btn btn-success" onclick="onClickSendAnexoChat();"><i class="fas fa-paper-plane mr-1"></i>Enviar</button>
                         <button type="button" class="btn btn-danger" onclick="onClickCancelarAnexos();"><i class="fas fa-times mr-1"></i>Cancelar</button>
-                        <button type="button" class="btn btn-info fileinput-button" style="right: -160%;"><i class="fas fa-paperclip mr-1"></i></i>Anexar Arquivos</button>
+                        <button type="button" class="btn btn-info fileinput-button" style="position: absolute; right: 35%;"><i class="fas fa-paperclip mr-1"></i></i>Anexar Arquivos</button>
                     </div>
                 </div>
             </div>

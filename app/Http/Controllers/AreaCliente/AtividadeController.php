@@ -23,8 +23,10 @@ class AtividadeController extends NajController {
         return view('areaCliente.consulta.AtividadeConsultaView');
     }
 
-    public function totalHoras() {
-        return response()->json(['total_horas' => $this->getModel()->getTotalHoras()]);
+    public function totalHoras($parameters) {
+        $parametros   = json_decode(base64_decode($parameters));
+
+        return response()->json(['total_horas' => $this->getModel()->getTotalHoras($parametros->data_inicial, $parametros->data_final)]);
     }
     
 }

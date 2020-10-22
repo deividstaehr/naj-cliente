@@ -107,7 +107,7 @@ class AnexoChatStorageController extends NajController {
     }
 
     public function downloadAnexoAtividade($parameters) {
-        $parametros   = json_decode(base64_decode($parameters));
+        $parametros   = json_decode($parameters);
         $pathStorage  = $this->getModel()->getPathStorage();
         $originalName = $parametros->original_name;
 
@@ -127,7 +127,7 @@ class AnexoChatStorageController extends NajController {
     }
 
     public function downloadAnexoProcesso($parameters) {
-        $parametros   = json_decode(base64_decode($parameters));
+        $parametros   = json_decode($parameters);
         $pathStorage  = $this->getModel()->getPathStorage();
         $originalName = $parametros->original_name;
 

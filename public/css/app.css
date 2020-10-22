@@ -1154,12 +1154,14 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
 .icone-informaçoes-processo {
     font-size: 15px !important;
-    margin-top: 5px;
+    margin-top: 2px;
+    position: absolute;
 }
 
-.badge-status-processo, .badge-informacoes-processo {
+.badge-status-processo, .badge-informacoes-processo, .badge-nome-partes-processo {
     font-size: 11px !important;
     font-weight: 500 !important;
+    text-shadow: none !important;
 }
 
 .row-status-processo, .row-informacoes-processo {
@@ -1169,4 +1171,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .icone-download-processo-atividade {
     font-size: 18px !important;
     margin-left: 5px !important;
+}
+
+.icone-partes-processo-expanded {
+    font-size: 15px !important;
+    margin-top: 2px;
+    position: absolute;
 }

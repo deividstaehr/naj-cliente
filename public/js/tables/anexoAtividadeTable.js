@@ -29,21 +29,38 @@ class AnexoAtividadeTable extends Table {
         });
 
         this.addField({
-            name: 'id',
-            title: 'Código',
-            width: 10
-        });
-        
-        this.addField({
             name: 'descricao',
             title: 'Nome Arquivo',
             width: 60
         });
+
+        this.addField({
+            name: 'file_size',
+            title: 'Tamanho',
+            width: 20,
+            onLoad: (data, row) =>  {
+                let bytes = row.file_size;
+                let decimals = 2;
+
+                if (bytes === 0 || !bytes) return '0 Bytes';
+
+                const k = 1024;
+                const dm = decimals < 0 ? 0 : decimals;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+            }
+        });
         
         this.addField({
-            name: 'data',
+            name: 'data_arquivo',
             title: 'Data',
-            width: 25
+            width: 15,
+            onLoad: (data, row) =>  {
+                return `${row.data_arquivo.split('-')[2]}-${row.data_arquivo.split('-')[1]}-${row.data_arquivo.split('-')[0]}`;
+            }
         });
 
         this.addFixedFilter('codigo_atividade', 'I', atividadeCodigoFilter);

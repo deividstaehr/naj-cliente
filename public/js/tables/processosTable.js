@@ -24,10 +24,24 @@ class ProcessosTable extends Table {
             title: 'Nome das Partes',
             width: 35,
             onLoad: (data, row) =>  {
+                let sHtmlQtdeClientes = '';
+                let sHtmlEnvolvidos   = '';
+
+                if(row.QTDE_CLIENTES) {
+                    sHtmlQtdeClientes = `<span class="badge badge-secondary badge-rounded badge-nome-partes-processo" title="+${row.QTDE_CLIENTES} Envolvido(s)">+${row.QTDE_CLIENTES} Envolvido(s)</span>`;
+                    sHtmlEnvolvidos   = `
+                        <span class="action-icons">
+                            <a data-toggle="collapse" href="#partes-processo-${row.CODIGO_PROCESSO}" data-key-processo="${row.CODIGO_PROCESSO}" aria-expanded="false" onclick="onClickEnvolvidosProcesso(${row.CODIGO_PROCESSO}, this);">
+                                <i class="fas fa-chevron-circle-right icone-partes-processo-expanded" title="Clique para ver os envolvidos" data-toggle="tooltip"></i>
+                            </a>
+                        </span>
+                    `;
+                }
+
                 return `
                     <table>
                         <tr>
-                            <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE}) <i class="ml-2 fas fa-users icone-parte-processo"></i></td>
+                            <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
                         </tr>
                         ${(row.NOME_ADVERSARIO)
                             ?
@@ -37,22 +51,11 @@ class ProcessosTable extends Table {
                             `
                             : ``
                         }
-                        ${(row.NOME_ADVOGADO)
-                            ?
-                            `<tr>
-                                <td>${row.NOME_ADVOGADO}</td>
-                            </tr>
-                            `
-                            : ``
-                        }
-                        ${(row.NOME_RESPONSAVEL) 
-                          ?
-                          `<tr>
-                               <td>${row.NOME_RESPONSAVEL}</td>
-                           </tr>
-                          `
-                          : ``
-                        }
+                        <tr>
+                            <td class="td-nome-parte-cliente">${sHtmlQtdeClientes}${sHtmlEnvolvidos}</td>
+                        </tr>
+                        <tr class="collapse well" id="partes-processo-${row.CODIGO_PROCESSO}" aria-expanded="false">
+                        </tr>
                     </table>
                 `;
             }
@@ -68,6 +71,14 @@ class ProcessosTable extends Table {
                         <tr>
                             <td>${row.NUMERO_PROCESSO_NEW}</td>
                         </tr>                        
+                        ${(row.CLASSE)
+                            ?
+                            `<tr>
+                                <td>${row.CLASSE}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
                         ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
                             ?
                             `<tr>
@@ -75,15 +86,7 @@ class ProcessosTable extends Table {
                             </tr>
                             `
                             : ``
-                        }
-                        ${(row.ULTIMO_ANDAMENTO_DESCRICAO)
-                            ?
-                            `<tr>
-                                <td>${row.ULTIMO_ANDAMENTO_DESCRICAO}</td>
-                            </tr>
-                            `
-                            : ``
-                        }
+                        }                        
                     </table>
                 `;
             }
@@ -114,10 +117,10 @@ class ProcessosTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span></td>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span></td>
                         </tr>
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="mb-2 badge badge-secondary badge-rounded badge-informacoes-processo">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span></td>
+                            <td><i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span></td>
                         </tr>
                     </table>
                 `;

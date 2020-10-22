@@ -57,13 +57,16 @@ class LoginController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    protected function credentials(Request $request)
-    {
+    protected function credentials(Request $request) {
         $credentials                    = $request->only($this->username(), 'password');
         $credentials['status']          = 'A';
         $credentials['usuario_tipo_id'] = '3';
 
         return $credentials;
+    }
+
+    public function username() {
+        return 'login';
     }
     
 }

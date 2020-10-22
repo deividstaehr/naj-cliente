@@ -127,8 +127,9 @@ async function getCustomFilters() {
     setaDataRange(1);
 }
 
-async function setaDataRange(opcaoDataRapida){
-    switch(parseInt(opcaoDataRapida)){
+async function setaDataRange(opcaoDataRapida) {
+    let dataFinal;
+    switch(parseInt(opcaoDataRapida)) {
         case 1:
             //Mês atual
             month = new Date().getMonth();
@@ -157,15 +158,15 @@ async function setaDataRange(opcaoDataRapida){
             break;
         case 7:
             //Último ano
-            dataInicial = null;
+            dataInicial = '0001-01-01';
+            dataFinal   = '9999-01-01';
             break;
     }
 
-    if(dataInicial == null) {
-        return;
+    if(dataFinal != '9999-01-01' && dataInicial != '0001-01-01') {
+        dataFinal = getDateProperties(new Date()).fullDate;
     }
-
-    dataFinal   = getDateProperties(new Date()).fullDate;
+    
     $('#filter-data-inicial').val(formatDate(dataInicial));
     $('#filter-data-final').val(formatDate(dataFinal));
 }
@@ -177,23 +178,18 @@ async function setaDataRange(opcaoDataRapida){
  */
 async function setaDataRapida(opcaoDataRapida, el){
     setaDataRange(opcaoDataRapida); 
-    buscaPersonalizada((opcaoDataRapida == 7 ? true : false));
+    buscaPersonalizada();
     removeClassCss('dropItemSelected', $('.componenteDatasRapidas'));
     el.attributes.class.value += " dropItemSelected";
     removeClassCss('action-in-open', '#listDatasRapidas');
 }
 
-async function buscaPersonalizada(filterAll = false) {
+async function buscaPersonalizada() {
     let dataInicial = $('#filter-data-inicial').val();
     let dataFinal   = $('#filter-data-final').val();
 
     //limpa filtros 
     atividadesTable.filtersForSearch = [];
-
-    if(filterAll) {
-        await atividadesTable.load();
-        return;
-    }
 
     if(dataInicial && dataFinal){
         filter2        = {}; 
@@ -216,12 +212,12 @@ async function onClickDownloadAnexoAtividade(codigo, arquivoName) {
 
     loadingStart('loading-download-anexo-atividade');
     let identificador = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
-    let parametros    = btoa(JSON.stringify({codigo, identificador, 'original_name' : arquivoName}));
-    let result        = await NajApi.getData(`atividade/download/${parametros}`, true);
+    let parametros    = JSON.stringify({codigo, identificador, 'original_name' : arquivoName});
+    let result        = await NajApi.getData(`atividade/download/${parametros}?XDEBUG_SESSION_START`, true);
     let name          = arquivoName.split('.')[0];
     let ext           = arquivoName.split('.')[1];
 
-    if(result) {
+    if(result && result.size > 0) {
         var element = document.createElement('a');
         var reader  = new FileReader();
 
@@ -235,6 +231,8 @@ async function onClickDownloadAnexoAtividade(codigo, arquivoName) {
         }
 
         reader.readAsDataURL(result);
+    } else {
+        NajAlert.toastError('Não foi possível fazer o download, o anexo não foi encontrado!');
     }
 
     loadingDestroy('loading-download-anexo-atividade');

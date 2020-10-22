@@ -24,7 +24,7 @@
     <div class="col-6 p-0">
         <span>
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Total de Horas das Atividades."></span>
-            <b>Total de Horas:</b> <span id='total_horas'></span>&emsp;
+            <b>Total de Horas:</b> <span id='total_horas' style="margin-top: 1px; position: absolute;"></span>&emsp;
         </span>
     </div>
 </div>
