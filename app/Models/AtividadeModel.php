@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Auth;
 use App\Models\NajModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\PessoaRelacionamentoUsuarioModel;
@@ -15,7 +14,12 @@ use App\Models\PessoaRelacionamentoUsuarioModel;
 class AtividadeModel extends NajModel {
 
    protected function loadTable() {
-      $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+      $rota = request()->route()->getName();
+
+      $codigoCliente = "-9999";
+      if($rota == 'atividades.paginate') {
+         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+      }
 
       $this->setTable('atividade');
       $this->addColumn('CODIGO', true)->setHidden();
@@ -41,23 +45,23 @@ class AtividadeModel extends NajModel {
    }
 
    public function getRelacionamentoClientes() {
-      // $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-      // $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario(Auth::user()->id);
-      // $aCodigo = [];
-
-      // foreach($relacionamentos as $relacionamento) {
-      //    $aCodigo[] = $relacionamento->pessoa_codigo;
-      // }
-
-      // request()->request->remove('f');
-
-      // return $aCodigo;
       return [1, 2, 3];
+      $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
+      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario(1);
+      $aCodigo = [];
+
+      foreach($relacionamentos as $relacionamento) {
+         $aCodigo[] = $relacionamento->pessoa_codigo;
+      }
+
+      return $aCodigo;
+      // return [1, 2, 3];
    }
 
    public function addAllColumns() {
       $this->addRawColumn("DATE_FORMAT(A.DATA,'%d/%m/%Y') AS DATA_INICIO")
          ->addRawColumn("A.CODIGO AS CODIGO")
+         ->addRawColumn("A.ENVIAR AS ENVIAR")
          ->addRawColumn("A.CODIGO_PROCESSO AS CODIGO_PROCESSO")
          ->addRawColumn("DATE_FORMAT(A.DATA_TERMINO,'%d/%m/%Y') AS DATA_TERMINO")
          ->addRawColumn("DATE_FORMAT(A.HORA_INICIO,'%H:%m:%s') AS HORA_INICIO")
@@ -91,8 +95,28 @@ class AtividadeModel extends NajModel {
               FROM atividade 
              WHERE CODIGO_CLIENTE IN({$codigoCliente})
                AND data BETWEEN '{$data_inicial}' AND '{$data_final}'
+               AND enviar = 'S'
         ");
 
         return $total_horas;
+    }
+
+    public function getQtdeUltimas30DiasAndTodas($parametro) {
+      $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+      $trinta_dias = DB::select("
+          SELECT COUNT(0) qtde_30_dias
+            FROM atividade 
+           WHERE CODIGO_CLIENTE IN({$codigoCliente})
+             AND data BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
+      ");
+
+      $todas = DB::select("
+          SELECT COUNT(0) todas
+            FROM atividade 
+           WHERE CODIGO_CLIENTE IN({$codigoCliente})
+      ");
+
+      return ['trinta_dias' => $trinta_dias, 'todas' => $todas];
     }
 }

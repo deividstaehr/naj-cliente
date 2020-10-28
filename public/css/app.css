@@ -621,14 +621,14 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .bg-content-messages {
-    background-color: #fff !important;
+    background-color: #f1f1f1 !important;
 }
 
 .content-butons-chat {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 68.1%;
+    width: 51.1%;
     height: 70px;
     bottom: 1px;
     position: fixed;
@@ -692,7 +692,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .input-mensagem-chat {
-    width: 95%;
+    width: 93%;
     min-height: auto;    
     padding-top: 15px;
     padding-bottom: 0;
@@ -703,7 +703,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
     color: #4a4a4a;
     font-size: 14px;
     resize: none;
-    margin-left: 3%; 
+    margin-left: 6%; 
 }
 
 .buttonActionsChat {
@@ -727,18 +727,24 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .content-message-select-user-chat {
-    width: 100%;
+    width: 85%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 30%;
+    margin-top: 2%;
+    margin-left: 7.5%;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    background-color: #dcf8c6;
 }
 
 .text-message-select-user-chat {
-    font-size: 14px;
+    font-size: 13px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
-    color: red;
+    width: 100%;
+    color: #4a4a4a;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .text-header-transfer-atendimento {
@@ -1160,7 +1166,6 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
 .badge-status-processo, .badge-informacoes-processo, .badge-nome-partes-processo {
     font-size: 11px !important;
-    font-weight: 500 !important;
     text-shadow: none !important;
 }
 
@@ -1176,5 +1181,9 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .icone-partes-processo-expanded {
     font-size: 15px !important;
     margin-top: 2px;
-    position: absolute;
+}
+
+.icone-search-home-cards {
+    margin-bottom: -14px;
+    float: right;
 }

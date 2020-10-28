@@ -31,7 +31,7 @@ async function onClickDownloadAnexoProcesso(codigo, arquivoName) {
     loadingStart('loading-download-anexo-processo');
     let identificador = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
     let parametros    = JSON.stringify({codigo, identificador, 'original_name' : arquivoName});
-    let result        = await NajApi.getData(`anexos/processos/download/${parametros}`, true);
+    let result        = await NajApi.getData(`anexos/processos/download/${parametros}?XDEBUG_SESSION_START`, true);
     let name          = arquivoName.split('.')[0];
     let ext           = arquivoName.split('.')[1];
 
@@ -57,7 +57,6 @@ async function onClickDownloadAnexoProcesso(codigo, arquivoName) {
 }
 
 async function onClickEnvolvidosProcesso(codigo, el) {
-    debugger;
     let parameters = btoa(JSON.stringify({codigo})),
         envolvidos = await NajApi.getData(`processos/partes/${parameters}`),
         sHtml      = '';
@@ -65,20 +64,18 @@ async function onClickEnvolvidosProcesso(codigo, el) {
     if(el.children) {
         let className = el.children.item(0).className;
 
-        if(className == 'fas fa-chevron-circle-down') {
-            el.children.item(0).className = 'fas fa-chevron-circle-right';
+        if(className == 'fas fa-chevron-circle-down icone-partes-processo-expanded') {
+            el.children.item(0).className = 'fas fa-chevron-circle-right icone-partes-processo-expanded';
             return;
         }
-        el.children.item(0).className = 'fas fa-chevron-circle-down';
+        el.children.item(0).className = 'fas fa-chevron-circle-down icone-partes-processo-expanded';
     }
 
     for(var indice = 0; indice < envolvidos.length; indice++) {
         sHtml += `
-            <div class="row" style="width: 100%;">
-                <div class="row" style="width: 100%;">
-                    <span><i class="font-18 mdi mdi-open-in-new cursor-pointer text-dark" title="Ver ficha do envolvido" data-toggle="tooltip" onclick="onClickFichaEnvolvido(${envolvidos[indice].CODIGO});"></i></span>
-                    ${envolvidos[indice].NOME}
-                    <small><span class="text-muted">(${envolvidos[indice].QUALIFICACAO}) </span></small>
+            <div class="row" style="width: 100%; height: 20px !important;">
+                <div class="col-12" style="margin-left: 3% !important;">
+                    ${envolvidos[indice].NOME} (${envolvidos[indice].QUALIFICACAO})
                 </div>
             </div>
         `;

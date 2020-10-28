@@ -13,6 +13,13 @@ let usersNewAtendimento = [];
 $(document).ready(function() {
     onLoadAtendimento();
 
+    let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
+
+    if(nomeEmpresa) {
+        $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`;
+        $('.text-message-select-user-chat')[0].innerHTML = `<i class="fas fa-lock mr-2"></i>OLÁ, Seja bem vindo a área de troca de mensagens de: ${nomeEmpresa}. Digite a sua mensagem ou envie documentos que em breve responderemos.`;
+    }
+
     //Evento do click de exibir o modal anexo do chat
     $('#input-anexo').on('click', function() {
         $('#previews')[0].innerHTML = '';
@@ -24,7 +31,7 @@ $(document).ready(function() {
         $('#input-text-chat-enviar').hide();
     });
 
-    $('#input-text-chat-enviar').keyup(function(event) {
+    $('#input-text-chat-enviar').keypress(function(event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         
         if(keycode == '13') {

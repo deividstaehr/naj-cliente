@@ -20,7 +20,7 @@ class AtividadeAnexoModel extends NajModel {
       $this->addColumn('data_arquivo');
       $this->addColumn('file_size');
 
-      $this->setOrder('data_arquivo');
+      $this->setOrder('data_arquivo', 'desc');
    }
 
 }

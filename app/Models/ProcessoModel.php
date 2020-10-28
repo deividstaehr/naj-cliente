@@ -15,6 +15,7 @@ class ProcessoModel extends NajModel {
 
    protected function loadTable() {
       $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
       if($codigoCliente == "") {
          $codigoCliente = "-9999";
       }
@@ -63,20 +64,19 @@ class ProcessoModel extends NajModel {
    }
 
    public function getRelacionamentoClientes() {
-      // $queryFilters = request()->query('f');
-      // $filterParse  = json_decode(base64_decode($queryFilters));
-      // $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-      // $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($filterParse->id_usuario_cliente);
-      // $aCodigo = [];
+      return [1, 2, 3];
+      $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
+      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario(1);
+      $aCodigo = [];
 
-      // foreach($relacionamentos as $relacionamento) {
-      //    $aCodigo[] = $relacionamento->pessoa_codigo;
-      // }
+      foreach($relacionamentos as $relacionamento) {
+         $aCodigo[] = $relacionamento->pessoa_codigo;
+      }
 
       request()->request->remove('f');
 
-      // return $aCodigo;
-      return [1, 2, 3];
+      return $aCodigo;
+      // return [1, 2, 3];
    }
 
    public function addAllColumns() {
@@ -245,5 +245,24 @@ class ProcessoModel extends NajModel {
         $result = DB::select($sql);
 
         return $result;
+    }
+
+    public function getQtdeAtivoBaixado() {
+        $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+        $response = DB::select("
+            SELECT COUNT(0) AS QTDE,
+                   IF((SELECT ATIVO FROM PRC_SITUACAO WHERE CODIGO = PC.CODIGO_SITUACAO)='S','EM ANDAMENTO','ENCERRADO') AS SITUACAO
+              FROM PRC PC
+             WHERE PC.CODIGO_CLIENTE IN({$codigoCliente})
+                OR PC.CODIGO IN (
+                                 SELECT CODIGO_PROCESSO
+                                   FROM PRC_GRUPO_CLIENTE
+                                  WHERE CODIGO_CLIENTE IN({$codigoCliente})
+                             )
+          GROUP BY SITUACAO
+        ");
+
+        return $response;
     }
 }

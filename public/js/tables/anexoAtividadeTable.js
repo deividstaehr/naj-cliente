@@ -21,7 +21,7 @@ class AnexoAtividadeTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
-                            <td><i class="fas fa-download icone-download-processo-atividade" title="Baixar Anexo" onclick="onClickDownloadAnexoAtividade(${row.id}, '${row.descricao}');"></i></td>
+                            <td><i class="fas fa-download icone-download-processo-atividade" data-toggle="tooltip" data-placement="top" title="Clique aqui para baixar o arquivo" onclick="onClickDownloadAnexoAtividade(${row.id}, '${row.descricao}');"></i></td>
                         </tr>
                     </table>
                 `;
@@ -123,6 +123,7 @@ class AnexoAtividadeTable extends Table {
         }
 
         this.notifyActions();
+        $('.icone-download-processo-atividade').tooltip('update');
 
         loadingDestroy(loading);
     }

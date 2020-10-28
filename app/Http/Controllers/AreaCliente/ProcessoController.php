@@ -90,5 +90,9 @@ class ProcessoController extends NajController {
         $result = $this->getModel()->getPrcSituacao();
         return response()->json($result)->content();
     }
+
+    public function getQtdeAtivoBaixado() {
+        return response()->json(['data' => $this->getModel()->getQtdeAtivoBaixado()]);
+    }
     
 }

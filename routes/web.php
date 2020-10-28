@@ -45,8 +45,9 @@ Route::group([
     Route::get('empresas/getLogoEmpresa'     , 'EmpresaController@getLogoEmpresa')->name('empresa.logo');
     
     //Mensagem
-    Route::get('mensagens'              , 'MensagemController@index')->name('mensagens.index');
-    Route::get('mensagens/hasChat/{id}' , 'MensagemController@hasChat')->name('mensagens.has-chat');    
+    Route::get('mensagens'             , 'MensagemController@index')->name('mensagens.index');
+    Route::get('mensagens/hasChat/{id}', 'MensagemController@hasChat')->name('mensagens.has-chat');
+    Route::get('mensagens/indicador'   , 'MensagemController@getNewMessagesAndTodas')->name('mensagens.indicador');
 
     //CHAT - MENSAGEM
     Route::get('chat/mensagens'            , 'AtendimentoController@allMessages')->name('atendimento.all-messages');
@@ -76,6 +77,7 @@ Route::group([
     Route::get('processos/prcqualificacao'   , 'ProcessoController@getPrcQualificacao')->name('processos.prcqualificacao');
     Route::get('processos/prcorgao'          , 'ProcessoController@getPrcOrgao')->name('processos.prcorgao');
     Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');
+    Route::get('processos/indicador'       , 'ProcessoController@getQtdeAtivoBaixado')->name('processos.indicador');
 
     //PROCESSOS ANEXOS
     Route::get('anexos/processos/paginate'             , 'ProcessoAnexoController@paginate')->name('processos.anexo.paginate');
@@ -85,12 +87,13 @@ Route::group([
     Route::get('atividades'                        , 'AtividadeController@index')->name('atividades.index');
     Route::get('atividades/paginate'               , 'AtividadeController@paginate')->name('atividades.paginate');
     Route::get('atividades/totalHoras/{parameters}', 'AtividadeController@totalHoras')->name('atividades.total-horas');
+    Route::get('atividades/indicador/{parameters}' , 'AtividadeController@getQtdeUltimas30DiasAndTodas')->name('atividades.indicador');
 
     //ATIVIDADES ANEXO
     Route::get('atividades/anexos/paginate'     , 'AtividadeAnexoController@paginate')->name('atividades.anexo.paginate');
     Route::get('atividade/download/{parameters}', 'AnexoChatStorageController@downloadAnexoAtividade')->name('atividades.download.anexo');
 
-    //ATIVIDADE
+    //ATIVIDADE PROCESSO
     Route::get('atividades/processo/paginate', 'AtividadeProcessoController@paginate')->name('atividades.processo.paginate');
 
     //Agenda
@@ -100,5 +103,14 @@ Route::group([
     Route::get('documentos/show/{key}', 'DocumentosChatController@documentos')->name('documentos-show');
 
     //USUÁRIO
-    Route::put('usuarios/atualizarDados/{id}' , 'UsuarioController@atualizarDados')->name('usuario.atualizar-dados');
+    Route::get('usuarios/perfil'             , 'UsuarioController@perfil')->name('usuario.perfil');
+    Route::get('usuarios/show/{id}'          , 'UsuarioController@show')->name('usuario.show');
+    Route::get('usuarios/cpf/{cpf}'          , 'UsuarioController@getUserByCpfInCpanel')->name('usuario.show');
+    Route::put('usuarios/{id}'               , 'UsuarioController@update')->name('usuario.update');    
+    Route::put('usuarios/password/{id}'      , 'UsuarioController@updatePassword')->name('usuario.update-password');
+    Route::put('usuarios/atualizarDados/{id}', 'UsuarioController@atualizarDados')->name('usuario.atualizar-dados');
+
+    //FINANCEIRO
+    Route::get('financeiro'          , 'FinanceiroController@index')->name('financeiro.index');
+    Route::get('financeiro/indicador', 'FinanceiroController@getTotalPagarTotalReceber')->name('financeiro.indicador');
 });

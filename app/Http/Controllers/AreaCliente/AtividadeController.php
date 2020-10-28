@@ -28,5 +28,12 @@ class AtividadeController extends NajController {
 
         return response()->json(['total_horas' => $this->getModel()->getTotalHoras($parametros->data_inicial, $parametros->data_final)]);
     }
+
+    public function getQtdeUltimas30DiasAndTodas($parameters) {
+        $parametros   = json_decode(base64_decode($parameters));
+        $teste = auth()->check();
+
+        return response()->json($this->getModel()->getQtdeUltimas30DiasAndTodas($parametros));
+    }
     
 }

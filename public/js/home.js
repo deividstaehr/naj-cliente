@@ -23,5 +23,63 @@ $(document).ready(function() {
         $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`;
     }
 
-    // let result = await NajApi.getData(`processos/${parametros}`, true);
+    loadContainerMensagens();
+    loadContainerAtividade();
+    loadContainerProcesso();
+    loadContainerFinanceiro();
 });
+
+async function loadContainerMensagens() {
+    let resultMessages = await NajApi.getData(`mensagens/indicador`);
+
+    if(resultMessages.todas[0] && resultMessages.novas[0]) {
+        if(resultMessages.novas[0].qtde_novas > 0) {
+            $('#qtde_mensagens_novas')[0].innerHTML = `
+                ${resultMessages.novas[0].qtde_novas}
+                <div class="notify" style="top: -15px !important;">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            `;
+        } else {
+            $('#qtde_mensagens_novas')[0].innerHTML = `${resultMessages.novas[0].qtde_novas}`;
+        }
+        
+        $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
+    }
+}
+
+async function loadContainerAtividade() {
+    let parametrosAtividade = {
+        'data_inicial': getDateProperties(new Date(new Date().getTime() - (30 * 86400000))).fullDate,
+        'data_final'  : getDateProperties(new Date()).fullDate,
+        'id_usuario'  : idUsuarioLogado
+    };
+
+    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?XDEBUG_SESSION_START`);
+
+    if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {
+        $('#qtde_atividade_trinta_dias')[0].innerHTML = `${resultAtividade.trinta_dias[0].qtde_30_dias}`;
+        $('#qtde_atividade_todas')[0].innerHTML = `${resultAtividade.todas[0].todas}`;
+    }
+}
+
+async function loadContainerProcesso() {
+    let resultProcesso = await NajApi.getData(`processos/indicador`);
+
+    if(resultProcesso.data[0]) {
+        $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
+        $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
+    }
+}
+
+async function loadContainerFinanceiro() {
+    let resultFinanceiro = await NajApi.getData(`financeiro/indicador`);
+
+    if(resultFinanceiro.pagar[0] && resultFinanceiro.receber[0]) {
+        $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_PAGO)}`;
+        $('#qtde_pagar_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_EM_ABERTO)}`;
+        $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_PAGO)}`;
+        $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_EM_ABERTO)}`;
+    }
+}

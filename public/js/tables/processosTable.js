@@ -39,7 +39,7 @@ class ProcessosTable extends Table {
                 }
 
                 return `
-                    <table>
+                    <table class="w-100">
                         <tr>
                             <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
                         </tr>
@@ -52,7 +52,11 @@ class ProcessosTable extends Table {
                             : ``
                         }
                         <tr>
-                            <td class="td-nome-parte-cliente">${sHtmlQtdeClientes}${sHtmlEnvolvidos}</td>
+                            <td class="td-nome-parte-cliente">
+                                <div class="row" style="width: 100% !important; margin-left: 1px !important;">
+                                    ${sHtmlQtdeClientes}${sHtmlEnvolvidos}
+                                </div>
+                            </td>
                         </tr>
                         <tr class="collapse well" id="partes-processo-${row.CODIGO_PROCESSO}" aria-expanded="false">
                         </tr>
@@ -117,10 +121,18 @@ class ProcessosTable extends Table {
                 return `
                     <table class="row-informacoes-processo">
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span></td>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span></td>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ATIVIDADE_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 `;

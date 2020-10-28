@@ -13,9 +13,12 @@
 @section('content')
 
 <div class="row height-100 bg-content-messages">
-    <div class="col-8 pr-0 pl-0" style="margin-left: 16%;">
-        <div class="chat-box data-table-content naj-scrollable content-chat-box-full" style="overflow-x: hidden; border-top: none !important;" id="pololo">
+    <div class="col-6 pr-0 pl-0">
+        <div class="chat-box data-table-content naj-scrollable content-chat-box-full" style="overflow-x: hidden; border-top: none !important; padding-left: 5px !important;" id="pololo">
             <div id="loading-message-chat" class="loader loader-default" data-half></div>
+            <div class="content-message-select-user-chat">
+                <p class="text-message-select-user-chat"></p>
+            </div>
             <div class="mail-compose bg-white w-100" id="content-upload-anexos-chat" style="overflow: hidden !important; height: 100%;">
                 <div class="card-header bg-info row">
                     <div class="col-11">
@@ -57,19 +60,58 @@
                     <div style="position: fixed; bottom: 10px; width: 100%;">
                         <button type="button" class="btn btn-success" onclick="onClickSendAnexoChat();"><i class="fas fa-paper-plane mr-1"></i>Enviar</button>
                         <button type="button" class="btn btn-danger" onclick="onClickCancelarAnexos();"><i class="fas fa-times mr-1"></i>Cancelar</button>
-                        <button type="button" class="btn btn-info fileinput-button" style="position: absolute; right: 35%;"><i class="fas fa-paperclip mr-1"></i></i>Anexar Arquivos</button>
+                        <button type="button" class="btn btn-info fileinput-button" style="position: absolute; right: 51%;"><i class="fas fa-paperclip mr-1"></i></i>Anexar Arquivos</button>
                     </div>
                 </div>
             </div>
             <ul class="chat-list" id="content-messages-chat"></ul>
         </div>
         <div class="bg-light content-butons-chat">
-            <div class="btn-group dropup show pl-0 content-input-mensagem-chat" style="width: 3% !important; left: 5px; position: absolute; background-color: #f1f1f1 !important;">
+            <div class="btn-group dropup show pl-0 content-input-mensagem-chat" style="width: 3% !important; left: 17px; position: absolute; background-color: #f1f1f1 !important;">
                 <button type="button" class="btn btn-light btn-light-atendimento-dropdown" id="input-anexo"><i class="fas fa-paperclip"></i></button>
             </div>
             <textarea name="" id="input-text-chat-enviar" class="input-mensagem-chat content-input-mensagem-chat" wrap="hard" placeholder="Digete sua mensagem"></textarea>
             <div id="content-button-rascunho-message-chat">
                 <span class="font-10 badge badge-danger" title="Rascunho da mensagem">RASCUNHO</span><i class="fas fa-trash ml-1 cursor-pointer" id="icon-trash-rascunho-message-chat"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 mt-2 pr-0 pl-0">
+        <div class="row ml-0 mr-3">
+            <div class="col-12">
+                <div class="card" id="content-meus-processos">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="{{ env('APP_URL') }}imagens/logo_escritorio.png" alt="logo-cliente" class="dark-logo" style="height: 200px; width: 250px;"/>
+                        </div>
+                        <div class="mt-4 d-flex align-items-center justify-content-center">
+                            <div class="ml-4">
+                                <h3 class="font-medium" id="nomeEmpresa"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ml-0 mr-3">
+            <div class="col-12">
+                <div class="card" id="content-meus-processos">
+                    <div class="pt-0 pb-4 card-body">
+                        <div class="mt-4 d-flex align-items-center justify-content-center">
+                            <div class="ml-4">
+                                <h3 class="font-medium">Acesse no seu celular baixando o nosso APP EXCLUSIVO para clientes do escritório</h3>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="{{ env('APP_URL') }}imagens/applestore.png" alt="logo-apple-store" class="dark-logo mr-4" style="height: 40px;"/>
+                            <img src="{{ env('APP_URL') }}imagens/playstore.png" alt="logo-play-store" class="dark-logo"  style="height: 40px;"/>
+                        </div>
+                        <div class="mt-2 d-flex align-items-center justify-content-center">
+                            <h5 class="font-medium">Baixe gratuitamente</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

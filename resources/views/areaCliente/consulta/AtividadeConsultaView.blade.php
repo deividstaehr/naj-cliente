@@ -23,7 +23,7 @@
 <div id='saldoAnterior' class="row datatable-body mt-0" style="height: 7%;">
     <div class="col-6 p-0">
         <span>
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Total de Horas das Atividades."></span>
+            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Total de Horas do período selecionado."></span>
             <b>Total de Horas:</b> <span id='total_horas' style="margin-top: 1px; position: absolute;"></span>&emsp;
         </span>
     </div>

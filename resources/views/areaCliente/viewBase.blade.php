@@ -41,6 +41,10 @@
                     </b>
                     <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
                 </div>
+                <div class="navbar-collapse collapse mb-0 ">
+                    &emsp;<span class="font-weight-bolder">Licenciado:</span>&nbsp;
+                    <span id="nomeEmpresaLicenciada"></span>
+                </div>
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav float-right mr-auto"><li class="nav-item dropdown"></li></ul>
                     <ul class="navbar-nav float-right">
@@ -59,7 +63,7 @@
                                         <p class=" mb-0 text-muted">{{ Auth::user()->email_recuperacao }}</p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user mr-1 ml-1"></i> Perfil</a>
+                                <a class="dropdown-item"  href="{{ url(env('APP_ALIAS') . '/usuarios/perfil') }}"><i class="ti-user mr-1 ml-1"></i> Alterar dados do Usuário</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)" id="logout"><i class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
                             </div>
@@ -147,9 +151,18 @@
                 }).then(response => {
                     if (!response.data) return;
                     sessionStorage.setItem('@NAJ_CLIENTE/nomeEmpresa', response.data);
+                    $('#nomeEmpresaLicenciada')[0].innerHTML = `${response.data}`;
+
+                    if($('#nomeEmpresa')[0]) {
+                        $('#nomeEmpresa')[0].innerHTML = `${response.data}`;
+                    }
                 });
             }
 
+            $('#nomeEmpresaLicenciada')[0].innerHTML = `${sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa')}`;
+            if($('#nomeEmpresa')[0]) {
+                $('#nomeEmpresa')[0].innerHTML = `${sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa')}`;
+            }
             $('#logout').on('click', onClickLogout);
         });
 

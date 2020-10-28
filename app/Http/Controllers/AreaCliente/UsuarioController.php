@@ -44,23 +44,12 @@ class UsuarioController extends NajController {
         return view('najWeb.consulta.UsuarioConsultaView')->with('is_usuarios', true);
     }
 
-    /**
-     * Create da rota de usuários.
-     */
-    public function create() {
-        return view('najWeb.manutencao.UsuarioManutencaoView')->with('is_usuarios', true);
-    }
-
-    public function edit() {
-        return view('najWeb.manutencao.UsuarioManutencaoView')->with('is_usuarios', true);
-    }
-
     public function perfil() {
-        return view('najWeb.manutencao.PerfilUsuarioManutencaoView');
+        return view('areaCliente.manutencao.PerfilUsuarioManutencaoView');
     }
 
     public function smtp() {
-        return view('najWeb.manutencao.SmtpUsuarioManutencaoView')->with('is_usuarios', true);
+        return view('areaCliente.manutencao.SmtpUsuarioManutencaoView')->with('is_usuarios', true);
     }
 
     public function proximo() {
