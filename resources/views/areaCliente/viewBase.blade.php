@@ -89,6 +89,9 @@
 						<li class="sidebar-item"> <a class="sidebar-link" href="{{ url('ac/atividades') }}" aria-expanded="false"><i class="fas fa-tasks"></i>
 							<span class="hide-menu">Atividades</span></a>
 						</li>
+                        <li class="sidebar-item"> <a class="sidebar-link" href="{{ url('ac/financeiro') }}" aria-expanded="false"><i class="fas fa-donate"></i>
+							<span class="hide-menu">Financeiro</span></a>
+						</li>
                     </ul>
                 </nav>
             </div>

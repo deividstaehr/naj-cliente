@@ -13,26 +13,17 @@ use App\Models\FinanceiroModel;
 class FinanceiroController extends NajController {
 
     public function onLoad() {
-        $FinanceiroModel = new FinanceiroModel;
-
-        // A PAGAR
-        $FinanceiroModel->addRawFilter("(
-            CONTA.TIPO = 'R' AND (CONTA.PAGADOR = '1' OR CONTA.PAGADOR IS NULL)
-        )");
-
-        // A RECEBER
-        //$AppFinanceiroModel->addRawFilter("(
-        //    CP.DATA_PAGAMENTO IS NOT NULL
-        //    OR CP.ID IN (
-        //        SELECT ID_PARCELA FROM CONTA_PARCELA_PARCIAL
-        //    )
-        //)");
-
-        $this->setModel($FinanceiroModel);
+        $this->setModel(new FinanceiroModel);
     }
 
-    public function getTotalPagarTotalReceber() {
-        return response()->json($this->getModel()->getTotalPagarTotalReceber());
+    public function index() {
+        return view('areaCliente.consulta.FinanceiroConsultaView');
+    }
+
+    public function getTotalRecebidoReceberAtrasado($parameters) {
+        $parametros   = json_decode(base64_decode($parameters));
+
+        return response()->json($this->getModel()->getTotalRecebidoReceberAtrasado($parametros));
     }
 
 }

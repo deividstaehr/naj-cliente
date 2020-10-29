@@ -31,7 +31,6 @@ class AtividadeController extends NajController {
 
     public function getQtdeUltimas30DiasAndTodas($parameters) {
         $parametros   = json_decode(base64_decode($parameters));
-        $teste = auth()->check();
 
         return response()->json($this->getModel()->getQtdeUltimas30DiasAndTodas($parametros));
     }

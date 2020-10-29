@@ -1,50 +1,67 @@
-class AtividadeTable extends Table {
+class FinanceiroReceberTable extends Table {
 
     constructor() {
         super();
         
-        this.target           = 'datatable-atividades';
-        this.name             = 'Atividades';
-        this.route            = `atividades`;
+        this.target           = 'datatable-financeiro-receber';
+        this.name             = 'Financeiro';
+        this.route            = `financeiro/receber`;
         this.key              = ['codigo'];
         this.openLoaded       = true;
         this.isItEditable     = false;
         this.isItDestructible = false;
         this.showTitle        = false;
         this.defaultFilters   = false;
-        
+
         this.addField({
-            name: 'data_hora_inicio',
-            title: 'Data/Hora Inicio',
-            width: 10,
-            onLoad: (data, row) =>  {
-                return `${row.DATA_INICIO} ${row.HORA_INICIO}`;
-            }
-        });
-        
-        this.addField({
-            name: 'TEMPO',
-            title: 'Tempo',
+            name: 'CODIGO_CONTA',
+            title: 'Conta',
             width: 5
         });
         
         this.addField({
-            name: 'DESCRICAO',
-            title: 'Histórico',
-            width: 40
-        });
-
-        this.addField({
-            name: 'informacoes_processo',
-            title: 'Informações do Processo',
-            width: 20,
+            name: 'nome_pessoas',
+            title: 'Pessoa(s)',
+            width: 25,
             onLoad: (data, row) =>  {
-                if(!row.NUMERO_PROCESSO_NEW && !row.CARTORIO && !row.COMARCA) {
-                    return 'Sem informações'
-                }
-
                 return `
-                    <table>
+                    <table class="w-100">
+                        ${(row.NOME_CLIENTE)
+                            ?
+                            `<tr>
+                                <td class="td-nome-parte-cliente">${row.NOME_CLIENTE}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.NOME_ADVERSARIO)
+                            ?
+                            `<tr>
+                                <td>${row.NOME_ADVERSARIO}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                    </table>
+                `;
+            }
+        });
+        
+        this.addField({
+            name: 'DESCRICAO',
+            title: 'Informações da Conta',
+            width: 30,
+            onLoad: (data, row) =>  {
+                return `
+                    <table class="w-100">
+                        ${(row.DESCRICAO)
+                            ?
+                            `<tr>
+                                <td class="td-nome-parte-cliente">${row.DESCRICAO}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
                         ${(row.NUMERO_PROCESSO_NEW)
                             ?
                             `<tr>
@@ -53,49 +70,86 @@ class AtividadeTable extends Table {
                             `
                             : ``
                         }
-                        ${(row.CLASSE)
+                        ${(row.COMARCA && row.UF)
                             ?
                             `<tr>
-                                <td>R$${row.CLASSE}</td>
+                                <td>${row.COMARCA} (${row.UF})</td>
                             </tr>
                             `
                             : ``
                         }
-                        ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
-                            ?
-                            `<tr>
-                                <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
-                            </tr>
-                            `
-                            : ``
-                        }
+                    </table>
+                `;
+            }
+        });
+        
+        this.addField({
+            name: 'DATA_VENCIMENTO',
+            title: 'Vencimento',
+            width: 7.5
+        });
+        
+        this.addField({
+            name: 'VALOR_PARCELA',
+            title: 'Valor Parcela',
+            width: 7.5,
+            onLoad: (data, row) =>  {
+                return formatter.format(row.VALOR_PARCELA);
+            }
+        });
+
+        this.addField({
+            name: 'SITUACAO',
+            title: 'Situação',
+            width: 10,
+            onLoad: (data, row) =>  {
+                let classeCss = '';
+                let situacao  = '';
+
+                if(row.SITUACAO == 'P') {
+                    classeCss = 'badge-success';
+                    situacao  = 'Paga';
+                } else if(row.SITUACAO == 'R') {
+                    classeCss = 'badge-success';
+                    situacao  = 'Recebida';
+                } else if(row.SITUACAO == 'C') {
+                    classeCss = 'badge-warning';
+                    situacao  = 'Cancelada';
+                } else if(row.SITUACAO == 'G') {
+                    classeCss = 'badge-primary';
+                    situacao  = 'Agrupada';
+                } else if(row.SITUACAO == 'A' && dataVencimentoMenorDataAtual(row.DATA_VENCIMENTO)) {
+                    classeCss = 'badge-danger';
+                    situacao  = 'Vencida';
+                } else if(row.SITUACAO == 'A') {
+                    classeCss = 'badge-info';
+                    situacao  = 'A Vencer';
+                }
+
+                return `
+                    <table class="row-status-processo">
+                        <tr>
+                            <td><span class="badge ${classeCss} badge-rounded badge-status-processo">${situacao}</span></td>
+                        </tr>
                     </table>
                 `;
             }
         });
 
         this.addField({
-            name: 'outras_informacao',
-            title: 'Outras Informações',
-            width: 25,
-            onLoad: (data, row) =>  {
-                return `
-                    <table class="row-informacoes-processo">
-                        <tr>
-                            <td class="weight-500 text-dark">Responsável:</td>
-                        </tr>
-                        <tr>
-                            <td>${row.NOME_USUARIO}</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_ATIVIDADE > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});">${row.QTDE_ANEXOS_ATIVIDADE} Documento(s) Anexos</span></td>
-                        </tr>
-                    </table>
-                `;
-            }
+            name: 'DATA_PAGAMENTO',
+            title: 'Pagamento',
+            width: 7.5
         });
 
-        this.addFixedFilter('ENVIAR', 'I', 'S');
+        this.addField({
+            name: 'VALOR_PAGAMENTO',
+            title: 'Valor Pago',
+            width: 7.5,
+            onLoad: (data, row) =>  {
+                return formatter.format(row.VALOR_PAGAMENTO);
+            }
+        });
     }
 
     makeSkeleton() {
@@ -294,30 +348,6 @@ class AtividadeTable extends Table {
         if (oldLimit !== this.limit) this.page = 1;
 
         try {
-            let f2 = false;
-
-            let filters2 = this.filtersForSearch.concat(this.fixedFilters);
-
-            if (filters2) f2 = '&f=' + this.toBase64(filters2);
-
-            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&XDEBUG_SESSION_START`);
-
-            let dataInicial = $('#filter-data-inicial').val();
-            let dataFinal   = $('#filter-data-final').val();
-
-            //limpa filtros 
-            this.filtersForSearch = [];
-
-            if(dataInicial && dataFinal){
-                let filter2        = {};
-                filter2.val    = formatDate(dataInicial, false);
-                filter2.val2   = formatDate(dataFinal, false);
-                filter2.op     = "B";
-                filter2.col    = "A.DATA";
-                filter2.origin = btoa(filter2);
-                this.filtersForSearch.push(filter2);
-            }
-
             let f = false;
 
             let filters = this.filtersForSearch.concat(this.fixedFilters);
@@ -359,17 +389,19 @@ class AtividadeTable extends Table {
 
         this.notifyActions();
 
-        let data_inicial = `${$('#filter-data-inicial').val().split('/')[2]}-${$('#filter-data-inicial').val().split('/')[1]}-${$('#filter-data-inicial').val().split('/')[0]}`;
-        let data_final   = `${$('#filter-data-final').val().split('/')[2]}-${$('#filter-data-final').val().split('/')[1]}-${$('#filter-data-final').val().split('/')[0]}`;
+        let data_inicial = `${$('#filter-data-inicial-receber').val().split('/')[2]}-${$('#filter-data-inicial-receber').val().split('/')[1]}-${$('#filter-data-inicial-receber').val().split('/')[0]}`;
+        let data_final   = `${$('#filter-data-final-receber').val().split('/')[2]}-${$('#filter-data-final-receber').val().split('/')[1]}-${$('#filter-data-final-receber').val().split('/')[0]}`;
 
-        let responseTotalHoras = await api.get(`atividades/totalHoras/${btoa(JSON.stringify({data_inicial, data_final}))}`);
+        let response = await api.get(`financeiro/receber/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}`);
 
-        if(responseTotalHoras.data.total_horas) {
-            if(responseTotalHoras.data.total_horas[0].total_horas == null) {
-                $('#total_horas')[0].innerHTML = `00:00:00`;
-            } else {
-                $('#total_horas')[0].innerHTML = `${responseTotalHoras.data.total_horas[0].total_horas}`;
-            }
+        if(response.data[0]) {
+            let total_recebido = (response.data[0].TOTAL_PAGO) ? `R$ ${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;
+            let total_receber  = (response.data[0].TOTAL_EM_ABERTO) ? `R$ ${formatter.format(response.data[0].TOTAL_EM_ABERTO)}` : `R$ 0,00`;
+            let total_atrasado = (response.data[0].TOTAL_ATRASADO) ? `R$ ${formatter.format(response.data[0].TOTAL_ATRASADO)}` : `R$ 0,00`;
+
+            $('#total_receber_recebido')[0].innerHTML = total_recebido;
+            $('#total_receber_receber')[0].innerHTML  = total_receber;
+            $('#total_receber_atrasado')[0].innerHTML = total_atrasado;
         }
 
         loadingDestroy(loading);
