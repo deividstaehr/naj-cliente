@@ -29,7 +29,7 @@ class FinanceiroPagarTable extends Table {
                         ${(row.NOME_CLIENTE)
                             ?
                             `<tr>
-                                <td class="td-nome-parte-cliente">${row.NOME_CLIENTE}</td>
+                                <td>${row.NOME_CLIENTE}</td>
                             </tr>
                             `
                             : ``

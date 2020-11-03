@@ -524,8 +524,10 @@ class Chat {
                             </div>
                             <p class="mb-0 text-chat-messages" style="margin-top: 4px;">${fileUpload.conteudo}</p>
                         </div>
-                        <div class="m-0 content-size-anexo-chat">${this.formaterSizeAnexo(fileUpload.file_size)}</div>
-                        <div class="chat-time m-0 ${fileUpload.data_hora.split(' ')[0] != getDataAtual() ? ' ajuste-hora-anexo-chat' : ''}">${data_hora}${(!isOdd) ? '' : spanIconStatusMessage}</div>
+                        <div class="m-0">
+                            <div class="m-0 content-size-anexo-chat">${this.formaterSizeAnexo(fileUpload.file_size)}</div>
+                            <div class="chat-time m-0 ${(!isOdd) ? ' ajuste-hora-anexo-chat' : ''}">${data_hora}${(!isOdd) ? '' : spanIconStatusMessage}</div>
+                        </div>
                     </div>
                 </div>
             </li>

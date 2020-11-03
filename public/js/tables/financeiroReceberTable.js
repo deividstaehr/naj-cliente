@@ -29,7 +29,7 @@ class FinanceiroReceberTable extends Table {
                         ${(row.NOME_CLIENTE)
                             ?
                             `<tr>
-                                <td class="td-nome-parte-cliente">${row.NOME_CLIENTE}</td>
+                                <td>${row.NOME_CLIENTE}</td>
                             </tr>
                             `
                             : ``
@@ -57,7 +57,7 @@ class FinanceiroReceberTable extends Table {
                         ${(row.DESCRICAO)
                             ?
                             `<tr>
-                                <td class="td-nome-parte-cliente">${row.DESCRICAO}</td>
+                                <td>${row.DESCRICAO}</td>
                             </tr>
                             `
                             : ``

@@ -88,7 +88,11 @@ class AtividadeTable extends Table {
                             <td>${row.NOME_USUARIO}</td>
                         </tr>
                         <tr>
-                            <td><i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_ATIVIDADE > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});">${row.QTDE_ANEXOS_ATIVIDADE} Documento(s) Anexos</span></td>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_ATIVIDADE > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});">${row.QTDE_ANEXOS_ATIVIDADE} Documento(s) Anexos</span>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 `;
