@@ -318,6 +318,38 @@ class FinanceiroPagarTable extends Table {
         if (oldLimit !== this.limit) this.page = 1;
 
         try {
+            let f2 = false;
+
+            let filters2 = this.filtersForSearch.concat(this.fixedFilters);
+
+            if (filters2) f2 = '&f=' + this.toBase64(filters2);
+
+            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&XDEBUG_SESSION_START`);
+
+            let dataInicial = $('#filter-data-inicial-pagar').val();
+            let dataFinal   = $('#filter-data-final-pagar').val();
+
+            //limpa filtros 
+            this.filtersForSearch = [];
+
+            if(dataInicial && dataFinal){
+                let filter2    = {};
+                filter2.val    = formatDate(dataInicial, false);
+                filter2.val2   = formatDate(dataFinal, false);
+                filter2.op     = "B";
+                filter2.col    = "DATA_VENCIMENTO";
+                filter2.origin = btoa(filter2);
+                this.filtersForSearch.push(filter2);
+
+                let filter3    = {};
+                filter3.val    = formatDate(dataInicial, false);
+                filter3.val2   = formatDate(dataFinal, false);
+                filter3.op     = "B";
+                filter3.col    = "DATA_PAGAMENTO";
+                filter3.origin = btoa(filter3);
+                this.filtersForSearch.push(filter3);
+            }
+
             let f = false;
 
             let filters = this.filtersForSearch.concat(this.fixedFilters);

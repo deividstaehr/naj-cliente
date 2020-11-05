@@ -11,12 +11,12 @@ $(document).ready(function() {
 
     //Ao clicar em pesquisar...
     $(document).on("click", '#search-button-receber', function () {
-        buscaPersonalizada();
+        buscaPersonalizada('receber');
     });
 
     //Ao clicar em pesquisar...
     $(document).on("click", '#search-button-pagar', function () {
-        buscaPersonalizada();
+        buscaPersonalizada('pagar');
     });
 
     //Abre ou fecha drop das data rápidas ao clicar no botão das datas rápidas
@@ -59,7 +59,7 @@ $(document).ready(function() {
     $(document).keypress(function(e){
         if(e.keyCode === 13){
             if($("#filter-data-inicial-pagar").is(":focus") || $("#filter-data-final-pagar").is(":focus")){
-                buscaPersonalizada();
+                buscaPersonalizada('pagar');
             }
         }
     });
@@ -68,7 +68,7 @@ $(document).ready(function() {
     $(document).keypress(function(e){
         if(e.keyCode === 13){
             if($("#filter-data-inicial-receber").is(":focus") || $("#filter-data-final-receber").is(":focus")){
-                buscaPersonalizada();
+                buscaPersonalizada('receber');
             }
         }
     });
@@ -305,8 +305,8 @@ async function setaDataRange(opcaoDataRapida, content) {
  * @param integer dataRapida
  * @param element el
  */
-async function setaDataRapida(opcaoDataRapida, el, content){
-    setaDataRange(opcaoDataRapida); 
+async function setaDataRapida(opcaoDataRapida, el, content) {
+    setaDataRange(opcaoDataRapida, content); 
     buscaPersonalizada(content);
     removeClassCss('dropItemSelected', $('.componenteDatasRapidas'));
     el.attributes.class.value += " dropItemSelected";
@@ -325,9 +325,17 @@ async function buscaPersonalizada(content) {
             filter2.val    = formatDate(dataInicial, false);
             filter2.val2   = formatDate(dataFinal, false);
             filter2.op     = "B";
-            filter2.col    = "A.DATA";
+            filter2.col    = "DATA_VENCIMENTO";
             filter2.origin = btoa(filter2);
             financeiroPagarTable.filtersForSearch.push(filter2);
+
+            filter3        = {}; 
+            filter3.val    = formatDate(dataInicial, false);
+            filter3.val2   = formatDate(dataFinal, false);
+            filter3.op     = "B";
+            filter3.col    = "DATA_PAGAMENTO";
+            filter3.origin = btoa(filter3);
+            financeiroPagarTable.filtersForSearch.push(filter3);
         }
     
         await financeiroPagarTable.load();
@@ -340,9 +348,17 @@ async function buscaPersonalizada(content) {
             filter2.val    = formatDate(dataInicial, false);
             filter2.val2   = formatDate(dataFinal, false);
             filter2.op     = "B";
-            filter2.col    = "A.DATA";
+            filter2.col    = "DATA_VENCIMENTO";
             filter2.origin = btoa(filter2);
             financeiroReceberTable.filtersForSearch.push(filter2);
+
+            filter3        = {}; 
+            filter3.val    = formatDate(dataInicial, false);
+            filter3.val2   = formatDate(dataFinal, false);
+            filter3.op     = "B";
+            filter3.col    = "DATA_PAGAMENTO";
+            filter3.origin = btoa(filter3);
+            financeiroReceberTable.filtersForSearch.push(filter3);
         }
 
         await financeiroReceberTable.load();

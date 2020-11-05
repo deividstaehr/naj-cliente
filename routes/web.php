@@ -43,6 +43,7 @@ Route::group([
     Route::get('empresas/identificador'      , 'EmpresaController@getIdentificadorEmpresa')->name('empresa.identificador-empresa');
     Route::get('empresas/getNomeFirstEmpresa', 'EmpresaController@getNomeFirstEmpresa')->name('empresa.first-empresa');
     Route::get('empresas/getLogoEmpresa'     , 'EmpresaController@getLogoEmpresa')->name('empresa.logo');
+    Route::post('empresas/logo'              , 'EmpresaController@storeLogo')->name('empresa.store.logo');
     
     //Mensagem
     Route::get('mensagens'             , 'MensagemController@index')->name('mensagens.index');

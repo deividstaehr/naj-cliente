@@ -430,7 +430,7 @@ class Chat {
         $('.fa-info-circle').tooltip('update');
     }
 
-    async loadMessageInChat(key, moveScrollView = true, useLoading = true) {
+    async loadMessageInChat(key, moveScrollView = true, useLoading = true, loadRascunho = true) {
         if(useLoading) {
             loadingStart('loading-message-chat');
         }
@@ -476,8 +476,10 @@ class Chat {
         }
 
         //Carrega as informações do RASCUNHO da mensagem
-        await this.createUpdateRascunhoMessage(key.id_chat, null);
-        await this.loadMessageRascunhoChat(key.id_chat);
+        if(loadRascunho) {
+            await this.createUpdateRascunhoMessage(key.id_chat, null);
+            await this.loadMessageRascunhoChat(key.id_chat);
+        }
 
         //Carrega as informações do usuário, PROCESSOS, CADASTRO E RELACIONAMENTOS
         // await this.loadInfoUsuario(key);
@@ -776,6 +778,8 @@ class Chat {
     }
 
     scrollToBottom() {
+        if(!this.messageContainer.lastElementChild) return;
+
 		this.messageContainer
 			.lastElementChild
 			.scrollIntoView({

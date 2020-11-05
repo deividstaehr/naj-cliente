@@ -11,6 +11,18 @@
         <script src="{{ env('APP_URL') }}naj-datatables/src/sweetalert2.min.js"></script>
         <script src="{{ env('APP_URL') }}naj-datatables/src/alerts.js"></script>
 
+        <style>
+            .btn-login-cpf-livre {
+                background-color: transparent !important;
+                border: none;
+                margin-top: 5px;
+            }
+
+            .btn-login-cpf-livre:focus {
+                outline: none !important;
+            }
+        </style>
+
         <title>NAJ Cliente - Login</title>
     </head>
     <body>
@@ -37,7 +49,15 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
                                             </div>
-                                            <input type="text" name="login" id="login" class="form-control form-control-lg" placeholder="Login" aria-label="Login" aria-describedby="basic-addon1">
+                                            <input type="text" name="login" id="login" class="form-control form-control-lg mascaracpf" aria-label="Login" aria-describedby="basic-addon1">
+                                            <div class="dropright mt-1">
+                                                <button type="button" class="ml-2 btn-login-cpf-livre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" act="1"></i></button>
+                                                <div class="dropdown-menu pb-0" style="position: absolute; transform: translate3d(99px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                    <a class="dropdown-item mb-dropdown-item-divider" id="login-cpf" href="#">Login com CPF</a>
+                                                    <a class="dropdown-item mb-dropdown-item-divider" id="login-livre" href="#">Login Livre</a>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -73,6 +93,10 @@
         <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/jquery/dist/jquery.min.js"></script>        
         <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
         <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>        
+        <script src="{{ env('APP_URL') }}/js/input-mask/jquery.inputmask.js"></script>
+        <script src="{{ env('APP_URL') }}js/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="{{ env('APP_URL') }}js/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="{{ env('APP_URL') }}js/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
         <script>
             $('[data-toggle="tooltip"]').tooltip();
             $(".preloader").fadeOut();
@@ -80,6 +104,22 @@
                 $("#loginform").slideUp();
                 $("#recoverform").fadeIn();
             });
+
+            $(document).ready(function() {
+                $('#login-cpf').on('click', function() {
+                    $('#login').addClass('mascaracpf');
+                    $('#login').mask('000.000.000-00', {placeholder: "___.___.___-__"});
+                });
+
+                $('#login-livre').on('click', function() {
+                    $('#login').removeClass('mascaracpf');
+                    $('#login').unmask();
+                    $('#login')[0].placeholder = 'Login';
+                    $('#login').removeAttr('maxlength');
+                });
+            });
+
+            $('.mascaracpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});
         </script>
     </body>
 </html>

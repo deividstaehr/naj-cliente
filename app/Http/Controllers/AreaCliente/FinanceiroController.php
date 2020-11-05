@@ -20,6 +20,10 @@ class FinanceiroController extends NajController {
         return view('areaCliente.consulta.FinanceiroConsultaView');
     }
 
+    public function getTotalPagarTotalReceber() {
+        return response()->json($this->getModel()->getTotalPagarTotalReceber());
+    }
+
     public function getTotalRecebidoReceberAtrasado($parameters) {
         $parametros   = json_decode(base64_decode($parameters));
 

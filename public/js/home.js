@@ -32,6 +32,12 @@ $(document).ready(function() {
 async function loadContainerMensagens() {
     let resultMessages = await NajApi.getData(`mensagens/indicador`);
 
+    if(resultMessages.sem_chat) {
+        $('#qtde_mensagens_novas')[0].innerHTML = `0`;
+        $('#qtde_mensagens_todas')[0].innerHTML = `0`;
+        return;
+    }
+
     if(resultMessages.todas[0] && resultMessages.novas[0]) {
         if(resultMessages.novas[0].qtde_novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
@@ -82,4 +88,36 @@ async function loadContainerFinanceiro() {
         $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_PAGO)}`;
         $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_EM_ABERTO)}`;
     }
+}
+
+function onClickExibirModalLogo() {
+    $('#previews')[0].innerHTML = '';
+    $('#modal-upload-logo-empresa').modal('show');
+}
+
+async function onClickSendLogo() {
+    if(myDropzone.files.length == 0) {
+        NajAlert.toastWarning('Você deve selecionar uma imagem para enviar!');
+        return;
+    }
+
+    let parseFile = await toBase64(myDropzone.files[0]);
+
+    let result = await NajApi.postData(`empresas/logo?XDEBUG_SESSION_START`, {'file': parseFile});
+
+    if(result) {
+        NajAlert.toastSuccess('Logo alterada com sucesso!');
+        $('#previews')[0].innerHTML = '';
+        $('#modal-upload-logo-empresa').modal('hide');
+    }
+}
+
+function toBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result),
+        reader.onerror = error => reject(error)
+    });
 }

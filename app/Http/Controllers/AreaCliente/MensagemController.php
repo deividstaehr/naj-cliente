@@ -35,7 +35,7 @@ class MensagemController extends Controller {
         $chat = $ChatRelUsuarioModel->where('id_usuario', Auth::user()->id)->first();
 
         if(is_null($chat)) {
-            return response()->json(['chat' => false]);
+            return response()->json(['sem_chat' => true]);
         }
 
         $todas = DB::select("

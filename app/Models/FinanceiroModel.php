@@ -26,7 +26,7 @@ class FinanceiroModel extends NajModel {
 
         $this->addRawFilter("CP.SITUACAO IN('A','P')");
         $this->addRawFilter("CONTA.CODIGO_PESSOA IN ({$codigoCliente})");
-        $this->addRawFilter("((CONTA.TIPO='R' AND CONTA.PAGADOR='2')OR CONTA.TIPO='P')");
+        $this->addRawFilter("((CONTA.TIPO = 'R' AND CONTA.PAGADOR = '2') OR CONTA.TIPO = 'P')");
 
         $this->setRawBaseSelect("
                 SELECT [COLUMNS]

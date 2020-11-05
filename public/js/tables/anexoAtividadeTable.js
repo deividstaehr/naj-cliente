@@ -59,7 +59,7 @@ class AnexoAtividadeTable extends Table {
             title: 'Data',
             width: 15,
             onLoad: (data, row) =>  {
-                return `${row.data_arquivo.split('-')[2]}-${row.data_arquivo.split('-')[1]}-${row.data_arquivo.split('-')[0]}`;
+                return `${row.data_arquivo.split('-')[2]}/${row.data_arquivo.split('-')[1]}/${row.data_arquivo.split('-')[0]}`;
             }
         });
 

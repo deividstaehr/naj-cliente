@@ -39,7 +39,7 @@ class AnexoProcessoTable extends Table {
             title: 'Tamanho',
             width: 20,
             onLoad: (data, row) =>  {
-                let bytes = row.file_size;
+                let bytes = (row.FILE_SIZE_TEXTO_VERSAO) ? row.FILE_SIZE_TEXTO_VERSAO : row.file_size;
                 let decimals = 2;
 
                 if (bytes === 0 || !bytes) return '0 Bytes';
@@ -59,7 +59,7 @@ class AnexoProcessoTable extends Table {
             title: 'Data',
             width: 15,
             onLoad: (data, row) =>  {
-                return `${row.data_arquivo.split('-')[2]}-${row.data_arquivo.split('-')[1]}-${row.data_arquivo.split('-')[0]}`;
+                return `${row.data_arquivo.split('-')[2]}/${row.data_arquivo.split('-')[1]}/${row.data_arquivo.split('-')[0]}`;
             }
         });
 

@@ -21,8 +21,21 @@ class ProcessoAnexoModel extends NajModel {
       $this->addColumn('data_arquivo');
       $this->addColumn('file_size');
 
+      $this->addAllColumns();
+
+      $this->setRawBaseSelect("
+                SELECT [COLUMNS]
+                  FROM prc_anexos
+             LEFT JOIN texto_versao
+                    ON texto_versao.codigo_texto = prc_anexos.codigo_texto
+        ");
+
       $this->setOrder('data_arquivo', 'desc');
    }
+
+    public function addAllColumns() {
+        $this->addRawColumn("texto_versao.FILE_SIZE AS FILE_SIZE_TEXTO_VERSAO");
+    }
 
    public function hasTextoVersao($codigo) {
       $anexo = DB::select("

@@ -19,7 +19,7 @@
             <div class="content-message-select-user-chat">
                 <p class="text-message-select-user-chat"></p>
             </div>
-            <div class="mail-compose bg-white w-100" id="content-upload-anexos-chat" style="overflow: hidden !important; height: 100%;">
+            <div class="mail-compose bg-white w-100 d-none" id="content-upload-anexos-chat" style="overflow: hidden !important; height: 100%;">
                 <div class="card-header bg-info row">
                     <div class="col-11">
                         <h4 class="mb-0 text-white">Anexos</h4>

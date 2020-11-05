@@ -23,6 +23,7 @@ $(document).ready(function() {
     //Evento do click de exibir o modal anexo do chat
     $('#input-anexo').on('click', function() {
         $('#previews')[0].innerHTML = '';
+        $('#content-upload-anexos-chat').removeClass('d-none');
         $('#content-upload-anexos-chat').show();
         $('.content-butons-chat').hide();
         $('.chat-box').removeClass('content-chat-box-no-full');
@@ -43,7 +44,7 @@ $(document).ready(function() {
             chat.createUpdateRascunhoMessage(id_chat_current, null, true);
             sendMessage();
         } else {
-            chat.createUpdateRascunhoMessage(id_chat_current, $('#input-text-chat-enviar').val(), true);
+            chat.createUpdateRascunhoMessage(id_chat_current, $('#input-text-chat-enviar').val() + event.key, true);
         }
     });
 
@@ -87,7 +88,7 @@ async function loadMessageChat() {
 
     if(result.chat.id_chat && !$('#content-upload-anexos-chat').is(":visible")) {
         let moveScroll = $('#pololo').scrollTop() + $('#pololo').innerHeight() == $('#pololo')[0].scrollHeight;
-        await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false);
+        await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);
     }
 }
 

@@ -3,6 +3,7 @@
 @section('title', 'NAJ | Área do Cliente')
 
 @section('css')
+    <link href="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 @endsection
 
 @section('active-layer', 'home')
@@ -111,8 +112,13 @@
                             <div class="mt-4 d-flex align-items-center justify-content-center">
                                 <div class="ml-4">
                                     <h3 class="font-medium" id="nomeEmpresa"></h3>
-                                </div>
+                                </div>                                
                             </div>
+                            @if (Auth::user()->usuario_tipo_id == 0 || Auth::user()->usuario_tipo_id == 1)
+                            <div style="margin-left: 40%;">
+                                <button type="button" class="btn btn-info" onclick="onClickExibirModalLogo();"><i class="fas fa-paperclip mr-1"></i>Carregar Logo</button>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -141,7 +147,39 @@
         </div>
     </div>
 </div>
+
+@component('areaCliente.componentes.modalManutencaoLogoEmpresa')
+@endcomponent
+
 @endsection
 @section('scripts')
+    <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.js"></script>
     <script src="{{ env('APP_URL') }}js/home.js"></script>
+    <script>
+        //Configuração do UPLOAD
+        Dropzone.autoDiscover = false;
+
+        Dropzone.prototype.filesize = function(size) {
+            var selectedSize = Math.round(size / 1024);
+            return "<strong>" + selectedSize + "</strong> KB";
+        };
+
+        var previewNode = document.querySelector("#template");
+        previewNode.id = "";
+        var previewTemplate = previewNode.parentNode.innerHTML;
+        previewNode.parentNode.removeChild(previewNode);
+
+        var myDropzone = new Dropzone(document.body, {
+            url: `${baseURL}chat/mensagem/anexo`,
+            thumbnailWidth: 80,
+            thumbnailHeight: 80,
+            parallelUploads: 5,
+            previewTemplate: previewTemplate,
+            autoQueue: false,
+            previewsContainer: "#previews",
+            clickable: ".fileinput-button",
+            dictFileSizeUnits: 'b'
+        });
+
+    </script>
 @endsection
