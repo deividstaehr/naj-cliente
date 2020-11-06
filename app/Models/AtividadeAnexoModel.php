@@ -21,6 +21,19 @@ class AtividadeAnexoModel extends NajModel {
       $this->addColumn('file_size');
 
       $this->setOrder('data_arquivo', 'desc');
+
+      $this->addAllColumns();
+      $this->addRawFilter("enviar = 'S'");
+      $this->setRawBaseSelect("
+          SELECT [COLUMNS]
+            FROM atividade_anexos
+            JOIN atividade
+              ON atividade.codigo = atividade_anexos.codigo_atividade
+      ");
+   }
+
+   public function addAllColumns() {
+      $this->addRawColumn("atividade.enviar");
    }
 
 }

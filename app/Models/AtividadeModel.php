@@ -82,7 +82,10 @@ class AtividadeModel extends NajModel {
             (
                 SELECT COUNT(0) 
                 FROM ATIVIDADE_ANEXOS ATV_ANEXO
+                JOIN ATIVIDADE
+                  ON ATIVIDADE.CODIGO = ATV_ANEXO.CODIGO_ATIVIDADE
                 WHERE ATV_ANEXO.CODIGO_ATIVIDADE = A.CODIGO
+                  AND ENVIAR = 'S'
             ) AS QTDE_ANEXOS_ATIVIDADE
          ");
    }
@@ -109,12 +112,14 @@ class AtividadeModel extends NajModel {
             FROM atividade 
            WHERE CODIGO_CLIENTE IN({$codigoCliente})
              AND data BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
+             AND enviar = 'S'
       ");
 
       $todas = DB::select("
           SELECT COUNT(0) todas
             FROM atividade 
            WHERE CODIGO_CLIENTE IN({$codigoCliente})
+             AND enviar = 'S'
       ");
 
       return ['trinta_dias' => $trinta_dias, 'todas' => $todas];

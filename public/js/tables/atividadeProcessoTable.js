@@ -41,6 +41,7 @@ class AtividadeProcessoTable extends Table {
         });
 
         this.addFixedFilter('codigo_processo', 'I', processoCodigoFilter);
+        this.addFixedFilter('ENVIAR', 'I', 'S');
     }
 
     makeSkeleton() {

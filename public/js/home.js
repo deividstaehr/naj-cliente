@@ -17,6 +17,16 @@ $(document).ready(function() {
         window.location.href = `${baseURL}atividades`;
     });
 
+    //Evento do click no bloco FINANCEIRO RECEBER
+    $('#content-financeiro-receber').on('click', function() {
+        window.location.href = `${baseURL}financeiro/index/receber`;
+    });
+
+    //Evento do click no bloco FINANCEIRO PAGAR
+    $('#content-financeiro-pagar').on('click', function() {
+        window.location.href = `${baseURL}financeiro/index/pagar`;
+    });
+
     let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
 
     if(nomeEmpresa) {
@@ -101,6 +111,12 @@ async function onClickSendLogo() {
         return;
     }
 
+    debugger;
+    if(myDropzone.files[0].type.split('/')[1] != 'png') {
+        NajAlert.toastWarning('Você deve selecionar uma imagem do tipo PNG!');
+        return;
+    }
+
     let parseFile = await toBase64(myDropzone.files[0]);
 
     let result = await NajApi.postData(`empresas/logo?XDEBUG_SESSION_START`, {'file': parseFile});
@@ -109,6 +125,7 @@ async function onClickSendLogo() {
         NajAlert.toastSuccess('Logo alterada com sucesso!');
         $('#previews')[0].innerHTML = '';
         $('#modal-upload-logo-empresa').modal('hide');
+        window.location.href = window.location.href;
     }
 }
 

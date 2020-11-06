@@ -111,6 +111,7 @@ class ProcessoModel extends NajModel {
             SELECT COUNT(0) 
               FROM ATIVIDADE
              WHERE ATIVIDADE.CODIGO_PROCESSO = PRC.CODIGO
+               AND ENVIAR = 'S'
          ) AS QTDE_ATIVIDADE_PROCESSO")
          ->addRawColumn("P3.NOME AS NOME_RESPONSAVEL")
          ->addRawColumn("P3.CODIGO AS CODIGO_RESPONSAVEL")

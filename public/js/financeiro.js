@@ -4,6 +4,9 @@ const NajApi  = new Naj('Receber', financeiroReceberTable);
 
 $(document).ready(function() {
     
+    $('#sidebar-link-financeiro').addClass('active');
+    $('#sidebar-item-financeiro').addClass('selected');
+
     financeiroReceberTable.render();
     financeiroPagarTable.render();
     getCustomFiltersReceber();

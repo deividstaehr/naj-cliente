@@ -12,6 +12,19 @@ Route::get('/', function() {
     return redirect('auth/login');
 });
 
+
+/*
+ | Install
+ |
+ */
+Route::group([
+    'namespace' => 'AreaCliente',
+    'prefix'    => 'empresaLogin'
+], function($router) {
+    //EMPRESA
+    Route::get('empresas/getNomeFirstEmpresa', 'EmpresaController@getNomeFirstEmpresa')->name('empresa.first-empresa');
+});
+
 /*
  | Auth
  |
@@ -112,7 +125,7 @@ Route::group([
     Route::put('usuarios/atualizarDados/{id}', 'UsuarioController@atualizarDados')->name('usuario.atualizar-dados');
 
     //FINANCEIRO
-    Route::get('financeiro'                  , 'FinanceiroController@index')->name('financeiro.index');    
+    Route::get('financeiro/index/{parametros}'     , 'FinanceiroController@indexFinanceiro')->name('financeiro.index');    
     Route::get('financeiro/indicador'        , 'FinanceiroController@getTotalPagarTotalReceber')->name('financeiro.indicador');
     Route::get('financeiro/receber/paginate' , 'FinanceiroController@paginate')->name('financeiro.receber.paginate');
     Route::get('financeiro/pagar/paginate'   , 'FinanceiroPagarController@paginate')->name('financeiro.pagar.paginate');

@@ -20,11 +20,15 @@ class CheckPasswordProvisoria {
      * @return mixed
      */
     public function handle($request, Closure $next) {
+        if(!auth()->user()) {
+            return $next($request);
+        }
+
         $senha_provisoria = auth()->user()->senha_provisoria;
 
         $rota = $request->route()->getName();
 
-        if($rota == 'password.update' || $rota == 'usuario.update-password' || $rota == 'usuario.update-senha-provisoria' || $rota == 'empresa.identificador-empresa' || $rota == 'usuario.atualizar-dados') {
+        if($rota == 'empresa.first-empresa' || $rota == 'password.update' || $rota == 'usuario.update-password' || $rota == 'usuario.update-senha-provisoria' || $rota == 'empresa.identificador-empresa' || $rota == 'usuario.atualizar-dados') {
             return $next($request);
         }
 

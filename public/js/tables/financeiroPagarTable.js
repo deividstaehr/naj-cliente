@@ -390,6 +390,12 @@ class FinanceiroPagarTable extends Table {
         }
 
         this.notifyActions();
+
+        if(tab_selected == 'receber') {
+            onClickTabReceber();
+        } else {
+            onClickTabPagar();
+        }
         
         let data_inicial = `${$('#filter-data-inicial-pagar').val().split('/')[2]}-${$('#filter-data-inicial-pagar').val().split('/')[1]}-${$('#filter-data-inicial-pagar').val().split('/')[0]}`;
         let data_final   = `${$('#filter-data-final-pagar').val().split('/')[2]}-${$('#filter-data-final-pagar').val().split('/')[1]}-${$('#filter-data-final-pagar').val().split('/')[0]}`;

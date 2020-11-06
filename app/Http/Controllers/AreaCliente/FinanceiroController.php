@@ -16,8 +16,8 @@ class FinanceiroController extends NajController {
         $this->setModel(new FinanceiroModel);
     }
 
-    public function index() {
-        return view('areaCliente.consulta.FinanceiroConsultaView');
+    public function indexFinanceiro($parametro) {
+        return view('areaCliente.consulta.FinanceiroConsultaView')->with('tab_selected', ['tab' => $parametro]);
     }
 
     public function getTotalPagarTotalReceber() {
