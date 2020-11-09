@@ -52,32 +52,32 @@
 </div>
 
 <div id="content-bottom-pagar" class="row datatable-body mt-0" style="height: 8%; margin: 8px !important;">
-    <div class="col-6 p-0">
-        <span>
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que já PAGUEI."></span>
-            <b>Total PAGO:</b> <span class="badge badge-success badge-rounded" id='total_pagar_pago' style="margin-top: 1px; position: absolute;"></span>&emsp;
-
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A PAGAR." style="margin-left: 10%;"></span>
-            <b>Total A PAGAR:</b> <span class="badge badge-info badge-rounded" id='total_pagar_pagar' style="margin-top: 1px; position: absolute;"></span>&emsp;
-
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A PAGAR e que está ATRASADO." style="margin-left: 10%;"></span>
-            <b>Total ATRASADO:</b> <span class="badge badge-danger badge-rounded" id='total_pagar_atrasado' style="margin-top: 1px; position: absolute;"></span>&emsp;
-        </span>
+    <div class="col-4 p-0">
+        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que já PAGUEI."></span>
+        <b>Total PAGO:</b> <span class="no-shadow badge badge-success badge-rounded" id='total_pagar_pago' style="margin-top: 1px; position: absolute; padding-top: 5px;"></span>&emsp;
+    </div>
+    <div class="col-4 p-0">
+        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A PAGAR." style="margin-left: 10%;"></span>
+        <b>Total A PAGAR:</b> <span class="no-shadow badge badge-info badge-rounded" id='total_pagar_pagar' style="margin-top: 1px; position: absolute; padding-top: 5px;"></span>&emsp;
+    </div>
+    <div class="col-4 p-0">
+        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A PAGAR e que está ATRASADO." style="margin-left: 10%;"></span>
+        <b>Total ATRASADO:</b> <span class="no-shadow badge badge-danger badge-rounded" id='total_pagar_atrasado' style="margin-top: 1px; position: absolute; padding-top: 5px;"></span>&emsp;
     </div>
 </div>
 
 <div id="content-bottom-receber" class="row datatable-body mt-0" style="height: 8%; margin: 8px !important;">
-    <div class="col-6 p-0">
-        <span>
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que já RECEBI."></span>
-            <b>Total RECEBIDO:</b> <span class="badge badge-success badge-rounded" id='total_receber_recebido' style="margin-top: 1px; position: absolute;"></span>&emsp;
-
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A RECEBER." style="margin-left: 10%;"></span>
-            <b>Total A RECEBER:</b> <span class="badge badge-info badge-rounded" id='total_receber_receber' style="margin-top: 1px; position: absolute;"></span>&emsp;
-
-            <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A RECEBER e que está ATRASADO." style="margin-left: 10%;"></span>
-            <b>Total ATRASADO:</b> <span class="badge badge-danger badge-rounded" id='total_receber_atrasado' style="margin-top: 1px; position: absolute;"></span>&emsp;
-        </span>
+    <div class="col-4 p-0">
+        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que já RECEBI."></span>
+        <b>Total RECEBIDO:</b> <span class="ml-2 no-shadow badge badge-success badge-rounded" id='total_receber_recebido' style="margin-top: 1px; position: absolute; padding-top: 5px;"></span>
+    </div>
+    <div class="col-4 p-0">
+        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A RECEBER." style="margin-left: 10%;"></span>
+        <b>Total A RECEBER:</b> <span class="ml-2 no-shadow badge badge-info badge-rounded" id='total_receber_receber' style="margin-top: 1px; position: absolute; padding-top: 5px;"></span>
+    </div>
+    <div class="col-4 p-0">
+        <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Valor total que tenho A RECEBER e que está ATRASADO." style="margin-left: 10%;"></span>
+        <b>Total ATRASADO:</b> <span class="ml-2 no-shadow badge badge-danger badge-rounded" id='total_receber_atrasado' style="margin-top: 1px; position: absolute; padding-top: 5px;"></span>
     </div>
 </div>
 

@@ -76,7 +76,11 @@ $(document).ready(function() {
         }
     });
 
-    onClickTabReceber();
+    if(tab_selected == 'receber') {
+        onClickTabReceber();
+    } else {
+        onClickTabPagar();
+    }
 });
 
 function onClickTabReceber() {

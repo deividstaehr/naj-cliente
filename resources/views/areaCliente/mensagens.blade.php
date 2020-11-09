@@ -16,7 +16,7 @@
     <div class="col-6 pr-0 pl-0">
         <div class="chat-box data-table-content naj-scrollable content-chat-box-full" style="overflow-x: hidden; border-top: none !important; padding-left: 5px !important;" id="pololo">
             <div id="loading-message-chat" class="loader loader-default" data-half></div>
-            <div class="content-message-select-user-chat">
+            <div class="content-message-select-user-chat warning">
                 <p class="text-message-select-user-chat"></p>
             </div>
             <div class="mail-compose bg-white w-100 d-none" id="content-upload-anexos-chat" style="overflow: hidden !important; height: 100%;">

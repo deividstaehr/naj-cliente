@@ -77,35 +77,25 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="card card-hover cursorActive" style="height: 103%;" id="content-financeiro-receber">
+                <div class="col-12">
+                    <div class="card" style="height: 83%;">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">FINANCEIRO A RECEBER</h5>
                             <div class="d-flex no-block align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-donate text-primary"></i></h2>
-                                <div class="ml-auto">
-                                <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-success"></i> A RECEBER</h4>
+                                <div class="ml-auto card-hover cursor-pointer p-2" id="content-financeiro-receber">
+                                    <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-success"></i> A RECEBER</h4>
                                     <h5 class="text-dark mb-0"><span class="mr-2 align-right">Recebido</span>  <span class="text-info float-right" id="qtde_receber_recebido"></span> </h5>
                                     <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-info float-right" id="qtde_receber_aberto"></span> </h5>
+                                    <i class="fas fa-search text-info" style="margin-top: 10px; margin-left: 90%;"></i>
                                 </div>
-                            </div>
-                            <i class="fas fa-search text-info" style="bottom: 19px; position: absolute; right: 22px;"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="card card-hover cursorActive" style="height: 103%;" id="content-financeiro-pagar">
-                        <div class="card-body">
-                            <h5 class="card-title text-uppercase">FINANCEIRO A PAGAR</h5>
-                            <div class="d-flex no-block align-items-center">
-                                <h2 class="mb-0 display-5"><i class="fas fa-donate text-primary"></i></h2>
-                                <div class="ml-auto">
+                                <div class="ml-auto card-hover cursor-pointer p-2" id="content-financeiro-pagar">
                                     <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-danger"></i> A PAGAR</h4>
                                     <h5 class="text-dark mb-0"><span class="mr-2 align-right">Pago</span>  <span class="text-danger float-right" id="qtde_pagar_pago"></span> </h5>
                                     <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-danger float-right" id="qtde_pagar_aberto"></span> </h5>
+                                    <i class="fas fa-search text-info" style="margin-left: 90%; margin-top: 10px;"></i>
                                 </div>
                             </div>
-                            <i class="fas fa-search text-info" style="bottom: 19px; position: absolute; right: 22px;"></i>
                         </div>
                     </div>
                 </div>

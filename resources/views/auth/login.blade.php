@@ -109,6 +109,8 @@
                 $("#recoverform").fadeIn();
             });
 
+            const APP_URL = "{{ env('APP_URL') }}";
+
             $(document).ready(function() {
                 $('#login-cpf').on('click', function() {
                     $('#login').addClass('mascaracpf');
@@ -124,7 +126,7 @@
 
                 axios({
                     method : 'get',
-                    url    : `/empresaLogin/empresas/getNomeFirstEmpresa`,
+                    url    : `${APP_URL}empresaLogin/empresas/getNomeFirstEmpresa`,
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',

@@ -427,9 +427,9 @@ class FinanceiroReceberTable extends Table {
         let response = await api.get(`financeiro/receber/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}`);
 
         if(response.data[0]) {
-            let total_recebido = (response.data[0].TOTAL_PAGO) ? `R$ ${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;
-            let total_receber  = (response.data[0].TOTAL_EM_ABERTO) ? `R$ ${formatter.format(response.data[0].TOTAL_EM_ABERTO)}` : `R$ 0,00`;
-            let total_atrasado = (response.data[0].TOTAL_ATRASADO) ? `R$ ${formatter.format(response.data[0].TOTAL_ATRASADO)}` : `R$ 0,00`;
+            let total_recebido = (response.data[0].TOTAL_PAGO) ? `${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;
+            let total_receber  = (response.data[0].TOTAL_EM_ABERTO) ? `${formatter.format(response.data[0].TOTAL_EM_ABERTO)}` : `R$ 0,00`;
+            let total_atrasado = (response.data[0].TOTAL_ATRASADO) ? `${formatter.format(response.data[0].TOTAL_ATRASADO)}` : `R$ 0,00`;
 
             $('#total_receber_recebido')[0].innerHTML = total_recebido;
             $('#total_receber_receber')[0].innerHTML  = total_receber;

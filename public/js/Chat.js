@@ -633,7 +633,7 @@ class Chat {
     }
 
     async createUpdateRascunhoMessage(id_chat, message, mensagem_digitada = false) {
-        let rascunhoChat = JSON.parse(sessionStorage.getItem('@NAJWEB/rascunho_chat'));
+        let rascunhoChat = JSON.parse(localStorage.getItem('@NAJWEB/rascunho_chat'));
 
         if(!rascunhoChat) {
             rascunhoChat = [];
@@ -659,11 +659,11 @@ class Chat {
             }            
         }
 
-        sessionStorage.setItem('@NAJWEB/rascunho_chat', JSON.stringify(rascunhoChat));
+        localStorage.setItem('@NAJWEB/rascunho_chat', JSON.stringify(rascunhoChat));
     }
 
     async loadMessageRascunhoChat(id_chat) {
-        let rascunhoChat = JSON.parse(sessionStorage.getItem('@NAJWEB/rascunho_chat'));
+        let rascunhoChat = JSON.parse(localStorage.getItem('@NAJWEB/rascunho_chat'));
 
         for(var i = 0; i < rascunhoChat.length; i++) {
             if(rascunhoChat[i].id_chat == id_chat) {
@@ -684,7 +684,7 @@ class Chat {
     }
 
     async createUpdateRascunhoEditorMessage(id_chat, message, mensagem_digitada = false) {
-        let rascunhoChat = JSON.parse(sessionStorage.getItem('@NAJWEB/rascunho_chat_editor'));
+        let rascunhoChat = JSON.parse(localStorage.getItem('@NAJWEB/rascunho_chat_editor'));
 
         if(!rascunhoChat) {
             rascunhoChat = [];
@@ -710,11 +710,11 @@ class Chat {
             }            
         }
 
-        sessionStorage.setItem('@NAJWEB/rascunho_chat_editor', JSON.stringify(rascunhoChat));
+        localStorage.setItem('@NAJWEB/rascunho_chat_editor', JSON.stringify(rascunhoChat));
     }
 
     async loadMessageRascunhoEditorChat(id_chat) {
-        let rascunhoChat = JSON.parse(sessionStorage.getItem('@NAJWEB/rascunho_chat_editor'));
+        let rascunhoChat = JSON.parse(localStorage.getItem('@NAJWEB/rascunho_chat_editor'));
 
         for(var i = 0; i < rascunhoChat.length; i++) {
             if(rascunhoChat[i].id_chat == id_chat) {

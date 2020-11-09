@@ -390,12 +390,6 @@ class FinanceiroPagarTable extends Table {
         }
 
         this.notifyActions();
-
-        if(tab_selected == 'receber') {
-            onClickTabReceber();
-        } else {
-            onClickTabPagar();
-        }
         
         let data_inicial = `${$('#filter-data-inicial-pagar').val().split('/')[2]}-${$('#filter-data-inicial-pagar').val().split('/')[1]}-${$('#filter-data-inicial-pagar').val().split('/')[0]}`;
         let data_final   = `${$('#filter-data-final-pagar').val().split('/')[2]}-${$('#filter-data-final-pagar').val().split('/')[1]}-${$('#filter-data-final-pagar').val().split('/')[0]}`;
@@ -403,9 +397,9 @@ class FinanceiroPagarTable extends Table {
         let response = await api.get(`financeiro/pagar/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}`);
 
         if(response.data[0]) {
-            let total_pago     = (response.data[0].TOTAL_PAGO) ? `R$ ${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;
-            let total_pagar    = (response.data[0].TOTAL_EM_ABERTO) ? `R$ ${formatter.format(response.data[0].TOTAL_EM_ABERTO)}` : `R$ 0,00`;
-            let total_atrasado = (response.data[0].TOTAL_ATRASADO) ? `R$ ${formatter.format(response.data[0].TOTAL_ATRASADO)}` : `R$ 0,00`;
+            let total_pago     = (response.data[0].TOTAL_PAGO) ? `${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;
+            let total_pagar    = (response.data[0].TOTAL_EM_ABERTO) ? `${formatter.format(response.data[0].TOTAL_EM_ABERTO)}` : `R$ 0,00`;
+            let total_atrasado = (response.data[0].TOTAL_ATRASADO) ? `${formatter.format(response.data[0].TOTAL_ATRASADO)}` : `R$ 0,00`;
 
             $('#total_pagar_pago')[0].innerHTML = total_pago;
             $('#total_pagar_pagar')[0].innerHTML  = total_pagar;

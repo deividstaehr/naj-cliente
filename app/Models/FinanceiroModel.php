@@ -190,7 +190,7 @@ class FinanceiroModel extends NajModel {
                         where id=cp.id
                         and data_vencimento < now()
                     )
-                ) AS TOTAL_ATRASADO,
+                   ) AS TOTAL_ATRASADO,
                    SUM( 
                     IF(CP.VALOR_PARCIAL>0, CP.VALOR_PARCELA-CP.VALOR_PARCIAL, CP.VALOR_PARCELA)
                    ) AS TOTAL_EM_ABERTO,
@@ -213,14 +213,13 @@ class FinanceiroModel extends NajModel {
                 ON P3.CODIGO = PC.CODIGO_ADVERSARIO
              WHERE CP.SITUACAO IN('A','P')
                AND C.CODIGO_PESSOA IN ({$codigoCliente})
-               #PARA CONTAS DA GUIA A PAGAR (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                AND (
-                 C.TIPO='R' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
+                 C.TIPO = 'R' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
                )
                AND (
-                 DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
+                 CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
                  OR
-                 DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
+                 CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
                )
           ORDER BY CP.DATA_VENCIMENTO,
                    CP.CODIGO_CONTA,

@@ -45,6 +45,22 @@ class AtividadeTable extends Table {
 
                 return `
                     <table>
+                        ${(row.NOME_USUARIO)
+                            ?
+                            `<tr>
+                                <td>${row.NOME_USUARIO}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.NOME_ADVERSARIO)
+                            ?
+                            `<tr>
+                                <td>${row.NOME_ADVERSARIO}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
                         ${(row.NUMERO_PROCESSO_NEW)
                             ?
                             `<tr>
@@ -98,8 +114,6 @@ class AtividadeTable extends Table {
                 `;
             }
         });
-
-        this.addFixedFilter('ENVIAR', 'I', 'S');
     }
 
     makeSkeleton() {

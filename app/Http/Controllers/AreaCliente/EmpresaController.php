@@ -22,7 +22,7 @@ class EmpresaController extends NajController {
         $base = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/');
         @list($dir,) = explode('/public', $base);
 
-        $this->laravelStorageDir = $dir . '/storage/app/logo_advocacia/';
+        $this->laravelStorageDir = $dir . '/naj-cliente/storage/app/logo_advocacia/';
 
         parent::__construct();
     }
@@ -93,7 +93,7 @@ class EmpresaController extends NajController {
         $file = request()->get('file');
         
         @list($type, $fileData) = explode(';', $file);
-        @list(, $fileData)         = explode(',', $fileData);
+        @list(, $fileData)      = explode(',', $fileData);
 
         Storage::disk('local')->put("/logo_advocacia/logo_escritorio.png", base64_decode($fileData));
 

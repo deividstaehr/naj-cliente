@@ -735,7 +735,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
     margin-left: 7.5%;
     border-radius: 5px;
     padding: 5px 10px 5px 10px;
-    background-color: #dcf8c6;
+    background-color: rgb(254, 244, 197);
 }
 
 .text-message-select-user-chat {
@@ -1186,4 +1186,8 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .icone-search-home-cards {
     margin-bottom: -14px;
     float: right;
+}
+
+.no-shadow {
+    text-shadow: none !important;
 }

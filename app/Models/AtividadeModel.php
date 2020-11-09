@@ -24,17 +24,20 @@ class AtividadeModel extends NajModel {
       $this->setTable('atividade');
       $this->addColumn('CODIGO', true)->setHidden();
 
-      $this->setOrder('A.DATA DESC, A.HORA_INICIO', 'DESC');
+      $this->setOrder('A.DATA', 'DESC');
 
       $this->addAllColumns();
+      $this->addRawFilter("ENVIAR = 'S'");
       $this->addRawFilter("A.CODIGO_CLIENTE IN ({$codigoCliente})");
       $this->setRawBaseSelect("
                SELECT [COLUMNS]
                  FROM ATIVIDADE A
            INNER JOIN PESSOA P1 
-                   ON P1.CODIGO = A.CODIGO_USUARIO
-            LEFT JOIN PRC PC 
+                   ON P1.CODIGO = A.CODIGO_USUARIO            
+            LEFT JOIN PRC PC
                    ON PC.CODIGO = A.CODIGO_PROCESSO
+            LEFT JOIN PESSOA P2
+                   ON P2.CODIGO = PC.CODIGO_ADVERSARIO
             LEFT JOIN PRC_COMARCA CO 
                    ON CO.CODIGO = PC.CODIGO_COMARCA
             LEFT JOIN PRC_CARTORIO CA 
@@ -69,6 +72,7 @@ class AtividadeModel extends NajModel {
          ->addRawColumn("DATE_FORMAT(A.TEMPO,'%H:%m:%s') AS TEMPO")
          ->addRawColumn("A.HISTORICO AS DESCRICAO")
          ->addRawColumn("P1.NOME AS NOME_USUARIO")
+         ->addRawColumn("P2.NOME AS NOME_ADVERSARIO")
          ->addRawColumn("PC.NUMERO_PROCESSO")
          ->addRawColumn("PC.NUMERO_PROCESSO_NEW")
          ->addRawColumn("CL.CLASSE")

@@ -148,16 +148,12 @@ class FinanceiroPagarModel extends NajModel {
                AND C.CODIGO_PESSOA IN ({$codigoCliente})
         #PARA CONTAS DA GUIA A PAGAR (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                AND (
-                   C.TIPO='R' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
-               )
-        #PARA CONTAS EM ABERTO
-               AND (
-                   CP.DATA_PAGAMENTO IS NULL
+                   C.TIPO = 'P' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
                )
                AND (
-                DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
+                CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
                 OR
-                DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
+                CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
               )
           ORDER BY CP.DATA_VENCIMENTO,
                    CP.CODIGO_CONTA,
