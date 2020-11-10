@@ -64,19 +64,29 @@ class ProcessoModel extends NajModel {
    }
 
    public function getRelacionamentoClientes() {
-      return [1, 2, 3];
+      $codigo_usuario = request()->get('f');
+
+      if($codigo_usuario) {
+         $codigo_usuario = json_decode(base64_decode($codigo_usuario));
+      } else {
+         return [];
+      }
+
       $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario(1);
+      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($codigo_usuario[0]->val);
       $aCodigo = [];
 
       foreach($relacionamentos as $relacionamento) {
          $aCodigo[] = $relacionamento->pessoa_codigo;
       }
 
-      request()->request->remove('f');
+      $rota = request()->route()->getName();
+      //Se for paginate remove o filtro para não add duas vezes
+      if($rota == 'processos.paginate') {
+         request()->request->remove('f');
+      }
 
       return $aCodigo;
-      // return [1, 2, 3];
    }
 
    public function addAllColumns() {
@@ -253,7 +263,7 @@ class ProcessoModel extends NajModel {
 
         $response = DB::select("
             SELECT COUNT(0) AS QTDE,
-                   IF((SELECT ATIVO FROM PRC_SITUACAO WHERE CODIGO = PC.CODIGO_SITUACAO)='S','EM ANDAMENTO','ENCERRADO') AS SITUACAO
+                   IF((SELECT ATIVO FROM PRC_SITUACAO WHERE CODIGO = PC.CODIGO_SITUACAO) = 'S','EM ANDAMENTO','ENCERRADO') AS SITUACAO
               FROM PRC PC
              WHERE PC.CODIGO_CLIENTE IN({$codigoCliente})
                 OR PC.CODIGO IN (

@@ -138,6 +138,8 @@ class ProcessosTable extends Table {
                 `;
             }
         });
+
+        this.addFixedFilter('codigo_usuario', 'I', idUsuarioLogado);
     }
 
     makeSkeleton() {

@@ -16,6 +16,10 @@ class FinanceiroModel extends NajModel {
     protected function loadTable() {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
+        if($codigoCliente == "") {
+            $codigoCliente = "-9999";
+        }
+
         $this->setTable('conta');
 
         $this->addColumn('CODIGO', true)->setHidden();
@@ -51,17 +55,30 @@ class FinanceiroModel extends NajModel {
     }
 
     public function getRelacionamentoClientes() {
-        return [1, 2, 3];
+        $codigo_usuario = request()->get('filterUser');
+
+        if($codigo_usuario) {
+           $codigo_usuario = json_decode(base64_decode($codigo_usuario));
+        } else {
+           return [];
+        }
+
         $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario(1);
+        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($codigo_usuario[0]->val);
         $aCodigo = [];
 
         foreach($relacionamentos as $relacionamento) {
            $aCodigo[] = $relacionamento->pessoa_codigo;
         }
 
+        $rota = request()->route()->getName();
+
+        //Se for paginate remove o filtro para não add duas vezes
+        if($rota == 'financeiro/receber/paginate') {
+           request()->request->remove('filterUser');
+        }
+
         return $aCodigo;
-        // return [1, 2, 3];
     }
 
     public function addAllColumns() {

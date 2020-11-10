@@ -111,7 +111,12 @@ class ChatAtendimentoController extends NajController {
             ]); 
         }
 
-        return response()->json(['message' => 'Mensagem enviada com sucesso!'], 200);
+        if(request()->get('files')) {
+            //INCLUINDO OS ANEXOS
+            $this->callStoreAnexos(Auth::user()->id, $chat_store['model']['id']);
+        }
+
+        return response()->json(['message' => 'Mensagem enviada com sucesso!', 'status_code' => 200], 200);
     }
 
     /**
