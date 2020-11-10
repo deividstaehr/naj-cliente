@@ -83,7 +83,7 @@
                 <div class="card" id="content-meus-processos">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-center">
-                            <img src="{{ env('APP_URL') }}imagens/logo_escritorio.png" alt="logo-cliente" class="dark-logo" style="height: 200px; width: 250px;"/>
+                            <img src="{{ env('APP_URL') }}imagens/logo_escritorio.png" alt="logo-cliente" class="dark-logo"/>
                         </div>
                         <div class="mt-4 d-flex align-items-center justify-content-center">
                             <div class="ml-4">
@@ -100,7 +100,8 @@
                     <div class="pt-0 pb-4 card-body">
                         <div class="mt-4 d-flex align-items-center justify-content-center">
                             <div class="ml-4">
-                                <h3 class="font-medium">Acesse no seu celular baixando o nosso APP EXCLUSIVO para clientes do escritório</h3>
+                                <h4 class="font-medium">Acesse no celular baixando o nosso APP EXCLUSIVO para clientes.</h4>
+                                <h3 class="font-medium" style="text-align: center;">NAJ Desk.</h3>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center">

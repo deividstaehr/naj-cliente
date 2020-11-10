@@ -125,10 +125,13 @@ class ChatMensagemController extends NajController {
     private function callStoreChatAtendimentoRelMensagem($model) {
         $UltimaMensagem = $this->getModel()->getLastMessageByUserAndChat($model['id_usuario'], $model['id_chat']);
         $ChatAtendimentoRelMensagemController = new ChatAtendimentoRelacionamentoMensagemController();
-        $ChatAtendimentoRelMensagemController->store([
-            "id_mensagem"    => $UltimaMensagem[0]->id,
-            "id_atendimento" => request()->get('id_atendimento')
-        ]);
+
+        if(request()->get('id_atendimento')) {
+            $ChatAtendimentoRelMensagemController->store([
+                "id_mensagem"    => $UltimaMensagem[0]->id,
+                "id_atendimento" => request()->get('id_atendimento')
+            ]);
+        }
     }
 
     /**

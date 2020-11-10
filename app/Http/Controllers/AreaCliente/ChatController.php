@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AreaCliente;
 
+use Auth;
 use App\Models\ChatModel;
 use App\Http\Controllers\NajController;
 use App\Http\Controllers\AreaCliente\ChatRelacionamentoUsuarioController;
@@ -36,7 +37,7 @@ class ChatController extends NajController {
         $ChatRelacionamentoUsuarioController = new ChatRelacionamentoUsuarioController();
         $ChatRelacionamentoUsuarioController->store([
             'id_chat'    => $this->getModel()->max('id'),
-            'id_usuario' => request()->get('id_usuario')
+            'id_usuario' => Auth::user()->id
         ]);
     }
 

@@ -386,7 +386,9 @@ class FinanceiroReceberTable extends Table {
 
             if (filters) f = '&f=' + this.toBase64(filters);
 
-            const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&XDEBUG_SESSION_START`);
+            let filterUser = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
+
+            const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
             this.data = data;
 
@@ -421,10 +423,11 @@ class FinanceiroReceberTable extends Table {
 
         this.notifyActions();
 
+        let filterUser   = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
         let data_inicial = `${$('#filter-data-inicial-receber').val().split('/')[2]}-${$('#filter-data-inicial-receber').val().split('/')[1]}-${$('#filter-data-inicial-receber').val().split('/')[0]}`;
         let data_final   = `${$('#filter-data-final-receber').val().split('/')[2]}-${$('#filter-data-final-receber').val().split('/')[1]}-${$('#filter-data-final-receber').val().split('/')[0]}`;
 
-        let response = await api.get(`financeiro/receber/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}`);
+        let response = await api.get(`financeiro/receber/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}?filterUser=${filterUser}`);
 
         if(response.data[0]) {
             let total_recebido = (response.data[0].TOTAL_PAGO) ? `${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;

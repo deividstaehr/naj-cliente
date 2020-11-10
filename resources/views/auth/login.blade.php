@@ -49,7 +49,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
                                             </div>
-                                            <input type="text" name="login" id="login" class="form-control form-control-lg mascaracpf" aria-label="Login" aria-describedby="basic-addon1">
+                                            <input type="text" name="login" id="login" class="form-control form-control-lg mascaracpf" aria-label="Login" aria-describedby="basic-addon1" tabindex="1">
                                             <div class="dropright mt-1">
                                                 <button type="button" class="ml-2 btn-login-cpf-livre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" act="1"></i></button>
                                                 <div class="dropdown-menu pb-0" style="position: absolute; transform: translate3d(99px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -62,7 +62,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
                                             </div>
-                                            <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Senha" aria-label="Password" aria-describedby="basic-addon1">
+                                            <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Senha" aria-label="Password" aria-describedby="basic-addon1" tabindex="2">
                                         </div>
                                         <div class="form-group text-center">
                                             <div class="col-xs-12 pb-3">

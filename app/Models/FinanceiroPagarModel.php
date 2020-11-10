@@ -16,13 +16,17 @@ class FinanceiroPagarModel extends NajModel {
     protected function loadTable() {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
+        if($codigoCliente == "") {
+            $codigoCliente = "-9999";
+        }
+
         $this->setTable('conta');
         $this->addColumn('CODIGO', true)->setHidden();
         $this->setOrder('CP.DATA_VENCIMENTO DESC, CP.CODIGO_CONTA, CP.PARCELA');
         $this->addAllColumns();
         $this->addRawFilter("CP.SITUACAO IN('A','P')");
         $this->addRawFilter("CONTA.CODIGO_PESSOA IN ({$codigoCliente})");
-        $this->addRawFilter("CONTA.TIPO='R' AND (CONTA.PAGADOR='1' OR CONTA.PAGADOR IS NULL)");
+        $this->addRawFilter("CONTA.TIPO='P' AND (CONTA.PAGADOR='1' OR CONTA.PAGADOR IS NULL)");
         $this->setRawBaseSelect("
                 SELECT [COLUMNS]
                   FROM CONTA
@@ -46,17 +50,30 @@ class FinanceiroPagarModel extends NajModel {
     }
 
     public function getRelacionamentoClientes() {
-        return [1, 2, 3];
+        $codigo_usuario = request()->get('filterUser');
+
+        if($codigo_usuario) {
+           $codigo_usuario = json_decode(base64_decode($codigo_usuario));
+        } else {
+           return [];
+        }
+
         $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario(1);
+        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($codigo_usuario[0]->val);
         $aCodigo = [];
 
         foreach($relacionamentos as $relacionamento) {
            $aCodigo[] = $relacionamento->pessoa_codigo;
         }
 
+        $rota = request()->route()->getName();
+
+        //Se for paginate remove o filtro para não add duas vezes
+        if($rota == 'financeiro/pagar/paginate') {
+           request()->request->remove('filterUser');
+        }
+
         return $aCodigo;
-        // return [1, 2, 3];
     }
 
     public function addAllColumns() {

@@ -30,6 +30,7 @@ $(document).ready(function() {
         $('.chat-box').addClass('content-chat-box-full');
         $('#content-messages-chat').hide();
         $('#input-text-chat-enviar').hide();
+        $('.content-message-select-user-chat').hide();
     });
 
     $('#input-text-chat-enviar').keypress(function(event) {
@@ -154,6 +155,7 @@ async function sendMessage(mensagem = false) {
         }
 
         if(result.message) {
+            $('.content-message-select-user-chat').hide();
             let sHtmlMessage = chat.newContentNewMessage({"nome" : nomeUsuarioLogado, "conteudo" : message, "data_hora" : data_hora}, true);
             $(`#content-messages-chat`).append(sHtmlMessage);
             chat.scrollToBottom();
@@ -179,6 +181,10 @@ function onClickCancelarAnexos() {
     $('.chat-box').addClass('content-chat-box-no-full');
     $('#content-messages-chat').show();
     $('#input-text-chat-enviar').show();
+
+    if(!id_chat_current) {
+        $('.content-message-select-user-chat').show();
+    }
 
     chat.scrollToBottom();
 }
@@ -238,32 +244,63 @@ async function sendAnexos(dropzone) {
         return;
     }
 
-    for(var i = 0; i < dropzone.files.length; i++) {
-        let parseFile = await toBase64(dropzone.files[i]);
+    if(id_chat_current) {
+        for(var i = 0; i < dropzone.files.length; i++) {
+            let parseFile = await toBase64(dropzone.files[i]);
+    
+            filesUpload.push({
+                'name_file'   : dropzone.files[i].name,
+                'arquivo'     : parseFile,
+                'id_cliente'  : identificador,
+                'nome'        : nomeUsuarioLogado,
+                'data_hora'   : data_hora,
+                'tipo'        : 1,
+                'conteudo'    : dropzone.files[i].name,
+                'id_usuario'  : idUsuarioLogado,
+                'id_chat'     : id_chat_current,
+                'file_size'   : dropzone.files[i].size,
+                'file_path'   : '',
+                'id_atendimento': id_atendimento_current
+            });
+        }
+        let result = await NajApi.postData(`chat/mensagem/anexo?XDEBUG_SESSION_START`, {'files': filesUpload});
 
-        filesUpload.push({
-            'name_file'   : dropzone.files[i].name,
-            'arquivo'     : parseFile,
-            'id_cliente'  : identificador,
-            'nome'        : nomeUsuarioLogado,
-            'data_hora'   : data_hora,
-            'tipo'        : 1,
-            'conteudo'    : dropzone.files[i].name,
-            'id_usuario'  : idUsuarioLogado,
-            'id_chat'     : id_chat_current,
-            'file_size'   : dropzone.files[i].size,
-            'file_path'   : '',
-            'id_atendimento': id_atendimento_current
-        });
-    }
+        if(result.status_code == 200) {
+            await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, false);
+        } else {
+            loadingDestroy('loading-anexo-chat');
+            NajAlert.toastWarning(result.mensagem);
+        }
 
-    result = await NajApi.postData(`chat/mensagem/anexo?XDEBUG_SESSION_START`, {'files': filesUpload});
-
-    if(result.status_code == 200) {
-        await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, false);
     } else {
-        loadingDestroy('loading-anexo-chat');
-        NajAlert.toastWarning(result.mensagem);
+        for(var i = 0; i < dropzone.files.length; i++) {
+            let parseFile = await toBase64(dropzone.files[i]);
+    
+            filesUpload.push({
+                'name_file'   : dropzone.files[i].name,
+                'arquivo'     : parseFile,
+                'id_cliente'  : identificador,
+                'nome'        : nomeUsuarioLogado,
+                'data_hora'   : data_hora,
+                'tipo'        : 1,
+                'conteudo'    : dropzone.files[i].name,
+                'id_usuario'  : idUsuarioLogado,
+                'file_size'   : dropzone.files[i].size,
+                'file_path'   : '',
+                'id_atendimento': id_atendimento_current
+            });
+        }
+
+        let result = await NajApi.postData(`chat/novo/atendimento?XDEBUG_SESSION_START`, {'files': filesUpload});
+
+        if(!result) {
+            NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
+            return;
+        }
+
+        if(result.message) {
+            await onLoadAtendimento();
+        }
     }
 }
 

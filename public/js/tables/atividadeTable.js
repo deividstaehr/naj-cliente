@@ -114,6 +114,8 @@ class AtividadeTable extends Table {
                 `;
             }
         });
+
+        this.addFixedFilter('codigo_usuario', 'I', idUsuarioLogado);
     }
 
     makeSkeleton() {
@@ -342,7 +344,9 @@ class AtividadeTable extends Table {
 
             if (filters) f = '&f=' + this.toBase64(filters);
 
-            const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&XDEBUG_SESSION_START`);
+            let filterUser = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
+
+            const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
             this.data = data;
 
@@ -377,10 +381,11 @@ class AtividadeTable extends Table {
 
         this.notifyActions();
 
+        let filterUser   = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
         let data_inicial = `${$('#filter-data-inicial').val().split('/')[2]}-${$('#filter-data-inicial').val().split('/')[1]}-${$('#filter-data-inicial').val().split('/')[0]}`;
         let data_final   = `${$('#filter-data-final').val().split('/')[2]}-${$('#filter-data-final').val().split('/')[1]}-${$('#filter-data-final').val().split('/')[0]}`;
 
-        let responseTotalHoras = await api.get(`atividades/totalHoras/${btoa(JSON.stringify({data_inicial, data_final}))}`);
+        let responseTotalHoras = await api.get(`atividades/totalHoras/${btoa(JSON.stringify({data_inicial, data_final}))}?filterUser=${filterUser}`);
 
         if(responseTotalHoras.data.total_horas) {
             if(responseTotalHoras.data.total_horas[0].total_horas == null) {

@@ -66,13 +66,15 @@ async function loadContainerMensagens() {
 }
 
 async function loadContainerAtividade() {
+    let filter = await filterUsuario();
+
     let parametrosAtividade = {
         'data_inicial': getDateProperties(new Date(new Date().getTime() - (30 * 86400000))).fullDate,
         'data_final'  : getDateProperties(new Date()).fullDate,
         'id_usuario'  : idUsuarioLogado
     };
 
-    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?XDEBUG_SESSION_START`);
+    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?filterUser=${filter}&XDEBUG_SESSION_START`);
 
     if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {
         $('#qtde_atividade_trinta_dias')[0].innerHTML = `${resultAtividade.trinta_dias[0].qtde_30_dias}`;
@@ -81,16 +83,30 @@ async function loadContainerAtividade() {
 }
 
 async function loadContainerProcesso() {
-    let resultProcesso = await NajApi.getData(`processos/indicador`);
+    let filter = await filterUsuario();
+    let resultProcesso = await NajApi.getData(`processos/indicador?f=${filter}`);
 
     if(resultProcesso.data[0]) {
-        $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
-        $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
+        if(resultProcesso.data[1]) {
+            $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
+        } else{
+            $('#qtde_processo_baixado')[0].innerHTML = `0`;
+        }
+
+        if(resultProcesso.data[0]) {
+            $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
+        } else {
+            $('#qtde_processo_ativos')[0].innerHTML = `0`;
+        }
+    } else {
+        $('#qtde_processo_ativos')[0].innerHTML = `0`;
+        $('#qtde_processo_baixado')[0].innerHTML = `0`;
     }
 }
 
 async function loadContainerFinanceiro() {
-    let resultFinanceiro = await NajApi.getData(`financeiro/indicador`);
+    let filter = await filterUsuario();
+    let resultFinanceiro = await NajApi.getData(`financeiro/indicador?filterUser=${filter}`);
 
     if(resultFinanceiro.pagar[0] && resultFinanceiro.receber[0]) {
         $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_PAGO)}`;
@@ -111,7 +127,6 @@ async function onClickSendLogo() {
         return;
     }
 
-    debugger;
     if(myDropzone.files[0].type.split('/')[1] != 'png') {
         NajAlert.toastWarning('Você deve selecionar uma imagem do tipo PNG!');
         return;
@@ -137,4 +152,8 @@ function toBase64(file) {
         reader.onload = () => resolve(reader.result),
         reader.onerror = error => reject(error)
     });
+}
+
+async function filterUsuario() {
+    return btoa(JSON.stringify([{'val': idUsuarioLogado}]));
 }
