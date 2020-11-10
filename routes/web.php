@@ -129,6 +129,6 @@ Route::group([
     Route::get('financeiro/indicador'        , 'FinanceiroController@getTotalPagarTotalReceber')->name('financeiro.indicador');
     Route::get('financeiro/receber/paginate' , 'FinanceiroController@paginate')->name('financeiro.receber.paginate');
     Route::get('financeiro/pagar/paginate'   , 'FinanceiroPagarController@paginate')->name('financeiro.pagar.paginate');
-    Route::get('financeiro/receber/indicador/{parametros}', 'FinanceiroController@getTotalRecebidoReceberAtrasado')->name('financeiro.receber.paginate');
-    Route::get('financeiro/pagar/indicador/{parametros}'  , 'FinanceiroPagarController@getTotalPagoPagarAtrasado')->name('financeiro.pagar.paginate');
+    Route::get('financeiro/receber/indicador/{parametros}', 'FinanceiroController@getTotalRecebidoReceberAtrasado')->name('financeiro.receber.indicador');
+    Route::get('financeiro/pagar/indicador/{parametros}'  , 'FinanceiroPagarController@getTotalPagoPagarAtrasado')->name('financeiro.pagar.indicador');
 });

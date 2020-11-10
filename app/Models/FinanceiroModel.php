@@ -74,7 +74,7 @@ class FinanceiroModel extends NajModel {
         $rota = request()->route()->getName();
 
         //Se for paginate remove o filtro para não add duas vezes
-        if($rota == 'financeiro/receber/paginate') {
+        if($rota == 'financeiro.receber.paginate') {
            request()->request->remove('filterUser');
         }
 
@@ -195,55 +195,73 @@ class FinanceiroModel extends NajModel {
     public function getTotalRecebidoReceberAtrasado($parametro) {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
-        $total = DB::select("
-            SELECT IF(CP.VALOR_PARCIAL>0, 
-                    (select sum(CP.VALOR_PARCELA-CP.VALOR_PARCIAL) 
-                        from conta_parcela
-                        where id=cp.id
-                        and data_vencimento < now()
-                    )
-                    ,(select sum(CP.VALOR_PARCELA) 
-                        from conta_parcela
-                        where id=cp.id
-                        and data_vencimento < now()
-                    )
-                   ) AS TOTAL_ATRASADO,
-                   SUM( 
-                    IF(CP.VALOR_PARCIAL>0, CP.VALOR_PARCELA-CP.VALOR_PARCIAL, CP.VALOR_PARCELA)
-                   ) AS TOTAL_EM_ABERTO,
-                   SUM(
-                    IF(CP.DATA_PAGAMENTO IS NOT NULL, CP.VALOR_PAGAMENTO,(SELECT SUM(VALOR_PAGAMENTO) 
-                        FROM CONTA_PARCELA_PARCIAL WHERE ID_PARCELA=CP.ID)
-                    )
-                   ) AS TOTAL_PAGO,
-                   DATE_FORMAT(CP.DATA_VENCIMENTO, '%d/%m/%Y') AS DATA_VENCIMENTO,
-                   DATE_FORMAT(CP.DATA_PAGAMENTO, '%d/%m/%Y') AS DATA_PAGAMENTO
-              FROM CONTA C
-        INNER JOIN CONTA_PARCELA CP ON CP.CODIGO_CONTA = C.CODIGO
-         LEFT JOIN PRC PC 
-                ON PC.CODIGO = C.CODIGO_PROCESSO
-         LEFT JOIN PESSOA P1
-                ON P1.CODIGO = C.CODIGO_PESSOA
-         LEFT JOIN PESSOA P2
-                ON P2.CODIGO = C.CODIGO_ADVERSARIO
-         LEFT JOIN PESSOA P3 
-                ON P3.CODIGO = PC.CODIGO_ADVERSARIO
-             WHERE CP.SITUACAO IN('A','P')
-               AND C.CODIGO_PESSOA IN ({$codigoCliente})
-               AND (
-                 C.TIPO = 'R' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
-               )
-               AND (
-                 CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
-                 OR
-                 CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' AND '{$parametro->data_final}'
-               )
-          ORDER BY CP.DATA_VENCIMENTO,
-                   CP.CODIGO_CONTA,
-                   CP.PARCELA ASC
+        $total_recebido = DB::select("
+                SELECT (
+                         sum(VALOR_PARCIAL) +
+                         sum(VALOR_PAGAMENTO) 
+                       )AS TOTAL_PAGO            
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP 
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoCliente})
+                   #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
+                   AND (
+                         (C.TIPO='R' AND C.PAGADOR='2')
+                          OR C.TIPO='P'
+                       )            
+                   #FILTRO POR DATA AQUI
+                   AND (
+                         CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         OR
+                         CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                       )
         ");
 
-        return $total;
+        $total_aberto = DB::select("
+                SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL, 0.00, sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_EM_ABERTO
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoCliente})
+                   AND situacao = 'A'
+                   #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
+                   AND (
+                         (C.TIPO='R' AND C.PAGADOR='2')
+                          OR C.TIPO='P'
+                        )
+                   #FILTRO POR DATA AQUI
+                   AND (
+                         CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         OR
+                         CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                       )
+        ");
+
+        $total_atrasado = DB::select("
+                SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL,0.00,sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_ATRASADO            
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP 
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoCliente})
+                   AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
+                   AND situacao = 'A'            
+                   #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
+                   AND (
+                         (C.TIPO='R' AND C.PAGADOR='2')
+                          OR C.TIPO='P'
+                        )
+                   #FILTRO POR DATA AQUI
+                   AND (
+                         CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         OR
+                         CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                       )
+        ");
+
+        return ['total_atrasado' => $total_atrasado[0], 'total_recebido' => $total_recebido[0], 'total_aberto' => $total_aberto[0]];
     }
 
 }

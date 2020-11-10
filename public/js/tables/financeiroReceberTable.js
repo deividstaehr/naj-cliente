@@ -354,7 +354,9 @@ class FinanceiroReceberTable extends Table {
 
             if (filters2) f2 = '&f=' + this.toBase64(filters2);
 
-            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&XDEBUG_SESSION_START`);
+            let filterUser = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
+
+            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
             let dataInicial = $('#filter-data-inicial-receber').val();
             let dataFinal   = $('#filter-data-final-receber').val();
@@ -367,7 +369,7 @@ class FinanceiroReceberTable extends Table {
                 filter2.val    = formatDate(dataInicial, false);
                 filter2.val2   = formatDate(dataFinal, false);
                 filter2.op     = "B";
-                filter2.col    = "DATA_VENCIMENTO";
+                filter2.col    = "CP.DATA_VENCIMENTO";
                 filter2.origin = btoa(filter2);
                 this.filtersForSearch.push(filter2);
 
@@ -375,7 +377,7 @@ class FinanceiroReceberTable extends Table {
                 filter3.val    = formatDate(dataInicial, false);
                 filter3.val2   = formatDate(dataFinal, false);
                 filter3.op     = "B";
-                filter3.col    = "DATA_PAGAMENTO";
+                filter3.col    = "CP.DATA_PAGAMENTO";
                 filter3.origin = btoa(filter3);
                 this.filtersForSearch.push(filter3);
             }
@@ -385,8 +387,6 @@ class FinanceiroReceberTable extends Table {
             let filters = this.filtersForSearch.concat(this.fixedFilters);
 
             if (filters) f = '&f=' + this.toBase64(filters);
-
-            let filterUser = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
 
             const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
@@ -427,12 +427,12 @@ class FinanceiroReceberTable extends Table {
         let data_inicial = `${$('#filter-data-inicial-receber').val().split('/')[2]}-${$('#filter-data-inicial-receber').val().split('/')[1]}-${$('#filter-data-inicial-receber').val().split('/')[0]}`;
         let data_final   = `${$('#filter-data-final-receber').val().split('/')[2]}-${$('#filter-data-final-receber').val().split('/')[1]}-${$('#filter-data-final-receber').val().split('/')[0]}`;
 
-        let response = await api.get(`financeiro/receber/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}?filterUser=${filterUser}`);
+        let response = await api.get(`financeiro/receber/indicador/${btoa(JSON.stringify({data_inicial, data_final}))}?filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
-        if(response.data[0]) {
-            let total_recebido = (response.data[0].TOTAL_PAGO) ? `${formatter.format(response.data[0].TOTAL_PAGO)}` : `R$ 0,00`;
-            let total_receber  = (response.data[0].TOTAL_EM_ABERTO) ? `${formatter.format(response.data[0].TOTAL_EM_ABERTO)}` : `R$ 0,00`;
-            let total_atrasado = (response.data[0].TOTAL_ATRASADO) ? `${formatter.format(response.data[0].TOTAL_ATRASADO)}` : `R$ 0,00`;
+        if(response.data) {
+            let total_recebido = (response.data.total_recebido.TOTAL_PAGO) ? `${formatter.format(response.data.total_recebido.TOTAL_PAGO)}` : `R$ 0,00`;
+            let total_receber  = (response.data.total_aberto.TOTAL_EM_ABERTO) ? `${formatter.format(response.data.total_aberto.TOTAL_EM_ABERTO)}` : `R$ 0,00`;
+            let total_atrasado = (response.data.total_atrasado.TOTAL_ATRASADO) ? `${formatter.format(response.data.total_atrasado.TOTAL_ATRASADO)}` : `R$ 0,00`;
 
             $('#total_receber_recebido')[0].innerHTML = total_recebido;
             $('#total_receber_receber')[0].innerHTML  = total_receber;

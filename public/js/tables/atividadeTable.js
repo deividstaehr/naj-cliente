@@ -37,7 +37,7 @@ class AtividadeTable extends Table {
         this.addField({
             name: 'informacoes_processo',
             title: 'Informações do Processo',
-            width: 20,
+            width: 25,
             onLoad: (data, row) =>  {
                 if(!row.NUMERO_PROCESSO_NEW && !row.CARTORIO && !row.COMARCA) {
                     return 'Sem informações'
@@ -45,18 +45,13 @@ class AtividadeTable extends Table {
 
                 return `
                     <table>
-                        ${(row.NOME_USUARIO)
-                            ?
-                            `<tr>
-                                <td>${row.NOME_USUARIO}</td>
-                            </tr>
-                            `
-                            : ``
-                        }
+                        <tr>
+                            <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
+                        </tr>
                         ${(row.NOME_ADVERSARIO)
                             ?
                             `<tr>
-                                <td>${row.NOME_ADVERSARIO}</td>
+                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
                             </tr>
                             `
                             : ``
@@ -93,7 +88,7 @@ class AtividadeTable extends Table {
         this.addField({
             name: 'outras_informacao',
             title: 'Outras Informações',
-            width: 25,
+            width: 20,
             onLoad: (data, row) =>  {
                 return `
                     <table class="row-informacoes-processo">
@@ -114,8 +109,6 @@ class AtividadeTable extends Table {
                 `;
             }
         });
-
-        this.addFixedFilter('codigo_usuario', 'I', idUsuarioLogado);
     }
 
     makeSkeleton() {
@@ -320,7 +313,9 @@ class AtividadeTable extends Table {
 
             if (filters2) f2 = '&f=' + this.toBase64(filters2);
 
-            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&XDEBUG_SESSION_START`);
+            let filterUser   = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
+
+            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
             let dataInicial = $('#filter-data-inicial').val();
             let dataFinal   = $('#filter-data-final').val();
@@ -343,8 +338,6 @@ class AtividadeTable extends Table {
             let filters = this.filtersForSearch.concat(this.fixedFilters);
 
             if (filters) f = '&f=' + this.toBase64(filters);
-
-            let filterUser = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
 
             const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
 
