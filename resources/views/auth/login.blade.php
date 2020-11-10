@@ -39,7 +39,7 @@
                     <div class="auth-box" style="width: 500px;">
                         <div id="loginform">
                             <div class="logo">
-                                <img src="{{ env('APP_URL') }}imagens/logo_escritorio.png" alt="logo-cliente" class="dark-logo" style="height: 212px; width: 250px;"/>
+                                <img src="{{ env('APP_URL') }}imagens/logo_escritorio/logo_escritorio.png" alt="logo-cliente" class="dark-logo" style="height: 212px; width: 250px;"/>
                                 <h4 class="font-medium mb-3 mt-2" id="nomeEmpresaLicenciada"></h4>
                             </div>
                             <div class="row">

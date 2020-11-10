@@ -24,9 +24,9 @@ class FinanceiroPagarModel extends NajModel {
         $this->addColumn('CODIGO', true)->setHidden();
         $this->setOrder('CP.DATA_VENCIMENTO DESC, CP.CODIGO_CONTA, CP.PARCELA');
         $this->addAllColumns();
-        $this->addRawFilter("CP.SITUACAO IN('A','P')");
+        $this->addRawFilter("CP.SITUACAO IN('A', 'P')");
         $this->addRawFilter("CONTA.CODIGO_PESSOA IN ({$codigoCliente})");
-        $this->addRawFilter("CONTA.TIPO='P' AND (CONTA.PAGADOR='1' OR CONTA.PAGADOR IS NULL)");
+        $this->addRawFilter("(CONTA.TIPO = 'R' AND CONTA.PAGADOR <> '2')");
         $this->setRawBaseSelect("
                 SELECT [COLUMNS]
                   FROM CONTA
