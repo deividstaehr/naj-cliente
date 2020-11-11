@@ -129,6 +129,23 @@ class FinanceiroModel extends NajModel {
             ->addRawColumn("CA.CARTORIO");
     }
 
+    protected function handleCustomFilter($filter) {
+      switch (strtolower($filter->col)) {
+            case 'cp.data_vencimento':
+                $this->addRawFilter("(
+                  CP.DATA_VENCIMENTO BETWEEN '{$filter->val}' AND '{$filter->val2}'
+                  OR 
+                  CP.DATA_PAGAMENTO BETWEEN '{$filter->val}' AND '{$filter->val2}'
+                )");
+                break;
+            default:
+                $this->throwException('Filtro customizado não tratado');
+                break;
+        }
+
+        return false;
+    }
+
     public function getTotalPagarTotalReceber() {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 

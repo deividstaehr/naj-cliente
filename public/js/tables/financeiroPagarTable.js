@@ -6,7 +6,7 @@ class FinanceiroPagarTable extends Table {
         this.target           = 'datatable-financeiro-pagar';
         this.name             = 'Financeiro';
         this.route            = `financeiro/pagar`;
-        this.key              = ['codigo'];
+        this.key              = ['CODIGO_CONTA'];
         this.openLoaded       = true;
         this.isItEditable     = false;
         this.isItDestructible = false;
@@ -338,18 +338,10 @@ class FinanceiroPagarTable extends Table {
                 let filter2    = {};
                 filter2.val    = formatDate(dataInicial, false);
                 filter2.val2   = formatDate(dataFinal, false);
-                filter2.op     = "B";
+                filter2.op     = "CF";
                 filter2.col    = "CP.DATA_VENCIMENTO";
                 filter2.origin = btoa(filter2);
                 this.filtersForSearch.push(filter2);
-
-                let filter3    = {};
-                filter3.val    = formatDate(dataInicial, false);
-                filter3.val2   = formatDate(dataFinal, false);
-                filter3.op     = "B";
-                filter3.col    = "CP.DATA_PAGAMENTO";
-                filter3.origin = btoa(filter3);
-                this.filtersForSearch.push(filter3);
             }
 
             let f = false;

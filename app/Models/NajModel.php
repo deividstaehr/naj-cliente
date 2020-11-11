@@ -123,6 +123,7 @@ abstract class NajModel extends Model {
         $this->filterOptions['D']  = '!=';
         $this->filterOptions['N']  = 'null';
         $this->filterOptions['NN'] = 'not null';
+        $this->filterOptions['CF'] = 'custom';
     }
 
     public function addFixedFilter($column, $value1, $value2 = false, $option = 'I') {
@@ -361,6 +362,7 @@ abstract class NajModel extends Model {
         foreach ($mergedFilters as $filter) {
             if ($filter) {
                 $insertValue = true;
+                $blockForCustom = false;
 
                 $val = $filter->val;
                 $option = $this->filterOptions[$filter->op] ?? '=';
@@ -383,14 +385,26 @@ abstract class NajModel extends Model {
                         $flt = "({$filter->col} IS NOT NULL)";
 
                         break;
+                    case 'custom': // filtro customizado
+                        $result = $this->handleCustomFilter($filter);
+
+                        if ($result) {
+                            [$flt, $insertValue] = $result;
+                        } else {
+                            $blockForCustom = true;
+                        }
+
+                        break;
                     default:
                         break;
                 }
 
-                $where[$filter->col] = $flt;
+                if (!$blockForCustom) {
+                    $where[$filter->col] = $flt;
 
-                if ($insertValue) {
-                    $values[] = $this->resolveFilterValue($val, $filter->op);
+                    if ($insertValue) {
+                        $values[] = $this->resolveFilterValue($val, $filter->op);
+                    }
                 }
             }
         }
@@ -402,6 +416,18 @@ abstract class NajModel extends Model {
             'where'  => ' where ' . $finalFilters,
             'values' => $values
         ];
+    }
+
+    /**
+     * Deve retornar um array.
+     * Índice 0: deve retornar o filtro bruto.
+     * Índice 1: caso haja um valor a ser tratado, deve retorna true.
+     *
+     * @param type $filter
+     * @return array
+     */
+    protected function handleCustomFilter($filter) {
+        $this->throwException('O modelo não apresenta tratamento para filtros customizados');
     }
 
     /**
@@ -581,6 +607,22 @@ abstract class NajModel extends Model {
      *
      * @return type
      */
+    public function getTableColumnsWithoutKeys() {
+        $tableColumns = [];
+
+        foreach ($this->columns as $column => $data) {
+            if ($data['from'] === $this->getTable() && !$data['isPk']) {
+                $tableColumns[] = $data['name'];
+            }
+        }
+
+        return $tableColumns;
+    }
+
+    /**
+     *
+     * @return type
+     */
     public function getTableColumns() {
         $tableColumns = [];
 
@@ -601,7 +643,9 @@ abstract class NajModel extends Model {
     public function getFilledAttributes($reqAttrs = null) {
         $toFill = [];
 
-        foreach ($this->getTableColumns() as $column) {
+        $columns = !$this->incrementing ? $this->getTableColumns() : $this->getTableColumnsWithoutKeys();
+
+        foreach ($columns as $column) {
             if ($reqAttrs) {
                 $reqValue = isset($reqAttrs[$column]) ? $reqAttrs[$column] : null;
 

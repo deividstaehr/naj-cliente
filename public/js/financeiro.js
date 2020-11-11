@@ -328,21 +328,13 @@ async function buscaPersonalizada(content) {
         financeiroPagarTable.filtersForSearch = [];
 
         if(dataInicial && dataFinal) {
-            filter2        = {}; 
-            filter2.val    = formatDate(dataInicial, false);
-            filter2.val2   = formatDate(dataFinal, false);
-            filter2.op     = "B";
-            filter2.col    = "DATA_VENCIMENTO";
-            filter2.origin = btoa(filter2);
-            financeiroPagarTable.filtersForSearch.push(filter2);
-
-            filter3        = {}; 
-            filter3.val    = formatDate(dataInicial, false);
-            filter3.val2   = formatDate(dataFinal, false);
-            filter3.op     = "B";
-            filter3.col    = "DATA_PAGAMENTO";
-            filter3.origin = btoa(filter3);
-            financeiroPagarTable.filtersForSearch.push(filter3);
+            let filter2    = {};
+                filter2.val    = formatDate(dataInicial, false);
+                filter2.val2   = formatDate(dataFinal, false);
+                filter2.op     = "CF";
+                filter2.col    = "CP.DATA_VENCIMENTO";
+                filter2.origin = btoa(filter2);
+                financeiroPagarTable.filtersForSearch.push(filter2);
         }
     
         await financeiroPagarTable.load();
@@ -351,21 +343,13 @@ async function buscaPersonalizada(content) {
         financeiroReceberTable.filtersForSearch = [];
 
         if(dataInicial && dataFinal) {
-            filter2        = {}; 
-            filter2.val    = formatDate(dataInicial, false);
-            filter2.val2   = formatDate(dataFinal, false);
-            filter2.op     = "B";
-            filter2.col    = "DATA_VENCIMENTO";
-            filter2.origin = btoa(filter2);
-            financeiroReceberTable.filtersForSearch.push(filter2);
-
-            filter3        = {}; 
-            filter3.val    = formatDate(dataInicial, false);
-            filter3.val2   = formatDate(dataFinal, false);
-            filter3.op     = "B";
-            filter3.col    = "DATA_PAGAMENTO";
-            filter3.origin = btoa(filter3);
-            financeiroReceberTable.filtersForSearch.push(filter3);
+            let filter2    = {};
+                filter2.val    = formatDate(dataInicial, false);
+                filter2.val2   = formatDate(dataFinal, false);
+                filter2.op     = "CF";
+                filter2.col    = "CP.DATA_VENCIMENTO";
+                filter2.origin = btoa(filter2);
+                financeiroReceberTable.filtersForSearch.push(filter2);
         }
 
         await financeiroReceberTable.load();
