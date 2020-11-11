@@ -24,7 +24,7 @@ class FinanceiroModel extends NajModel {
 
         $this->addColumn('CODIGO', true)->setHidden();
 
-        $this->setOrder('CP.DATA_VENCIMENTO DESC, CP.CODIGO_CONTA, CP.PARCELA');
+        $this->setOrder('CP.SITUACAO, CP.DATA_VENCIMENTO, CP.CODIGO_CONTA, CP.PARCELA ASC');
 
         $this->addAllColumns();
 

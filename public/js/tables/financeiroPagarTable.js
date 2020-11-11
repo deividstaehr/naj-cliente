@@ -26,21 +26,17 @@ class FinanceiroPagarTable extends Table {
             onLoad: (data, row) =>  {
                 return `
                     <table class="w-100">
-                        ${(row.NOME_CLIENTE)
+                        ${(row.NOME_CLIENTE && row.NOME_ADVERSARIO)
                             ?
+                            `<tr>
+                                <td>${row.NOME_CLIENTE} X ${row.NOME_ADVERSARIO}</td>
+                            </tr>
+                            `
+                            : 
                             `<tr>
                                 <td>${row.NOME_CLIENTE}</td>
                             </tr>
                             `
-                            : ``
-                        }
-                        ${(row.NOME_ADVERSARIO)
-                            ?
-                            `<tr>
-                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
-                            </tr>
-                            `
-                            : ``
                         }
                     </table>
                 `;
@@ -50,7 +46,37 @@ class FinanceiroPagarTable extends Table {
         this.addField({
             name: 'DESCRICAO',
             title: 'Informações da Conta',
-            width: 30
+            width: 30,
+            onLoad: (data, row) =>  {
+                return `
+                    <table class="w-100">
+                        ${(row.DESCRICAO)
+                            ?
+                            `<tr>
+                                <td>${row.DESCRICAO}. (Parcela: ${row.PARCELA_ATUAL} de ${row.PARCELA_TOTAL})</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.NUMERO_PROCESSO_NEW)
+                            ?
+                            `<tr>
+                                <td>${row.NUMERO_PROCESSO_NEW}</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                        ${(row.COMARCA && row.UF)
+                            ?
+                            `<tr>
+                                <td>${row.COMARCA} (${row.UF})</td>
+                            </tr>
+                            `
+                            : ``
+                        }
+                    </table>
+                `;
+            }
         });
         
         this.addField({

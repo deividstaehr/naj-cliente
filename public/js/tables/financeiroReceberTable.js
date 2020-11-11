@@ -26,21 +26,17 @@ class FinanceiroReceberTable extends Table {
             onLoad: (data, row) =>  {
                 return `
                     <table class="w-100">
-                        ${(row.NOME_CLIENTE)
+                        ${(row.NOME_CLIENTE && row.NOME_ADVERSARIO)
                             ?
+                            `<tr>
+                                <td>${row.NOME_CLIENTE} X ${row.NOME_ADVERSARIO}</td>
+                            </tr>
+                            `
+                            : 
                             `<tr>
                                 <td>${row.NOME_CLIENTE}</td>
                             </tr>
                             `
-                            : ``
-                        }
-                        ${(row.NOME_ADVERSARIO)
-                            ?
-                            `<tr>
-                                <td>${row.NOME_ADVERSARIO}</td>
-                            </tr>
-                            `
-                            : ``
                         }
                     </table>
                 `;
@@ -57,7 +53,7 @@ class FinanceiroReceberTable extends Table {
                         ${(row.DESCRICAO)
                             ?
                             `<tr>
-                                <td>${row.DESCRICAO}</td>
+                                <td>${row.DESCRICAO}. (Parcela: ${row.PARCELA_ATUAL} de ${row.PARCELA_TOTAL})</td>
                             </tr>
                             `
                             : ``
@@ -139,7 +135,14 @@ class FinanceiroReceberTable extends Table {
         this.addField({
             name: 'DATA_PAGAMENTO',
             title: 'Pagamento',
-            width: 7.5
+            width: 7.5,
+            onLoad: (data, row) =>  {
+                if(row.DATA_PAGAMENTO) {
+                    return row.DATA_PAGAMENTO;
+                }
+                
+                return '<span style="margin-left: 45%;">-</span>';
+            }
         });
 
         this.addField({
@@ -147,7 +150,11 @@ class FinanceiroReceberTable extends Table {
             title: 'Valor Pago',
             width: 7.5,
             onLoad: (data, row) =>  {
-                return formatter.format(row.VALOR_PAGAMENTO);
+                if(row.VALOR_PAGAMENTO) {
+                    return formatter.format(row.VALOR_PAGAMENTO);
+                }
+                
+                return '<span style="margin-left: 45%;">-</span>';
             }
         });
     }

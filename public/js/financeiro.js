@@ -357,9 +357,9 @@ async function buscaPersonalizada(content) {
 }
 
 function dataVencimentoMenorDataAtual(data_venc) {
-    let anoAtual = getDataAtual().split('-')[2],
+    let anoAtual = getDataAtual().split('-')[0],
         mesAtual = getDataAtual().split('-')[1],
-        diaAtual = getDataAtual().split('-')[0],
+        diaAtual = getDataAtual().split('-')[2],
         diaVenc = data_venc.split('-')[2],
         mesVenc = data_venc.split('-')[1],
         anoVenc = data_venc.split('-')[0];

@@ -83,7 +83,7 @@
                 <div class="card" id="content-meus-processos">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-center">
-                            <img src="{{ env('APP_URL') }}imagens/logo_escritorio.png" alt="logo-cliente" class="dark-logo"/>
+                            <img src="{{ env('APP_URL') }}imagens/logo_escritorio/logo_escritorio.png" alt="logo-cliente" class="dark-logo"/>
                         </div>
                         <div class="mt-4 d-flex align-items-center justify-content-center">
                             <div class="ml-4">
