@@ -472,7 +472,7 @@ class Chat {
         $('.content-message-select-user-chat').hide();
 
         if(moveScrollView) {
-            chat.scrollToBottom();
+            this.scrollToBottom();
         }
 
         //Carrega as informações do RASCUNHO da mensagem
@@ -782,9 +782,7 @@ class Chat {
 
 		this.messageContainer
 			.lastElementChild
-			.scrollIntoView({
-				behavior: 'smooth'
-			});
+			.scrollIntoView({block: "end", behavior: "smooth"});
 	}
 
     formaterDataInHora(value) {

@@ -53,7 +53,7 @@ class FinanceiroReceberTable extends Table {
                         ${(row.DESCRICAO)
                             ?
                             `<tr>
-                                <td>${row.DESCRICAO}. (Parcela: ${row.PARCELA_ATUAL} de ${row.PARCELA_TOTAL})</td>
+                                <td>${row.DESCRICAO} (Parcela: ${row.PARCELA_ATUAL} de ${row.PARCELA_TOTAL})</td>
                             </tr>
                             `
                             : ``
