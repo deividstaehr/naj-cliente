@@ -151,7 +151,12 @@ class FinanceiroPagarTable extends Table {
             width: 7.5,
             onLoad: (data, row) =>  {
                 if(row.VALOR_PAGAMENTO) {
-                    return formatter.format(row.VALOR_PAGAMENTO);
+                    let spanPagamentoParcial = '';
+                    if(row.PAGAMENTOS_PARCIAIS == 'SIM') {
+                        spanPagamentoParcial = `<span class="ml-2 fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Existem pagamentos Parciais."></span>`;
+                    }
+
+                    return `${formatter.format(row.VALOR_PAGAMENTO)} ${spanPagamentoParcial}`;
                 }
                 
                 return '<span style="margin-left: 45%;">-</span>';
@@ -421,6 +426,7 @@ class FinanceiroPagarTable extends Table {
         }
 
         this.notifyActions();
+        $('.fa-info-circle').tooltip('update');
         
         let filterUser   = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
         let data_inicial = `${$('#filter-data-inicial-pagar').val().split('/')[2]}-${$('#filter-data-inicial-pagar').val().split('/')[1]}-${$('#filter-data-inicial-pagar').val().split('/')[0]}`;
