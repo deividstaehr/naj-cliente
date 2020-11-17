@@ -97,6 +97,7 @@ async function onLoadAtendimento() {
     let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}?XDEBUG_SESSION_START`);
 
     if(!result.chat) {
+        $('.content-message-select-user-chat').removeClass('d-none');
         $('#content-upload-anexos-chat').hide();
         $('#content-button-rascunho-message-chat').hide();
         $('#content-button-rascunho-editor-message-chat').hide();
