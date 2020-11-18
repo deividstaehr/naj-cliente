@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\ChatMensagemModel;
 use App\Models\ChatRelacionamentoUsuarioModel;
 
 class MensagemController extends Controller {
@@ -22,6 +23,17 @@ class MensagemController extends Controller {
     public function hasChat($id) {
         $ChatRelUsuarioModel = new ChatRelacionamentoUsuarioModel();
         $chat = $ChatRelUsuarioModel->where('id_usuario', $id)->first();
+
+        if(is_null($chat)) {
+            return response()->json(['chat' => false]);
+        }
+
+        return response()->json(['chat' => $chat->getOriginal()]);
+    }
+
+    public function hasMensagemFromChat($id) {
+        $ChatMensagemModel = new ChatMensagemModel();
+        $chat              = $ChatMensagemModel->where('id_chat', $id)->first();
 
         if(is_null($chat)) {
             return response()->json(['chat' => false]);

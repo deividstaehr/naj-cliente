@@ -61,6 +61,7 @@ Route::group([
     //Mensagem
     Route::get('mensagens'             , 'MensagemController@index')->name('mensagens.index');
     Route::get('mensagens/hasChat/{id}', 'MensagemController@hasChat')->name('mensagens.has-chat');
+    Route::get('mensagens/hasMensagemFromChat/{id}', 'MensagemController@hasMensagemFromChat')->name('mensagens.has-chat-mensagem');
     Route::get('mensagens/indicador'   , 'MensagemController@getNewMessagesAndTodas')->name('mensagens.indicador');
 
     //CHAT - MENSAGEM

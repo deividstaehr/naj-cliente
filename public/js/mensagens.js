@@ -104,6 +104,16 @@ async function onLoadAtendimento() {
         return;
     }
 
+    let hasMensagemFromChat = await NajApi.getData(`mensagens/hasMensagemFromChat/${result.chat.id_chat}?XDEBUG_SESSION_START`);
+
+    if(!hasMensagemFromChat) {
+        $('.content-message-select-user-chat').removeClass('d-none');
+        $('#content-upload-anexos-chat').hide();
+        $('#content-button-rascunho-message-chat').hide();
+        $('#content-button-rascunho-editor-message-chat').hide();
+        return;
+    }
+
     await chat.loadMessageInChat({"id_chat" : result.chat.id_chat, "id_usuario_cliente" : result.chat.id_usuario}, true, false);
     id_chat_current         = result.chat.id_chat;
     id_usuario_current_chat = result.chat.id_usuario;
