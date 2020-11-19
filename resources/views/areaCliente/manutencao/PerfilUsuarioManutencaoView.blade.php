@@ -9,7 +9,7 @@
 
 <div id="bloqueio-atualizar-dados" class="loader loader-default" data-half></div>
 <div class="row row-content-perfil">
-    <div class="col-5 mr-0 pr-0">
+    <div class="col-lg-5 col-md-5 col-sm-12 mr-0 pr-0 div-alterar-dados-usuarios">
         <div class="row content-pai-perfil position-relative content-alterar-perfil">
             <div class="col-12 content-header-perfil">
                 <p>ALTERA DADOS DO USUÁRIO</p>
@@ -88,12 +88,12 @@
             </div>
         </div>
     </div>
-    <div class="col-5 ml-0 pl-0">
+    <div class="col-lg-5 col-md-5 col-sm-12 mr-0 pr-0 div-alterar-senha">
         <div class="row content-pai-perfil position-relative content-alterar-senha">
             <div class="col-12 content-header-perfil">
                 <p>ALTERAR SENHA</p>
             </div>
-            <div class="col-12 content-body-perfil scrollable content-body-senha">
+            <div class="col-12 scrollable content-body-senha">
                 <div class="row">
                     <div class="col-12 box-alterar-senha-perfil">
                         <form action="">
@@ -122,7 +122,7 @@
                                 </button>    
                             </div>
                         </div>
-                        <div style="font-size: 11px; margin-top: 10% !important;">
+                        <div class="content-dicas-senha-segura">
                             <h5 style="font-weight: 500 !important;">Dicas para criar uma senha mais segura:</h5>
                             <p class="m-0">* Combine letras maiúsculas e minúsculas, símbolos e números.</p>
                             <p class="m-0">* Não use informações pessoais como data de nascimento ou seu nome.</p>

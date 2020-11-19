@@ -582,8 +582,8 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .content-body-senha {
-    position: absolute;
-    top: -11%;
+    color: #000;
+    margin: 10px;
     height: 100%;
 }
 
@@ -1190,4 +1190,71 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
 .no-shadow {
     text-shadow: none !important;
+}
+
+.content-dicas-senha-segura {
+    font-size: 11px;
+    margin-top: 10% !important;
+}
+
+/* AJUSTES PARA TELAS PEQUENAS */
+@media only screen and (max-width: 766px) {
+    .row-content-perfil {
+        margin-left: 0 !important;
+        overflow-y: auto !important;
+        height: 100% !important;
+    }
+
+    .div-alterar-senha {
+        padding-left: 0 !important;
+    }
+
+    .div-alterar-dados-usuarios {
+        padding-left: 0 !important;
+    }
+
+    .content-alterar-perfil {
+        margin: 20px 24px 20px 10px !important
+    }
+
+    .content-alterar-senha {
+        margin: 20px 24px 20px 10px !important
+    }
+
+    .content-body-perfil {
+        height: 87% !important;
+    }
+
+    .content-body-senha {
+        height: 97% !important;
+    }
+
+    .content-dicas-senha-segura {
+        font-size: 11px;
+        margin-top: 0% !important;
+    }
+
+    .label-center {
+        text-align: unset !important;
+    }
+
+    .data-table-filter {
+        width: 350% !important;
+    }
+
+    .data-table-footer {
+        width: 350% !important;
+    }
+
+    .data-table-header {
+        width: 350% !important;
+    }
+
+    .data-table-content {
+        width: 350% !important;
+    }
+
+    .datatable-body {
+        overflow-x: auto !important;
+    }
 }
