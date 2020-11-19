@@ -67,7 +67,7 @@ class AtividadeTable extends Table {
                         ${(row.CLASSE)
                             ?
                             `<tr>
-                                <td>R$${row.CLASSE}</td>
+                                <td>${row.CLASSE}</td>
                             </tr>
                             `
                             : ``

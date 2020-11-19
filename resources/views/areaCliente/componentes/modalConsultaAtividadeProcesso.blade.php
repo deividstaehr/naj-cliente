@@ -7,7 +7,7 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body-naj p-0">                
+            <div class="modal-body-naj p-0" style="height: 84vh !important;">                
                 <div id="loading" class="loader loader-default" data-half></div>
                 <div id="datatable-atividade-processo" class="p-0 m-0 naj-datatable"></div>
             </div>

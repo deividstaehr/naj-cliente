@@ -1257,4 +1257,34 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .datatable-body {
         overflow-x: auto !important;
     }
+
+    .content-right-home {
+        margin-top: 10px !important;
+    }
+
+    #content-chat-box-full {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    #content-messages-chat {
+        margin-top: 15px !important;
+    }
+
+    .content-butons-chat {
+        width: 100% !important;
+        position: absolute !important;
+    }
+
+    .input-mensagem-chat {
+        margin-left: 13% !important;
+    }
+
+    #content-input-tres-pontos-chat {
+        left: 25 !important;
+    }
+
+    .bg-content-messages {
+        overflow: auto !important;
+    }
 }

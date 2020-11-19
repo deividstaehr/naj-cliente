@@ -21,6 +21,8 @@ class ProcessoAnexoModel extends NajModel {
       $this->addColumn('data_arquivo');
       $this->addColumn('file_size');
 
+      $this->addRawFilter("descricao <> 'DIR'");
+
       $this->addAllColumns();
 
       $this->setRawBaseSelect("
