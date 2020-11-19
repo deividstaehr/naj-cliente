@@ -1287,4 +1287,19 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .bg-content-messages {
         overflow: auto !important;
     }
+
+    .datatable-body::-webkit-scrollbar{
+        width: 5px !important;
+        height: 5px !important;
+    }
+
+    .datatable-body::-webkit-scrollbar {
+        -webkit-appearance: none !important;
+        width: 1px !important;
+    }
+
+    .datatable-body::-webkit-scrollbar-thumb {
+        border-radius: 4px !important;
+        background-color: rgba(0, 0, 0, .5) !important;
+    }
 }
