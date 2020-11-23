@@ -14,7 +14,7 @@
 
 <div class="row height-100 bg-content-messages">
     <div class="col-lg-6 col-md-6 col-sm-12 pr-0 pl-0" style="height: 100%;">
-        <div class="chat-box data-table-content naj-scrollable content-chat-box-full" id="content-chat-box-full" style="overflow-x: hidden; border-top: none !important; padding-left: 5px !important;" id="pololo">
+        <div class="chat-box data-table-content naj-scrollable content-chat-box-full" id="content-chat-box-full" style="overflow-x: hidden; border-top: none !important; padding-left: 5px !important;">
             <div id="loading-message-chat" class="loader loader-default" data-half></div>
             <div class="content-message-select-user-chat warning d-none">
                 <p class="text-message-select-user-chat"></p>
@@ -71,6 +71,9 @@
                 <button type="button" class="btn btn-light btn-light-atendimento-dropdown" id="input-anexo"><i class="fas fa-paperclip"></i></button>
             </div>
             <textarea name="" id="input-text-chat-enviar" class="input-mensagem-chat content-input-mensagem-chat" wrap="hard" placeholder="Digete sua mensagem"></textarea>
+            <div class="content-button-enviar-smartphone">
+                <button type="button" class="btn btn-success btn-circle" id="button-enviar-smartphone"><i class="fas fa-paper-plane" style="margin-left: -5px;"></i></button>
+            </div>
             <div id="content-button-rascunho-message-chat">
                 <span class="font-10 badge badge-danger" title="Rascunho da mensagem">RASCUNHO</span><i class="fas fa-trash ml-1 cursor-pointer" id="icon-trash-rascunho-message-chat"></i>
             </div>

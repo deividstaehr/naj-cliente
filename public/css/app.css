@@ -1197,6 +1197,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
     margin-top: 10% !important;
 }
 
+.content-button-enviar-smartphone {
+    display: none;
+}
+
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
     .row-content-perfil {
@@ -1272,7 +1276,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
     }
 
     .content-butons-chat {
-        width: 100% !important;
+        width: 96% !important;
         position: absolute !important;
     }
 
@@ -1301,5 +1305,13 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .datatable-body::-webkit-scrollbar-thumb {
         border-radius: 4px !important;
         background-color: rgba(0, 0, 0, .5) !important;
+    }
+
+    .content-message-select-user-chat {        
+        margin-top: 4% !important;
+    }
+
+    .content-button-enviar-smartphone {
+        display: block;
     }
 }

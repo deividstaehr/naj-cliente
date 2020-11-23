@@ -49,6 +49,15 @@ $(document).ready(function() {
         }
     });
 
+    $('#button-enviar-smartphone').on('click', function(event) {
+        if(!$('#input-text-chat-enviar').val()) {
+            return;
+        }
+
+        chat.createUpdateRascunhoMessage(id_chat_current, null, true);
+        sendMessage();
+    });
+
     $('.card-body .note-editable').keyup(function(event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         
@@ -88,7 +97,7 @@ async function loadMessageChat() {
     id_usuario_current_chat = result.chat.id_usuario;
 
     if(result.chat.id_chat && !$('#content-upload-anexos-chat').is(":visible")) {
-        let moveScroll = $('#pololo').scrollTop() + $('#pololo').innerHeight() == $('#pololo')[0].scrollHeight;
+        let moveScroll = $('#content-chat-box-full').scrollTop() + $('#content-chat-box-full').innerHeight() == $('#content-chat-box-full')[0].scrollHeight;
         await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);
     }
 }

@@ -25,7 +25,7 @@
                                 <label for="cpf" class="col-sm-3 control-label label-center">CPF</label>
                                 <div class="col-sm-6">
                                     <div class="input-group">
-                                        <input type="text" name="cpf" class="form-control mascaracpf" onkeypress="return onlynumber();" required="" disabled>
+                                        <input type="text" name="cpf" class="form-control mascaracpf" onkeypress="return onlynumber();" onchange="onChangeCpf();" required="" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <label for="login" class="col-sm-3 control-label label-center">Login</label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <input type="text" name="login" class="form-control"  required="">
+                                        <input type="text" name="login" class="form-control mascaracpf"  required="">
                                     </div>
                                 </div>
                             </div>

@@ -45,6 +45,13 @@ async function updateUsuario() {
             }
         ]
     };
+
+    if(!validaCampoEmail()) {
+        loadingDestroy('bloqueio-atualizar-dados');
+        NajAlert.toastWarning('O campo login deve ser igual ao campo CPF!');
+        return;
+    }
+
     let response = await naj.updateData(`${baseURL}usuarios/${btoa(JSON.stringify({id: $('input[name=id]').val()}))}`, dados);
 
     if(!response) {        
@@ -100,6 +107,21 @@ async function updatePasswordUsuario() {
         NajAlert.toast("Erro ao alterar a senha, tente novamente mais tarde!");
         loadingDestroy('bloqueio-atualizar-dados');
     });
+}
+
+function onChangeCpf() {
+    $('#login').val($('#cpf').val());
+}
+
+function validaCampoEmail() {
+    let login = $('[name=login]').val(),
+        cpf   = $('[name=cpf]').val();
+
+        if(login == cpf) {
+            return true;
+        }
+
+        return false;
 }
 
 //Mascaras

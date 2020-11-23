@@ -47,7 +47,7 @@
                                                     <label for="cpf" class="col-sm-2 control-label label-center pr-2">CPF</label>
                                                     <div class="col-sm-3 input-alterar-dados">
                                                         <div class="input-group">
-                                                            <input type="text" id="cpf" name="cpf" class="form-control mascaracpf" onkeypress="return onlynumber();" required="" value="{{ Auth::user()->cpf }}" disabled>
+                                                            <input type="text" id="cpf" name="cpf" class="form-control mascaracpf" onkeypress="return onlynumber();" onchange="onChangeCpf();" required="" value="{{ Auth::user()->cpf }}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -74,7 +74,7 @@
                                                     <label for="login" class="col-sm-2 control-label label-center pr-2">Login</label>
                                                     <div class="col-sm-9 input-alterar-dados">
                                                         <div class="input-group">
-                                                            <input type="text" name="login" class="form-control"  required="" value="{{ Auth::user()->login }}">
+                                                            <input type="text" name="login" class="form-control mascaracpf"  required="" value="{{ Auth::user()->login }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -259,6 +259,12 @@
                     if(!v.test(dados.novaSenha)) {
                         NajAlert.toastWarning("A nova senha não pode conter números ou letras repetidas!");
                         loadingDestroy('bloqueio-atualizar-dados');
+                        return;
+                    }
+
+                    if(!validaCampoEmail()) {
+                        loadingDestroy('bloqueio-atualizar-dados');
+                        NajAlert.toastWarning('O campo login deve ser igual ao campo CPF!');
                         return;
                     }
 
