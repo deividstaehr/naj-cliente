@@ -46,9 +46,15 @@ async function updateUsuario() {
         ]
     };
 
-    if(!validaCampoEmail()) {
+    if(!validaCampoLogin()) {
         loadingDestroy('bloqueio-atualizar-dados');
         NajAlert.toastWarning('O campo login deve ser igual ao campo CPF!');
+        return;
+    }
+
+    if(!validaCampoEmail()) {
+        loadingDestroy('bloqueio-atualizar-dados');
+        NajAlert.toastWarning('O campo E-mail deve ser um email válido!');
         return;
     }
 
@@ -114,14 +120,28 @@ function onChangeCpf() {
 }
 
 function validaCampoEmail() {
+    let usuario = $('[name=email_recuperacao]').val().substring(0, $('[name=email_recuperacao]').val().indexOf("@")),
+        dominio = $('[name=email_recuperacao]').val().substring($('[name=email_recuperacao]').val().indexOf("@") + 1, $('[name=email_recuperacao]').val().length);
+
+    if ((usuario.length >=1) && (dominio.length >=3) && (usuario.search("@")==-1) && (dominio.search("@")==-1) 
+            && (usuario.search(" ")==-1) && (dominio.search(" ")==-1) && (dominio.search(".")!=-1) && (dominio.indexOf(".") >=1)
+            && (dominio.lastIndexOf(".") < dominio.length - 1))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+function validaCampoLogin() {
     let login = $('[name=login]').val(),
         cpf   = $('[name=cpf]').val();
 
-        if(login == cpf) {
-            return true;
-        }
+    if(login == cpf) {
+        return true;
+    }
 
-        return false;
+    return false;
 }
 
 //Mascaras

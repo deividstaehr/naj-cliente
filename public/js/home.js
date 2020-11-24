@@ -48,6 +48,14 @@ async function loadContainerMensagens() {
         return;
     }
 
+    if(!resultMessages.todas[0]) {
+        $('#qtde_mensagens_todas')[0].innerHTML = `0`;
+    }
+
+    if(!resultMessages.novas[0]) {
+        $('#qtde_mensagens_novas')[0].innerHTML = `0`;
+    }
+
     if(resultMessages.todas[0] && resultMessages.novas[0]) {
         if(resultMessages.novas[0].qtde_novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
@@ -62,6 +70,9 @@ async function loadContainerMensagens() {
         }
         
         $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
+    } else {
+        $('#qtde_mensagens_novas')[0].innerHTML = `0`;
+        $('#qtde_mensagens_todas')[0].innerHTML = `0`;
     }
 }
 

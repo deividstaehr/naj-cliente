@@ -92,7 +92,7 @@ $(document).ready(function() {
 });
 
 async function loadMessageChat() {
-    let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}?XDEBUG_SESSION_START`);
+    let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}`);
     id_chat_current         = result.chat.id_chat;
     id_usuario_current_chat = result.chat.id_usuario;
 
@@ -103,7 +103,7 @@ async function loadMessageChat() {
 }
 
 async function onLoadAtendimento() {
-    let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}?XDEBUG_SESSION_START`);
+    let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}`);
 
     if(!result.chat) {
         $('.content-message-select-user-chat').removeClass('d-none');
@@ -115,7 +115,7 @@ async function onLoadAtendimento() {
 
     let hasMensagemFromChat = await NajApi.getData(`mensagens/hasMensagemFromChat/${result.chat.id_chat}?XDEBUG_SESSION_START`);
 
-    if(!hasMensagemFromChat) {
+    if(!hasMensagemFromChat || !hasMensagemFromChat.chat) {
         $('.content-message-select-user-chat').removeClass('d-none');
         $('#content-upload-anexos-chat').hide();
         $('#content-button-rascunho-message-chat').hide();

@@ -1268,7 +1268,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
     #content-chat-box-full {
         width: 100% !important;
-        height: 100% !important;
+        height: 89% !important;
     }
 
     #content-messages-chat {
@@ -1276,12 +1276,13 @@ input[type='text'], input[type='number'], input[type='date'], select{
     }
 
     .content-butons-chat {
-        width: 96% !important;
+        width: 100% !important;
         position: absolute !important;
     }
 
     .input-mensagem-chat {
-        margin-left: 13% !important;
+        margin-left: 8% !important;
+        width: 74% !important;
     }
 
     #content-input-tres-pontos-chat {
@@ -1314,4 +1315,17 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .content-button-enviar-smartphone {
         display: block;
     }
+
+    #content-logo-mensagem {
+        display: none !important;
+    }
+
+    /* .color-no-odd-naj-no-usuario-cliente-message {
+        background-color: #f1f1f1 !important;
+        margin-left: 10px !important;
+    }
+
+    .odd-chat-naj {
+        margin-right: -20px !important;
+    } */
 }

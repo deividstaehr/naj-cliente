@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-12 mt-2 pr-0 pl-0" style="height: 100%;">
+    <div class="col-lg-6 col-md-6 col-sm-12 mt-2 pr-0 pl-0" style="height: 100%;" id="content-logo-mensagem">
         <div class="row ml-0 mr-3">
             <div class="col-12">
                 <div class="card" id="content-meus-processos">

@@ -262,9 +262,15 @@
                         return;
                     }
 
-                    if(!validaCampoEmail()) {
+                    if(!validaCampoLogin()) {
                         loadingDestroy('bloqueio-atualizar-dados');
                         NajAlert.toastWarning('O campo login deve ser igual ao campo CPF!');
+                        return;
+                    }
+
+                    if(!validaCampoEmail()) {
+                        loadingDestroy('bloqueio-atualizar-dados');
+                        NajAlert.toastWarning('O campo E-mail deve ser um email válido!');
                         return;
                     }
 
