@@ -1215,7 +1215,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .content-bottom-indicadores-financeiro {
-    height: 8%;
+    height: 8% !important;
     margin: 8px !important;
     overflow-y: hidden !important;
 }
@@ -1324,9 +1324,9 @@ input[type='text'], input[type='number'], input[type='date'], select{
         left: 25 !important;
     }
 
-    .bg-content-messages {
+    /* .bg-content-messages {
         overflow: auto !important;
-    }
+    } */
 
     .datatable-body::-webkit-scrollbar{
         width: 5px !important;
