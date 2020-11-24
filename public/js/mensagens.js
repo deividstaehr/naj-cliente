@@ -118,7 +118,7 @@ async function onLoadAtendimento() {
         return;
     }
 
-    let hasMensagemFromChat = await NajApi.getData(`mensagens/hasMensagemFromChat/${result.chat.id_chat}?XDEBUG_SESSION_START`);
+    let hasMensagemFromChat = await NajApi.getData(`mensagens/hasMensagemFromChat/${result.chat.id_chat}`);
 
     if(!hasMensagemFromChat || !hasMensagemFromChat.chat) {
         $('.content-message-select-user-chat').removeClass('d-none');
@@ -172,7 +172,7 @@ async function sendMessage(mensagem = false) {
             "file_path"     : ""
         };
     
-        let result = await NajApi.postData(`chat/novo/atendimento?XDEBUG_SESSION_START`, data);
+        let result = await NajApi.postData(`chat/novo/atendimento`, data);
 
         if(!result) {
             NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
@@ -288,7 +288,7 @@ async function sendAnexos(dropzone) {
                 'id_atendimento': id_atendimento_current
             });
         }
-        let result = await NajApi.postData(`chat/mensagem/anexo?XDEBUG_SESSION_START`, {'files': filesUpload});
+        let result = await NajApi.postData(`chat/mensagem/anexo`, {'files': filesUpload});
 
         if(result.status_code == 200) {
             await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, false);
@@ -316,7 +316,7 @@ async function sendAnexos(dropzone) {
             });
         }
 
-        let result = await NajApi.postData(`chat/novo/atendimento?XDEBUG_SESSION_START`, {'files': filesUpload});
+        let result = await NajApi.postData(`chat/novo/atendimento`, {'files': filesUpload});
 
         if(!result) {
             NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
