@@ -1312,6 +1312,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
     .content-butons-chat {
         width: 100% !important;
+        height: 75px !important;
         position: absolute !important;
     }
 
