@@ -93,6 +93,11 @@ $(document).ready(function() {
 
 async function loadMessageChat() {
     let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}`);
+
+    if(!result.chat.id_chat || result.chat.id_usuario) {
+        return;
+    }
+
     id_chat_current         = result.chat.id_chat;
     id_usuario_current_chat = result.chat.id_usuario;
 
