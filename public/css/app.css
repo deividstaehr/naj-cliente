@@ -1201,6 +1201,41 @@ input[type='text'], input[type='number'], input[type='date'], select{
     display: none;
 }
 
+.btn-cancelar-anexos-modal {
+    right: 2%;
+    position: absolute;
+    cursor: pointer;
+    border-color: #3695bf !important;
+    margin-top: -8px;
+}
+
+.button-adicionar-anexo-modal {
+    position: absolute;
+    right: 51%;
+}
+
+.content-bottom-indicadores-financeiro {
+    height: 8%;
+    margin: 8px !important;
+    overflow-y: hidden !important;
+}
+
+.span-receber-recer {
+    margin-left: 10%;
+}
+
+.span-receber-atrasado {
+    margin-left: 10%;
+}
+
+.span-pagar-pagar {
+    margin-left: 10%;
+}
+
+.span-pagar-atrasado {
+    margin-left: 10%;
+}
+
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
     .row-content-perfil {
@@ -1267,7 +1302,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
     }
 
     #content-chat-box-full {
-        width: 100% !important;
+        width: 97% !important;
         height: 89% !important;
     }
 
@@ -1320,12 +1355,59 @@ input[type='text'], input[type='number'], input[type='date'], select{
         display: none !important;
     }
 
-    /* .color-no-odd-naj-no-usuario-cliente-message {
-        background-color: #f1f1f1 !important;
-        margin-left: 10px !important;
+    .chat-list .chat-item.odd .chat-content {
+        padding-right: 4px !important;
     }
 
-    .odd-chat-naj {
-        margin-right: -20px !important;
-    } */
+    .btn-cancelar-anexos-modal {
+        right: 1% !important;
+        margin-top: -24px;
+    }
+
+    .button-adicionar-anexo-modal {
+        position: absolute;
+        right: 3%;
+    }
+
+    .content-bottom-indicadores-financeiro {
+        height: auto !important;
+        overflow-y: auto !important;
+    }
+
+    .content-pai-financeiro {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .span-receber-recer {
+        margin-left: 0;
+    }
+
+    .span-receber-atrasado {
+        margin-left: 0;
+    }
+
+    #total_receber_receber {
+        margin-left: 5px !important;
+    }
+
+    #total_receber_recebido {
+        margin-left: 12px !important;
+    }
+
+    .span-pagar-pagar {
+        margin-left: 0;
+    }
+
+    .span-pagar-atrasado {
+        margin-left: 0;
+    }
+
+    #total_pagar_pagar {
+        margin-left: 16px !important;
+    }
+
+    #total_pagar_pago {
+        margin-left: 38px !important;
+    }
 }

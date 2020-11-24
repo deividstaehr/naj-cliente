@@ -780,9 +780,9 @@ class Chat {
     scrollToBottom() {
         if(!this.messageContainer.lastElementChild) return;
 
-		// this.messageContainer
-		// 	.lastElementChild
-		// 	.scrollIntoView({block: "end", behavior: "smooth"});
+		this.messageContainer
+			.lastElementChild
+			.scrollIntoView({block: "end", behavior: "smooth"});
 	}
 
     formaterDataInHora(value) {

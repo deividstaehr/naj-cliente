@@ -21,29 +21,29 @@
             </div>
             <div class="mail-compose bg-white w-100 d-none" id="content-upload-anexos-chat" style="overflow: hidden !important; height: 100%;">
                 <div class="card-header bg-info row">
-                    <div class="col-11">
+                    <div class="col-lg-11 col-md-11 col-sm-8">
                         <h4 class="mb-0 text-white">Anexos</h4>
                     </div>
-                    <div class="col-1">
-                        <button type="button" data-dismiss="modal" class="btn btn-info btn-rounded" onclick="onClickCancelarAnexos();" style="right: 2%; position: absolute; cursor: pointer; border-color: #3695bf !important; margin-top: -8px;">
+                    <div class="col-lg-1 col-md-1 col-sm-4">
+                        <button type="button" data-dismiss="modal" class="btn btn-info btn-rounded btn-cancelar-anexos-modal" onclick="onClickCancelarAnexos();">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
                 </div>
-                <div class="card-body naj-scrollable" style="overflow-x: hidden !important; height: 82%;">
+                <div class="card-body row naj-scrollable" style="overflow-x: hidden !important; height: 82%;">
                     <div id="loading-anexo-chat" class="loader loader-default" data-half></div>
                     <div class="col-12">
                         <div class="table table-striped files" id="previews">
                             <div id="template" class="file-row">
                                 <div class="row" style="align-items: center;">
-                                    <div class="col-7">
+                                    <div class="col-lg-7 col-md-7 col-sm-12">
                                         <p class="name" data-dz-name></p>
                                         <strong class="error text-danger" data-dz-errormessage></strong>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-md-2 col-sm-12">
                                         <p class="size" data-dz-size></p>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-3 col-sm-12">
                                         <button data-dz-remove class="btn btn-danger cancel">
                                             <i class="fas fa-ban mr-1"></i><span>Cancelar</span>
                                         </button>
@@ -60,7 +60,7 @@
                     <div style="position: fixed; bottom: 10px; width: 100%;">
                         <button type="button" class="btn btn-success" onclick="onClickSendAnexoChat();"><i class="fas fa-paper-plane mr-1"></i>Enviar</button>
                         <button type="button" class="btn btn-danger" onclick="onClickCancelarAnexos();"><i class="fas fa-times mr-1"></i>Cancelar</button>
-                        <button type="button" class="btn btn-info fileinput-button" style="position: absolute; right: 51%;"><i class="fas fa-paperclip mr-1"></i></i>Anexar Arquivos</button>
+                        <button type="button" class="btn btn-info fileinput-button button-adicionar-anexo-modal"><i class="fas fa-paperclip mr-1"></i></i>Anexar Arquivos</button>
                     </div>
                 </div>
             </div>
