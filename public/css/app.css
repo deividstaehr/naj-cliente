@@ -1308,7 +1308,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
     #content-chat-box-full {
         width: 97% !important;
-        height: 89% !important;
+        height: 88% !important;
     }
 
     #content-messages-chat {
@@ -1424,7 +1424,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
     }
 
     .body-page-naj {
-        height: 96vh !important;
+        height: 95vh !important;
         overflow-y: hidden !important;
     }
 }
