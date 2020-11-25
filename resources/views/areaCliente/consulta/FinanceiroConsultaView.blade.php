@@ -14,6 +14,10 @@
             cursor: pointer;
             font-size: 14px;
         }
+
+        .body-page-naj {
+            height: 94vh !important;
+        }
     </style>
 @endsection
 
