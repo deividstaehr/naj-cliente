@@ -16,7 +16,7 @@
         }
 
         .body-page-naj {
-            height: 94vh !important;
+            height: 92vh !important;
         }
     </style>
 @endsection
