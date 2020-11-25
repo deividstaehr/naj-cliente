@@ -118,6 +118,9 @@ async function onLoadAtendimento() {
         return;
     }
 
+    id_chat_current         = result.chat.id_chat;
+    id_usuario_current_chat = result.chat.id_usuario;
+
     let hasMensagemFromChat = await NajApi.getData(`mensagens/hasMensagemFromChat/${result.chat.id_chat}`);
 
     if(!hasMensagemFromChat || !hasMensagemFromChat.chat) {
@@ -129,8 +132,6 @@ async function onLoadAtendimento() {
     }
 
     await chat.loadMessageInChat({"id_chat" : result.chat.id_chat, "id_usuario_cliente" : result.chat.id_usuario}, true, false);
-    id_chat_current         = result.chat.id_chat;
-    id_usuario_current_chat = result.chat.id_usuario;
     limitAtualChat          = 20;
 }
 
