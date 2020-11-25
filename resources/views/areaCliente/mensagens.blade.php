@@ -3,10 +3,16 @@
 @section('title', 'NAJ | Mensagem')
 
 @section('css')
-    <link href="{{ env('APP_URL') }}css/acessoUsuario.css" rel="stylesheet">
     <link href="{{ env('APP_URL') }}ampleAdmin/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet">
     <link href="{{ env('APP_URL') }}ampleAdmin/assets/libs/summernote/dist/summernote-bs4.css" rel="stylesheet">
     <link href="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
+    <style>
+        .body-page-naj {
+            height: 94vh !important;
+            overflow-y: hidden !important;
+        }
+    </style>
 @endsection
 
 @section('active-layer', 'mensagens')

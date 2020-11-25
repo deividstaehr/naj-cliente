@@ -1422,9 +1422,4 @@ input[type='text'], input[type='number'], input[type='date'], select{
         height: 84% !important;
         min-height: 84% !important;
     }
-
-    .body-page-naj {
-        height: 94vh !important;
-        overflow-y: hidden !important;
-    }
 }
