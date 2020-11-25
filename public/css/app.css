@@ -1266,7 +1266,9 @@ input[type='text'], input[type='number'], input[type='date'], select{
     }
 
     .content-body-perfil {
-        height: 87% !important;
+        height: 91.2% !important;
+        overflow-y: auto !important;
+        margin-top: 10% !important;
     }
 
     .content-body-senha {

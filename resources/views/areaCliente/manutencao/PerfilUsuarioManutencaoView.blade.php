@@ -14,7 +14,7 @@
             <div class="col-12 content-header-perfil">
                 <p>ALTERA DADOS DO USUÁRIO</p>
             </div>
-            <div class="col-12 content-body-perfil scrollable">
+            <div class="col-12 content-body-perfil naj-scrollable">
                 <div class="row">
                     <div class="col-12">
                         <form class="form-horizontal needs-validation" id="form-usuario-perfil" novalidate="">
