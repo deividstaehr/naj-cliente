@@ -22,7 +22,7 @@
     @yield('css')
 </head>
 
-<body>    
+<body class="body-page-naj">    
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>

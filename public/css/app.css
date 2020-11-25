@@ -1308,7 +1308,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
     #content-chat-box-full {
         width: 97% !important;
-        height: 89% !important;
+        height: 83% !important;
     }
 
     #content-messages-chat {
@@ -1319,6 +1319,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
         width: 100% !important;
         height: 75px !important;
         position: absolute !important;
+        bottom: auto !important;
     }
 
     .input-mensagem-chat {
@@ -1420,5 +1421,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .content-pai-financeiro > .page-content {
         height: 84% !important;
         min-height: 84% !important;
+    }
+
+    .body-page-naj {
+        height: 90vh !important;
+        overflow-y: hidden !important;
     }
 }
