@@ -1236,6 +1236,11 @@ input[type='text'], input[type='number'], input[type='date'], select{
     margin-left: 10%;
 }
 
+.content-pai-financeiro > .page-content {
+    height: 89% !important;
+    min-height: 89% !important;
+}
+
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
     .row-content-perfil {
@@ -1325,10 +1330,6 @@ input[type='text'], input[type='number'], input[type='date'], select{
         left: 25 !important;
     }
 
-    /* .bg-content-messages {
-        overflow: auto !important;
-    } */
-
     .datatable-body::-webkit-scrollbar{
         width: 5px !important;
         height: 5px !important;
@@ -1410,5 +1411,14 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
     #total_pagar_pago {
         margin-left: 38px !important;
+    }
+
+    .content-row-chat {
+        height: 95%;
+    }
+
+    .content-pai-financeiro > .page-content {
+        height: 84% !important;
+        min-height: 84% !important;
     }
 }

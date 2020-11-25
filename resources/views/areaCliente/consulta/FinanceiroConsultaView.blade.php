@@ -21,7 +21,7 @@
 @section('content')
 
 <div class="content-pai-financeiro" style="height: 100%; min-height: 100% !important;">
-    <div class="page-content container-fluid note-has-grid p-2 mb-2" style="height: 89%; min-height: 89% !important;">
+    <div class="page-content container-fluid note-has-grid p-2 mb-2">
         <ul class="nav nav-pills p-2 bg-white rounded-pill align-items-center">
             <li class="nav-item">
                 <a href="#receber" id="link-receber" class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2" onclick="onClickTabReceber();">
