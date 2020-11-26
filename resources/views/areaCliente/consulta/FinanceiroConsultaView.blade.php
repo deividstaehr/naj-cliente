@@ -15,16 +15,21 @@
             font-size: 14px;
         }
 
-        .body-page-naj {
-            height: 92vh !important;
+        /* AJUSTES PARA TELAS PEQUENAS */
+        @media only screen and (max-width: 766px) {
+            .body-page-naj {
+                height: 92vh !important;
+                overflow: hidden;
+            }
         }
+        
     </style>
 @endsection
 
 @section('active-layer', 'financeiro')
 @section('content')
 
-<div class="content-pai-financeiro" style="height: 100%; min-height: 100% !important;">
+<div class="content-pai-financeiro">
     <div class="page-content container-fluid note-has-grid p-2 mb-2">
         <ul class="nav nav-pills p-2 bg-white rounded-pill align-items-center">
             <li class="nav-item">

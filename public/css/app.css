@@ -1236,6 +1236,11 @@ input[type='text'], input[type='number'], input[type='date'], select{
     margin-left: 10%;
 }
 
+.content-pai-financeiro {
+    height: 100%;
+    min-height: 100%;
+}
+
 .content-pai-financeiro > .page-content {
     height: 89% !important;
     min-height: 89% !important;
@@ -1380,8 +1385,11 @@ input[type='text'], input[type='number'], input[type='date'], select{
     }
 
     .content-pai-financeiro {
-        overflow-y: auto;
+        overflow-y: hidden;
         overflow-x: hidden;
+        height: 88% !important;
+        min-height: 88% !important;
+        margin-top: 10px;
     }
 
     .span-receber-recer {
