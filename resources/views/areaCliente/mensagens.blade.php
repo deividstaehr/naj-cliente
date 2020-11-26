@@ -8,10 +8,15 @@
     <link href="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 
     <style>
-        .body-page-naj {
-            height: 93vh !important;
-            overflow-y: hidden !important;
+
+        /* AJUSTES PARA TELAS PEQUENAS */
+        @media only screen and (max-width: 766px) {
+            .body-page-naj {
+                height: 93vh !important;
+                overflow-y: hidden !important;
+            }
         }
+        
     </style>
 @endsection
 
