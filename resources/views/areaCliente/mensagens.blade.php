@@ -9,7 +9,7 @@
 
     <style>
         .body-page-naj {
-            height: 93.3vh !important;
+            height: 93vh !important;
             overflow-y: hidden !important;
         }
     </style>
