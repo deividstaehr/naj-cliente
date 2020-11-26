@@ -1236,14 +1236,13 @@ input[type='text'], input[type='number'], input[type='date'], select{
     margin-left: 10%;
 }
 
-.content-pai-financeiro {
-    height: 100%;
-    min-height: 100%;
-}
-
 .content-pai-financeiro > .page-content {
     height: 89% !important;
     min-height: 89% !important;
+}
+
+.content-pai-financeiro {
+    height: 100%;
 }
 
 /* AJUSTES PARA TELAS PEQUENAS */
@@ -1382,14 +1381,13 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .content-bottom-indicadores-financeiro {
         height: auto !important;
         overflow-y: auto !important;
+        margin-top: 18px !important;
     }
 
     .content-pai-financeiro {
         overflow-y: hidden;
         overflow-x: hidden;
-        height: 88% !important;
-        min-height: 88% !important;
-        margin-top: 10px;
+        height: 88%;
     }
 
     .span-receber-recer {
@@ -1431,5 +1429,9 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .content-pai-financeiro > .page-content {
         height: 84% !important;
         min-height: 84% !important;
+    }
+
+    .ul-tab-financeiro {
+        margin-top: 10px !important;
     }
 }

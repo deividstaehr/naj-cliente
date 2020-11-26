@@ -77,13 +77,13 @@ $(document).ready(function() {
     });
 
     if(tab_selected == 'receber') {
-        onClickTabReceber();
+        onClickTabReceber(false);
     } else {
         onClickTabPagar();
     }
 });
 
-function onClickTabReceber() {
+function onClickTabReceber(useMarginTop = true) {
     $('#link-pagar').removeClass('active');
     $('#link-receber').addClass('active');
 
@@ -92,6 +92,13 @@ function onClickTabReceber() {
 
     $('#content-bottom-pagar').hide();
     $('#content-bottom-receber').show();
+
+    if(useMarginTop) {
+        //Se for SMARTPHONE tira o focus do campo depois de enviar a mensagem
+        if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
+            $('.content-pai-financeiro')[0].style.marginTop = '40%';
+        }
+    }
 }
 
 function onClickTabPagar() {
@@ -103,6 +110,11 @@ function onClickTabPagar() {
 
     $('#content-bottom-pagar').show();
     $('#content-bottom-receber').hide();
+
+    //Se for SMARTPHONE tira o focus do campo depois de enviar a mensagem
+    if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
+        $('.content-pai-financeiro')[0].style.marginTop = '40%';
+    }
 }
 
 async function getCustomFiltersPagar() {

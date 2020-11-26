@@ -18,8 +18,8 @@
         /* AJUSTES PARA TELAS PEQUENAS */
         @media only screen and (max-width: 766px) {
             .body-page-naj {
-                height: 92vh !important;
-                overflow: hidden;
+                height: 90vh !important;
+                overflow: hidden !important;
             }
         }
         
@@ -31,7 +31,7 @@
 
 <div class="content-pai-financeiro">
     <div class="page-content container-fluid note-has-grid p-2 mb-2">
-        <ul class="nav nav-pills p-2 bg-white rounded-pill align-items-center">
+        <ul class="nav nav-pills p-2 bg-white rounded-pill align-items-center ul-tab-financeiro">
             <li class="nav-item">
                 <a href="#receber" id="link-receber" class="nav-link rounded-pill note-link d-flex align-items-center px-2 px-md-3 mr-0 mr-md-2" onclick="onClickTabReceber();">
                     <i class="fas fa-dollar-sign mr-1"></i>
