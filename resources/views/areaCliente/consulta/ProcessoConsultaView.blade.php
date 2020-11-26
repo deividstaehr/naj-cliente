@@ -3,6 +3,14 @@
 @section('title', 'NAJ - Cliente | Processos')
 
 @section('css')
+    <style>
+        /* AJUSTES PARA TELAS PEQUENAS */
+        @media only screen and (max-width: 766px) {
+            #datatable-processos {
+                height: 90% !important;
+            }
+        }
+    </style>
 @endsection
 
 @section('active-layer', 'processo')
