@@ -4,7 +4,9 @@ namespace App\Http\Controllers\AreaCliente;
 
 use Hash;
 use App\Models\UsuarioModel;
+use App\Models\ChatRelacionamentoUsuarioModel;
 use App\Http\Controllers\NajController;
+use App\Http\Controllers\AreaCliente\ChatController;
 use App\Http\Controllers\AreaCliente\PessoaController;
 use App\Http\Controllers\AreaCliente\PessoaClienteController;
 use App\Http\Controllers\AreaCliente\PessoaUsuarioController;
@@ -383,6 +385,9 @@ class UsuarioController extends NajController {
             request()->merge(['usuarioVeioDoCpanel' => false]);
         }
 
+        //CRIA UM CHAT E RELACIONA O USUÁRIO
+        $this->storeChatUsuario($response->naj->model);
+
         $usuario->id                 = $response->naj->model->id;
         $usuario->password           = $response->naj->model->password;
         $usuario->nome               = request()->get('nome');
@@ -391,7 +396,7 @@ class UsuarioController extends NajController {
         $usuario->login              = request()->get('login');
         $usuario->email_recuperacao  = request()->get('email_recuperacao');
         $usuario->mobile_recuperacao = request()->get('mobile_recuperacao');
-        $usuario->senha_provisoria = 'N';
+        $usuario->senha_provisoria   = 'N';
 
         $result = $usuario->save();
 
@@ -400,6 +405,27 @@ class UsuarioController extends NajController {
         }
 
         return $this->resolveResponse(['mensagem' => 'Não foi possível alterar os dados, tente novamente mais tarde!', 'status_code' => 400], 200);
+    }
+
+    private function storeChatUsuario($model) {
+        $ChatRelUsuarioModel = new ChatRelacionamentoUsuarioModel();
+        $chat                = $ChatRelUsuarioModel->where('id_usuario', $model->id)->first();
+
+        //VERIFICANDO SE JÁ TEM CHAT
+        if(is_null($chat)) {
+            $ChatController = new ChatController();
+
+            $max  = $ChatController->getModel()->max('id') + 1;
+            $nome = '#PUBLICO_' . $max;
+
+            request()->merge(['id_usuario' => $model->id]);
+
+            return $ChatController->store([
+                'data_inclusao' => date('Y-m-d'),
+                'tipo'          => 0,
+                'nome'          => $nome
+            ]);
+        }
     }
 
 }
