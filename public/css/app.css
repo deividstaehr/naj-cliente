@@ -1198,7 +1198,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .content-button-enviar-smartphone {
-    display: none;
+    display: block;
 }
 
 .btn-cancelar-anexos-modal {
