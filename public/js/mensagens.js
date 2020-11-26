@@ -158,13 +158,13 @@ async function sendMessage(mensagem = false) {
             return;
         }
         if(result.model) {
-            let sHtmlMessage = chat.newContentNewMessage({"nome" : nomeUsuarioLogado, "conteudo" : message, "data_hora" : data_hora}, true);
-            $(`#content-messages-chat`).append(sHtmlMessage);
-
             //Se for SMARTPHONE tira o focus do campo depois de enviar a mensagem
             if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
                 $('#input-text-chat-enviar').blur();
             }
+
+            let sHtmlMessage = chat.newContentNewMessage({"nome" : nomeUsuarioLogado, "conteudo" : message, "data_hora" : data_hora}, true);
+            $(`#content-messages-chat`).append(sHtmlMessage);
 
             chat.scrollToBottom();
             chat.cleanInputMessage();
