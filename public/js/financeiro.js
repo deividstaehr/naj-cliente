@@ -101,7 +101,7 @@ function onClickTabReceber(useMarginTop = true) {
     }
 }
 
-function onClickTabPagar(useMarginTop) {
+function onClickTabPagar(useMarginTop = true) {
     $('#link-receber').removeClass('active');
     $('#link-pagar').addClass('active');
 
