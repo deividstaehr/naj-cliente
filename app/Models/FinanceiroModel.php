@@ -17,7 +17,7 @@ class FinanceiroModel extends NajModel {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
         if($codigoCliente == "") {
-            $codigoCliente = "-9999";
+            $codigoCliente = "-1";
         }
 
         $this->setTable('conta');
@@ -149,6 +149,10 @@ class FinanceiroModel extends NajModel {
     public function getTotalPagarTotalReceber() {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
+        if($codigoCliente == "") {
+            $codigoCliente = "-1";
+        }
+
         $total_pagar = DB::select("
             SELECT SUM( 
                     IF(CP.VALOR_PARCIAL>0, CP.VALOR_PARCELA-CP.VALOR_PARCIAL, CP.VALOR_PARCELA)
@@ -211,6 +215,10 @@ class FinanceiroModel extends NajModel {
 
     public function getTotalRecebidoReceberAtrasado($parametro) {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+        if($codigoCliente == "") {
+            $codigoCliente = "-1";
+        }
 
         $total_recebido = DB::select("
                 SELECT (

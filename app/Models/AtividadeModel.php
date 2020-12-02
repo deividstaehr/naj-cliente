@@ -17,7 +17,7 @@ class AtividadeModel extends NajModel {
       $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
       if($codigoCliente == "") {
-         $codigoCliente = "-9999";
+         $codigoCliente = "-1";
       }
 
       $this->setTable('atividade');
@@ -114,6 +114,10 @@ class AtividadeModel extends NajModel {
     public function getTotalHoras($data_inicial, $data_final) {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
+        if($codigoCliente == "") {
+            $codigoCliente = "-1";
+         }
+
         $total_horas = DB::select("
             SELECT time_format( SEC_TO_TIME( SUM( TIME_TO_SEC( tempo ) ) ),'%H:%i:%s')  AS total_horas 
               FROM atividade 
@@ -127,6 +131,10 @@ class AtividadeModel extends NajModel {
 
     public function getQtdeUltimas30DiasAndTodas($parametro) {
       $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+      if($codigoCliente == "") {
+         $codigoCliente = "-1";
+      }
 
       $trinta_dias = DB::select("
           SELECT COUNT(0) qtde_30_dias
