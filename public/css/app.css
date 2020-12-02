@@ -1245,6 +1245,12 @@ input[type='text'], input[type='number'], input[type='date'], select{
     height: 100%;
 }
 
+.icone-link-chat {
+    margin-left: 3px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
     .row-content-perfil {

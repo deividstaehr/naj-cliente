@@ -28,7 +28,7 @@ class CheckPasswordProvisoria {
 
         $rota = $request->route()->getName();
 
-        if($rota == 'empresa.first-empresa' || $rota == 'password.update' || $rota == 'usuario.update-password' || $rota == 'usuario.update-senha-provisoria' || $rota == 'empresa.identificador-empresa' || $rota == 'usuario.atualizar-dados') {
+        if($rota == 'empresa.first-empresa' || $rota == 'password.update' || $rota == 'usuario.update-password' || $rota == 'usuario.update-senha-provisoria' || $rota == 'empresa.identificador-empresa' || $rota == 'usuario.atualizar-dados' || $rota == 'login.usuario.store' || $rota == 'login.usuario.store.index') {
             return $next($request);
         }
 

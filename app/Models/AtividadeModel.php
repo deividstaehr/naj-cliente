@@ -58,7 +58,7 @@ class AtividadeModel extends NajModel {
       }
 
       $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($codigo_usuario[0]->val);
+      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloAtividades($codigo_usuario[0]->val);
       $aCodigo = [];
 
       foreach($relacionamentos as $relacionamento) {

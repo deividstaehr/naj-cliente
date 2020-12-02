@@ -597,13 +597,20 @@ class Chat {
             classOdd = 'color-no-odd-naj-usuario-cliente-message';
         }
 
+        let conteudo;
+        if(message.conteudo.search('<a href=') > -1) {
+            conteudo = message.conteudo;
+        } else {
+            conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank">$1 <i class="icone-link-chat fas fa-link"></i></a>');
+        }
+
         return `
             <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item">
                 <div class="chat-content">
                     <div class="box bg-light-success p-2 ${classOdd}">
                         <h5 class="font-medium m-0">${message.nome}</h5>
                         <div class="yiyiyiyiyi">
-                            <span class="mb-0 text-chat-messages">${message.conteudo}</span>                            
+                            <span class="mb-0 text-chat-messages">${conteudo}</span>
                         </div>
                         <div class="chat-time m-0">${data_hora}${(!isOdd) ? '' : spanIconStatusMessage}</div>
                     </div>

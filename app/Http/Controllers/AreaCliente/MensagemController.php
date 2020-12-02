@@ -118,7 +118,7 @@ class MensagemController extends Controller {
             where c.tipo = '0'
               and cru.id_chat = {$chat->getOriginal()['id_chat']}
             group by u.id_usuario_cliente
-            order by cm.data_hora desc;
+            order by cm.data_hora desc
         ");
 
         return response()->json(['todas' => $todas, 'novas' => $novas]);

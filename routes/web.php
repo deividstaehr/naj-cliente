@@ -12,7 +12,6 @@ Route::get('/', function() {
     return redirect('auth/login');
 });
 
-
 /*
  | Install
  |
@@ -23,6 +22,21 @@ Route::group([
 ], function($router) {
     //EMPRESA
     Route::get('empresas/getNomeFirstEmpresa', 'EmpresaController@getNomeFirstEmpresa')->name('empresa.first-empresa');
+});
+
+/*
+ | Cadastro Usuário Login
+ |
+ */
+Route::group([
+    'namespace' => 'AreaCliente',
+    'prefix'    => 'usuario'
+], function($router) {
+    //CADASTRO USUARIO NO LOGIN
+    Route::get('login/store' , 'HomeController@indexStoreUsuario')->name('login.usuario.store.index');
+    Route::post('login/store', 'HomeController@storeUsuario')->name('login.usuario.store');
+
+    Route::get('empresas/identificador'      , 'EmpresaController@getIdentificadorEmpresa')->name('empresa.identificador-empresa');
 });
 
 /*

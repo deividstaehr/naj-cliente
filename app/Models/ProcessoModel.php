@@ -73,7 +73,7 @@ class ProcessoModel extends NajModel {
       }
 
       $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($codigo_usuario[0]->val);
+      $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloProcessos($codigo_usuario[0]->val);
       $aCodigo = [];
 
       foreach($relacionamentos as $relacionamento) {
@@ -116,6 +116,7 @@ class ProcessoModel extends NajModel {
             SELECT COUNT(0) 
               FROM PRC_ANEXOS
              WHERE PRC_ANEXOS.CODIGO_PROCESSO = PRC.CODIGO
+               AND PRC_ANEXOS.SERVICOS_CLIENTE = 'S'
          ) AS QTDE_ANEXOS_PROCESSO")
          ->addRawColumn("(
             SELECT COUNT(0) 

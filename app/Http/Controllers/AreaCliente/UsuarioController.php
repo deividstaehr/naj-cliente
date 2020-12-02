@@ -137,6 +137,9 @@ class UsuarioController extends NajController {
         //Se for a rotina de INSTALL do sistema, então chama um método diferente na inclusão.
         if(request()->get('tokenInstall')) {
             $result = $UsuarioApiController->storeUserByInstall(request()->get('tokenInstall'), $data);
+        } else if(request()->get('auto_cadastro_naj_adv_web')) {
+            $data['auto_cadastro_naj_adv_web'] = true;
+            $result = $UsuarioApiController->storeUserByAutoCadastro($data);
         } else {
             $result = $UsuarioApiController->store($data);
         }

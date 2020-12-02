@@ -45,6 +45,15 @@ class UsuarioApiController extends NajApiController {
         return $response;
     }
 
+    public function storeUserByAutoCadastro($data) {
+        $this->setUrlBase(env('CPANEL_URL'));
+        $this->setUrl('usuarios?XDEBUG_SESSION_START');
+        $this->setToken('xxxxx');
+        $response = $this->post($data);
+
+        return $response;
+    }
+
     public function getUserByCpf($cpf) {
         $this->setUrlBase(env('CPANEL_URL'));
         $this->setUrl('usuarios/cpf/' . $cpf);

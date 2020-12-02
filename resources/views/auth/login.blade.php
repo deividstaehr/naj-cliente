@@ -49,7 +49,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
                                             </div>
-                                            <input type="text" name="login" id="login" class="form-control form-control-lg mascaracpf" aria-label="Login" aria-describedby="basic-addon1" tabindex="1">
+                                            <input type="text" name="login" id="login" class="form-control form-control-lg mascaracpf" aria-label="Login" aria-describedby="basic-addon1" tabindex="1" placeholder="Informe o seu CPF">
                                             <div class="dropright mt-1">
                                                 <button type="button" class="ml-2 btn-login-cpf-livre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v" act="1"></i></button>
                                                 <div class="dropdown-menu pb-0" style="position: absolute; transform: translate3d(99px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -70,6 +70,7 @@
                                             </div>
                                         </div>
 
+                                        <span style="cursor: pointer; margin-left: 8%;" onclick="onClickCadastroLogin();"><i class="fas fa-user-plus"></i> Não tem login? Clique aqui e se cadastre?</span>
                                         <span style="cursor: pointer; margin-left: 22%;" onclick="onClickModalEsqueceuLogin();"><i class="fas fa-lock"></i> Esqueceu o login ou a senha?</span>
 
                                         <input type="hidden" name="_method" value="POST">
@@ -114,13 +115,14 @@
             $(document).ready(function() {
                 $('#login-cpf').on('click', function() {
                     $('#login').addClass('mascaracpf');
-                    $('#login').mask('000.000.000-00', {placeholder: "___.___.___-__"});
+                    $('#login').mask('000.000.000-00');
+                    $('#login')[0].placeholder = 'Informe o seu CPF';
                 });
 
                 $('#login-livre').on('click', function() {
                     $('#login').removeClass('mascaracpf');
                     $('#login').unmask();
-                    $('#login')[0].placeholder = 'Login';
+                    $('#login')[0].placeholder = 'Informe o seu Login';
                     $('#login').removeAttr('maxlength');
                 });
 
@@ -147,7 +149,7 @@
                 });
             });
 
-            $('.mascaracpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});
+            $('.mascaracpf').mask('000.000.000-00');
 
             function onClickModalEsqueceuLogin() {
                 Swal.fire({
@@ -155,6 +157,10 @@
                     text: 'Procure o administrador e solicite que gere uma NOVA SENHA provisória, em seguida, você poderá fazer LOGIN e TROCAR sua senha!',
                     type: "warning",
                 });
+            }
+
+            function onClickCadastroLogin() {
+                return window.location.href = `${APP_URL}usuario/login/store`;
             }
 
         </script>

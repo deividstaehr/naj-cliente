@@ -94,7 +94,7 @@ $(document).ready(function() {
 async function loadMessageChat() {
     let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}`);
 
-    if(!result.chat.id_chat || result.chat.id_usuario) {
+    if(!result.chat.id_chat || !result.chat.id_usuario) {
         return;
     }
 

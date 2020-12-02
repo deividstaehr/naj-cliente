@@ -64,7 +64,7 @@ class FinanceiroModel extends NajModel {
         }
 
         $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
-        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuario($codigo_usuario[0]->val);
+        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloFinanceiroContasReceber($codigo_usuario[0]->val);
         $aCodigo = [];
 
         foreach($relacionamentos as $relacionamento) {

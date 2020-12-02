@@ -85,10 +85,21 @@ async function loadContainerAtividade() {
         'id_usuario'  : idUsuarioLogado
     };
 
-    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?filterUser=${filter}&XDEBUG_SESSION_START`);
+    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?filterUser=${filter}`);
 
-    if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {
-        $('#qtde_atividade_trinta_dias')[0].innerHTML = `${resultAtividade.trinta_dias[0].qtde_30_dias}`;
+    if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {        
+        if(resultAtividade.trinta_dias[0].qtde_30_dias > 0) {
+            $('#qtde_atividade_trinta_dias')[0].innerHTML = `
+                ${resultAtividade.trinta_dias[0].qtde_30_dias}
+                <div class="notify" style="top: -15px !important;">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            `;
+        } else {
+            $('#qtde_atividade_trinta_dias')[0].innerHTML = `${resultAtividade.trinta_dias[0].qtde_30_dias}`;
+        }
+        
         $('#qtde_atividade_todas')[0].innerHTML = `${resultAtividade.todas[0].todas}`;
     }
 }
@@ -145,7 +156,7 @@ async function onClickSendLogo() {
 
     let parseFile = await toBase64(myDropzone.files[0]);
 
-    let result = await NajApi.postData(`empresas/logo?XDEBUG_SESSION_START`, {'file': parseFile});
+    let result = await NajApi.postData(`empresas/logo`, {'file': parseFile});
 
     if(result) {
         NajAlert.toastSuccess('Logo alterada com sucesso!');
