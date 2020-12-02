@@ -271,7 +271,12 @@
                         data  : dados
                     })
                     .then(response => {
-                        debugger;
+                        if(!response.data.original.model && response.data.original.mensagem) {
+                            loadingDestroy('bloqueio-cadastro-usuario');
+                            NajAlert.toastWarning(response.data.original.mensagem);
+                            return;
+                        }
+
                         //Faz a autenticação local, para entrar no sistema
                         axios({
                             method  : 'post',

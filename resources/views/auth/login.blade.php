@@ -71,7 +71,7 @@
                                         </div>
 
                                         <span style="cursor: pointer; margin-left: 8%;" onclick="onClickCadastroLogin();"><i class="fas fa-user-plus"></i> Não tem login? Clique aqui e se cadastre?</span>
-                                        <span style="cursor: pointer; margin-left: 22%;" onclick="onClickModalEsqueceuLogin();"><i class="fas fa-lock"></i> Esqueceu o login ou a senha?</span>
+                                        <span style="cursor: pointer; margin-left: 22%; margin-top: 20px !important;" onclick="onClickModalEsqueceuLogin();"><i class="fas fa-lock"></i> Esqueceu o login ou a senha?</span>
 
                                         <input type="hidden" name="_method" value="POST">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
