@@ -17,7 +17,7 @@ class FinanceiroPagarModel extends NajModel {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
         if($codigoCliente == "") {
-            $codigoCliente = "-9999";
+            $codigoCliente = "-1";
         }
 
         $this->setTable('conta');
@@ -147,6 +147,10 @@ class FinanceiroPagarModel extends NajModel {
 
     public function getTotalPagoPagarAtrasado($parametro) {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+        if($codigoCliente == "") {
+            $codigoCliente = "-1";
+        }
 
         $total_pago = DB::select("
                 SELECT (
