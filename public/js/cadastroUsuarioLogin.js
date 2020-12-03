@@ -13,6 +13,12 @@ function onChangeCpf() {
     $('#login').val($('#cpf').val());
 }
 
+function onChangeNome() {
+    let nome = $('input[name=nome]').val().split(' ');
+
+    $('[name=apelido]').val(nome[0]);
+}
+
 function validaCampoLogin() {
     let login = $('[name=login]').val(),
         cpf   = $('[name=cpf]').val();

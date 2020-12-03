@@ -71,7 +71,7 @@
                                         </div>
 
                                         <div>
-                                            <span style="cursor: pointer; margin-left: 8%;" onclick="onClickCadastroLogin();"><i class="fas fa-user-plus"></i> Não tem login? Clique aqui e se cadastre?</span>
+                                            <span style="cursor: pointer; margin-left: 8%;" onclick="onClickCadastroLogin();"><i class="fas fa-user-plus"></i> Não tem login? Clique aqui e se cadastre!</span>
                                         </div>
                                         
                                         <div class="mt-3">

@@ -56,7 +56,7 @@
                                                     <label for="nome" class="col-sm-2 control-label label-center pr-2">Nome</label>
                                                     <div class="col-sm-9 input-alterar-dados">
                                                         <div class="input-group">
-                                                            <input type="text" name="nome" class="form-control" required="">
+                                                            <input type="text" name="nome" class="form-control" required="" onchange="onChangeNome();">
                                                         </div>
                                                     </div>
                                                 </div>
