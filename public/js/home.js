@@ -1,6 +1,9 @@
 const NajApi  = new Naj();
 
 $(document).ready(function() {
+
+    //Atualizando a data de acesso ao sistema
+    updateDataAcessoSistema();
     
     //Evento do click no bloco MINHAS MENSAGENS
     $('#content-minhas-mensagens').on('click', function() {
@@ -178,4 +181,21 @@ function toBase64(file) {
 
 async function filterUsuario() {
     return btoa(JSON.stringify([{'val': idUsuarioLogado}]));
+}
+
+async function updateDataAcessoSistema() {
+    let key = btoa(JSON.stringify({'id_usuario' : idUsuarioLogado}));
+
+    let data = {
+        'data_acesso' : getDataHoraAtual()
+    };
+
+    let result = await NajApi.updateData(`usuarios/acesso/${key}?XDEBUG_SESSION_START`, data);
+
+    if(result.status_code == 200) {
+        console.log('Ultimo acesso registrado com sucesso!');
+        sessionStorage.setItem('@NAJ_WEB/ultimo_acesso', true);
+    } else {
+        console.log(result.mensagem);
+    }
 }

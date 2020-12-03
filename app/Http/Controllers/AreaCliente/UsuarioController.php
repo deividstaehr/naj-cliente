@@ -431,4 +431,26 @@ class UsuarioController extends NajController {
         }
     }
 
+    public function updateUltimoAcessoSistema($parametro) {
+        $parametro   = json_decode(base64_decode($parametro));
+        $id_usuario  = $parametro->id_usuario;
+        $data_acesso = request()->get('data_acesso');
+
+        //Validando se veio os parâmetros
+        if(!$data_acesso || (!$id_usuario && $id_usuario != 0)) {
+            return $this->resolveResponse(['mensagem' => 'Não foi possível registrar o ultimo acesso, faltou algum parâmetro, tente novamente mais tarde!', 'status_code' => 400], 200);
+        }
+
+        $UsuarioModel = $this->getModel()->find($id_usuario);
+        $UsuarioModel->ultimo_acesso = $data_acesso;
+
+        $result = $UsuarioModel->save();
+
+        if($result) {
+            return $this->resolveResponse(['mensagem' => 'Ultimo acesso alterado com sucesso!', 'status_code' => 200], 200);
+        }
+
+        return $this->resolveResponse(['mensagem' => 'Não foi possível registrar o ultimo acesso, tente novamente mais tarde!', 'status_code' => 400], 200);
+    }
+
 }

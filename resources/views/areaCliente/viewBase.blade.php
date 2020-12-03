@@ -65,7 +65,7 @@
                                 </div>
                                 <a class="dropdown-item"  href="{{ url(env('APP_ALIAS') . '/usuarios/perfil') }}"><i class="ti-user mr-1 ml-1"></i> Alterar dados do Usuário</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)" id="logout"><i class="fa fa-power-off mr-1 ml-1"></i> Logout</a>
+                                <a class="dropdown-item" href="javascript:void(0)" id="logout"><i class="fa fa-power-off mr-1 ml-1"></i> Sair</a>
                             </div>
                         </li>
                     </ul>

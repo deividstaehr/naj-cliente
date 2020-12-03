@@ -138,6 +138,7 @@ Route::group([
     Route::put('usuarios/{id}'               , 'UsuarioController@update')->name('usuario.update');    
     Route::put('usuarios/password/{id}'      , 'UsuarioController@updatePassword')->name('usuario.update-password');
     Route::put('usuarios/atualizarDados/{id}', 'UsuarioController@atualizarDados')->name('usuario.atualizar-dados');
+    Route::put('usuarios/acesso/{id}'        , 'UsuarioController@updateUltimoAcessoSistema')->name('usuario.update-ultimo-acesso');
 
     //FINANCEIRO
     Route::get('financeiro/index/{parametros}'     , 'FinanceiroController@indexFinanceiro')->name('financeiro.index');    

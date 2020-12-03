@@ -1,5 +1,12 @@
 $(document).ready(function() {
+
+    let buttonVoltar = `
+        <button type="button" id="voltar" class="btn button-voltar-auto-cadastro" title="Cancelar" onclick="onClickVoltarLogin();">
+            Cancelar
+        </button>
+    `;
     
+    $('.footer-steps-naj').append(buttonVoltar);
 });
 
 function onChangeCpf() {
@@ -29,4 +36,8 @@ function validaCampoEmail() {
     }
 
     return false;
+}
+
+function onClickVoltarLogin() {
+    return window.location.href = `${baseURL}auth/login`;
 }

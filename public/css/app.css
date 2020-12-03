@@ -1251,6 +1251,22 @@ input[type='text'], input[type='number'], input[type='date'], select{
     cursor: pointer;
 }
 
+.button-voltar-auto-cadastro {
+    color: #54667a !important;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0 0 0 100px rgba(0, 0, 0, .02) inset;
+    background-color: #fff !important;
+    border-radius: 4px;
+    padding: 7px 12px;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+.button-voltar-auto-cadastro:hover {
+    background: white;
+    color: #868a98 !important;
+}
+
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
     .row-content-perfil {

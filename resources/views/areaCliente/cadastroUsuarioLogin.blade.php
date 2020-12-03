@@ -187,7 +187,6 @@
                     finish: "Confirmar"
                 },
                 onFinished: async function(event, currentIndex) {
-                    debugger;
                     loadingStart('bloqueio-cadastro-usuario');
 
                     let empresa = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
