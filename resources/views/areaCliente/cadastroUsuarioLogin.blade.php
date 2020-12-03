@@ -123,7 +123,12 @@
                                         <div id="content-avisos-atualizar-dados">
                                             <h5 style="font-weight: 500 !important;">Dicas para criar uma senha mais segura:</h5>
                                             <p class="m-0">* Combine letras maiúsculas e minúsculas, símbolos e números.</p>
-                                            <p class="m-0">* Não use informações pessoais como data de nascimento ou seu nome.</p>
+                                            <p class="m-0">* Não use informações pessoais como data de nascimento ou seu nome.</p>                                            
+                                            <div class="custom-control custom-checkbox" style="margin-left: -5px;">
+                                                <input class="custom-control-input" type="checkbox" id="check-permissao" name="check-permissao" checked="true">
+                                                &emsp;
+                                                <label class="custom-control-label" for="check-permissao" id="label-permissao"></label>
+                                            </div>
                                         </div>
 
                                         <input type="hidden" name="_method" value="POST">
@@ -152,8 +157,12 @@
         <script src="{{ env('APP_URL') }}js/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
         <script>
             const baseURL = "{{ env('APP_URL') }}";
+            const nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
+
+            $('#label-permissao')[0].innerHTML = `Autorizo: ${nomeEmpresa} a entrar em contato utilizando minhas informações como: E-MAIL e TELEFONE MÓVEL para tratar de assuntos jurídicos.`;
 
             $(window).on('load', () => {
+                
                 identificador = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
                 if(!identificador) {
                     //Busca o identificador
@@ -187,6 +196,13 @@
                     finish: "Confirmar"
                 },
                 onFinished: async function(event, currentIndex) {
+                    let checkedPermissao = $('#check-permissao')[0].checked;
+
+                    if(!checkedPermissao) {
+                        NajAlert.toastWarning("Você deve MARCAR a caixa que AUTORIZA o prestador de serviços fazer contato com você!");
+                        return;
+                    }
+
                     loadingStart('bloqueio-cadastro-usuario');
 
                     let empresa = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
