@@ -81,7 +81,7 @@
             <div class="btn-group dropup show pl-0 content-input-mensagem-chat" id="content-input-tres-pontos-chat" style="width: 3% !important; left: 17px; position: absolute; background-color: #f1f1f1 !important;">
                 <button type="button" class="btn btn-light btn-light-atendimento-dropdown" id="input-anexo"><i class="fas fa-paperclip"></i></button>
             </div>
-            <textarea name="" id="input-text-chat-enviar" class="input-mensagem-chat content-input-mensagem-chat" wrap="hard" placeholder="Digete sua mensagem"></textarea>
+            <textarea name="" id="input-text-chat-enviar" class="input-mensagem-chat content-input-mensagem-chat" wrap="hard" placeholder="Digite sua mensagem"></textarea>
             <div class="content-button-enviar-smartphone">
                 <button type="button" class="btn btn-success btn-circle" id="button-enviar-smartphone"><i class="fas fa-paper-plane" style="margin-left: -5px;"></i></button>
             </div>
