@@ -601,13 +601,13 @@ class Chat {
         if(message.conteudo.search('<a href=') > -1) {
             conteudo = message.conteudo;
         } else {
-            conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank">$1</a>');
+            conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank" style="word-wrap: break-word;">$1</a>');
         }
 
         return `
             <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item">
                 <div class="chat-content">
-                    <div class="box bg-light-success p-2 ${classOdd}">
+                    <div class="box bg-light-success p-2 ${classOdd}" style="width: 100%;">
                         <h5 class="font-medium m-0">${message.nome}</h5>
                         <div class="yiyiyiyiyi">
                             <span class="mb-0 text-chat-messages">${conteudo}</span>

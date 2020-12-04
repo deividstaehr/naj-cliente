@@ -821,6 +821,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
     font-size: 14px;
     white-space: pre-wrap;
     text-align: left;
+    width: 100%;
 }
 
 #content-list-contatos {
