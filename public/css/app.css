@@ -767,7 +767,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
 .iconesStatusMessageSuccess {
     font-size: 14px;
-    color: blueviolet;
+    color: blue;
 }
 
 .content-butons-chat-editor-file {

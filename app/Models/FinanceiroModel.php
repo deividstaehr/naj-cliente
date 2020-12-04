@@ -81,6 +81,33 @@ class FinanceiroModel extends NajModel {
         return $aCodigo;
     }
 
+    private function getRelacionamentoClientesPagar() {
+        $codigo_usuario = request()->get('filterUser');
+
+        if($codigo_usuario) {
+           $codigo_usuario = json_decode(base64_decode($codigo_usuario));
+        } else {
+           return [];
+        }
+
+        $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
+        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloFinanceiroContasPagar($codigo_usuario[0]->val);
+        $aCodigo = [];
+
+        foreach($relacionamentos as $relacionamento) {
+           $aCodigo[] = $relacionamento->pessoa_codigo;
+        }
+
+        $rota = request()->route()->getName();
+
+        //Se for paginate remove o filtro para não add duas vezes
+        if($rota == 'financeiro.receber.paginate') {
+           request()->request->remove('filterUser');
+        }
+
+        return $aCodigo;
+    }
+
     public function addAllColumns() {
         $this->addRawColumn("CONTA.CODIGO AS CODIGO_CONTA")
             ->addRawColumn("CONTA.TIPO AS TIPO_CONTA")
@@ -147,10 +174,10 @@ class FinanceiroModel extends NajModel {
     }
 
     public function getTotalPagarTotalReceber() {
-        $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+        $codigoClientePagar = implode(',', $this->getRelacionamentoClientesPagar());
 
-        if($codigoCliente == "") {
-            $codigoCliente = "-1";
+        if($codigoClientePagar == "") {
+            $codigoClientePagar = "-1";
         }
 
         $total_pagar = DB::select("
@@ -169,7 +196,7 @@ class FinanceiroModel extends NajModel {
          LEFT JOIN PESSOA P2 ON P2.CODIGO = C.CODIGO_ADVERSARIO
          LEFT JOIN PESSOA P3 ON P3.CODIGO = PC.CODIGO_ADVERSARIO
              WHERE CP.SITUACAO IN('A','P')
-               AND C.CODIGO_PESSOA IN ({$codigoCliente})
+               AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
                #PARA CONTAS DA GUIA A PAGAR (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                AND (
                  C.TIPO='R' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
@@ -178,6 +205,12 @@ class FinanceiroModel extends NajModel {
                    CP.CODIGO_CONTA,
                    CP.PARCELA ASC
         ");
+
+        $codigoClienteReceber = implode(',', $this->getRelacionamentoClientes());
+
+        if($codigoClienteReceber == "") {
+            $codigoClienteReceber = "-1";
+        }
 
         $total_receber = DB::select("
             SELECT SUM( 
@@ -199,7 +232,7 @@ class FinanceiroModel extends NajModel {
          LEFT JOIN PESSOA P2 ON P2.CODIGO = C.CODIGO_ADVERSARIO
          LEFT JOIN PESSOA P3 ON P3.CODIGO = PC.CODIGO_ADVERSARIO
              WHERE CP.SITUACAO IN('A','P')
-               AND C.CODIGO_PESSOA IN ({$codigoCliente})
+               AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
             #PARA CONTAS DA GUIA A RECEBER (QUE O CLIENTE TEM PARA RECEBER)
               AND (
                    (C.TIPO='R' AND C.PAGADOR='2')

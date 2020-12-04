@@ -4,12 +4,26 @@
 
 @section('css')
     <link href="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
+    <style>
+        .page-content-home {
+            height: 105% !important;
+        }
+
+        /* AJUSTES PARA TELAS PEQUENAS */
+        @media only screen and (max-width: 766px) {
+            .page-content-home {
+                height: 100% !important;
+            }
+        }
+        
+    </style>
 @endsection
 
 @section('active-layer', 'home')
 
 @section('content')
-<div class="page-content container-fluid pt-2 pb-2 scrollable" style="height: 105% !important;">
+<div class="page-content container-fluid pt-2 pb-2 scrollable page-content-home">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row">

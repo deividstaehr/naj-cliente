@@ -215,7 +215,7 @@ class ChatMensagemModel extends NajModel {
     }
 
     private function setStatusMensagemLida($idChat) {
-        $notRead = $this->getNotReadMessagesMyUser($idChat, Auth::user()->id);
+        $notRead = $this->getNotReadMessages($idChat, Auth::user()->id);
 
         $ChatMensagemStatusController = new ChatMensagemStatusController();
 
