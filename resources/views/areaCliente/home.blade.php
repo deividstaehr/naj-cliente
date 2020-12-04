@@ -13,7 +13,7 @@
         /* AJUSTES PARA TELAS PEQUENAS */
         @media only screen and (max-width: 766px) {
             .page-content-home {
-                height: 100% !important;
+                height: 99% !important;
             }
         }
         

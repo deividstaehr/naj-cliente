@@ -59,7 +59,11 @@ async function loadContainerMensagens() {
         $('#qtde_mensagens_novas')[0].innerHTML = `0`;
     }
 
-    if(resultMessages.todas[0] && resultMessages.novas) {
+    if(resultMessages.todas[0]) {
+        $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
+    }
+
+    if(resultMessages.novas) {
         if(resultMessages.novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
                 ${resultMessages.novas}
@@ -71,11 +75,6 @@ async function loadContainerMensagens() {
         } else {
             $('#qtde_mensagens_novas')[0].innerHTML = `${resultMessages.novas}`;
         }
-        
-        $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
-    } else {
-        $('#qtde_mensagens_novas')[0].innerHTML = `0`;
-        $('#qtde_mensagens_todas')[0].innerHTML = `0`;
     }
 }
 
