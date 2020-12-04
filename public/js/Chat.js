@@ -601,7 +601,7 @@ class Chat {
         if(message.conteudo.search('<a href=') > -1) {
             conteudo = message.conteudo;
         } else {
-            conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank">$1 <i class="icone-link-chat fas fa-link"></i></a>');
+            conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank">$1</a>');
         }
 
         return `
