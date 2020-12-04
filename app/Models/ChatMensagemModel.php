@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\NajModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AreaCliente\ChatMensagemStatusController;
 
 /**
  * Modelo de boletos.
@@ -36,6 +38,8 @@ class ChatMensagemModel extends NajModel {
         if($offset < 0) {
             $offset = 0;
         }
+
+        $this->setStatusMensagemLida($id);
 
         $aData = DB::select("
           select c.id_mensagem,
@@ -178,6 +182,50 @@ class ChatMensagemModel extends NajModel {
           ORDER BY id DESC
               LIMIT 1
       ");
+    }
+
+    public function getNotReadMessages($idChat, $idUsuario) {
+      $result = DB::table('chat_mensagem')
+          ->where('id_chat', $idChat)
+          ->where('id_usuario', '<>', $idUsuario)
+          ->whereNotExists(function($query) {
+              $query->select(DB::raw(1))
+                  ->from('chat_mensagem_status')
+                  ->where('chat_mensagem_status.status', 2)
+                  ->whereRaw('chat_mensagem_status.id_mensagem = chat_mensagem.id');
+          })
+          ->get();
+
+      return $result;
+    }
+
+    private function getNotReadMessagesMyUser($idChat, $idUsuario) {
+        $result = DB::table('chat_mensagem')
+            ->where('id_chat', $idChat)
+            ->where('id_usuario', '=', $idUsuario)
+            ->whereNotExists(function($query) {
+                $query->select(DB::raw(1))
+                    ->from('chat_mensagem_status')
+                    ->where('chat_mensagem_status.status', 2)
+                    ->whereRaw('chat_mensagem_status.id_mensagem = chat_mensagem.id');
+            })
+            ->get();
+
+        return $result;
+    }
+
+    private function setStatusMensagemLida($idChat) {
+        $notRead = $this->getNotReadMessagesMyUser($idChat, Auth::user()->id);
+
+        $ChatMensagemStatusController = new ChatMensagemStatusController();
+
+        foreach($notRead as $Mensagem) {
+            $ChatMensagemStatusController->store([
+                "id_mensagem"      => $Mensagem->id,
+                "status"           => 2,
+                "status_data_hora" => date("Y-m-d H:i:s")
+            ]);
+        }
     }
     
 }

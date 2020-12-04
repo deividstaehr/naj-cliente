@@ -117,7 +117,7 @@ class ChatMensagemController extends NajController {
         $ChatMensagemStatusController = new ChatMensagemStatusController();
         $ChatMensagemStatusController->store([
             "id_mensagem"      => $UltimaMensagem[0]->id,
-            "status"           => 0,
+            "status"           => 1,
             "status_data_hora" => $model['data_hora']
         ]);
     }

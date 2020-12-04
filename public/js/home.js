@@ -55,21 +55,21 @@ async function loadContainerMensagens() {
         $('#qtde_mensagens_todas')[0].innerHTML = `0`;
     }
 
-    if(!resultMessages.novas[0]) {
+    if(!resultMessages.novas) {
         $('#qtde_mensagens_novas')[0].innerHTML = `0`;
     }
 
-    if(resultMessages.todas[0] && resultMessages.novas[0]) {
-        if(resultMessages.novas[0].qtde_novas > 0) {
+    if(resultMessages.todas[0] && resultMessages.novas) {
+        if(resultMessages.novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
-                ${resultMessages.novas[0].qtde_novas}
+                ${resultMessages.novas}
                 <div class="notify" style="top: -15px !important;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
             `;
         } else {
-            $('#qtde_mensagens_novas')[0].innerHTML = `${resultMessages.novas[0].qtde_novas}`;
+            $('#qtde_mensagens_novas')[0].innerHTML = `${resultMessages.novas}`;
         }
         
         $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
