@@ -17,7 +17,7 @@ class ProcessoModel extends NajModel {
       $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
       if($codigoCliente == "") {
-         $codigoCliente = "-9999";
+         $codigoCliente = "-1";
       }
 
       $this->setTable('prc');
@@ -261,6 +261,10 @@ class ProcessoModel extends NajModel {
 
     public function getQtdeAtivoBaixado() {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+         if($codigoCliente == "") {
+            $codigoCliente = "-1";
+         }
 
         $response = DB::select("
             SELECT COUNT(0) AS QTDE,

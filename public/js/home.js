@@ -133,12 +133,16 @@ async function loadContainerFinanceiro() {
     let filter = await filterUsuario();
     let resultFinanceiro = await NajApi.getData(`financeiro/indicador?filterUser=${filter}`);
 
-    if(resultFinanceiro.pagar[0] && resultFinanceiro.receber[0]) {
+    if(resultFinanceiro.pagar[0]) {
         $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_PAGO)}`;
         $('#qtde_pagar_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_EM_ABERTO)}`;
+    }
+
+    if(resultFinanceiro.receber[0]) {
         $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_PAGO)}`;
         $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_EM_ABERTO)}`;
     }
+
 }
 
 function onClickExibirModalLogo() {
