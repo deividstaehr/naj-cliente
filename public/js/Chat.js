@@ -607,7 +607,7 @@ class Chat {
         return `
             <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item">
                 <div class="chat-content">
-                    <div class="box bg-light-success p-2 ${classOdd}" style="width: 100%;">
+                    <div class="box bg-light-success p-2 ${classOdd}" style="max-width: 100%;">
                         <h5 class="font-medium m-0">${message.nome}</h5>
                         <div class="yiyiyiyiyi">
                             <span class="mb-0 text-chat-messages">${conteudo}</span>
