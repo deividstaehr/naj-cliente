@@ -71,11 +71,11 @@
                                         </div>
 
                                         <div>
-                                            <span style="cursor: pointer; margin-left: 8%;" onclick="onClickCadastroLogin();"><i class="fas fa-user-plus"></i> Não tem login? Clique aqui e se cadastre!</span>
+                                            <span style="cursor: pointer; margin-left: 8%;" onclick="onClickCadastroLogin();"><i class="fas fa-user-plus"></i> Não tem login? </span><span class="text-info font-weight-bold cursor-pointer">Clique aqui e se cadastre!</span>
                                         </div>
                                         
                                         <div class="mt-3">
-                                            <span style="cursor: pointer; margin-left: 22%;" onclick="onClickModalEsqueceuLogin();"><i class="fas fa-lock"></i> Esqueceu o login ou a senha?</span>
+                                            <span style="cursor: pointer; margin-left: 10%;" onclick="onClickModalEsqueceuLogin();"><i class="fas fa-lock"></i> Esqueceu o login ou a senha? </span><span class="text-info font-weight-bold cursor-pointer">Clique aqui!</span>
                                         </div>
 
                                         <input type="hidden" name="_method" value="POST">

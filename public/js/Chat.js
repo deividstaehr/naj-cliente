@@ -573,12 +573,14 @@ class Chat {
     newContentNewMessage(message, isOdd) {
         if(!message) return;
 
-        let spanIconStatusMessage = `<span class="iconesStatusMessage"><i class="mdi mdi-check ml-1"></i></span>`;
+        let spanIconStatusMessage = `<span class="iconesStatusMessage"><i class="mdi mdi-check-all ml-1"></i></span>`;
         //Verificar o status que veio
         if(message.status == 1) {
             spanIconStatusMessage = `<span class="iconesStatusMessage"><i class="mdi mdi-check-all ml-1"></i></span>`;
         } else if(message.status == 2) {
             spanIconStatusMessage = `<span class="iconesStatusMessageSuccess"><i class="mdi mdi-check-all ml-1"></i></span>`;
+        } else if(message.status == 0) {
+            spanIconStatusMessage = `<span class="iconesStatusMessage"><i class="mdi mdi-check-all ml-1"></i></span>`;
         }
 
         let data_hora = '';
@@ -610,7 +612,7 @@ class Chat {
                     <div class="box bg-light-success p-2 ${classOdd}" style="max-width: 100%;">
                         <h5 class="font-medium m-0">${message.nome}</h5>
                         <div class="yiyiyiyiyi">
-                            <span class="mb-0 text-chat-messages">${conteudo}</span>
+                            <span class="mb-0 text-chat-messages" style="word-wrap: break-word;">${conteudo}</span>
                         </div>
                         <div class="chat-time m-0">${data_hora}${(!isOdd) ? '' : spanIconStatusMessage}</div>
                     </div>

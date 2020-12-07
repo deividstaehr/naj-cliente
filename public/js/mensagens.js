@@ -101,6 +101,16 @@ async function loadMessageChat() {
     id_chat_current         = result.chat.id_chat;
     id_usuario_current_chat = result.chat.id_usuario;
 
+    let hasMensagemFromChat = await NajApi.getData(`mensagens/hasMensagemFromChat/${result.chat.id_chat}`);
+
+    if(!hasMensagemFromChat || !hasMensagemFromChat.chat) {
+        $('.content-message-select-user-chat').removeClass('d-none');
+        $('#content-upload-anexos-chat').hide();
+        $('#content-button-rascunho-message-chat').hide();
+        $('#content-button-rascunho-editor-message-chat').hide();
+        return;
+    }
+
     if(result.chat.id_chat && !$('#content-upload-anexos-chat').is(":visible")) {
         let moveScroll = $('#content-chat-box-full').scrollTop() + $('#content-chat-box-full').innerHeight() == $('#content-chat-box-full')[0].scrollHeight;
         await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);

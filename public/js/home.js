@@ -36,11 +36,15 @@ $(document).ready(function() {
         $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`;
     }
 
-    loadContainerMensagens();
-    loadContainerAtividade();
-    loadContainerProcesso();
-    loadContainerFinanceiro();
+    loadContainers();
 });
+
+async function loadContainers() {
+    await loadContainerMensagens();
+    await loadContainerAtividade();
+    await loadContainerProcesso();
+    await loadContainerFinanceiro();
+}
 
 async function loadContainerMensagens() {
     let resultMessages = await NajApi.getData(`mensagens/indicador`);
@@ -48,7 +52,8 @@ async function loadContainerMensagens() {
     if(resultMessages.sem_chat) {
         $('#qtde_mensagens_novas')[0].innerHTML = `0`;
         $('#qtde_mensagens_todas')[0].innerHTML = `0`;
-        return;
+
+        return false;
     }
 
     if(!resultMessages.todas[0]) {
@@ -61,9 +66,11 @@ async function loadContainerMensagens() {
 
     if(resultMessages.todas[0]) {
         $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
+        $('#content-minhas-mensagens').removeClass('pulse-naj');
     }
 
     if(resultMessages.novas) {
+        $('#content-minhas-mensagens').removeClass('pulse-naj');
         if(resultMessages.novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
                 ${resultMessages.novas}
@@ -89,17 +96,25 @@ async function loadContainerAtividade() {
 
     let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?filterUser=${filter}`);
 
-    if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {        
+    if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {
         if(resultAtividade.trinta_dias[0].qtde_30_dias > 0) {
             $('#qtde_atividade_trinta_dias')[0].innerHTML = `
                 ${resultAtividade.trinta_dias[0].qtde_30_dias}
-                <div class="notify" style="top: -15px !important;">
+                <div class="notify" style="top: -15px !important; left: -45px;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
             `;
         } else {
+            if(resultAtividade.trinta_dias[0].qtde_30_dias != 0) {
+                $('#content-minhas-mensagens').removeClass('pulse-naj');
+            }
+
             $('#qtde_atividade_trinta_dias')[0].innerHTML = `${resultAtividade.trinta_dias[0].qtde_30_dias}`;
+        }
+
+        if(resultAtividade.todas[0].todas != 0) {
+            $('#content-minhas-mensagens').removeClass('pulse-naj');
         }
         
         $('#qtde_atividade_todas')[0].innerHTML = `${resultAtividade.todas[0].todas}`;
@@ -112,12 +127,14 @@ async function loadContainerProcesso() {
 
     if(resultProcesso.data[0]) {
         if(resultProcesso.data[1]) {
+            $('#content-minhas-mensagens').removeClass('pulse-naj');
             $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
         } else{
             $('#qtde_processo_baixado')[0].innerHTML = `0`;
         }
 
         if(resultProcesso.data[0]) {
+            $('#content-minhas-mensagens').removeClass('pulse-naj');
             $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
         } else {
             $('#qtde_processo_ativos')[0].innerHTML = `0`;
