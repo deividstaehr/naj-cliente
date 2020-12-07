@@ -18,30 +18,10 @@
         }
 
         .pulse-naj {
-            animation: pulse 0.7s infinite;
-            border: 1px solid #007b0066;
-            animation-direction: alternate;
-            -webkit-animation-name: pulse;
-            animation-name: pulse;
+            animation: shake 2.5s;
         }
 
-        @-webkit-keyframes pulse {
-            0% {
-                -webkit-transform: scale(1);
-            }
-            100% {
-                -webkit-transform: scale(1.1);
-            }
-            }
-
-            @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.1);
-            }
-        }
+        div[animacao="animacao-qualquer"] { animation: animacaoQualquer 2s linear; }
         
     </style>
 @endsection
@@ -54,7 +34,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-sm-12">
-                    <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
+                    <div class="card card-hover cursorActive pulse-naj animated shake" id="content-minhas-mensagens">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">

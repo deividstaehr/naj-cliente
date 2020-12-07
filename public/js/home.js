@@ -1,4 +1,6 @@
 const NajApi  = new Naj();
+const container = document.getElementById('content-minhas-mensagens');
+let taRodando = false;
 
 $(document).ready(function() {
 
@@ -37,6 +39,11 @@ $(document).ready(function() {
     }
 
     loadContainers();
+
+    setInterval(() => {
+        container.setAttribute('animacao', taRodando ? 'animacao-qualquer' : '' );
+        taRodando = !taRodando;
+    }, 3000);
 });
 
 async function loadContainers() {
