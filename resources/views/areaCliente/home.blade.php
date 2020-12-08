@@ -34,7 +34,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-sm-12">
-                    <div class="card card-hover cursorActive pulse-naj animated shake" id="content-minhas-mensagens">
+                    <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">

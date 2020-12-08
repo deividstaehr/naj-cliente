@@ -1,6 +1,7 @@
 const NajApi  = new Naj();
 const container = document.getElementById('content-minhas-mensagens');
 let taRodando = false;
+let hasInfo   = false;
 
 $(document).ready(function() {
 
@@ -41,8 +42,11 @@ $(document).ready(function() {
     loadContainers();
 
     setInterval(() => {
-        container.setAttribute('animacao', taRodando ? 'animacao-qualquer' : '' );
-        taRodando = !taRodando;
+        //Somente se não tiver info é para animar
+        if(!hasInfo) {
+            container.setAttribute('animacao', taRodando ? 'animacao-qualquer' : '' );
+            taRodando = !taRodando;
+        }
     }, 3000);
 });
 
@@ -74,9 +78,11 @@ async function loadContainerMensagens() {
     if(resultMessages.todas[0]) {
         $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
         $('#content-minhas-mensagens').removeClass('pulse-naj');
+        hasInfo = true;
     }
 
     if(resultMessages.novas) {
+        hasInfo = true;
         $('#content-minhas-mensagens').removeClass('pulse-naj');
         if(resultMessages.novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
@@ -115,6 +121,7 @@ async function loadContainerAtividade() {
         } else {
             if(resultAtividade.trinta_dias[0].qtde_30_dias != 0) {
                 $('#content-minhas-mensagens').removeClass('pulse-naj');
+                hasInfo = true;
             }
 
             $('#qtde_atividade_trinta_dias')[0].innerHTML = `${resultAtividade.trinta_dias[0].qtde_30_dias}`;
@@ -122,6 +129,7 @@ async function loadContainerAtividade() {
 
         if(resultAtividade.todas[0].todas != 0) {
             $('#content-minhas-mensagens').removeClass('pulse-naj');
+            hasInfo = true;
         }
         
         $('#qtde_atividade_todas')[0].innerHTML = `${resultAtividade.todas[0].todas}`;
@@ -134,6 +142,7 @@ async function loadContainerProcesso() {
 
     if(resultProcesso.data[0]) {
         if(resultProcesso.data[1]) {
+            hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
             $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
         } else{
@@ -141,6 +150,7 @@ async function loadContainerProcesso() {
         }
 
         if(resultProcesso.data[0]) {
+            hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
             $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
         } else {
@@ -165,7 +175,6 @@ async function loadContainerFinanceiro() {
         $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_PAGO)}`;
         $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_EM_ABERTO)}`;
     }
-
 }
 
 function onClickExibirModalLogo() {
