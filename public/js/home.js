@@ -77,8 +77,11 @@ async function loadContainerMensagens() {
 
     if(resultMessages.todas[0]) {
         $('#qtde_mensagens_todas')[0].innerHTML = `${resultMessages.todas[0].todas}`;
-        $('#content-minhas-mensagens').removeClass('pulse-naj');
-        hasInfo = true;
+
+        if(resultMessages.todas[0].todas > 0) {
+            $('#content-minhas-mensagens').removeClass('pulse-naj');
+            hasInfo = true;
+        }
     }
 
     if(resultMessages.novas) {
