@@ -105,8 +105,8 @@
                                 <h2 class="mb-0 display-5"><i class="fas fa-donate text-primary"></i></h2>
                                 <div class="col-lg-4 col-md-4 col-sm-12 ml-auto card-hover cursor-pointer p-2" id="content-financeiro-receber">
                                     <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-success"></i> A RECEBER</h4>
-                                    <h5 class="text-dark mb-0"><span class="mr-2 align-right">Recebido</span>  <span class="text-info float-right" id="qtde_receber_recebido"></span> </h5>
-                                    <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-info float-right" id="qtde_receber_aberto"></span> </h5>
+                                    <h5 class="text-dark mb-0"><span class="mr-2 align-right">Recebido</span>  <span class="text-success float-right" id="qtde_receber_recebido"></span> </h5>
+                                    <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-success float-right" id="qtde_receber_aberto"></span> </h5>
                                     <i class="fas fa-search text-info" style="margin-top: 10px; margin-left: 90%;"></i>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 ml-auto card-hover cursor-pointer p-2" id="content-financeiro-pagar">

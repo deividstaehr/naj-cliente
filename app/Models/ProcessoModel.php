@@ -199,6 +199,43 @@ class ProcessoModel extends NajModel {
       return $result;
    }
 
+   public function getParteCliente($key) {
+      $key = json_decode(base64_decode($key));
+
+      $sql = "
+         SELECT P1.NOME,
+                PGC.QUALIFICACAO,
+                P1.CODIGO
+           FROM PRC_GRUPO_CLIENTE PGC
+           JOIN PESSOA P1
+             ON P1.CODIGO = PGC.CODIGO_CLIENTE
+          WHERE PGC.CODIGO_PROCESSO = ?
+       ORDER BY P1.NOME
+      ";
+
+      $result = DB::select($sql, [$key->codigo, $key->codigo]);
+
+      return $result;
+   }
+
+   public function getParteAdversaria($key) {
+      $key = json_decode(base64_decode($key));
+
+      $sql = "
+         SELECT P1.NOME,
+                PGA.QUALIFICACAO,
+                P1.CODIGO
+           FROM PRC_GRUPO_ADVERSARIO PGA
+           JOIN PESSOA P1
+             ON P1.CODIGO = PGA.CODIGO_ADVERSARIO
+          WHERE PGA.CODIGO_PROCESSO = ?
+       ORDER BY P1.NOME";
+
+      $result = DB::select($sql, [$key->codigo, $key->codigo]);
+
+      return $result;
+   }
+
    public function anexos($key) {
       $sql = "
          SELECT prc_anexos.*

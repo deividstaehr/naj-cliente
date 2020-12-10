@@ -58,7 +58,7 @@ async function onClickDownloadAnexoProcesso(codigo, arquivoName) {
 
 async function onClickEnvolvidosProcesso(codigo, el) {
     let parameters = btoa(JSON.stringify({codigo})),
-        envolvidos = await NajApi.getData(`processos/partes/${parameters}`),
+        envolvidos = await NajApi.getData(`processos/partes/cliente/${parameters}`),
         sHtml      = '';
 
     if(el.children) {
@@ -82,5 +82,34 @@ async function onClickEnvolvidosProcesso(codigo, el) {
     }
 
     $(`#partes-processo-${codigo}`)[0].innerHTML = sHtml;
+    $('.fa-info-circle').tooltip('update');
+}
+
+async function onClickEnvolvidosProcessoAdv(codigo, el) {
+    let parameters = btoa(JSON.stringify({codigo})),
+        envolvidos = await NajApi.getData(`processos/partes/adversaria/${parameters}`),
+        sHtml      = '';
+
+    if(el.children) {
+        let className = el.children.item(0).className;
+
+        if(className == 'fas fa-chevron-circle-down icone-partes-processo-expanded') {
+            el.children.item(0).className = 'fas fa-chevron-circle-right icone-partes-processo-expanded';
+            return;
+        }
+        el.children.item(0).className = 'fas fa-chevron-circle-down icone-partes-processo-expanded';
+    }
+
+    for(var indice = 0; indice < envolvidos.length; indice++) {
+        sHtml += `
+            <div class="row" style="width: 100%; height: 20px !important;">
+                <div class="col-12" style="margin-left: 3% !important;">
+                    ${envolvidos[indice].NOME} (${envolvidos[indice].QUALIFICACAO})
+                </div>
+            </div>
+        `;
+    }
+
+    $(`#partes-adv-processo-${codigo}`)[0].innerHTML = sHtml;
     $('.fa-info-circle').tooltip('update');
 }

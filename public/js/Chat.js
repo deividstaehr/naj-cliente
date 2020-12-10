@@ -516,15 +516,15 @@ class Chat {
         return `
             <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item">
                 <div class="chat-content">
-                    <div class="box bg-light-success p-2 ${classOdd}">
+                    <div class="box bg-light-success p-2 ${classOdd}" style="max-width: 100%;">
                         <h5 class="font-medium m-0">${fileUpload.nome}</h5>
                         <div class="mt-2 content-info-anexo-chat">
-                            <div class="m-0">
+                            <div class="m-0" style="max-height: 30px;">
                                 <button class="btn btn-sm btn-rounded btn-download-chat" onclick="onClickDownloadAnexoChat(${fileUpload.id_mensagem}, '${fileUpload.conteudo}');">
                                     <i class="far fa-arrow-alt-circle-down icon-download-chat"></i>
                                 </button>
                             </div>
-                            <p class="mb-0 text-chat-messages" style="margin-top: 4px;">${fileUpload.conteudo}</p>
+                            <p class="mb-0 text-chat-messages" style="margin-top: 4px; word-break: break-word;">${fileUpload.conteudo}</p>
                         </div>
                         <div class="m-0">
                             <div class="m-0 content-size-anexo-chat">${this.formaterSizeAnexo(fileUpload.file_size)}</div>

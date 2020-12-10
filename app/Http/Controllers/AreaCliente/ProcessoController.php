@@ -41,7 +41,15 @@ class ProcessoController extends NajController {
 
     public function getPartes($key) {
         return response()->json($this->getModel()->getPartes($key));
-    }  
+    }
+
+    public function getParteCliente($key) {
+        return response()->json($this->getModel()->getParteCliente($key));
+    }
+
+    public function getParteAdversaria($key) {
+        return response()->json($this->getModel()->getParteAdversaria($key));
+    }
 
     // public function getMovimentacao($key) {
     //     $key = $this->parseQueryFilter($key);

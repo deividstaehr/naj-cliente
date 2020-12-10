@@ -103,6 +103,8 @@ Route::group([
     Route::put('processos'                   , 'ProcessoController@update')->name('processos.update');
     Route::get('processos/anexos/{key}'      , 'ProcessoController@anexos')->name('processos.anexos');
     Route::get('processos/partes/{key}'      , 'ProcessoController@getPartes')->name('processos.partes');
+    Route::get('processos/partes/cliente/{key}'   , 'ProcessoController@getParteCliente')->name('processos.partes.clinte');
+    Route::get('processos/partes/adversaria/{key}', 'ProcessoController@getParteAdversaria')->name('processos.partes.adversaria');
     Route::get('processos/prcqualificacao'   , 'ProcessoController@getPrcQualificacao')->name('processos.prcqualificacao');
     Route::get('processos/prcorgao'          , 'ProcessoController@getPrcOrgao')->name('processos.prcorgao');
     Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');

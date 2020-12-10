@@ -26,6 +26,8 @@ class ProcessosTable extends Table {
             onLoad: (data, row) =>  {
                 let sHtmlQtdeClientes = '';
                 let sHtmlEnvolvidos   = '';
+                let sHtmlAdversarios   = '';
+                let sHtmlEnvolvidosAdv = '';
 
                 if(row.QTDE_CLIENTES) {
                     sHtmlQtdeClientes = `<span class="badge badge-secondary badge-rounded badge-nome-partes-processo" title="+${row.QTDE_CLIENTES} Envolvido(s)">+${row.QTDE_CLIENTES} Envolvido(s)</span>`;
@@ -38,19 +40,22 @@ class ProcessosTable extends Table {
                     `;
                 }
 
+                if(row.QTDE_ADVERSARIOS) {
+                    sHtmlAdversarios   = `<span class="badge badge-secondary badge-rounded badge-nome-partes-processo" title="+${row.QTDE_ADVERSARIOS} Envolvido(s)">+${row.QTDE_ADVERSARIOS} Envolvido(s)</span>`;
+                    sHtmlEnvolvidosAdv = `
+                        <span class="action-icons">
+                            <a data-toggle="collapse" href="#partes-adv-processo-${row.CODIGO_PROCESSO}" data-key-processo="${row.CODIGO_PROCESSO}" aria-expanded="false" onclick="onClickEnvolvidosProcessoAdv(${row.CODIGO_PROCESSO}, this);">
+                                <i class="fas fa-chevron-circle-right icone-partes-processo-expanded" title="Clique para ver os envolvidos" data-toggle="tooltip"></i>
+                            </a>
+                        </span>
+                    `;
+                }
+
                 return `
                     <table class="w-100">
                         <tr>
                             <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
                         </tr>
-                        ${(row.NOME_ADVERSARIO)
-                            ?
-                            `<tr>
-                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
-                            </tr>
-                            `
-                            : ``
-                        }
                         <tr>
                             <td class="td-nome-parte-cliente">
                                 <div class="row" style="width: 100% !important; margin-left: 1px !important;">
@@ -58,8 +63,23 @@ class ProcessosTable extends Table {
                                 </div>
                             </td>
                         </tr>
-                        <tr class="collapse well" id="partes-processo-${row.CODIGO_PROCESSO}" aria-expanded="false">
-                        </tr>
+                        <tr class="collapse well" id="partes-processo-${row.CODIGO_PROCESSO}" aria-expanded="false"></tr>
+                        ${(row.NOME_ADVERSARIO)
+                            ?
+                            `<tr>
+                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
+                            </tr>
+                            <tr>
+                                <td class="td-nome-parte-cliente">
+                                    <div class="row" style="width: 100% !important; margin-left: 1px !important;">
+                                        ${sHtmlAdversarios}${sHtmlEnvolvidosAdv}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="collapse well" id="partes-adv-processo-${row.CODIGO_PROCESSO}" aria-expanded="false"></tr>
+                            `
+                            : ``
+                        }                        
                     </table>
                 `;
             }
