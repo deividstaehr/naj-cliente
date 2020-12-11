@@ -75,7 +75,15 @@ async function onClickEnvolvidosProcesso(codigo, el) {
         sHtml += `
             <div class="row" style="width: 100%; height: 20px !important;">
                 <div class="col-12" style="margin-left: 3% !important;">
-                    ${envolvidos[indice].NOME} (${envolvidos[indice].QUALIFICACAO})
+                    ${(envolvidos[indice].NOME.length > 55) 
+                    ?
+                    `${envolvidos[indice].NOME.substr(0, 50)}...
+                        <span class="ml-1">
+                            <i class="fas fa-info-circle" style="font-size: 14px;" data-toggle="tooltip" data-placement="top" title="${envolvidos[indice].NOME}"></i>
+                        </span>
+                    `
+                    :
+                    `${envolvidos[indice].NOME}`} (${envolvidos[indice].QUALIFICACAO})
                 </div>
             </div>
         `;
@@ -104,7 +112,15 @@ async function onClickEnvolvidosProcessoAdv(codigo, el) {
         sHtml += `
             <div class="row" style="width: 100%; height: 20px !important;">
                 <div class="col-12" style="margin-left: 3% !important;">
-                    ${envolvidos[indice].NOME} (${envolvidos[indice].QUALIFICACAO})
+                    ${(envolvidos[indice].NOME.length > 55) 
+                    ?
+                    `${envolvidos[indice].NOME.substr(0, 50)}...
+                        <span class="ml-1">
+                            <i class="fas fa-info-circle" style="font-size: 14px;" data-toggle="tooltip" data-placement="top" title="${envolvidos[indice].NOME}"></i>
+                        </span>
+                    `
+                    :
+                    `${envolvidos[indice].NOME}`} (${envolvidos[indice].QUALIFICACAO})
                 </div>
             </div>
         `;
