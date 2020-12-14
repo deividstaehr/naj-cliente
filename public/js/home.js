@@ -169,14 +169,25 @@ async function loadContainerFinanceiro() {
     let filter = await filterUsuario();
     let resultFinanceiro = await NajApi.getData(`financeiro/indicador?filterUser=${filter}`);
 
-    if(resultFinanceiro.pagar[0]) {
-        $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_PAGO)}`;
-        $('#qtde_pagar_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.pagar[0].TOTAL_EM_ABERTO)}`;
+    $('#qtde_pagar_aberto')[0].innerHTML = `R$0,00`;
+    $('#qtde_pagar_pago')[0].innerHTML = `R$0,00`;
+    $('#qtde_receber_aberto')[0].innerHTML = `R$0,00`;
+    $('#qtde_receber_recebido')[0].innerHTML = `R$0,00`;
+
+    if(resultFinanceiro.total_pagar[0]) {
+        $('#qtde_pagar_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pagar[0].TOTAL_EM_ABERTO)}`;
     }
 
-    if(resultFinanceiro.receber[0]) {
-        $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_PAGO)}`;
-        $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.receber[0].TOTAL_EM_ABERTO)}`;
+    if(resultFinanceiro.total_pago[0]) {
+        $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pago[0].TOTAL_PAGO)}`;
+    }
+
+    if(resultFinanceiro.total_receber[0]) {
+        $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.total_receber[0].TOTAL_EM_ABERTO)}`;
+    }
+
+    if(resultFinanceiro.total_recebido[0]) {
+        $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.total_recebido[0].TOTAL_PAGO)}`;
     }
 }
 

@@ -180,70 +180,75 @@ class FinanceiroModel extends NajModel {
             $codigoClientePagar = "-1";
         }
 
-        $total_pagar = DB::select("
-            SELECT SUM( 
-                    IF(CP.VALOR_PARCIAL>0, CP.VALOR_PARCELA-CP.VALOR_PARCIAL, CP.VALOR_PARCELA)
-                   ) AS TOTAL_EM_ABERTO,
-                   SUM(
-                    IF(CP.DATA_PAGAMENTO IS NOT NULL, CP.VALOR_PAGAMENTO,(SELECT SUM(VALOR_PAGAMENTO) 
-                        FROM CONTA_PARCELA_PARCIAL WHERE ID_PARCELA=CP.ID)
-                    )
-                   ) AS TOTAL_PAGO
-              FROM CONTA C
-        INNER JOIN CONTA_PARCELA CP ON CP.CODIGO_CONTA = C.CODIGO
-         LEFT JOIN PRC PC ON PC.CODIGO = C.CODIGO_PROCESSO
-         LEFT JOIN PESSOA P1 ON P1.CODIGO = C.CODIGO_PESSOA
-         LEFT JOIN PESSOA P2 ON P2.CODIGO = C.CODIGO_ADVERSARIO
-         LEFT JOIN PESSOA P3 ON P3.CODIGO = PC.CODIGO_ADVERSARIO
-             WHERE CP.SITUACAO IN('A','P')
-               AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
-               #PARA CONTAS DA GUIA A PAGAR (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
-               AND (
-                 C.TIPO='R' AND (C.PAGADOR='1' OR C.PAGADOR IS NULL)
-               )
-          ORDER BY CP.DATA_VENCIMENTO,
-                   CP.CODIGO_CONTA,
-                   CP.PARCELA ASC
-        ");
-
         $codigoClienteReceber = implode(',', $this->getRelacionamentoClientes());
 
         if($codigoClienteReceber == "") {
             $codigoClienteReceber = "-1";
         }
 
-        $total_receber = DB::select("
-            SELECT SUM( 
-                       IF(CP.VALOR_PARCIAL>0, CP.VALOR_PARCELA-CP.VALOR_PARCIAL, CP.VALOR_PARCELA)
-                   ) AS TOTAL_EM_ABERTO,
-                   SUM(
-                       IF(CP.DATA_PAGAMENTO IS NOT NULL, CP.VALOR_PAGAMENTO,
-                           (
-                               SELECT SUM(VALOR_PAGAMENTO) 
-                                 FROM CONTA_PARCELA_PARCIAL WHERE ID_PARCELA = CP.ID
-                           )
+        $total_recebido = DB::select("
+                SELECT (
+                         sum(VALOR_PARCIAL) +
+                         sum(VALOR_PAGAMENTO) 
+                       ) AS TOTAL_PAGO            
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP 
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
+                   #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
+                   AND (
+                        (C.TIPO='R' AND C.PAGADOR='2')
+                         OR C.TIPO='P'
                        )
-                   ) AS TOTAL_PAGO
-            
-              FROM CONTA C
-        INNER JOIN CONTA_PARCELA CP ON CP.CODIGO_CONTA = C.CODIGO
-         LEFT JOIN PRC PC ON PC.CODIGO = C.CODIGO_PROCESSO
-         LEFT JOIN PESSOA P1 ON P1.CODIGO = C.CODIGO_PESSOA
-         LEFT JOIN PESSOA P2 ON P2.CODIGO = C.CODIGO_ADVERSARIO
-         LEFT JOIN PESSOA P3 ON P3.CODIGO = PC.CODIGO_ADVERSARIO
-             WHERE CP.SITUACAO IN('A','P')
-               AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
-            #PARA CONTAS DA GUIA A RECEBER (QUE O CLIENTE TEM PARA RECEBER)
-              AND (
-                   (C.TIPO='R' AND C.PAGADOR='2')
-                   OR C.TIPO='P'
-              )
-         ORDER BY CP.DATA_VENCIMENTO,
-                  CP.CODIGO_CONTA,
-                  CP.PARCELA ASC
         ");
 
-        return ['pagar' => $total_pagar, 'receber' => $total_receber];
+        $total_receber = DB::select("
+                SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL, 0.00, sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_EM_ABERTO
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
+                   AND situacao = 'A'
+                   #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
+                   AND (
+                        (C.TIPO='R' AND C.PAGADOR='2')
+                         OR C.TIPO='P'
+                       )
+        ");
+
+        $total_pagar = DB::select("
+                SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL,0.00,sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_EM_ABERTO
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP 
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
+                   AND situacao = 'A'
+                   #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
+                   AND (
+                         C.TIPO = 'R' AND (C.PAGADOR <> '2')
+                       )
+        ");
+
+        $total_pago = DB::select("
+                SELECT (
+                         sum(VALOR_PARCIAL) +
+                         sum(VALOR_PAGAMENTO) 
+                       ) AS TOTAL_PAGO            
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP 
+                    ON CP.CODIGO_CONTA = C.CODIGO
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
+                   #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
+                   AND (
+                         C.TIPO = 'R' AND (C.PAGADOR <> '2')
+                       )
+        ");
+
+        return ['total_pagar' => $total_pagar, 'total_pago' => $total_pago, 'total_receber' => $total_receber, 'total_recebido' => $total_recebido];
     }
 
     public function getTotalRecebidoReceberAtrasado($parametro) {
