@@ -78,7 +78,7 @@
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="card card-hover cursorActive" id="content-meus-processos">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase">Meus Processos</h5>
+                            <h5 class="card-title text-uppercase">Processos</h5>
                             <div class="d-flex align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-primary"></i></h2>
                                 <div class="cursorActive" style="margin-left: 30% !important;">

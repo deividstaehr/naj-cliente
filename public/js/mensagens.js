@@ -289,6 +289,8 @@ async function sendAnexos(dropzone) {
     if(id_chat_current) {
         for(var i = 0; i < dropzone.files.length; i++) {
             let parseFile = await toBase64(dropzone.files[i]);
+            let is_image  = dropzone.files[i].type.search('image');
+            let file_type = (is_image > -1) ? 0 : 1;
     
             filesUpload.push({
                 'name_file'   : dropzone.files[i].name,
@@ -302,7 +304,8 @@ async function sendAnexos(dropzone) {
                 'id_chat'     : id_chat_current,
                 'file_size'   : dropzone.files[i].size,
                 'file_path'   : '',
-                'id_atendimento': id_atendimento_current
+                'id_atendimento': id_atendimento_current,
+                'file_type'     : file_type
             });
         }
         let result = await NajApi.postData(`chat/mensagem/anexo`, {'files': filesUpload});
@@ -317,6 +320,8 @@ async function sendAnexos(dropzone) {
     } else {
         for(var i = 0; i < dropzone.files.length; i++) {
             let parseFile = await toBase64(dropzone.files[i]);
+            let is_image  = dropzone.files[i].type.search('image');
+            let file_type = (is_image > -1) ? 0 : 1;
     
             filesUpload.push({
                 'name_file'   : dropzone.files[i].name,
@@ -329,7 +334,8 @@ async function sendAnexos(dropzone) {
                 'id_usuario'  : idUsuarioLogado,
                 'file_size'   : dropzone.files[i].size,
                 'file_path'   : '',
-                'id_atendimento': id_atendimento_current
+                'id_atendimento': id_atendimento_current,
+                'file_type'     : file_type
             });
         }
 
