@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\AreaCliente;
 
-use App\Http\Controllers\NajController;
 use App\Models\ProcessoModel;
+use App\Http\Controllers\NajController;
+use App\Http\Controllers\AreaCliente\ProcessoMonitoramentoController;
 
 /**
  * Controller de processos.
@@ -17,6 +18,7 @@ class ProcessoController extends NajController {
 
     public function onLoad() {
         $this->setModel(new ProcessoModel);
+        $this->setMonitoramentoController(new ProcessoMonitoramentoController);
     }
 
     public function index() {

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\AreaCliente;
 
-use App\Http\Controllers\NajController;
 use App\Models\FinanceiroModel;
+use App\Http\Controllers\NajController;
+use App\Http\Controllers\AreaCliente\FinanceiroMonitoramentoController;
 
 /**
  * Controlador do Financeiro.
@@ -14,6 +15,7 @@ class FinanceiroController extends NajController {
 
     public function onLoad() {
         $this->setModel(new FinanceiroModel);
+        $this->setMonitoramentoController(new FinanceiroMonitoramentoController);
     }
 
     public function indexFinanceiro($parametro) {

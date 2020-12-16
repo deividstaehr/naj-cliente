@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\AreaCliente;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\NajController;
 use App\Http\Controllers\AreaCliente\UsuarioController;
-use App\User;
+use App\Http\Controllers\AreaCliente\HomeMonitoramentoController;
 
 class HomeController extends NajController {
+
+    public function onLoad() {
+        $this->setMonitoramentoController(new HomeMonitoramentoController);
+    }
     
     public function index() {
+        $this->getMonitoramentoController()->storeMonitoramento(self::INDEX_ACTION);
         return view('areaCliente.home');
     }
 

@@ -9,6 +9,7 @@ $(document).ready(function() {
 
     financeiroReceberTable.render();
     financeiroPagarTable.render();
+
     getCustomFiltersReceber();
     getCustomFiltersPagar();
 
@@ -94,7 +95,6 @@ function onClickTabReceber(useMarginTop = true) {
     $('#content-bottom-receber').show();
 
     if(useMarginTop) {
-        //Se for SMARTPHONE tira o focus do campo depois de enviar a mensagem
         if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
             $('.content-pai-financeiro')[0].style.marginTop = '40%';
         }
@@ -112,7 +112,6 @@ function onClickTabPagar(useMarginTop = true) {
     $('#content-bottom-receber').hide();
 
     if(useMarginTop) {
-        //Se for SMARTPHONE tira o focus do campo depois de enviar a mensagem
         if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
             $('.content-pai-financeiro')[0].style.marginTop = '40%';
         }

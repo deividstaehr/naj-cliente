@@ -141,7 +141,7 @@ async function loadContainerAtividade() {
 
 async function loadContainerProcesso() {
     let filter = await filterUsuario();
-    let resultProcesso = await NajApi.getData(`processos/indicador?f=${filter}`);
+    let resultProcesso = await NajApi.getData(`processos/indicador?f=${filter}&XDEBUG_SESSION_START`);
 
     if(resultProcesso.data[0]) {
         if(resultProcesso.data[1]) {

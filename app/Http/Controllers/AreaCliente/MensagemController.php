@@ -5,13 +5,19 @@ namespace App\Http\Controllers\AreaCliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\NajController;
 use App\Models\ChatMensagemModel;
 use App\Models\ChatRelacionamentoUsuarioModel;
+use App\Http\Controllers\AreaCliente\MensagemMonitoramentoController;
 
-class MensagemController extends Controller {
+class MensagemController extends NajController {
+
+    public function onLoad() {
+        $this->setMonitoramentoController(new MensagemMonitoramentoController);
+    }
     
     public function index() {
+        $this->getMonitoramentoController()->storeMonitoramento(self::INDEX_ACTION);
         return view('areaCliente.mensagens');
     }
 

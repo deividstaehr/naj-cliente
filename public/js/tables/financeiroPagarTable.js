@@ -360,16 +360,8 @@ class FinanceiroPagarTable extends Table {
         if (oldLimit !== this.limit) this.page = 1;
 
         try {
-            let f2 = false;
 
-            let filters2 = this.filtersForSearch.concat(this.fixedFilters);
-
-            if (filters2) f2 = '&f=' + this.toBase64(filters2);
-
-            let filterUser = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
-
-            const { data2 } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f2 || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
-
+            let filterUser  = btoa(JSON.stringify([{'val': idUsuarioLogado}]));
             let dataInicial = $('#filter-data-inicial-pagar').val();
             let dataFinal   = $('#filter-data-final-pagar').val();
 
@@ -380,6 +372,23 @@ class FinanceiroPagarTable extends Table {
                 let filter2    = {};
                 filter2.val    = formatDate(dataInicial, false);
                 filter2.val2   = formatDate(dataFinal, false);
+                filter2.op     = "CF";
+                filter2.col    = "CP.DATA_VENCIMENTO";
+                filter2.origin = btoa(filter2);
+                this.filtersForSearch.push(filter2);
+            } else {
+
+                //Mês atual
+                let month = new Date().getMonth();
+
+                if(month < 10) month = '0' + month;
+
+                dataInicial = getDateProperties(new Date(new Date().getFullYear(), month)).fullDate;
+                dataFinal   = getDateProperties(new Date()).fullDate;
+
+                let filter2    = {};
+                filter2.val    = dataInicial;
+                filter2.val2   = dataFinal;
                 filter2.op     = "CF";
                 filter2.col    = "CP.DATA_VENCIMENTO";
                 filter2.origin = btoa(filter2);

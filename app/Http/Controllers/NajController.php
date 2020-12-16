@@ -40,6 +40,11 @@ abstract class NajController extends Controller {
     /**
      * @var string
      */
+    const PAGINATE_ACTION = 'paginate';
+
+    /**
+     * @var string
+     */
     const SHOW_ACTION = 'show';
 
     /**
@@ -63,6 +68,8 @@ abstract class NajController extends Controller {
     protected $context = 'web'; // web ,api
 
     protected $model = null;
+
+    protected $controllerMonitoramento = null;
 
     protected $isDev = false;
 
@@ -507,10 +514,31 @@ abstract class NajController extends Controller {
     }
 
     /**
+     * Seta o controlador de monitoramento da rotina.
+     */
+    public function setMonitoramentoController($controller) {
+        $this->controllerMonitoramento = $controller;
+    }
+
+    /**
+     * Retorna o controlador de monitoramento da rotina, se não tiver nada é por que não precisa monitorar.
+     */
+    public function getMonitoramentoController() {
+        if(!$this->controllerMonitoramento) return false;
+
+        return $this->controllerMonitoramento;
+    }
+
+    /**
      *
      * @return type
      */
     public function paginate() {
+        //verificando se precisa registrar o monitoramento
+        if($this->getMonitoramentoController()) {
+            $this->getMonitoramentoController()->storeMonitoramento(self::PAGINATE_ACTION);
+        }
+
         return $this->getModel()->makePagination();
     }
 

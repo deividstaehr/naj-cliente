@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\AreaCliente;
 
-use App\Http\Controllers\NajController;
 use App\Models\AtividadeModel;
+use App\Http\Controllers\NajController;
+use App\Http\Controllers\AreaCliente\AtividadeMonitoramentoController;
 
 /**
  * Controller de processos.
@@ -17,6 +18,7 @@ class AtividadeController extends NajController {
 
     public function onLoad() {
         $this->setModel(new AtividadeModel);
+        $this->setMonitoramentoController(new AtividadeMonitoramentoController);
     }
 
     public function index() {
