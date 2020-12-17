@@ -401,7 +401,7 @@ class FinanceiroPagarTable extends Table {
 
             if (filters) f = '&f=' + this.toBase64(filters);
 
-            const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&filterUser=${filterUser}&XDEBUG_SESSION_START`);
+            const { data } = await api.get(`${this.route}/paginate?limit=${this.limit}&page=${this.page}${f || ''}&filterUser=${filterUser}`);
 
             this.data = data;
 

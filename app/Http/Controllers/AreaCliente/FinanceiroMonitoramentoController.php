@@ -28,7 +28,7 @@ class FinanceiroMonitoramentoController extends MonitoramentoController {
     public function onLoad() {
         $this->setModel(new MonitoramentoModel);
 
-        $this->nomeRotina = 'Financeiro A Receber';
+        $this->nomeRotina = 'Financeiro';
         $this->nomeModulo = 'AcessoAreaClienteWebFinanceiro';
     }   
 

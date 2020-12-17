@@ -535,11 +535,23 @@ abstract class NajController extends Controller {
      */
     public function paginate() {
         //verificando se precisa registrar o monitoramento
-        if($this->getMonitoramentoController()) {
+        if($this->getMonitoramentoController() && !$this->isSkipsRoute()) {
             $this->getMonitoramentoController()->storeMonitoramento(self::PAGINATE_ACTION);
         }
 
         return $this->getModel()->makePagination();
+    }
+
+    protected function isSkipsRoute() {
+        $rota = request()->route()->getName();
+
+        return in_array($rota, $this->skipsRoute());
+    }
+
+    protected function skipsRoute() {
+        return [
+            'financeiro.pagar.paginate'
+        ];
     }
 
     /**
