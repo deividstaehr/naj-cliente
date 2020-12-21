@@ -1003,7 +1003,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
 #content-button-rascunho-message-chat {
     position: absolute;
-    right: 10px;
+    right: 45px;
     top: 10px;
     display: flex;
     align-items: center;
