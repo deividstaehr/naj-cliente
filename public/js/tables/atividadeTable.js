@@ -330,8 +330,8 @@ class AtividadeTable extends Table {
 
                 if(month < 10) month = '0' + month;
 
-                dataInicial = getDateProperties(new Date(new Date().getFullYear(), month)).fullDate;
-                dataFinal   = getDateProperties(new Date()).fullDate;
+                dataInicial = '0001-01-01';
+                dataFinal   = '9999-01-01';
 
                 let filter2    = {};
                 filter2.val    = dataInicial;
