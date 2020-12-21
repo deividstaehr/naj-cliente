@@ -134,7 +134,7 @@ async function getCustomFiltersPagar() {
                     <i id="iconDropDatasRapidas" class="fas fa-filter btn-icon componenteDatasRapidas"></i>
                 </button>
                 <ul id="listDatasRapidas-pagar" class="actions-in-list" style="display:none;">
-                    <li class="action-in-item componenteDatasRapidas dropItemSelected" onclick="setaDataRapida(1,this, 'pagar')">
+                    <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(1,this, 'pagar')">
                         <span class="componenteDatasRapidas">Mês Atual</span>
                     </li>
                     <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(2,this, 'pagar')">
@@ -152,7 +152,7 @@ async function getCustomFiltersPagar() {
                     <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(6,this, 'pagar')">
                         <span class="componenteDatasRapidas">Último Ano</span>
                     </li>
-                    <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(7,this, 'pagar')">
+                    <li class="action-in-item componenteDatasRapidas dropItemSelected" onclick="setaDataRapida(7,this, 'pagar')">
                         <span class="componenteDatasRapidas">Todas</span>
                     </li>
                 </ul>
@@ -194,7 +194,7 @@ async function getCustomFiltersPagar() {
     removeClassCss('gj-icon',$('.gj-icon'));
 
     //Seta data nos campos de data
-    setaDataRange(1, 'pagar');
+    setaDataRange(7, 'pagar');
 }
 
 async function getCustomFiltersReceber() {
@@ -213,7 +213,7 @@ async function getCustomFiltersReceber() {
                     <i id="iconDropDatasRapidas" class="fas fa-filter btn-icon componenteDatasRapidas"></i>
                 </button>
                 <ul id="listDatasRapidas-receber" class="actions-in-list" style="display:none;">
-                    <li class="action-in-item componenteDatasRapidas dropItemSelected" onclick="setaDataRapida(1,this, 'receber')">
+                    <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(1,this, 'receber')">
                         <span class="componenteDatasRapidas">Mês Atual</span>
                     </li>
                     <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(2,this, 'receber')">
@@ -231,7 +231,7 @@ async function getCustomFiltersReceber() {
                     <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(6,this, 'receber')">
                         <span class="componenteDatasRapidas">Último Ano</span>
                     </li>
-                    <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(7,this, 'receber')">
+                    <li class="action-in-item componenteDatasRapidas dropItemSelected" onclick="setaDataRapida(7,this, 'receber')">
                         <span class="componenteDatasRapidas">Todas</span>
                     </li>
                 </ul>
@@ -273,7 +273,7 @@ async function getCustomFiltersReceber() {
     removeClassCss('gj-icon',$('.gj-icon'));
 
     //Seta data nos campos de data
-    setaDataRange(1, 'receber');
+    setaDataRange(7, 'receber');
 }
 
 async function setaDataRange(opcaoDataRapida, content) {

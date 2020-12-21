@@ -64,7 +64,7 @@ async function getCustomFilters() {
                     <i id="iconDropDatasRapidas" class="fas fa-filter btn-icon componenteDatasRapidas"></i>
                 </button>
                 <ul id="listDatasRapidas" class="actions-in-list" style="display:none;">
-                    <li class="action-in-item componenteDatasRapidas dropItemSelected" onclick="setaDataRapida(1,this)">
+                    <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(1,this)">
                         <span class="componenteDatasRapidas">Mês Atual</span>
                     </li>
                     <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(2,this)">
@@ -82,7 +82,7 @@ async function getCustomFilters() {
                     <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(6,this)">
                         <span class="componenteDatasRapidas">Último Ano</span>
                     </li>
-                    <li class="action-in-item componenteDatasRapidas" onclick="setaDataRapida(7,this)">
+                    <li class="action-in-item componenteDatasRapidas dropItemSelected" onclick="setaDataRapida(7,this)">
                         <span class="componenteDatasRapidas">Todas</span>
                     </li>
                 </ul>
@@ -124,7 +124,7 @@ async function getCustomFilters() {
     removeClassCss('gj-icon',$('.gj-icon'));
 
     //Seta data nos campos de data
-    setaDataRange(1);
+    setaDataRange(7);
 }
 
 async function setaDataRange(opcaoDataRapida) {
