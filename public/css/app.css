@@ -1218,7 +1218,6 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .content-bottom-indicadores-financeiro {
     height: 8% !important;
     margin: 8px !important;
-    overflow-y: hidden !important;
 }
 
 .span-receber-recer {
@@ -1266,6 +1265,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .button-voltar-auto-cadastro:hover {
     background: white;
     color: #868a98 !important;
+}
+
+.row-bottom-atividade-financeiro {
+    height: 7%;
 }
 
 /* AJUSTES PARA TELAS PEQUENAS */
@@ -1456,5 +1459,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
     .ul-tab-financeiro {
         margin-top: 10px !important;
+    }
+
+    .row-bottom-atividade-financeiro {
+        height: 7%;
+        overflow-y: hidden;
     }
 }

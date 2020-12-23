@@ -20,7 +20,7 @@
 @section('content')
 
 <div id="datatable-atividades" class="naj-datatable" style="height: 91%;"></div>
-<div class="row datatable-body mt-0" style="height: 7%; overflow-y: hidden;">
+<div class="row datatable-body mt-0 row-bottom-atividade-financeiro">
     <div class="col-6 p-0">
         <span>
             <span class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Total de Horas do período selecionado."></span>
