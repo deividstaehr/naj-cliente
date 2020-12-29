@@ -147,3 +147,10 @@ async function onClickEnvolvidosProcessoAdv(codigo, el) {
     $(`#partes-adv-processo-${codigo}`)[0].innerHTML = sHtml;
     $('.fa-info-circle').tooltip('update');
 }
+
+async function onClickExibirModalAndamentoProcesso(codigo_processo) {
+    andamentoProcessoTable = new AndamentoProcessoTable(codigo_processo);
+    andamentoProcessoTable.render();
+
+    $('#modal-consulta-andamento-processo').modal('show');
+}

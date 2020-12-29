@@ -30,12 +30,15 @@ class FinanceiroPagarModel extends NajModel {
         $this->addRawFilter("CP.SITUACAO IN('A', 'P')");
         $this->addRawFilter("CONTA.CODIGO_PESSOA IN ({$codigoCliente})");
         $this->addRawFilter("(CONTA.TIPO = 'R' AND CONTA.PAGADOR <> '2')");
+        $this->addRawFilter("(N.TIPO_SUB NOT IN ('M', 'J', 'C') OR N.TIPO_SUB IS NULL)");
 
         $this->setRawBaseSelect("
                 SELECT [COLUMNS]
                   FROM CONTA
             INNER JOIN CONTA_PARCELA CP
                     ON CP.CODIGO_CONTA = CONTA.CODIGO
+            INNER JOIN NATUREZA_FINANCEIRA N 
+                    ON N.CODIGO = CONTA.CODIGO_NATUREZA
              LEFT JOIN PRC PC
                     ON PC.CODIGO = CONTA.CODIGO_PROCESSO
              LEFT JOIN PESSOA P1
@@ -160,8 +163,11 @@ class FinanceiroPagarModel extends NajModel {
                   FROM CONTA C
             INNER JOIN CONTA_PARCELA CP 
                     ON CP.CODIGO_CONTA = C.CODIGO
+            INNER JOIN NATUREZA_FINANCEIRA N
+                    ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
+                   AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                         C.TIPO = 'R' AND (C.PAGADOR <> '2')
@@ -179,9 +185,12 @@ class FinanceiroPagarModel extends NajModel {
                   FROM CONTA C
             INNER JOIN CONTA_PARCELA CP 
                     ON CP.CODIGO_CONTA = C.CODIGO
+            INNER JOIN NATUREZA_FINANCEIRA N
+                    ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND situacao = 'A'
+                   AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                          C.TIPO = 'R' AND (C.PAGADOR <> '2')
@@ -197,11 +206,15 @@ class FinanceiroPagarModel extends NajModel {
         $total_atrasado = DB::select("
                 SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL,0.00,sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_ATRASADO
                   FROM CONTA C
-            INNER JOIN CONTA_PARCELA CP ON CP.CODIGO_CONTA = C.CODIGO
+            INNER JOIN CONTA_PARCELA CP
+                    ON CP.CODIGO_CONTA = C.CODIGO
+            INNER JOIN NATUREZA_FINANCEIRA N
+                    ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
                    AND situacao = 'A'
+                   AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                          C.TIPO = 'R' AND C.PAGADOR <> '2'

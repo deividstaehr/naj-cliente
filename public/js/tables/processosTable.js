@@ -143,14 +143,21 @@ class ProcessosTable extends Table {
                         <tr>
                             <td>
                                 <div class="row">
-                                    <i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span>
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="row">
-                                    <i class="fas fa-search icone-informaçoes-processo mr-4" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ATIVIDADE_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span>
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ATIVIDADE_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAndamentoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANDAMENTO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAndamentoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANDAMENTO} Andamento(s)</span>
                                 </div>
                             </td>
                         </tr>

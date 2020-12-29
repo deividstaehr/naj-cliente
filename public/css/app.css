@@ -1271,6 +1271,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
     height: 7%;
 }
 
+.cursos-pointer {
+    cursor: pointer !important;
+}
+
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
     .row-content-perfil {

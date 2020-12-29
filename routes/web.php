@@ -110,6 +110,9 @@ Route::group([
     Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');
     Route::get('processos/indicador'       , 'ProcessoController@getQtdeAtivoBaixado')->name('processos.indicador');
 
+    //PROCESSOS ANDAMENTO
+    Route::get('processos/andamento/paginate', 'AndamentoProcessoController@paginate')->name('processos.andamento.paginate');
+
     //PROCESSOS ANEXOS
     Route::get('anexos/processos/paginate'             , 'ProcessoAnexoController@paginate')->name('processos.anexo.paginate');
     Route::get('anexos/processos/download/{parameters}', 'AnexoChatStorageController@downloadAnexoProcesso')->name('processos.download.anexo');

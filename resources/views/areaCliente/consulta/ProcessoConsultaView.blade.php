@@ -24,11 +24,15 @@
 @component('areaCliente.componentes.modalConsultaAtividadeProcesso')
 @endcomponent
 
+@component('areaCliente.componentes.modalConsultaAndamentoProcesso')
+@endcomponent
+
 @endsection
 
 @section('scripts')
     <script src="{{ env('APP_URL') }}js/tables/anexoProcessoTable.js"></script>
     <script src="{{ env('APP_URL') }}js/tables/atividadeProcessoTable.js"></script>
     <script src="{{ env('APP_URL') }}js/tables/processosTable.js"></script>
+    <script src="{{ env('APP_URL') }}js/tables/andamentoProcessoTable.js"></script>
     <script src="{{ env('APP_URL') }}js/processos.js"></script>
 @endsection
