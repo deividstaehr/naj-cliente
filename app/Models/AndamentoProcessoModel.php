@@ -22,7 +22,7 @@ class AndamentoProcessoModel extends NajModel {
         $this->addColumn('DESCRICAO_ANDAMENTO');
         $this->addColumn('TRADUCAO_ANDAMENTO');
 
-        $this->setOrder('DATA');
+        $this->setOrder('DATA DESC');
 
         $this->addAllColumns();        
 
