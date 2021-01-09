@@ -18,6 +18,11 @@
         <title>Cadastro de usuário</title>
 
         <style>
+
+            .tab-wizard::-webkit-scrollbar {
+                width: 50px !important;
+                height: 5px !important;
+            }
             
             /* AJUSTES PARA TELAS PEQUENAS */
             @media only screen and (max-width: 766px) {
@@ -40,7 +45,7 @@
             <div id="main-atualizar-dados" class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{ env('APP_URL') }}ampleAdmin/assets/images/big/auth-bg.jpg) no-repeat center center;">
                 <div class="card-auto-cadastro shadow-lg">
                     <div class="p-0 wizard-content" style="height: 100%;">
-                        <div class="naj-scrollable tab-wizard wizard-circle" style="height: 100%;" id="content-father">
+                        <div class="tab-wizard wizard-circle" style="height: 100%;" id="content-father">
                             <!-- Step 1 -->
                             <h6>Informe seus dados</h6>
                             <section>
@@ -332,6 +337,7 @@
             if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
                 $('.content')[0].style.height = '47vh';
                 $('.content')[0].style.overflowY = 'auto';
+                $('.content').addClass('naj-scrollable ');
             } else {
                 $('.content')[0].style.height = '62%';
             }

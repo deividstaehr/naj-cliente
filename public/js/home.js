@@ -90,7 +90,7 @@ async function loadContainerMensagens() {
         if(resultMessages.novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
                 ${resultMessages.novas}
-                <div class="notify" style="top: -15px !important;">
+                <div class="notify" style="top: -15px !important; z-index: 1;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
