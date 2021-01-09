@@ -388,6 +388,17 @@ class UsuarioController extends NajController {
             request()->merge(['usuarioVeioDoCpanel' => false]);
         }
 
+        //Verificar se precisa alterar o ID do usuário local e dar um MAX() + 1
+        //Feito isso aqui para caso no CPANEL o cara esteja com ID 10 e LOCAL 11, o certo é altear o LOCAL PARA 10, mas pode ser que já exista um 10 aqui,
+        //Então se existir nós vamos pegar esse 10 e colocar o ID dele para MAX() + 1 e setar o 10 para o cara que veio do CPANEL, doidera mas é o que o Nelson decidiu
+        $UsuarioLocalCpanel = $this->getModel()->find($response->naj->model->id);
+
+        if($UsuarioLocalCpanel->cpf != request()->get('cpf')) {
+            
+            $UsuarioLocalCpanel->id = ($this->getModel()->max('id') + 1);
+            $resultadoUpdate = $UsuarioLocalCpanel->save();
+        }
+
         //CRIA UM CHAT E RELACIONA O USUÁRIO
         $this->storeChatUsuario($response->naj->model);
 

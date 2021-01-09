@@ -1050,6 +1050,13 @@ input[type='text'], input[type='number'], input[type='date'], select{
     border-radius: 10px;
 }
 
+.card-auto-cadastro {
+    background: #fff;
+    height: 80%;
+    width: 60%;
+    border-radius: 10px;
+}
+
 #main-atualizar-dados {
     background-color: #0093E9;
     background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
@@ -1468,5 +1475,16 @@ input[type='text'], input[type='number'], input[type='date'], select{
     .row-bottom-atividade-financeiro {
         height: 7%;
         overflow-y: hidden;
+    }
+
+    .card-auto-cadastro, .card-atualizar-dados {
+        background: #fff;
+        height: 95vh;
+        width: 95%;
+        border-radius: 10px;
+    }
+
+    #loginform {
+        width: 90% !important;
     }
 }

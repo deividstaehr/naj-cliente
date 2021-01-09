@@ -16,6 +16,16 @@
         <script src="{{ env('APP_URL') }}naj-datatables/src/sweetalert2.min.js"></script>
         <script src="{{ env('APP_URL') }}naj-datatables/src/alerts.js"></script>
         <title>Cadastro de usuário</title>
+
+        <style>
+            
+            /* AJUSTES PARA TELAS PEQUENAS */
+            @media only screen and (max-width: 766px) {
+                .second-step-atualizar-dados-footer {
+                    margin-left: 8% !important;
+                }
+            }
+        </style>
     </head>
     <body>
         <div class="main-wrapper">
@@ -28,9 +38,9 @@
 
             <div id="bloqueio-cadastro-usuario" class="loader loader-default" data-half></div>
             <div id="main-atualizar-dados" class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url({{ env('APP_URL') }}ampleAdmin/assets/images/big/auth-bg.jpg) no-repeat center center;">
-                <div class="card-atualizar-dados shadow-lg">
+                <div class="card-auto-cadastro shadow-lg">
                     <div class="p-0 wizard-content" style="height: 100%;">
-                        <div class="tab-wizard wizard-circle naj-scrollable" style="height: 100%;">
+                        <div class="naj-scrollable tab-wizard wizard-circle" style="height: 100%;" id="content-father">
                             <!-- Step 1 -->
                             <h6>Informe seus dados</h6>
                             <section>
@@ -317,7 +327,14 @@
             $('.actions .disabled').addClass('first-step');
             $('.actions').addClass('footer-steps-naj');
             $('.actions ul').addClass('ul-footer-steps-naj');
-            $('.content')[0].style.height = '62%';
+
+
+            if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
+                $('.content')[0].style.height = '47vh';
+                $('.content')[0].style.overflowY = 'auto';
+            } else {
+                $('.content')[0].style.height = '62%';
+            }
 
             $('.mascaracelular').mask("(000) 0 0000-0000", {placeholder: "(000) 0 0000-0000"});
             $('.mascaracpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});

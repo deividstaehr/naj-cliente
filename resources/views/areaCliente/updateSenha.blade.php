@@ -307,7 +307,13 @@
             $('.actions .disabled').addClass('first-step');
             $('.actions').addClass('footer-steps-naj');
             $('.actions ul').addClass('ul-footer-steps-naj');
-            $('.content')[0].style.height = '62%';
+
+            if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
+                $('.content')[0].style.height = '47vh';
+                $('.content')[0].style.overflowY = 'auto';
+            } else {
+                $('.content')[0].style.height = '62%';
+            }
 
             $('.mascaracelular').mask("(000) 0 0000-0000", {placeholder: "(000) 0 0000-0000"});
             $('.mascaracpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});
