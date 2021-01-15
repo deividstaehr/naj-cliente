@@ -116,7 +116,7 @@ async function loadContainerAtividade() {
         if(resultAtividade.trinta_dias[0].qtde_30_dias > 0) {
             $('#qtde_atividade_trinta_dias')[0].innerHTML = `
                 ${resultAtividade.trinta_dias[0].qtde_30_dias}
-                <div class="notify" style="top: -15px !important; left: -45px;">
+                <div class="notify" style="top: -15px !important; left: -45px; z-index: 1;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>

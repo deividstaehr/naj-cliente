@@ -75,7 +75,7 @@ class LoginController extends Controller {
               FROM usuarios
              WHERE TRUE
                AND login = '" . request()->get('login') . "'
-               AND usuario_tipo_id IN(0, 1, 2, 3)
+               AND usuario_tipo_id IN(0, 3)
         ");
 
         if(is_array($usuario) && count($usuario) == 0) {

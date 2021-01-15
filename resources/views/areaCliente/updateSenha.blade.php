@@ -311,6 +311,7 @@
             if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/Windows Phone/i)) {
                 $('.content')[0].style.height = '47vh';
                 $('.content')[0].style.overflowY = 'auto';
+                $('.content').addClass('naj-scrollable ');
             } else {
                 $('.content')[0].style.height = '62%';
             }
