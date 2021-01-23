@@ -40,26 +40,100 @@ class ProcessoModel extends NajModel {
       $this->addColumn('PEDIDOS_PROCESSO');
       $this->addColumn('CODIGO_DIVISAO');
       $this->addColumn('CODIGO_SITUACAO');
-      $this->setOrder('SITUACAO, PRC.DATA_CADASTRO');
-      $this->addAllColumns();
-      $this->addRawFilter("PRC.CODIGO_CLIENTE IN ({$codigoCliente})");
+      // $this->addAllColumns();
+      // $this->addRawFilter("PRC.CODIGO_CLIENTE IN ({$codigoCliente})");
       $this->setRawBaseSelect("
-               SELECT [COLUMNS]
-               FROM PRC
-            LEFT JOIN PESSOA P1
-                  ON P1.CODIGO = PRC.CODIGO_CLIENTE
-            LEFT JOIN PESSOA P2
-                  ON P2.CODIGO = PRC.CODIGO_ADVERSARIO
-            LEFT JOIN PESSOA P3
-                  ON P3.CODIGO = PRC.CODIGO_RESPONSAVEL
-            LEFT JOIN PESSOA P4
-                  ON P4.CODIGO = PRC.CODIGO_ADV_CLIENTE
-            LEFT JOIN PRC_COMARCA CO
-                  ON CO.CODIGO = PRC.CODIGO_COMARCA
-            LEFT JOIN PRC_CARTORIO CA
-                  ON CA.CODIGO = PRC.CODIGO_CARTORIO
-            LEFT JOIN PRC_CLASSE CL
-                  ON CL.CODIGO = PRC.CODIGO_CLASSE
+      select p.*,
+      if(p.ULTIMA_ATIVIDADE_DATA>p.ULTIMO_ANDAMENTO_DATA,
+         p.ULTIMA_ATIVIDADE_DATA,
+          if(p.ULTIMO_ANDAMENTO_DATA>p.DATA_CADASTRO,
+            p.ULTIMO_ANDAMENTO_DATA,
+            p.DATA_CADASTRO
+          )
+      ) as DATA_ORDER_BY
+      from(select 
+         PC.CODIGO AS CODIGO_PROCESSO,
+         IF((SELECT ATIVO FROM PRC_SITUACAO WHERE CODIGO = PC.CODIGO_SITUACAO)='S','EM ANDAMENTO','ENCERRADO') AS SITUACAO,
+         P1.NOME AS NOME_CLIENTE,
+         pc.QUALIFICA_CLIENTE,
+         (SELECT COUNT(0) FROM PRC_GRUPO_CLIENTE PGC
+         WHERE PGC.CODIGO_PROCESSO = PC.CODIGO
+         ) AS QTDE_CLIENTES,
+         P2.NOME AS NOME_ADVERSARIO,
+         pc.QUALIFICA_ADVERSARIO,
+         (SELECT COUNT(0) FROM PRC_GRUPO_ADVERSARIO PGA
+         WHERE PGA.CODIGO_PROCESSO = PC.CODIGO
+         ) AS QTDE_ADVERSARIOS,
+         (SELECT COUNT(0) 
+              FROM PRC_ANEXOS
+             WHERE PRC_ANEXOS.CODIGO_PROCESSO = PC.CODIGO
+               AND PRC_ANEXOS.SERVICOS_CLIENTE = 'S'
+         ) AS QTDE_ANEXOS_PROCESSO,
+         (SELECT COUNT(0) 
+              FROM ATIVIDADE
+             WHERE ATIVIDADE.CODIGO_PROCESSO = PC.CODIGO
+               AND ENVIAR = 'S'
+         ) AS QTDE_ATIVIDADE_PROCESSO,
+         (SELECT COUNT(0)
+               FROM PRC_MOVIMENTO
+               WHERE PRC_MOVIMENTO.CODIGO_PROCESSO = PC.CODIGO
+         ) AS QTDE_ANDAMENTO,
+      
+         P3.NOME AS NOME_RESPONSAVEL,
+         P4.NOME AS NOME_ADVOGADO,
+      
+         (SELECT DESCRICAO_ANDAMENTO FROM PRC_MOVIMENTO
+         WHERE CODIGO_PROCESSO = PC.CODIGO
+         ORDER BY DATA DESC LIMIT 1
+         ) AS ULTIMO_ANDAMENTO_DESCRICAO,
+      
+         (SELECT DATA FROM PRC_MOVIMENTO
+         WHERE CODIGO_PROCESSO = PC.CODIGO
+         ORDER BY DATA DESC LIMIT 1
+         ) AS ULTIMO_ANDAMENTO_DATA,
+      
+         (SELECT HISTORICO FROM ATIVIDADE
+         WHERE CODIGO_PROCESSO = PC.CODIGO
+         ORDER BY DATA DESC LIMIT 1
+         ) AS ULTIMA_ATIVIDADE_DESCRICAO,
+      
+         (SELECT DATA FROM ATIVIDADE
+         WHERE CODIGO_PROCESSO = PC.CODIGO
+         ORDER BY DATA DESC LIMIT 1
+         ) AS ULTIMA_ATIVIDADE_DATA,
+      
+         PC.NUMERO_PROCESSO_NEW,
+         PC.NUMERO_PROCESSO,
+         CL.CLASSE,
+         CA.CARTORIO,
+         CO.COMARCA,
+         CO.UF AS COMARCA_UF,
+         #DATE_FORMAT(PC.DATA_CADASTRO,'%d/%m/%Y') AS DATA_CADASTRO,
+         #não pode ter data formatada, então eu comentei
+          PC.DATA_CADASTRO,
+          PC.DATA_DISTRIBUICAO,
+         #DATE_FORMAT(PC.DATA_DISTRIBUICAO,'%d/%m/%Y') AS DATA_DISTRIBUICAO,
+         #não pode ter data formatada, então eu comentei
+         PC.VALOR_CAUSA
+      
+         FROM PRC PC
+         LEFT JOIN PESSOA P1 ON P1.CODIGO = PC.CODIGO_CLIENTE
+         LEFT JOIN PESSOA P2 ON P2.CODIGO = PC.CODIGO_ADVERSARIO
+         LEFT JOIN PESSOA P3 ON P3.CODIGO = PC.CODIGO_RESPONSAVEL
+         LEFT JOIN PESSOA P4 ON P4.CODIGO = PC.CODIGO_ADV_CLIENTE
+         LEFT JOIN PRC_COMARCA CO ON CO.CODIGO = PC.CODIGO_COMARCA
+         LEFT JOIN PRC_CARTORIO CA ON CA.CODIGO = PC.CODIGO_CARTORIO
+         LEFT JOIN PRC_CLASSE CL ON CL.CODIGO = PC.CODIGO_CLASSE
+      
+         WHERE PC.CODIGO_CLIENTE IN({$codigoCliente})
+            OR PC.CODIGO IN (
+                              SELECT CODIGO_PROCESSO
+                                FROM PRC_GRUPO_CLIENTE
+                               WHERE CODIGO_CLIENTE IN({$codigoCliente})
+                            )
+         ) as p
+
+      ORDER BY SITUACAO, DATA_ORDER_BY desc
       ");
    }
 
@@ -301,14 +375,24 @@ class ProcessoModel extends NajModel {
         return $result;
     }
 
-    public function getQtdeAtivoBaixado() {
-        $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+    public function getQtdeAtivoBaixado($parametro) {
+        $parametro = json_decode(base64_decode($parametro));
+
+        $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
+        $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloProcessos($parametro->filter->id_usuario);
+        $aCodigo = [];
+
+        foreach($relacionamentos as $relacionamento) {
+           $aCodigo[] = $relacionamento->pessoa_codigo;
+        }
+
+        $codigoCliente = implode(',', $aCodigo);
 
          if($codigoCliente == "") {
             $codigoCliente = "-1";
          }
 
-        $response = DB::select("
+        $situacao = DB::select("
             SELECT COUNT(0) AS QTDE,
                    IF((SELECT ATIVO FROM PRC_SITUACAO WHERE CODIGO = PC.CODIGO_SITUACAO) = 'S','EM ANDAMENTO','ENCERRADO') AS SITUACAO
               FROM PRC PC
@@ -321,6 +405,59 @@ class ProcessoModel extends NajModel {
           GROUP BY SITUACAO
         ");
 
-        return $response;
+       $qtde_ultimos_trinta = DB::select("
+            SELECT SUM(b.qtde) AS total
+              FROM (
+                     SELECT COUNT(A.ULTIMO_ANDAMENTO_DATA) AS QTDE
+                       FROM (
+                              SELECT (
+                                       SELECT DATA
+                                         FROM PRC_MOVIMENTO
+                                        WHERE CODIGO_PROCESSO = PC.CODIGO
+                                     ORDER BY DATA DESC LIMIT 1
+                                     ) AS ULTIMO_ANDAMENTO_DATA               
+                                FROM PRC PC               
+                               WHERE PC.CODIGO_CLIENTE IN ({$codigoCliente})
+                                  OR PC.CODIGO IN (
+                                                    SELECT CODIGO_PROCESSO
+                                                      FROM PRC_GRUPO_CLIENTE
+                                                     WHERE CODIGO_CLIENTE IN ({$codigoCliente})
+                                                  )               
+                              HAVING ULTIMO_ANDAMENTO_DATA >= '{$parametro->filter->data_inicial}'# MAIOR QUE HOJE - 30 DIAS
+                            ) AS A
+               
+                     UNION
+                  
+                     SELECT COUNT(A.ULTIMA_ATIVIDADE_DATA) AS QTDE
+                       FROM (
+                              SELECT (
+                                       SELECT DATA
+                                         FROM ATIVIDADE
+                                        WHERE CODIGO_PROCESSO = PC.CODIGO
+                                     ORDER BY DATA DESC LIMIT 1
+                                     ) AS ULTIMA_ATIVIDADE_DATA,               
+                                     (
+                                       SELECT DATA
+                                         FROM PRC_MOVIMENTO
+                                        WHERE CODIGO_PROCESSO = PC.CODIGO
+                                     ORDER BY DATA DESC LIMIT 1
+                                     ) AS ULTIMO_ANDAMENTO_DATA                                                 
+                               FROM PRC PC               
+                              WHERE PC.CODIGO_CLIENTE IN ({$codigoCliente})
+                                 OR PC.CODIGO IN (
+                                                   SELECT CODIGO_PROCESSO
+                                                     FROM PRC_GRUPO_CLIENTE
+                                                    WHERE CODIGO_CLIENTE IN ({$codigoCliente})
+                                                )               
+                              HAVING ULTIMA_ATIVIDADE_DATA >= '{$parametro->filter->data_inicial}' #MAIOR QUE HOJE - 30 DIAS
+                           ) AS A
+                  ) as b
+       ");
+
+       return ['trinta_dias' => $qtde_ultimos_trinta[0], 'situacao' => $situacao];
+    }
+
+    protected function useOderBy() {
+       return false;
     }
 }

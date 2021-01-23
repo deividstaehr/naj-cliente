@@ -140,10 +140,15 @@ async function loadContainerAtividade() {
 }
 
 async function loadContainerProcesso() {
-    let filter = await filterUsuario();
-    let resultProcesso = await NajApi.getData(`processos/indicador?f=${filter}&XDEBUG_SESSION_START`);
+    let filter = {
+        'data_inicial': getDateProperties(new Date(new Date().getTime() - (30 * 86400000))).fullDate,
+        'data_final'  : getDateProperties(new Date()).fullDate,
+        'id_usuario'  : idUsuarioLogado
+    };
 
-    if(resultProcesso.data[0]) {
+    let resultProcesso = await NajApi.getData(`processos/indicador/${btoa(JSON.stringify({filter}))}?XDEBUG_SESSION_START`);
+
+    if(resultProcesso.data.situacao[0]) {
         if(resultProcesso.data[1]) {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
@@ -162,6 +167,24 @@ async function loadContainerProcesso() {
     } else {
         $('#qtde_processo_ativos')[0].innerHTML = `0`;
         $('#qtde_processo_baixado')[0].innerHTML = `0`;
+    }
+
+    if(resultProcesso.data.trinta_dias) {
+        if(resultProcesso.data.trinta_dias.qtde_30_dias) {
+            hasInfo = true;
+            $('#content-processos-trinta_dias').removeClass('pulse-naj');
+            $('#qtde_processo_30_dias')[0].innerHTML = `
+                ${resultProcesso.data.trinta_dias.total}
+                <div class="notify" style="top: -15px !important; left: -45px; z-index: 1;">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            `;
+        } else{
+            $('#qtde_processo_30_dias')[0].innerHTML = `0`;
+        }
+        
+        
     }
 }
 

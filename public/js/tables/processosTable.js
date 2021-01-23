@@ -123,10 +123,32 @@ class ProcessosTable extends Table {
             onLoad: (data, row) =>  {
                 let classeCss = (row.SITUACAO == "ENCERRADO") ? 'badge-danger' : 'badge-success';
                 let situacao  = (row.SITUACAO == "ENCERRADO") ? 'Baixado' : 'Em andamento';
+
+                let novas_atividades = '';
+                let novos_andamentos = '';
+
+                if(row.ULTIMA_ATIVIDADE_DATA && dataIsBetweenTrintaDias(row.ULTIMA_ATIVIDADE_DATA)) {
+                    novas_atividades = `
+                        <tr class="mt-1">
+                            <td><span class="mt-1 badge badge-warning badge-rounded badge-status-processo">Novas Atividades</span></td>
+                        </tr>
+                    `;
+                }
+
+                if(row.ULTIMO_ANDAMENTO_DATA && dataIsBetweenTrintaDias(row.ULTIMO_ANDAMENTO_DATA)) {
+                    novos_andamentos = `
+                        <tr style="margin-top: 5px !important;">
+                            <td><span class="mt-1 badge badge-warning badge-rounded badge-status-processo">Novos Andamentos</span></td>
+                        </tr>
+                    `;
+                }
+
                 return `
                     <table class="row-status-processo">
                         <tr>
                             <td><span class="badge ${classeCss} badge-rounded badge-status-processo">${situacao}</span></td>
+                            ${novas_atividades}
+                            ${novos_andamentos}
                         </tr>
                     </table>
                 `;

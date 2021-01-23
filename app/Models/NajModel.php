@@ -102,7 +102,7 @@ abstract class NajModel extends Model {
             $this->throwException('Tabela não definida.');
         }
 
-        if (!$this->order) {
+        if (!$this->order && $this->useOderBy()) {
             $this->setOrder($primaryKey[0], 'asc');
         }
 
@@ -306,9 +306,14 @@ abstract class NajModel extends Model {
     public function fillSelectForPagination($baseSelect, $limit, $offset) {
         $withColumns = $this->fillWithColumns($baseSelect);
 
-        $rest = "{$withColumns}
+        if($this->useOderBy()) {
+            $rest = "{$withColumns}
             order by {$this->getOrder()}
             limit {$limit} offset {$offset}";
+        } else {
+            $rest = "{$withColumns}
+            limit {$limit} offset {$offset}";
+        }
 
         return $rest;
     }
@@ -895,6 +900,10 @@ abstract class NajModel extends Model {
      */
     public function throwException($msg) {
         throw new NajException($msg);
+    }
+
+    protected function useOderBy() {
+        return true;
     }
 
 }

@@ -183,6 +183,7 @@
     <script src="{{ env('APP_URL') }}naj-datatables/src/Table.js"></script>
     <script src="{{ env('APP_URL') }}naj-datatables/src/alerts.js"></script>
     <script src="{{ env('APP_URL') }}naj-datatables/src/masks.js"></script>
+    <script src='http://momentjs.com/downloads/moment.min.js'></script>
 
     @yield('scripts')
 

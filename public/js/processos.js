@@ -154,3 +154,13 @@ async function onClickExibirModalAndamentoProcesso(codigo_processo) {
 
     $('#modal-consulta-andamento-processo').modal('show');
 }
+
+function dataIsBetweenTrintaDias(data) {
+    debugger;
+    if(!data) return false;
+
+    const splitDate  = data.split('-');
+    const dataTrinta = getDateProperties(new Date(new Date().getTime() - (30 * 86400000))).fullDate
+
+    return moment(`${splitDate[0]}-${splitDate[1]}-${splitDate[2].split(' ')[0]}`).isAfter(dataTrinta);
+}

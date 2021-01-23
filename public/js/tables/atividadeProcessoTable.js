@@ -36,7 +36,7 @@ class AtividadeProcessoTable extends Table {
 
         this.addField({
             name: 'NOME_USUARIO',
-            title: 'Responsável',
+            title: 'Outras Informações',
             width: 30
         });
 

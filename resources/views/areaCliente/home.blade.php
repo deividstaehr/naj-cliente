@@ -34,7 +34,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-sm-12">
-                    <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
+                    <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens" style="height: 85%;">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">
@@ -61,7 +61,7 @@
                                 <h2 class="mb-0 display-7"><i class="fas fa-tasks text-info"></i></h2>
                                 <div class="cursorActive" style="margin-left: 15% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_atividade_trinta_dias"></h3>
-                                    <h5 class="text-info mb-0">Últimos 30 Dias</h5>
+                                    <h5 class="text-info mb-0">Atualizações Últimos 30 Dias</h5>
                                 </div>
                                 <div class="ml-4 cursorActive" style="margin-left: 15% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_atividade_todas"></h3>
@@ -81,13 +81,17 @@
                             <h5 class="card-title text-uppercase">Processos</h5>
                             <div class="d-flex align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-primary"></i></h2>
-                                <div class="cursorActive" style="margin-left: 30% !important;">
+                                <div class="cursorActive" style="margin-left: 15% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_ativos"></h3>
                                     <h5 class="text-info mb-0">Ativos</h5>
                                 </div>
-                                <div class="ml-4 cursorActive" style="margin-left: 15% !important;">
+                                <div class="ml-4 cursorActive" style="margin-left: 10% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_baixado"></h3>
                                     <h5 class="text-info mb-0">Baixados</h5>
+                                </div>
+                                <div class="ml-4 cursorActive" style="margin-left: 10% !important;" id="content-processos-trinta_dias">
+                                    <h3 class="ml-3 font-medium" id="qtde_processo_30_dias"></h3>
+                                    <h5 class="text-info mb-0">Atualizações últimos 30 Dias</h5>
                                 </div>
                             </div>
                             <i class="fas fa-search text-info icone-search-home-cards"></i>
