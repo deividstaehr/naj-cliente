@@ -10,10 +10,26 @@
             height: 105% !important;
         }
 
+        .notify-custom-naj {
+            top: -15px !important;
+            left: -80%;
+            z-index: 1;
+        }
+
         /* AJUSTES PARA TELAS PEQUENAS */
         @media only screen and (max-width: 766px) {
             .page-content-home {
                 height: 99% !important;
+            }
+
+            .content-processos-ativo-baixados {
+                display: none !important;
+            }
+
+            .notify-custom-naj {
+                top: -15px !important;
+                left: -60%;
+                z-index: 1;
             }
         }
 
@@ -81,15 +97,19 @@
                             <h5 class="card-title text-uppercase">Processos</h5>
                             <div class="d-flex align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-primary"></i></h2>
-                                <div class="cursorActive" style="margin-left: 15% !important;">
+                                <div class="cursorActive content-processos-ativo-baixados" style="margin-left: 10% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_ativos"></h3>
                                     <h5 class="text-info mb-0">Ativos</h5>
                                 </div>
-                                <div class="ml-4 cursorActive" style="margin-left: 10% !important;">
+                                <div class="ml-4 cursorActive content-processos-ativo-baixados" style="margin-left: 7% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_baixado"></h3>
                                     <h5 class="text-info mb-0">Baixados</h5>
                                 </div>
-                                <div class="ml-4 cursorActive" style="margin-left: 10% !important;" id="content-processos-trinta_dias">
+                                <div class="ml-4 cursorActive" style="margin-left: 7% !important;">
+                                    <h3 class="ml-3 font-medium" id="qtde_processo_todos"></h3>
+                                    <h5 class="text-info mb-0">Todos</h5>
+                                </div>
+                                <div class="ml-4 cursorActive" style="margin-left: 7% !important;" id="content-processos-trinta_dias">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_30_dias"></h3>
                                     <h5 class="text-info mb-0">Atualizações últimos 30 Dias</h5>
                                 </div>

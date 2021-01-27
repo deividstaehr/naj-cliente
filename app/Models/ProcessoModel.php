@@ -215,12 +215,15 @@ class ProcessoModel extends NajModel {
                LIMIT 1
          ) AS ULTIMO_ANDAMENTO_DESCRICAO")
          ->addRawColumn("(
-            SELECT DATE_FORMAT(DATA, '%d/%m/%Y')
-               FROM PRC_MOVIMENTO
-               WHERE CODIGO_PROCESSO = PRC.CODIGO
-            ORDER BY DATA DESC, ID DESC
-               LIMIT 1
-         ) AS ULTIMO_ANDAMENTO_DATA")
+            IFNULL(
+               (
+                  SELECT DATA
+                    FROM PRC_MOVIMENTO
+			          WHERE CODIGO_PROCESSO = PRC.CODIGO
+			       ORDER BY DATA DESC LIMIT 1
+			      ),
+               '0001-01-01 00:00:00'
+	         ) AS ULTIMO_ANDAMENTO_DATA")
          ->addRawColumn("(
             SELECT HISTORICO
                FROM ATIVIDADE
@@ -229,12 +232,15 @@ class ProcessoModel extends NajModel {
                LIMIT 1
          ) AS ULTIMA_ATIVIDADE_DESCRICAO")
          ->addRawColumn("(
-            SELECT DATE_FORMAT(DATA, '%d/%m/%Y')
-               FROM ATIVIDADE
-               WHERE CODIGO_PROCESSO = PRC.CODIGO
-            ORDER BY DATA DESC, CODIGO DESC
-               LIMIT 1
-         ) AS ULTIMA_ATIVIDADE_DATA")
+            IFNULL(
+               (
+                  SELECT DATA
+                    FROM ATIVIDADE
+				       WHERE CODIGO_PROCESSO = PRC.CODIGO
+				    ORDER BY DATA DESC LIMIT 1
+			      ),
+			      '0001-01-01 00:00:00'
+	         ) AS ULTIMA_ATIVIDADE_DATA")
          ->addRawColumn("P2.NOME AS NOME_ADVERSARIO")
          ->addRawColumn("PRC.NUMERO_PROCESSO_NEW")
          ->addRawColumn("PRC.NUMERO_PROCESSO")

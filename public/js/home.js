@@ -148,11 +148,13 @@ async function loadContainerProcesso() {
 
     let resultProcesso = await NajApi.getData(`processos/indicador/${btoa(JSON.stringify({filter}))}?XDEBUG_SESSION_START`);
 
+    let qtde_processo_todos = 0;
     if(resultProcesso.data.situacao[0]) {
         if(resultProcesso.data[1]) {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
             $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
+            qtde_processo_todos = qtde_processo_todos + resultProcesso.data[1].QTDE;
         } else{
             $('#qtde_processo_baixado')[0].innerHTML = `0`;
         }
@@ -161,21 +163,25 @@ async function loadContainerProcesso() {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
             $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
+            qtde_processo_todos = qtde_processo_todos + resultProcesso.data[0].QTDE;
         } else {
             $('#qtde_processo_ativos')[0].innerHTML = `0`;
         }
+
+        $('#qtde_processo_todos')[0].innerHTML = qtde_processo_todos;
     } else {
         $('#qtde_processo_ativos')[0].innerHTML = `0`;
         $('#qtde_processo_baixado')[0].innerHTML = `0`;
+        $('#qtde_processo_todos')[0].innerHTML = `0`;
     }
 
     if(resultProcesso.data.trinta_dias) {
-        if(resultProcesso.data.trinta_dias.qtde_30_dias) {
+        if(resultProcesso.data.trinta_dias.total) {
             hasInfo = true;
             $('#content-processos-trinta_dias').removeClass('pulse-naj');
             $('#qtde_processo_30_dias')[0].innerHTML = `
                 ${resultProcesso.data.trinta_dias.total}
-                <div class="notify" style="top: -15px !important; left: -45px; z-index: 1;">
+                <div class="notify notify-custom-naj">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
@@ -183,8 +189,6 @@ async function loadContainerProcesso() {
         } else{
             $('#qtde_processo_30_dias')[0].innerHTML = `0`;
         }
-        
-        
     }
 }
 

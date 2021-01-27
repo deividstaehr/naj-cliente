@@ -27,6 +27,9 @@
 @component('areaCliente.componentes.modalConsultaAndamentoProcesso')
 @endcomponent
 
+@component('areaCliente.componentes.modalConsultaAnexoAtividade')
+@endcomponent
+
 @endsection
 
 @section('scripts')
@@ -34,5 +37,6 @@
     <script src="{{ env('APP_URL') }}js/tables/atividadeProcessoTable.js"></script>
     <script src="{{ env('APP_URL') }}js/tables/processosTable.js"></script>
     <script src="{{ env('APP_URL') }}js/tables/andamentoProcessoTable.js"></script>
+    <script src="{{ env('APP_URL') }}js/tables/anexoAtividadeTable.js"></script>
     <script src="{{ env('APP_URL') }}js/processos.js"></script>
 @endsection

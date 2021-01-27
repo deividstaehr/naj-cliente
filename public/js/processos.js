@@ -5,6 +5,11 @@ const NajApi  = new Naj('Processos', processoTable);
 $(document).ready(function() {
     
     processoTable.render();
+
+    //Ao esconder o modal de '#modal-manutencao-pessoa' remove a classe 'z-index-100' do modal '#modal-upload-anexo-ficha-pessoa-chat'
+    $('#modal-anexo-atividade').on('hidden.bs.modal', function(){
+        $('#modal-atividade-processo').removeClass('z-index-100');
+    });
     
 });
 
@@ -19,6 +24,7 @@ function onClickExibirModalAtividadeProcesso(codigo) {
     processoCodigoFilter = codigo;
     atividadeProcessoTable = new AtividadeProcessoTable();
     atividadeProcessoTable.render();
+    
     $('#modal-atividade-processo').modal('show');
 }
 
@@ -156,11 +162,19 @@ async function onClickExibirModalAndamentoProcesso(codigo_processo) {
 }
 
 function dataIsBetweenTrintaDias(data) {
-    debugger;
     if(!data) return false;
 
     const splitDate  = data.split('-');
     const dataTrinta = getDateProperties(new Date(new Date().getTime() - (30 * 86400000))).fullDate
 
     return moment(`${splitDate[0]}-${splitDate[1]}-${splitDate[2].split(' ')[0]}`).isAfter(dataTrinta);
+}
+
+function onClickExibirModalAnexoAtividade(codigo) {
+    atividadeCodigoFilter = codigo;
+    anexoAtividadesTable = new AnexoAtividadeTable();
+    anexoAtividadesTable.render();
+
+    $('#modal-atividade-processo').addClass('z-index-100');
+    $('#modal-anexo-atividade').modal('show');
 }

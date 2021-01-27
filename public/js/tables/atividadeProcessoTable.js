@@ -18,7 +18,31 @@ class AtividadeProcessoTable extends Table {
             title: 'Data e Hora',
             width: 15,
             onLoad: (data, row) =>  {
-                return `${row.DATA_INICIO} ${row.HORA_INICIO}`;
+                const data_atual = getDataAtual();
+                let data_atual_moment  = moment([data_atual.split('-')[0], data_atual.split('-')[1], data_atual.split('-')[2]]);
+                let data_inicio_moment = moment([row.DATA_INICIO.split('/')[2], row.DATA_INICIO.split('/')[1], row.DATA_INICIO.split('/')[0]]);
+                
+                const days_difference = data_atual_moment.diff(data_inicio_moment, 'days');
+
+                if(days_difference > 30) 
+                    return `${row.DATA_INICIO} ${row.HORA_INICIO}`;
+
+                let string_days = 'Hoje';
+                if(days_difference > 0) {
+                    string_days = `Há ${days_difference} dias`;
+                }
+
+                return `
+                    <table>
+                        <tr>
+                            <td>${row.DATA_INICIO} ${row.HORA_INICIO}</td>
+                        </tr>
+                        <tr>
+                            <td><span class="ml-3 mt-1 mb-2 badge badge-warning badge-rounded badge-informacoes-processo">${string_days}</span></td>
+                        </tr>
+                    </table>
+                    
+                `;
             }
         });
         
@@ -37,7 +61,26 @@ class AtividadeProcessoTable extends Table {
         this.addField({
             name: 'NOME_USUARIO',
             title: 'Outras Informações',
-            width: 30
+            width: 30,
+            onLoad: (data, row) =>  {
+                return `
+                    <table class="row-informacoes-processo">
+                        <tr>
+                            <td class="weight-500 text-dark">Responsável:</td>
+                        </tr>
+                        <tr>
+                            <td>${row.NOME_USUARIO}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-2" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_ATIVIDADE > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoAtividade(${row.CODIGO});">${row.QTDE_ANEXOS_ATIVIDADE} Documento(s) Anexos</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+            }
         });
 
         this.addFixedFilter('codigo_processo', 'I', processoCodigoFilter);
