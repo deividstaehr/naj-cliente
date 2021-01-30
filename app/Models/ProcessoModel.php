@@ -42,11 +42,12 @@ class ProcessoModel extends NajModel {
       $this->addColumn('CODIGO_SITUACAO');
       // $this->addAllColumns();
       // $this->addRawFilter("PRC.CODIGO_CLIENTE IN ({$codigoCliente})");
+
       $this->setRawBaseSelect("
       select p.*,
-      if(p.ULTIMA_ATIVIDADE_DATA>p.ULTIMO_ANDAMENTO_DATA,
+      if(p.ULTIMA_ATIVIDADE_DATA > p.ULTIMO_ANDAMENTO_DATA,
          p.ULTIMA_ATIVIDADE_DATA,
-          if(p.ULTIMO_ANDAMENTO_DATA>p.DATA_CADASTRO,
+          if(p.ULTIMO_ANDAMENTO_DATA > p.DATA_CADASTRO,
             p.ULTIMO_ANDAMENTO_DATA,
             p.DATA_CADASTRO
           )
@@ -87,20 +88,30 @@ class ProcessoModel extends NajModel {
          ORDER BY DATA DESC LIMIT 1
          ) AS ULTIMO_ANDAMENTO_DESCRICAO,
       
-         (SELECT DATA FROM PRC_MOVIMENTO
-         WHERE CODIGO_PROCESSO = PC.CODIGO
-         ORDER BY DATA DESC LIMIT 1
-         ) AS ULTIMO_ANDAMENTO_DATA,
+         IFNULL(
+            (
+               SELECT DATA
+                 FROM PRC_MOVIMENTO
+			       WHERE CODIGO_PROCESSO = PC.CODIGO
+			    ORDER BY DATA DESC LIMIT 1
+			   ),
+            '0001-01-01 00:00:00'
+	      ) AS ULTIMO_ANDAMENTO_DATA,
       
          (SELECT HISTORICO FROM ATIVIDADE
          WHERE CODIGO_PROCESSO = PC.CODIGO
          ORDER BY DATA DESC LIMIT 1
          ) AS ULTIMA_ATIVIDADE_DESCRICAO,
       
-         (SELECT DATA FROM ATIVIDADE
-         WHERE CODIGO_PROCESSO = PC.CODIGO
-         ORDER BY DATA DESC LIMIT 1
-         ) AS ULTIMA_ATIVIDADE_DATA,
+         IFNULL(
+            (
+               SELECT DATA
+                 FROM ATIVIDADE
+				    WHERE CODIGO_PROCESSO = PC.CODIGO
+				 ORDER BY DATA DESC LIMIT 1
+			   ),
+			   '0001-01-01 00:00:00'
+	      ) AS ULTIMA_ATIVIDADE_DATA,
       
          PC.NUMERO_PROCESSO_NEW,
          PC.NUMERO_PROCESSO,
@@ -133,7 +144,7 @@ class ProcessoModel extends NajModel {
                             )
          ) as p
 
-      ORDER BY SITUACAO, DATA_ORDER_BY desc
+      ORDER BY SITUACAO, DATA_ORDER_BY DESC
       ");
    }
 
@@ -161,96 +172,6 @@ class ProcessoModel extends NajModel {
       }
 
       return $aCodigo;
-   }
-
-   public function addAllColumns() {
-      $this->addRawColumn("PRC.CODIGO AS CODIGO_PROCESSO")
-         ->addRawColumn("IF ((
-               SELECT ATIVO
-               FROM PRC_SITUACAO
-               WHERE CODIGO = PRC.CODIGO_SITUACAO
-            ) = 'S', 'EM ANDAMENTO', 'ENCERRADO') AS SITUACAO")
-         ->addRawColumn("P1.NOME AS NOME_CLIENTE")
-         ->addRawColumn("P1.CODIGO AS CODIGO_CLIENTE")
-         ->addRawColumn("PRC.QUALIFICA_CLIENTE")
-         ->addRawColumn("(
-            SELECT COUNT(0)
-               FROM PRC_GRUPO_CLIENTE PGC
-               WHERE PGC.CODIGO_PROCESSO = PRC.CODIGO
-         ) AS QTDE_CLIENTES")
-         ->addRawColumn("P2.NOME AS NOME_ADVERSARIO")
-         ->addRawColumn("P2.CODIGO AS CODIGO_ADVERSARIO")
-         ->addRawColumn("PRC.QUALIFICA_ADVERSARIO")
-         ->addRawColumn("(
-            SELECT COUNT(0)
-               FROM PRC_GRUPO_ADVERSARIO PGA
-               WHERE PGA.CODIGO_PROCESSO = PRC.CODIGO
-         ) AS QTDE_ADVERSARIOS")
-         ->addRawColumn("(
-            SELECT COUNT(0) 
-              FROM PRC_ANEXOS
-             WHERE PRC_ANEXOS.CODIGO_PROCESSO = PRC.CODIGO
-               AND PRC_ANEXOS.SERVICOS_CLIENTE = 'S'
-         ) AS QTDE_ANEXOS_PROCESSO")
-         ->addRawColumn("(
-            SELECT COUNT(0) 
-              FROM ATIVIDADE
-             WHERE ATIVIDADE.CODIGO_PROCESSO = PRC.CODIGO
-               AND ENVIAR = 'S'
-         ) AS QTDE_ATIVIDADE_PROCESSO")
-         ->addRawColumn("(
-            SELECT COUNT(0)
-               FROM PRC_MOVIMENTO
-               WHERE PRC_MOVIMENTO.CODIGO_PROCESSO = PRC.CODIGO
-         ) AS QTDE_ANDAMENTO")
-         ->addRawColumn("P3.NOME AS NOME_RESPONSAVEL")
-         ->addRawColumn("P3.CODIGO AS CODIGO_RESPONSAVEL")
-         ->addRawColumn("P4.NOME AS NOME_ADVOGADO")
-         ->addRawColumn("P4.CODIGO AS CODIGO_ADVOGADO")
-         ->addRawColumn("(
-            SELECT DESCRICAO_ANDAMENTO
-               FROM PRC_MOVIMENTO
-               WHERE CODIGO_PROCESSO = PRC.CODIGO
-            ORDER BY DATA DESC, ID DESC
-               LIMIT 1
-         ) AS ULTIMO_ANDAMENTO_DESCRICAO")
-         ->addRawColumn("(
-            IFNULL(
-               (
-                  SELECT DATA
-                    FROM PRC_MOVIMENTO
-			          WHERE CODIGO_PROCESSO = PRC.CODIGO
-			       ORDER BY DATA DESC LIMIT 1
-			      ),
-               '0001-01-01 00:00:00'
-	         ) AS ULTIMO_ANDAMENTO_DATA")
-         ->addRawColumn("(
-            SELECT HISTORICO
-               FROM ATIVIDADE
-               WHERE CODIGO_PROCESSO = PRC.CODIGO
-            ORDER BY DATA DESC, CODIGO DESC
-               LIMIT 1
-         ) AS ULTIMA_ATIVIDADE_DESCRICAO")
-         ->addRawColumn("(
-            IFNULL(
-               (
-                  SELECT DATA
-                    FROM ATIVIDADE
-				       WHERE CODIGO_PROCESSO = PRC.CODIGO
-				    ORDER BY DATA DESC LIMIT 1
-			      ),
-			      '0001-01-01 00:00:00'
-	         ) AS ULTIMA_ATIVIDADE_DATA")
-         ->addRawColumn("P2.NOME AS NOME_ADVERSARIO")
-         ->addRawColumn("PRC.NUMERO_PROCESSO_NEW")
-         ->addRawColumn("PRC.NUMERO_PROCESSO")
-         ->addRawColumn("CL.CLASSE")
-         ->addRawColumn("CA.CARTORIO")
-         ->addRawColumn("CO.COMARCA")
-         ->addRawColumn("CO.UF AS COMARCA_UF")
-         ->addRawColumn("DATE_FORMAT(PRC.DATA_CADASTRO,'%d/%m/%Y') AS DATA_CADASTRO")
-         ->addRawColumn("DATE_FORMAT(PRC.DATA_DISTRIBUICAO,'%d/%m/%Y') AS DATA_DISTRIBUICAO")
-         ->addRawColumn("PRC.VALOR_CAUSA");
    }
 
    public function getPartes($key) {

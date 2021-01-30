@@ -110,7 +110,7 @@ async function loadContainerAtividade() {
         'id_usuario'  : idUsuarioLogado
     };
 
-    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?filterUser=${filter}`);
+    let resultAtividade = await NajApi.getData(`atividades/indicador/${btoa(JSON.stringify(parametrosAtividade))}?filterUser=${filter}&XDEBUG_SESSION_START`);
 
     if(resultAtividade.todas[0] && resultAtividade.trinta_dias[0]) {
         if(resultAtividade.trinta_dias[0].qtde_30_dias > 0) {
@@ -150,20 +150,20 @@ async function loadContainerProcesso() {
 
     let qtde_processo_todos = 0;
     if(resultProcesso.data.situacao[0]) {
-        if(resultProcesso.data[1]) {
+        if(resultProcesso.data.situacao[0]) {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
-            $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data[1].QTDE}`;
-            qtde_processo_todos = qtde_processo_todos + resultProcesso.data[1].QTDE;
+            $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data.situacao[0].QTDE}`;
+            qtde_processo_todos = qtde_processo_todos + resultProcesso.data.situacao[0].QTDE;
         } else{
             $('#qtde_processo_baixado')[0].innerHTML = `0`;
         }
 
-        if(resultProcesso.data[0]) {
+        if(resultProcesso.data.situacao[1]) {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
-            $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data[0].QTDE}`;
-            qtde_processo_todos = qtde_processo_todos + resultProcesso.data[0].QTDE;
+            $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data.situacao[1].QTDE}`;
+            qtde_processo_todos = qtde_processo_todos + resultProcesso.data.situacao[1].QTDE;
         } else {
             $('#qtde_processo_ativos')[0].innerHTML = `0`;
         }
@@ -176,7 +176,7 @@ async function loadContainerProcesso() {
     }
 
     if(resultProcesso.data.trinta_dias) {
-        if(resultProcesso.data.trinta_dias.total) {
+        if(resultProcesso.data.trinta_dias.total > 0) {
             hasInfo = true;
             $('#content-processos-trinta_dias').removeClass('pulse-naj');
             $('#qtde_processo_30_dias')[0].innerHTML = `

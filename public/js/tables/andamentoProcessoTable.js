@@ -17,7 +17,41 @@ class AndamentoProcessoTable extends Table {
         this.addField({
             name: 'DATA',
             title: 'Data Andamento',
-            width: 15
+            width: 15,
+            onLoad: (data, row) =>  {
+                const data_atual = getDataAtual();
+                let mesAtual           = data_atual.split('-')[1] - 1;
+                let mesInicio          = row.DATA.split('/')[1] - 1;
+                let data_atual_moment  = moment([data_atual.split('-')[0], mesAtual, data_atual.split('-')[2]]);
+                let data_inicio_moment = moment([row.DATA.split('/')[2], mesInicio, row.DATA.split('/')[0]]);
+                
+                const days_difference = data_atual_moment.diff(data_inicio_moment, 'days');
+
+                if(days_difference > 30) 
+                    return `
+                    <table style="margin: 5px 0 0 20px;">
+                        <tr>
+                            <td>${row.DATA}</td>
+                        </tr>
+                    </table>
+                `;
+
+                let string_days = 'Hoje';
+                if(days_difference > 0) {
+                    string_days = `Há ${days_difference} dias`;
+                }
+
+                return `
+                    <table style="margin: 5px 0 0 20px;">
+                        <tr>
+                            <td>${row.DATA}</td>
+                        </tr>
+                        <tr>
+                            <td><span class="mt-1 mb-2 badge badge-warning badge-rounded badge-informacoes-processo">${string_days}</span></td>
+                        </tr>
+                    </table>                    
+                `;
+            }
         });
 
         this.addField({

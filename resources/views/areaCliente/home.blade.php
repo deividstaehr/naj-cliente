@@ -31,6 +31,14 @@
                 left: -60%;
                 z-index: 1;
             }
+
+            .content-processos-trinta_dias, .content-processos-todos {
+                margin-left: 15% !important;
+            }
+        }
+
+        .content-processos-trinta_dias, .content-processos-todos {
+            margin-left: 7%;
         }
 
         .pulse-naj {
@@ -55,14 +63,14 @@
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">
                                 <h2 class="mb-0 display-7"><i class="fas fa-comments text-info"></i></h2>
-                                <div class="cursorActive" style="margin-left: 30% !important;">
-                                    <h3 class="ml-3 font-medium" id="qtde_mensagens_novas"></h3>
-                                    <h5 class="text-info mb-0">Novas</h5>
-                                </div>
                                 <div class="ml-4 cursorActive" style="margin-left: 15% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_mensagens_todas"></h3>
                                     <h5 class="text-info mb-0">Todas</h5>
                                 </div>
+                                <div class="cursorActive" style="margin-left: 30% !important;">
+                                    <h3 class="ml-3 font-medium" id="qtde_mensagens_novas"></h3>
+                                    <h5 class="text-info mb-0">Novas</h5>
+                                </div>                                
                             </div>
                             <i class="fas fa-search text-info icone-search-home-cards"></i>
                         </div>
@@ -76,13 +84,13 @@
                             <div class="d-flex align-items-center mb-2 mt-4">
                                 <h2 class="mb-0 display-7"><i class="fas fa-tasks text-info"></i></h2>
                                 <div class="cursorActive" style="margin-left: 15% !important;">
-                                    <h3 class="ml-3 font-medium" id="qtde_atividade_trinta_dias"></h3>
-                                    <h5 class="text-info mb-0">Atualizações Últimos 30 Dias</h5>
-                                </div>
-                                <div class="ml-4 cursorActive" style="margin-left: 15% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_atividade_todas"></h3>
                                     <h5 class="text-info mb-0">Todas</h5>
                                 </div>
+                                <div class="cursorActive" style="margin-left: 15% !important;">
+                                    <h3 class="ml-3 font-medium" id="qtde_atividade_trinta_dias"></h3>
+                                    <h5 class="text-info mb-0">Atualizações Últimos 30 Dias</h5>
+                                </div>                                
                             </div>
                             <i class="fas fa-search text-info icone-search-home-cards"></i>
                         </div>
@@ -105,13 +113,13 @@
                                     <h3 class="ml-3 font-medium" id="qtde_processo_baixado"></h3>
                                     <h5 class="text-info mb-0">Baixados</h5>
                                 </div>
-                                <div class="ml-4 cursorActive" style="margin-left: 7% !important;">
+                                <div class="cursorActive content-processos-todos">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_todos"></h3>
                                     <h5 class="text-info mb-0">Todos</h5>
                                 </div>
-                                <div class="ml-4 cursorActive" style="margin-left: 7% !important;" id="content-processos-trinta_dias">
+                                <div class="cursorActive content-processos-trinta_dias" id="content-processos-trinta_dias">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_30_dias"></h3>
-                                    <h5 class="text-info mb-0">Atualizações últimos 30 Dias</h5>
+                                    <h5 class="text-info mb-0">Atualizações Últimos 30 Dias</h5>
                                 </div>
                             </div>
                             <i class="fas fa-search text-info icone-search-home-cards"></i>
@@ -180,7 +188,6 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
-                                <img src="{{ env('APP_URL') }}imagens/applestore.png" alt="logo-apple-store" class="dark-logo mr-4" style="height: 40px;"/>
                                 <img src="{{ env('APP_URL') }}imagens/playstore.png" alt="logo-play-store" class="dark-logo"  style="height: 40px;"/>
                             </div>
                             <div class="mt-2 d-flex align-items-center justify-content-center">

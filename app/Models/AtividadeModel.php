@@ -119,8 +119,14 @@ class AtividadeModel extends NajModel {
          }
 
         $total_horas = DB::select("
-            SELECT time_format( SEC_TO_TIME( SUM( TIME_TO_SEC( tempo ) ) ),'%H:%i:%s')  AS total_horas 
-              FROM atividade 
+            SELECT time_format(
+                      SEC_TO_TIME(
+                        SUM(
+                           TIME_TO_SEC(tempo)
+                        )
+                     ),
+                   '%H:%i:%s') AS total_horas 
+              FROM atividade
              WHERE CODIGO_CLIENTE IN({$codigoCliente})
                AND data BETWEEN '{$data_inicial}' AND '{$data_final}'
                AND enviar = 'S'

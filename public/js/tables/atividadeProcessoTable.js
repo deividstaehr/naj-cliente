@@ -19,13 +19,21 @@ class AtividadeProcessoTable extends Table {
             width: 15,
             onLoad: (data, row) =>  {
                 const data_atual = getDataAtual();
-                let data_atual_moment  = moment([data_atual.split('-')[0], data_atual.split('-')[1], data_atual.split('-')[2]]);
-                let data_inicio_moment = moment([row.DATA_INICIO.split('/')[2], row.DATA_INICIO.split('/')[1], row.DATA_INICIO.split('/')[0]]);
-                
+                let mesAtual          = data_atual.split('-')[1] - 1;
+                let mesInicio          = row.DATA_INICIO.split('/')[1] - 1;
+                let data_atual_moment  = moment([data_atual.split('-')[0], mesAtual, data_atual.split('-')[2]]);
+                let data_inicio_moment = moment([row.DATA_INICIO.split('/')[2], mesInicio, row.DATA_INICIO.split('/')[0]]);
+
                 const days_difference = data_atual_moment.diff(data_inicio_moment, 'days');
 
                 if(days_difference > 30) 
-                    return `${row.DATA_INICIO} ${row.HORA_INICIO}`;
+                    return `
+                        <table style="margin: 5px 0 0 20px;">
+                            <tr>
+                                <td>${row.DATA_INICIO} ${row.HORA_INICIO}</td>
+                            </tr>
+                        </table>
+                    `;
 
                 let string_days = 'Hoje';
                 if(days_difference > 0) {
@@ -33,7 +41,7 @@ class AtividadeProcessoTable extends Table {
                 }
 
                 return `
-                    <table>
+                    <table style="margin: 5px 0 0 20px;">
                         <tr>
                             <td>${row.DATA_INICIO} ${row.HORA_INICIO}</td>
                         </tr>
@@ -41,7 +49,6 @@ class AtividadeProcessoTable extends Table {
                             <td><span class="ml-3 mt-1 mb-2 badge badge-warning badge-rounded badge-informacoes-processo">${string_days}</span></td>
                         </tr>
                     </table>
-                    
                 `;
             }
         });

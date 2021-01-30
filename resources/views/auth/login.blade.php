@@ -159,7 +159,7 @@
             function onClickModalEsqueceuLogin() {
                 Swal.fire({
                     title: "Esqueceu seus dados de acesso?",
-                    text: 'Procure o administrador e solicite que gere uma NOVA SENHA provisória, em seguida, você poderá fazer LOGIN e TROCAR sua senha!',
+                    text: `Entre em contato com ${sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa')} e solicite uma SENHA PROVISÓRIA, em seguida, você poderá fazer LOGIN e TROCAR sua senha!`,
                     type: "warning",
                 });
             }
