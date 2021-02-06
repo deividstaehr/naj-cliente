@@ -12,7 +12,7 @@
 
         .notify-custom-naj {
             top: -15px !important;
-            left: -80%;
+            left: -60%;
             z-index: 1;
         }
 
@@ -34,11 +34,15 @@
 
             .content-processos-trinta_dias, .content-processos-todos {
                 margin-left: 15% !important;
-            }
+            }            
+        }
+
+        .content-processos-todos {
+            margin-top: -13px !important;
         }
 
         .content-processos-trinta_dias, .content-processos-todos {
-            margin-left: 7%;
+            margin-left: 10%;
         }
 
         .pulse-naj {
@@ -83,7 +87,7 @@
                             <h5 class="card-title text-uppercase">ATIVIDADES</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">
                                 <h2 class="mb-0 display-7"><i class="fas fa-tasks text-info"></i></h2>
-                                <div class="cursorActive" style="margin-left: 15% !important;">
+                                <div class="cursorActive" style="margin-left: 15% !important; margin-top: -14px;">
                                     <h3 class="ml-3 font-medium" id="qtde_atividade_todas"></h3>
                                     <h5 class="text-info mb-0">Todas</h5>
                                 </div>
@@ -99,20 +103,12 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="col-md-6 col-lg-6 col-sm-6">
                     <div class="card card-hover cursorActive" id="content-meus-processos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Processos</h5>
                             <div class="d-flex align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-primary"></i></h2>
-                                <div class="cursorActive content-processos-ativo-baixados" style="margin-left: 10% !important;">
-                                    <h3 class="ml-3 font-medium" id="qtde_processo_ativos"></h3>
-                                    <h5 class="text-info mb-0">Ativos</h5>
-                                </div>
-                                <div class="ml-4 cursorActive content-processos-ativo-baixados" style="margin-left: 7% !important;">
-                                    <h3 class="ml-3 font-medium" id="qtde_processo_baixado"></h3>
-                                    <h5 class="text-info mb-0">Baixados</h5>
-                                </div>
                                 <div class="cursorActive content-processos-todos">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_todos"></h3>
                                     <h5 class="text-info mb-0">Todos</h5>
@@ -120,6 +116,22 @@
                                 <div class="cursorActive content-processos-trinta_dias" id="content-processos-trinta_dias">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_30_dias"></h3>
                                     <h5 class="text-info mb-0">Atualizações Últimos 30 Dias</h5>
+                                </div>
+                            </div>
+                            <i class="fas fa-search text-info icone-search-home-cards"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-sm-6">
+                    <div class="card card-hover cursorActive" id="content-agendamentos">
+                        <div class="card-body">
+                            <h5 class="card-title text-uppercase">Agendamentos</h5>
+                            <div class="d-flex align-items-center">
+                                <h2 class="mb-0 display-5"><i class="fas fa-calendar text-primary"></i></h2>
+                                <div class="cursorActive" style="margin-left: 28%;">
+                                    <h3 class="ml-3 font-medium"></h3>
+                                    <h5 class="text-info mb-0">Clique aqui</h5>
                                 </div>
                             </div>
                             <i class="fas fa-search text-info icone-search-home-cards"></i>
@@ -204,10 +216,14 @@
 @component('areaCliente.componentes.modalManutencaoLogoEmpresa')
 @endcomponent
 
+@component('areaCliente.componentes.modalAgendamentos')
+@endcomponent
+
 @endsection
 @section('scripts')
     <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.js"></script>
     <script src="{{ env('APP_URL') }}js/home.js"></script>
+    <script src="{{ env('APP_URL') }}js/agendamento.js"></script>
     <script>
         //Configuração do UPLOAD
         Dropzone.autoDiscover = false;

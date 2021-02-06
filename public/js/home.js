@@ -33,6 +33,10 @@ $(document).ready(function() {
         window.location.href = `${baseURL}financeiro/index/pagar`;
     });
 
+    $('#content-agendamentos').on('click', () => {
+        $('#modal-agendamentos').modal('show');
+    });
+
     let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
 
     if(nomeEmpresa) {
@@ -116,7 +120,7 @@ async function loadContainerAtividade() {
         if(resultAtividade.trinta_dias[0].qtde_30_dias > 0) {
             $('#qtde_atividade_trinta_dias')[0].innerHTML = `
                 ${resultAtividade.trinta_dias[0].qtde_30_dias}
-                <div class="notify" style="top: -15px !important; left: -45px; z-index: 1;">
+                <div class="notify" style="top: -15px !important; left: -60px; z-index: 1;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
@@ -153,25 +157,17 @@ async function loadContainerProcesso() {
         if(resultProcesso.data.situacao[0]) {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
-            $('#qtde_processo_baixado')[0].innerHTML = `${resultProcesso.data.situacao[0].QTDE}`;
             qtde_processo_todos = qtde_processo_todos + resultProcesso.data.situacao[0].QTDE;
-        } else{
-            $('#qtde_processo_baixado')[0].innerHTML = `0`;
         }
 
         if(resultProcesso.data.situacao[1]) {
             hasInfo = true;
             $('#content-minhas-mensagens').removeClass('pulse-naj');
-            $('#qtde_processo_ativos')[0].innerHTML = `${resultProcesso.data.situacao[1].QTDE}`;
             qtde_processo_todos = qtde_processo_todos + resultProcesso.data.situacao[1].QTDE;
-        } else {
-            $('#qtde_processo_ativos')[0].innerHTML = `0`;
         }
 
         $('#qtde_processo_todos')[0].innerHTML = qtde_processo_todos;
     } else {
-        $('#qtde_processo_ativos')[0].innerHTML = `0`;
-        $('#qtde_processo_baixado')[0].innerHTML = `0`;
         $('#qtde_processo_todos')[0].innerHTML = `0`;
     }
 
@@ -202,18 +198,22 @@ async function loadContainerFinanceiro() {
     $('#qtde_receber_recebido')[0].innerHTML = `R$0,00`;
 
     if(resultFinanceiro.total_pagar[0]) {
+        hasInfo = true;
         $('#qtde_pagar_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pagar[0].TOTAL_EM_ABERTO)}`;
     }
 
     if(resultFinanceiro.total_pago[0]) {
+        hasInfo = true;
         $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pago[0].TOTAL_PAGO)}`;
     }
 
     if(resultFinanceiro.total_receber[0]) {
+        hasInfo = true;
         $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.total_receber[0].TOTAL_EM_ABERTO)}`;
     }
 
     if(resultFinanceiro.total_recebido[0]) {
+        hasInfo = true;
         $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.total_recebido[0].TOTAL_PAGO)}`;
     }
 }

@@ -53,7 +53,7 @@ class MonitoramentoController extends NajController {
                 return 'Acesso';
 
             default:
-                break;
+                return 'Clicou';
         }
     }
 

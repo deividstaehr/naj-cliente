@@ -332,53 +332,45 @@ class ProcessoModel extends NajModel {
           GROUP BY SITUACAO
         ");
 
-       $qtde_ultimos_trinta = DB::select("
-            SELECT SUM(b.qtde) AS total
-              FROM (
-                     SELECT COUNT(A.ULTIMO_ANDAMENTO_DATA) AS QTDE
-                       FROM (
-                              SELECT (
-                                       SELECT DATA
-                                         FROM PRC_MOVIMENTO
-                                        WHERE CODIGO_PROCESSO = PC.CODIGO
-                                     ORDER BY DATA DESC LIMIT 1
-                                     ) AS ULTIMO_ANDAMENTO_DATA               
-                                FROM PRC PC               
-                               WHERE PC.CODIGO_CLIENTE IN ({$codigoCliente})
-                                  OR PC.CODIGO IN (
-                                                    SELECT CODIGO_PROCESSO
-                                                      FROM PRC_GRUPO_CLIENTE
-                                                     WHERE CODIGO_CLIENTE IN ({$codigoCliente})
-                                                  )               
-                              HAVING ULTIMO_ANDAMENTO_DATA >= '{$parametro->filter->data_inicial}'# MAIOR QUE HOJE - 30 DIAS
-                            ) AS A
-               
-                     UNION
-                  
-                     SELECT COUNT(A.ULTIMA_ATIVIDADE_DATA) AS QTDE
-                       FROM (
-                              SELECT (
-                                       SELECT DATA
-                                         FROM ATIVIDADE
-                                        WHERE CODIGO_PROCESSO = PC.CODIGO
-                                     ORDER BY DATA DESC LIMIT 1
-                                     ) AS ULTIMA_ATIVIDADE_DATA,               
-                                     (
-                                       SELECT DATA
-                                         FROM PRC_MOVIMENTO
-                                        WHERE CODIGO_PROCESSO = PC.CODIGO
-                                     ORDER BY DATA DESC LIMIT 1
-                                     ) AS ULTIMO_ANDAMENTO_DATA                                                 
-                               FROM PRC PC               
-                              WHERE PC.CODIGO_CLIENTE IN ({$codigoCliente})
-                                 OR PC.CODIGO IN (
-                                                   SELECT CODIGO_PROCESSO
-                                                     FROM PRC_GRUPO_CLIENTE
-                                                    WHERE CODIGO_CLIENTE IN ({$codigoCliente})
-                                                )               
-                              HAVING ULTIMA_ATIVIDADE_DATA >= '{$parametro->filter->data_inicial}' #MAIOR QUE HOJE - 30 DIAS
-                           ) AS A
-                  ) as b
+        $qtde_ultimos_trinta = DB::select("
+        	SELECT SUM(
+                        (
+						  SELECT COUNT(0)
+                            FROM PRC PC
+					  INNER JOIN PRC_MOVIMENTO PM
+					          ON PM.CODIGO_PROCESSO = PC.CODIGO
+                           WHERE (
+							       PC.CODIGO_CLIENTE IN({$codigoCliente})
+								   OR
+								   PC.CODIGO IN (
+												  SELECT CODIGO_PROCESSO
+												    FROM PRC_GRUPO_CLIENTE
+                                                   WHERE CODIGO_CLIENTE IN({$codigoCliente})
+                                                )
+                                 )
+                             AND DATA >= '{$parametro->filter->data_inicial}' #MAIOR QUE HOJE - 30 DIAS
+                        )
+           
+			+ 
+			
+			   (
+				SELECT COUNT(0)
+				  FROM PRC PC
+			INNER JOIN ATIVIDADE AT
+					ON AT.CODIGO_PROCESSO = PC.CODIGO
+				 WHERE (
+				 		 PC.CODIGO_CLIENTE IN({$codigoCliente})
+				 		 OR
+				 		 PC.CODIGO IN ( 
+										SELECT CODIGO_PROCESSO
+										  FROM PRC_GRUPO_CLIENTE
+										 WHERE CODIGO_CLIENTE IN({$codigoCliente})
+									  )
+						)
+				   AND AT. ENVIAR='S'
+				   AND AT.DATA >= '2021-01-01'# MAIOR QUE HOJE - 30 DIAS
+			    )
+			) AS total
        ");
 
        return ['trinta_dias' => $qtde_ultimos_trinta[0], 'situacao' => $situacao];

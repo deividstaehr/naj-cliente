@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AreaCliente;
 use Illuminate\Support\Facades\DB;
 use App\Models\ChatMensagemModel;
 use App\Http\Controllers\NajController;
+Use App\Http\Controllers\AreaCliente\AgendamentoMonitoramentoController;
 
 /**
  * Controller do chat mensagem.
@@ -32,6 +33,58 @@ class ChatMensagemController extends NajController {
         }
         
         $this->{"{$action}Items"}($model);
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public function store($attrs = null) {
+        $this->setCurrentAction(self::STORE_ACTION);
+
+        $this->begin();
+
+        $code = 200;
+
+        $data = ['mensagem' => 'Registro inserido com sucesso.', 'model' => null];
+
+        try {
+            $toStore = $this->resolveValidate(
+                $this->getModel()->getFilledAttributes($attrs)
+            );
+
+            $data['model'] = $toStore;
+
+            $model = $this->getModel()->newInstance();
+
+            $model->fill($toStore);
+
+            $result = $model->save();
+
+            if (is_string($result)) {
+                $this->throwException('Erro ao inserir o registro. ' . $result);
+            }
+
+            $this->handleItems($model);
+
+            if(request()->get('agendamentoRotina')) {
+                //INCLUINDO O MONITORAMENTO
+                $AgendamentoMonitoramentoController = new AgendamentoMonitoramentoController();
+                $AgendamentoMonitoramentoController->storeMonitoramento(self::PAGINATE_ACTION);
+            }
+
+            $this->commit();
+        } catch (Exception $e) {
+            $code = 400;
+
+            $data = ['mensagem' =>
+                $this->extractMessageFromException($e)
+            ];
+
+            $this->rollback();
+        }
+
+        return $this->resolveResponse($data, $code);
     }
 
     /**

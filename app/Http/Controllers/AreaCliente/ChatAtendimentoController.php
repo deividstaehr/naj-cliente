@@ -9,6 +9,7 @@ use App\Models\ChatRelacionamentoUsuarioModel;
 use App\Http\Controllers\NajController;
 use App\Http\Controllers\AreaCliente\ChatController;
 use App\Http\Controllers\AreaCliente\AnexoChatStorageController;
+Use App\Http\Controllers\AreaCliente\AgendamentoMonitoramentoController;
 
 /**
  * Controller do chat atendimento.
@@ -114,6 +115,12 @@ class ChatAtendimentoController extends NajController {
         if(request()->get('files')) {
             //INCLUINDO OS ANEXOS
             $this->callStoreAnexos(Auth::user()->id, $chat_store['model']['id']);
+        }
+
+        if(request()->get('agendamentoRotina')) {
+            //INCLUINDO O MONITORAMENTO
+            $AgendamentoMonitoramentoController = new AgendamentoMonitoramentoController();
+            $AgendamentoMonitoramentoController->store();
         }
 
         return response()->json(['message' => 'Mensagem enviada com sucesso!', 'status_code' => 200], 200);
