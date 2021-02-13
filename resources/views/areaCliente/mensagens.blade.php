@@ -120,7 +120,6 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-center">
-                            <img src="{{ env('APP_URL') }}imagens/applestore.png" alt="logo-apple-store" class="dark-logo mr-4" style="height: 40px;"/>
                             <img src="{{ env('APP_URL') }}imagens/playstore.png" alt="logo-play-store" class="dark-logo"  style="height: 40px;"/>
                         </div>
                         <div class="mt-2 d-flex align-items-center justify-content-center">

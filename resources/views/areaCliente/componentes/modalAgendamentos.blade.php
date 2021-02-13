@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body-naj p-0">
                 <div id="loading-agendamento" class="loader loader-default" data-half></div>
-                <h5 class="mt-4 weight-700 text-center">Escolha uma das opções de AGENDAMENTOS a baixo:</h5>
+                <h5 class="mt-4 weight-700 text-center">Escolha uma das opções de AGENDAMENTOS abaixo:</h5>
                 <div class="content-agenda-buttons">                    
                     <button class="btn btn-primary" onclick="onClickAgendarConsulta()">Agendar uma Consulta</button>
                     <button class="btn btn-info" onclick="onClickAgendarReuniao()">Agendar uma Reunião</button>

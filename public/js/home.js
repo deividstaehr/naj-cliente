@@ -197,24 +197,24 @@ async function loadContainerFinanceiro() {
     $('#qtde_receber_aberto')[0].innerHTML = `R$0,00`;
     $('#qtde_receber_recebido')[0].innerHTML = `R$0,00`;
 
-    if(resultFinanceiro.total_pagar[0]) {
-        hasInfo = true;
+    if(resultFinanceiro.total_pagar[0]) {        
         $('#qtde_pagar_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pagar[0].TOTAL_EM_ABERTO)}`;
+        if(resultFinanceiro.total_pagar[0].TOTAL_EM_ABERTO && resultFinanceiro.total_pagar[0].TOTAL_EM_ABERTO != "0.00") hasInfo = true;
     }
 
     if(resultFinanceiro.total_pago[0]) {
-        hasInfo = true;
         $('#qtde_pagar_pago')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pago[0].TOTAL_PAGO)}`;
+        if(resultFinanceiro.total_pago[0].TOTAL_PAGO && resultFinanceiro.total_pago[0].TOTAL_PAGO) hasInfo = true;
     }
 
-    if(resultFinanceiro.total_receber[0]) {
-        hasInfo = true;
+    if(resultFinanceiro.total_receber[0]) {        
         $('#qtde_receber_aberto')[0].innerHTML = `${formatter.format(resultFinanceiro.total_receber[0].TOTAL_EM_ABERTO)}`;
+        if(resultFinanceiro.total_receber[0].TOTAL_EM_ABERTO && resultFinanceiro.total_receber[0].TOTAL_EM_ABERTO != '0.00') hasInfo = true;
     }
 
-    if(resultFinanceiro.total_recebido[0]) {
-        hasInfo = true;
+    if(resultFinanceiro.total_recebido[0]) {        
         $('#qtde_receber_recebido')[0].innerHTML = `${formatter.format(resultFinanceiro.total_recebido[0].TOTAL_PAGO)}`;
+        if(resultFinanceiro.total_recebido[0].TOTAL_PAGO && resultFinanceiro.total_recebido[0].TOTAL_PAGO != '0.00') hasInfo = true;
     }
 }
 

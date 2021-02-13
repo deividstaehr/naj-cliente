@@ -368,7 +368,7 @@ class ProcessoModel extends NajModel {
 									  )
 						)
 				   AND AT. ENVIAR='S'
-				   AND AT.DATA >= '2021-01-01'# MAIOR QUE HOJE - 30 DIAS
+				   AND AT.DATA >= '{$parametro->filter->data_inicial}'# MAIOR QUE HOJE - 30 DIAS
 			    )
 			) AS total
        ");
