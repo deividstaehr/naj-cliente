@@ -50,6 +50,8 @@ async function onClickOutroAgendamento() {
 async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina) {
     const data_hora = getDataHoraAtual();
 
+    loadingStart('loading-agendamento');
+    
     if(id_chat_current) {
         let data = {
             "id_chat"       : id_chat_current,
@@ -67,10 +69,18 @@ async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina
 
         if(!result || !result.model) {
             NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
+            loadingDestroy('loading-agendamento');
             return;
         }
 
-        NajAlert.toastSuccess(messageSuccess);
+        loadingDestroy('loading-agendamento');
+        Swal.fire({
+            title: "Mensagem enviada!",
+            text: messageSuccess,
+            icon: "success",
+            confirmButtonText: "Entendi!",
+        });
+
         $('#modal-agendamentos').modal('hide');
     } else {
         let data = {
@@ -87,11 +97,18 @@ async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina
 
         if(!result) {
             NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
+            loadingDestroy('loading-agendamento');
             return;
         }
 
         if(result.message) {
-            NajAlert.toastSuccess(messageSuccess);
+            loadingDestroy('loading-agendamento');
+            Swal.fire({
+                title: "Mensagem enviada!",
+                text: messageSuccess,
+                icon: "success",
+                confirmButtonText: "Entendi!",
+            });
             $('#modal-agendamentos').modal('hide');
         }
     }

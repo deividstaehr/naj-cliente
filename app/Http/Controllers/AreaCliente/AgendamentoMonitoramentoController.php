@@ -36,10 +36,8 @@ class AgendamentoMonitoramentoController extends MonitoramentoController {
         $ipCliente = $_SERVER['REMOTE_ADDR'];
 
         return sprintf(
-            'Clicou em %s. IP Cliente: %s. Navegador: %s',
-            request()->get('agendamentoRotina'),
-            $ipCliente,
-            $this->getBrowserUsedByUser()
+            'Clicou em %s.',
+            request()->get('agendamentoRotina')
         );
     }
 
