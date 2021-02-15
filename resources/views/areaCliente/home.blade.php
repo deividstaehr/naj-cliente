@@ -10,38 +10,52 @@
             height: 105% !important;
         }
 
-        .notify-custom-naj {
-            top: -15px !important;
-            left: -60%;
-            z-index: 1;
-        }
-
         /* AJUSTES PARA TELAS PEQUENAS */
         @media only screen and (max-width: 766px) {
             .page-content-home {
                 height: 99% !important;
             }
 
+            .custom-notify-naj {
+                left: -51px !important;
+            }
+
             .content-processos-ativo-baixados {
                 display: none !important;
             }
 
-            .notify-custom-naj {
-                top: -15px !important;
-                left: -60%;
-                z-index: 1;
+            .content-processos-todos {
+                margin-left: 7% !important;
             }
 
-            .content-processos-trinta_dias, .content-processos-todos {
-                margin-left: 15% !important;
-            }            
+            .atividade-todos {
+                margin-left: 11% !important;
+            }
+
+            .content-processos-trinta_dias {
+                margin-left: 10% !important;
+            }
+
+            .atividades-trinta-dias {
+                margin-left: 10%;
+            }
+        }
+
+        .atividade-todos {
+            margin-top: -14px;
+            margin-left: 10px;
+        }
+
+        .atividades-trinta-dias {
+            margin-left: 10%;
         }
 
         .content-processos-todos {
             margin-top: -13px !important;
+            margin-left: 10px;
         }
 
-        .content-processos-trinta_dias, .content-processos-todos {
+        .content-processos-trinta_dias {
             margin-left: 10%;
         }
 
@@ -62,16 +76,16 @@
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-sm-12">
-                    <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens" style="height: 85%;">
+                    <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">
-                                <h2 class="mb-0 display-7"><i class="fas fa-comments text-info"></i></h2>
+                                <h2 class="mb-0 display-5"><i class="fas fa-comments text-info"></i></h2>
                                 <div class="ml-4 cursorActive" style="margin-left: 15% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_mensagens_todas"></h3>
                                     <h5 class="text-info mb-0">Todas</h5>
                                 </div>
-                                <div class="cursorActive" style="margin-left: 30% !important;">
+                                <div class="cursorActive" style="margin-left: 20% !important;">
                                     <h3 class="ml-3 font-medium" id="qtde_mensagens_novas"></h3>
                                     <h5 class="text-info mb-0">Novas</h5>
                                 </div>                                
@@ -86,12 +100,12 @@
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">ATIVIDADES</h5>
                             <div class="d-flex align-items-center mb-2 mt-4">
-                                <h2 class="mb-0 display-7"><i class="fas fa-tasks text-info"></i></h2>
-                                <div class="cursorActive" style="margin-left: 15% !important; margin-top: -14px;">
+                                <h2 class="mb-0 display-5"><i class="fas fa-tasks text-info"></i></h2>
+                                <div class="cursorActive atividade-todos">
                                     <h3 class="ml-3 font-medium" id="qtde_atividade_todas"></h3>
                                     <h5 class="text-info mb-0">Todas</h5>
                                 </div>
-                                <div class="cursorActive" style="margin-left: 15% !important;">
+                                <div class="cursorActive atividades-trinta-dias">
                                     <h3 class="ml-3 font-medium" id="qtde_atividade_trinta_dias"></h3>
                                     <h5 class="text-info mb-0">Atualizações Últimos 30 Dias</h5>
                                 </div>                                
@@ -108,7 +122,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Processos</h5>
                             <div class="d-flex align-items-center">
-                                <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-primary"></i></h2>
+                                <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-info"></i></h2>
                                 <div class="cursorActive content-processos-todos">
                                     <h3 class="ml-3 font-medium" id="qtde_processo_todos"></h3>
                                     <h5 class="text-info mb-0">Todos</h5>
@@ -128,7 +142,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Agendamentos</h5>
                             <div class="d-flex align-items-center">
-                                <h2 class="mb-0 display-5"><i class="fas fa-calendar text-primary"></i></h2>
+                                <h2 class="mb-0 display-5"><i class="fas fa-calendar-alt text-info"></i></h2>
                                 <div class="cursorActive" style="margin-left: 28%;">
                                     <h3 class="ml-3 font-medium"></h3>
                                     <h5 class="text-info mb-0">Clique aqui</h5>
@@ -146,7 +160,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">FINANCEIRO</h5>
                             <div class="d-flex no-block align-items-center row">
-                                <h2 class="mb-0 display-5 ml-4"><i class="fas fa-donate text-primary"></i></h2>
+                                <h2 class="mb-0 display-5 ml-4"><i class="fas fa-donate text-info"></i></h2>
                                 <div class="col-lg-4 col-md-4 col-sm-12 ml-auto card-hover cursor-pointer p-2" id="content-financeiro-receber">
                                     <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-success"></i> A RECEBER</h4>
                                     <h5 class="text-dark mb-0"><span class="mr-2 align-right">Recebido</span>  <span class="text-success float-right" id="qtde_receber_recebido"></span> </h5>

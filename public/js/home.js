@@ -94,7 +94,7 @@ async function loadContainerMensagens() {
         if(resultMessages.novas > 0) {
             $('#qtde_mensagens_novas')[0].innerHTML = `
                 ${resultMessages.novas}
-                <div class="notify" style="top: -15px !important; z-index: 1;">
+                <div class="notify" style="top: -15px !important; left: 18px; z-index: 1;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
@@ -120,7 +120,7 @@ async function loadContainerAtividade() {
         if(resultAtividade.trinta_dias[0].qtde_30_dias > 0) {
             $('#qtde_atividade_trinta_dias')[0].innerHTML = `
                 ${resultAtividade.trinta_dias[0].qtde_30_dias}
-                <div class="notify" style="top: -15px !important; left: -60px; z-index: 1;">
+                <div class="notify custom-notify-naj" style="top: -15px !important; left: -59px; z-index: 1;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
@@ -177,7 +177,7 @@ async function loadContainerProcesso() {
             $('#content-processos-trinta_dias').removeClass('pulse-naj');
             $('#qtde_processo_30_dias')[0].innerHTML = `
                 ${resultProcesso.data.trinta_dias.total}
-                <div class="notify notify-custom-naj">
+                <div class="notify" style="top: -15px !important; left: -50px; z-index: 1;">
                     <span class="heartbit"></span>
                     <span class="point"></span>
                 </div>
