@@ -14,6 +14,7 @@
         @media only screen and (max-width: 766px) {
             .page-content-home {
                 height: 99% !important;
+                overflow-y: auto;
             }
 
             .custom-notify-naj {
@@ -41,6 +42,22 @@
             }
         }
 
+        .row-processos-agendamentos-110 {
+            max-height: 29% !important;
+        }
+
+        .add-overflow {
+            overflow-y: auto;
+        }
+
+        .row-mensagens-atividades {
+            max-height: 30%;
+        }
+
+        .row-processos-agendamentos {
+            max-height: 27%;
+        }
+
         .atividade-todos {
             margin-top: -14px;
             margin-left: 10px;
@@ -63,6 +80,14 @@
             animation: shake 2.5s;
         }
 
+        #content-minhas-mensagens {
+            height: 84%;
+        }
+
+        #content-agendamentos {
+            height: 83%;
+        }
+
         div[animacao="animacao-qualquer"] { animation: animacaoQualquer 2s linear; }
         
     </style>
@@ -71,11 +96,11 @@
 @section('active-layer', 'home')
 
 @section('content')
-<div class="page-content container-fluid pt-2 pb-2 scrollable page-content-home">
+<div class="page-content container-fluid pt-2 pb-2 page-content-home naj-scrollable" id="content-scrollable">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
-            <div class="row">
-                <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="row row-mensagens-atividades" id="row-mensagens-atividades">
+                <div class="col-md-6 col-lg-6 col-sm-12 row-minhas-mensagens">
                     <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
@@ -95,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="col-md-6 col-lg-6 col-sm-12 row-minhas-atividades">
                     <div class="card card-hover cursorActive" id="content-atividades">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">ATIVIDADES</h5>
@@ -116,8 +141,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6 col-lg-6 col-sm-6">
+            <div class="row row-processos-agendamentos" id="row-processos-agendamentos">
+                <div class="col-md-6 col-lg-6 col-sm-6 row-meu-processos">
                     <div class="card card-hover cursorActive" id="content-meus-processos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Processos</h5>
@@ -137,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-sm-6">
+                <div class="col-md-6 col-lg-6 col-sm-6 row-meus-agendamentos">
                     <div class="card card-hover cursorActive" id="content-agendamentos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Agendamentos</h5>
@@ -155,8 +180,8 @@
             </div>
 
             <div class="row">
-                <div class="col-12 col-sm-12">
-                    <div class="card" style="height: 83%;">
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="card" style="margin-bottom: 10px;">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">FINANCEIRO</h5>
                             <div class="d-flex no-block align-items-center row">
@@ -183,7 +208,7 @@
         <div class="col-lg-6 col-md-6">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="card">
+                    <div class="card" style="margin-bottom: 10px;">
                         <div class="card-body pt-0 pb-3">
                             <div class="d-flex align-items-center justify-content-center">
                                 <img src="{{ env('APP_URL') }}imagens/logo_escritorio/logo_escritorio.png" alt="logo-cliente" class="dark-logo"/>

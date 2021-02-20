@@ -88,7 +88,7 @@ class ProcessosTable extends Table {
         this.addField({
             name: 'informacao_processo',
             title: 'Informações do Processo',
-            width: 35,
+            width: 32.5,
             onLoad: (data, row) =>  {
                 return `
                     <table>
@@ -119,7 +119,7 @@ class ProcessosTable extends Table {
         this.addField({
             name: 'situacao',
             title: 'Situação',
-            width: 10,
+            width: 12.5,
             onLoad: (data, row) =>  {
                 let classeCss = (row.SITUACAO == "ENCERRADO") ? 'badge-danger' : 'badge-success';
                 let situacao  = (row.SITUACAO == "ENCERRADO") ? 'Baixado' : 'Em andamento';

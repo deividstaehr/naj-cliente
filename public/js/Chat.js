@@ -600,8 +600,13 @@ class Chat {
         }
 
         let conteudo;
-        if(message.conteudo.search('<a href=') > -1) {
-            conteudo = message.conteudo;
+        if(message.conteudo.search('http') > -1) {
+            if(message.conteudo.search('<a href="') > -1) {
+                conteudo = message.conteudo;
+                //conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank" style="word-wrap: break-word;"><i class="icone-link-chat fas fa-link mr-1"></i> $1</a>');
+            } else {
+                conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank" style="word-wrap: break-word;"><i class="icone-link-chat fas fa-link mr-1"></i> $1</a>');
+            }
         } else {
             conteudo = message.conteudo.replace(/((http:|https:)[^\s]+[\w])/g, '<a href="$1" target="_blank" style="word-wrap: break-word;"><i class="icone-link-chat fas fa-link mr-1"></i>$1</a>');
         }
