@@ -204,8 +204,7 @@ class FinanceiroModel extends NajModel {
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
-                        (C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null))
-                         OR C.TIPO='P'
+                        (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
                        )
         ");
 
@@ -222,8 +221,7 @@ class FinanceiroModel extends NajModel {
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
-                        (C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null))
-                         OR C.TIPO='P'
+                        (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
                        )
         ");
 
@@ -288,8 +286,7 @@ class FinanceiroModel extends NajModel {
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
-                         (C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null))
-                          OR C.TIPO='P'
+                        (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
                        )            
                    #FILTRO POR DATA AQUI
                    AND (
@@ -312,8 +309,7 @@ class FinanceiroModel extends NajModel {
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
-                         (C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null))
-                          OR C.TIPO='P'
+                        (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
                         )
                    #FILTRO POR DATA AQUI
                    AND (
@@ -337,8 +333,7 @@ class FinanceiroModel extends NajModel {
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
-                         (C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null))
-                          OR C.TIPO='P'
+                          (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
                         )
                    #FILTRO POR DATA AQUI
                    AND (
