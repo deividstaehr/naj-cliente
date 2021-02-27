@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-agendamentos" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modalAgendamento modal-dialog" role="document">
-        <div class="modal-content modal-content-shadow-naj">
+        <div id="modal-agendamento" class="modal-content modal-content-shadow-naj">
             <div class="modal-header modal-header-naj">
                 <p class="titulo-modal-naj">Agenda</p>
                 <button type="button" data-dismiss="modal" class="btn btn-info btn-rounded btnClose">

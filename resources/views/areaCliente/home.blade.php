@@ -100,7 +100,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row row-mensagens-atividades" id="row-mensagens-atividades">
-                <div class="col-md-6 col-lg-6 col-sm-12 row-minhas-mensagens">
+                <div class="pr-0 col-md-6 col-lg-6 col-sm-12 row-minhas-mensagens">
                     <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-sm-12 row-minhas-atividades">
+                <div class="pl-1 col-md-6 col-lg-6 col-sm-12 row-minhas-atividades">
                     <div class="card card-hover cursorActive" id="content-atividades">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">ATIVIDADES</h5>
@@ -142,7 +142,7 @@
             </div>
 
             <div class="row row-processos-agendamentos" id="row-processos-agendamentos">
-                <div class="col-md-6 col-lg-6 col-sm-6 row-meu-processos">
+                <div class="pr-0 col-md-6 col-lg-6 col-sm-6 row-meu-processos">
                     <div class="card card-hover cursorActive" id="content-meus-processos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Processos</h5>
@@ -162,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-sm-6 row-meus-agendamentos">
+                <div class="pl-1 col-md-6 col-lg-6 col-sm-6 row-meus-agendamentos">
                     <div class="card card-hover cursorActive" id="content-agendamentos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Agendamentos</h5>

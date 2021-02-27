@@ -296,7 +296,30 @@ function getSizes() {
 
         $('#row-processos-agendamentos').addClass('row-processos-agendamentos');
         $('#row-mensagens-atividades').addClass('row-mensagens-atividades');
-    } else if(zoom > 130) {
+
+        $('.row-minhas-mensagens').addClass('col-lg-6');
+        $('.row-minhas-atividades').addClass('col-lg-6');
+        $('.row-meu-processos').addClass('col-lg-6');
+        $('.row-meus-agendamentos').addClass('col-lg-6');
+
+        $('.row-minhas-mensagens').addClass('col-md-6');
+        $('.row-minhas-atividades').addClass('col-md-6');
+        $('.row-meu-processos').addClass('col-md-6');
+        $('.row-meus-agendamentos').addClass('col-md-6');
+
+        $('#row-processos-agendamentos').addClass('row-processos-agendamentos');
+        $('#row-mensagens-atividades').addClass('row-mensagens-atividades');
+
+        $('.row-minhas-mensagens').removeClass('col-lg-12');
+        $('.row-minhas-atividades').removeClass('col-lg-12');
+        $('.row-meu-processos').removeClass('col-lg-12');
+        $('.row-meus-agendamentos').removeClass('col-lg-12');
+        $('.row-meu-processos').removeClass('col-sm-12');
+        $('.row-meus-agendamentos').removeClass('col-sm-12');
+
+        $('#modal-agendamento').removeClass('modal-65vh');
+
+    } else if(zoom > 101) {
         $('#content-scrollable').addClass('add-overflow');
         $('#content-scrollable').addClass('naj-scrollable');
 
@@ -321,52 +344,8 @@ function getSizes() {
         $('.row-meus-agendamentos').addClass('col-lg-12');
         $('.row-meu-processos').addClass('col-sm-12');
         $('.row-meus-agendamentos').addClass('col-sm-12');
-    } else if(zoom > 112 && zoom < 128) {
-        $('#content-scrollable').addClass('add-overflow');
-        $('#content-scrollable').addClass('naj-scrollable');
 
-        $('#row-processos-agendamentos').removeClass('row-processos-agendamentos-110');
-        $('#row-mensagens-atividades').addClass('row-mensagens-atividades');
-
-        $('.row-minhas-mensagens').addClass('col-md-6');
-        $('.row-minhas-atividades').addClass('col-md-6');
-        $('.row-meu-processos').addClass('col-md-6');
-        $('.row-meus-agendamentos').addClass('col-md-6');
-
-        $('.row-minhas-mensagens').addClass('col-lg-6');
-        $('.row-minhas-atividades').addClass('col-lg-6');
-        $('.row-meu-processos').addClass('col-lg-6');
-        $('.row-meus-agendamentos').addClass('col-lg-6');
-
-        $('.row-minhas-mensagens').removeClass('col-lg-12');
-        $('.row-minhas-atividades').removeClass('col-lg-12');
-        $('.row-meu-processos').removeClass('col-lg-12');
-        $('.row-meus-agendamentos').removeClass('col-lg-12');
-        $('.row-meu-processos').removeClass('col-sm-12');
-        $('.row-meus-agendamentos').removeClass('col-sm-12');
-    } else if(zoom > 101 && zoom < 110) {
-        $('#content-scrollable').addClass('add-overflow');
-        $('#content-scrollable').addClass('naj-scrollable');
-
-        $('#row-processos-agendamentos').addClass('row-processos-agendamentos-110');
-        $('#row-mensagens-atividades').addClass('row-mensagens-atividades');
-
-        $('.row-minhas-mensagens').addClass('col-md-6');
-        $('.row-minhas-atividades').addClass('col-md-6');
-        $('.row-meu-processos').addClass('col-md-6');
-        $('.row-meus-agendamentos').addClass('col-md-6');
-
-        $('.row-minhas-mensagens').addClass('col-lg-6');
-        $('.row-minhas-atividades').addClass('col-lg-6');
-        $('.row-meu-processos').addClass('col-lg-6');
-        $('.row-meus-agendamentos').addClass('col-lg-6');
-
-        $('.row-minhas-mensagens').removeClass('col-lg-12');
-        $('.row-minhas-atividades').removeClass('col-lg-12');
-        $('.row-meu-processos').removeClass('col-lg-12');
-        $('.row-meus-agendamentos').removeClass('col-lg-12');
-        $('.row-meu-processos').removeClass('col-sm-12');
-        $('.row-meus-agendamentos').removeClass('col-sm-12');
+        $('#modal-agendamento').addClass('modal-65vh');
     }
 } 
 

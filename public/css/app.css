@@ -1520,7 +1520,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .modalAgendamento > .modal-content {
-    height: 55vh !important;
+    height: 55vh;
 }
 
 .content-agenda-buttons {
@@ -1533,4 +1533,8 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .content-agenda-buttons > button {
     width: 100%;
     margin-bottom: 15px;
+}
+
+.modal-65vh {
+    height: 65vh !important;
 }
