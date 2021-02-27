@@ -29,7 +29,7 @@ class FinanceiroPagarModel extends NajModel {
 
         $this->addRawFilter("CP.SITUACAO IN('A', 'P')");
         $this->addRawFilter("CONTA.CODIGO_PESSOA IN ({$codigoCliente})");
-        $this->addRawFilter("(CONTA.TIPO = 'R' AND (C.PAGADOR='1' or C.PAGADOR is null))");
+        $this->addRawFilter("(CONTA.TIPO = 'R' AND (CONTA.PAGADOR='1' or CONTA.PAGADOR is null))");
         $this->addRawFilter("(N.TIPO_SUB NOT IN ('M', 'J', 'C') OR N.TIPO_SUB IS NULL)");
 
         $this->setRawBaseSelect("
