@@ -317,7 +317,15 @@ function getSizes() {
         $('.row-meu-processos').removeClass('col-sm-12');
         $('.row-meus-agendamentos').removeClass('col-sm-12');
 
+        $('.row-minhas-mensagens').removeClass('no-padding');
+        $('.row-minhas-atividades').removeClass('no-padding');
+        $('.row-meu-processos').removeClass('no-padding');
+        $('.row-meus-agendamentos').removeClass('no-padding');
+        $('.row-financeiro').removeClass('no-padding');
+
         $('#modal-agendamento').removeClass('modal-65vh');
+
+        $('#card-download-app').addClass('card-download-app');
 
     } else if(zoom > 101) {
         $('#content-scrollable').addClass('add-overflow');
@@ -346,6 +354,14 @@ function getSizes() {
         $('.row-meus-agendamentos').addClass('col-sm-12');
 
         $('#modal-agendamento').addClass('modal-65vh');
+
+        $('.row-minhas-mensagens').addClass('no-padding');
+        $('.row-minhas-atividades').addClass('no-padding');
+        $('.row-meu-processos').addClass('no-padding');
+        $('.row-meus-agendamentos').addClass('no-padding');
+        $('.row-financeiro').addClass('no-padding');
+
+        $('#card-download-app').removeClass('card-download-app');
     }
 } 
 

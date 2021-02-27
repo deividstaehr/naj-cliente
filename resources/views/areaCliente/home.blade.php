@@ -40,6 +40,58 @@
             .atividades-trinta-dias {
                 margin-left: 10%;
             }
+
+            .row-minhas-mensagens {
+                padding: 2px;
+            }
+
+            .row-minhas-atividades {
+                padding: 2px;
+            }
+
+            .row-meu-processos {
+                padding: 2px;
+            }
+
+            .row-meus-agendamentos {
+                padding: 2px;
+            }
+
+            .row-financeiro {
+                padding: 2px;
+            }
+
+            .row-download-app {
+                padding: 2px;
+            }
+
+            .row-logo-empresa {
+                padding: 2px;
+            }            
+        }
+
+        .card-download-app {
+            height: 28vh;
+        }
+
+        .no-padding {
+            padding: 2px !important;
+        }
+
+        .row-minhas-mensagens {
+            padding-right: 0;
+        }
+
+        .row-minhas-atividades {
+            padding-left: 3px;
+        }
+
+        .row-meu-processos {
+            padding-right: 0px;
+        }
+
+        .row-meus-agendamentos {
+            padding-left: 3px;
         }
 
         .row-processos-agendamentos-110 {
@@ -100,7 +152,7 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 content-right-home">
             <div class="row row-mensagens-atividades" id="row-mensagens-atividades">
-                <div class="pr-0 col-md-6 col-lg-6 col-sm-12 row-minhas-mensagens">
+                <div class="col-md-6 col-lg-6 col-sm-12 row-minhas-mensagens">
                     <div class="card card-hover cursorActive pulse-naj" id="content-minhas-mensagens">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">MINHAS MENSAGENS</h5>
@@ -120,7 +172,7 @@
                     </div>
                 </div>
 
-                <div class="pl-1 col-md-6 col-lg-6 col-sm-12 row-minhas-atividades">
+                <div class="col-md-6 col-lg-6 col-sm-12 row-minhas-atividades">
                     <div class="card card-hover cursorActive" id="content-atividades">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">ATIVIDADES</h5>
@@ -142,7 +194,7 @@
             </div>
 
             <div class="row row-processos-agendamentos" id="row-processos-agendamentos">
-                <div class="pr-0 col-md-6 col-lg-6 col-sm-6 row-meu-processos">
+                <div class="col-md-6 col-lg-6 col-sm-6 row-meu-processos">
                     <div class="card card-hover cursorActive" id="content-meus-processos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Processos</h5>
@@ -162,7 +214,7 @@
                     </div>
                 </div>
 
-                <div class="pl-1 col-md-6 col-lg-6 col-sm-6 row-meus-agendamentos">
+                <div class="col-md-6 col-lg-6 col-sm-6 row-meus-agendamentos">
                     <div class="card card-hover cursorActive" id="content-agendamentos">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">Agendamentos</h5>
@@ -180,7 +232,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="col-lg-12 col-sm-12 col-md-12 row-financeiro">
                     <div class="card" style="margin-bottom: 10px;">
                         <div class="card-body">
                             <h5 class="card-title text-uppercase">FINANCEIRO</h5>
@@ -207,8 +259,8 @@
 
         <div class="col-lg-6 col-md-6">
             <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="card" style="margin-bottom: 10px;">
+                <div class="col-md-12 col-lg-12 col-sm-12 row-logo-empresa">
+                    <div class="card" style="margin-bottom: 10px; height: 48.1vh;">
                         <div class="card-body pt-0 pb-3">
                             <div class="d-flex align-items-center justify-content-center">
                                 <img src="{{ env('APP_URL') }}imagens/logo_escritorio/logo_escritorio.png" alt="logo-cliente" class="dark-logo"/>
@@ -229,8 +281,8 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="card">
+                <div class="col-md-12 col-lg-12 col-sm-12 row-download-app">
+                    <div class="card" id="card-download-app">
                         <div class="pt-0 pb-4 card-body">
                             <div class="mt-4 d-flex align-items-center justify-content-center">
                                 <div class="ml-4">
