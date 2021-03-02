@@ -37,13 +37,30 @@ class ChatAtendimentoModel extends NajModel {
         ");
     }
 
-    public function hasAtendimentoOpen($id_chat) {
+    public function hasAtendimentoOpen($idChat) {
         return DB::select("
-            SELECT *
-              FROM chat_atendimento
-             WHERE TRUE
-               AND id_chat = {$id_chat}
-               AND status  = 0
+            SELECT cat.id as id_ultimo_atendimento,
+                   cat.id_chat,
+                   cat.data_hora_inicio,
+                   cat.data_hora_termino,
+                   cat.status
+              FROM ( 
+                     SELECT MAX(id) as id_ultimo_atendimento
+                       FROM chat_atendimento	 
+                   GROUP BY id_chat
+                   ) as cat2
+        INNER JOIN (
+                     SELECT id,
+                            id_chat,
+                            data_hora_inicio,
+                            data_hora_termino,
+                            status
+                       FROM chat_atendimento	 
+                   ORDER BY id_chat, data_hora_inicio 
+                  ) as cat on cat.id = cat2.id_ultimo_atendimento
+             WHERE TRUE 
+               AND id_chat = {$idChat}
+               AND status = 0
         ");
     }
     
