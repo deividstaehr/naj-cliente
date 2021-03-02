@@ -179,7 +179,7 @@ class ChatMensagemController extends NajController {
         $UltimaMensagem = $this->getModel()->getLastMessageByUserAndChat($model['id_usuario'], $model['id_chat']);
         $ChatAtendimentoRelMensagemController = new ChatAtendimentoRelacionamentoMensagemController();
 
-        if(request()->get('id_atendimento') && $this->hasAtendimentoOpenToChat()) {
+        if(request()->get('id_atendimento') && $this->hasAtendimentoOpenToChat($model['id_chat'])) {
             $ChatAtendimentoRelMensagemController->store([
                 "id_mensagem"    => $UltimaMensagem[0]->id,
                 "id_atendimento" => request()->get('id_atendimento')
@@ -195,11 +195,11 @@ class ChatMensagemController extends NajController {
         return response()->json(['data' => $data['data'], 'isLastPage' => $data['isLastPage']]);
     }
 
-    private function hasAtendimentoOpenToChat() {
-        $hasAtendimento = (new ChatAtendimentoController)->getModel()->hasAtendimentoOpen();
+    private function hasAtendimentoOpenToChat($idChat) {
+        $hasAtendimento = (new ChatAtendimentoController)->getModel()->hasAtendimentoOpen($idChat);
 
-        if(is_array($hasAtendimento) && count($hasAtendimento > 0)) {
-            return !$hasAtendimento['data_hora_termino'] || $hasAtendimento['data_hora_termino'] == 0;
+        if(is_array($hasAtendimento) && count($hasAtendimento) > 0) {
+            return !$hasAtendimento[0]->data_hora_termino || $hasAtendimento[0]->status == 0;
         }
 
         return false;
