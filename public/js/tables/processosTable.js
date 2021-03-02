@@ -18,6 +18,78 @@ class ProcessosTable extends Table {
             title: 'Código',
             width: 5
         });
+
+        this.addField({
+            name: 'situacao',
+            title: 'Situação',
+            width: 12.5,
+            onLoad: (data, row) =>  {
+                let classeCss = (row.SITUACAO == "ENCERRADO") ? 'badge-danger' : 'badge-success';
+                let situacao  = (row.SITUACAO == "ENCERRADO") ? 'Baixado' : 'Em andamento';
+
+                let novas_atividades = '';
+                let novos_andamentos = '';
+
+                if(row.ULTIMA_ATIVIDADE_DATA && dataIsBetweenTrintaDias(row.ULTIMA_ATIVIDADE_DATA)) {
+                    novas_atividades = `
+                        <tr class="mt-1">
+                            <td><span class="mt-1 badge badge-warning badge-rounded badge-status-processo">Novas Atividades</span></td>
+                        </tr>
+                    `;
+                }
+
+                if(row.ULTIMO_ANDAMENTO_DATA && dataIsBetweenTrintaDias(row.ULTIMO_ANDAMENTO_DATA)) {
+                    novos_andamentos = `
+                        <tr style="margin-top: 5px !important;">
+                            <td><span class="mt-1 badge badge-warning badge-rounded badge-status-processo">Novos Andamentos</span></td>
+                        </tr>
+                    `;
+                }
+
+                return `
+                    <table class="row-status-processo">
+                        <tr>
+                            <td><span class="badge ${classeCss} badge-rounded badge-status-processo">${situacao}</span></td>
+                            ${novas_atividades}
+                            ${novos_andamentos}
+                        </tr>
+                    </table>
+                `;
+            }
+        });
+        
+        this.addField({
+            name: 'outras_informacao',
+            title: 'Outras Informações',
+            width: 15,
+            onLoad: (data, row) =>  {
+                return `
+                    <table class="row-informacoes-processo">
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ATIVIDADE_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAndamentoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANDAMENTO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAndamentoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANDAMENTO} Andamento(s)</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                `;
+            }
+        });
         
         this.addField({
             name: 'nome_partes',
@@ -111,78 +183,6 @@ class ProcessosTable extends Table {
                             `
                             : ``
                         }                        
-                    </table>
-                `;
-            }
-        });
-        
-        this.addField({
-            name: 'situacao',
-            title: 'Situação',
-            width: 12.5,
-            onLoad: (data, row) =>  {
-                let classeCss = (row.SITUACAO == "ENCERRADO") ? 'badge-danger' : 'badge-success';
-                let situacao  = (row.SITUACAO == "ENCERRADO") ? 'Baixado' : 'Em andamento';
-
-                let novas_atividades = '';
-                let novos_andamentos = '';
-
-                if(row.ULTIMA_ATIVIDADE_DATA && dataIsBetweenTrintaDias(row.ULTIMA_ATIVIDADE_DATA)) {
-                    novas_atividades = `
-                        <tr class="mt-1">
-                            <td><span class="mt-1 badge badge-warning badge-rounded badge-status-processo">Novas Atividades</span></td>
-                        </tr>
-                    `;
-                }
-
-                if(row.ULTIMO_ANDAMENTO_DATA && dataIsBetweenTrintaDias(row.ULTIMO_ANDAMENTO_DATA)) {
-                    novos_andamentos = `
-                        <tr style="margin-top: 5px !important;">
-                            <td><span class="mt-1 badge badge-warning badge-rounded badge-status-processo">Novos Andamentos</span></td>
-                        </tr>
-                    `;
-                }
-
-                return `
-                    <table class="row-status-processo">
-                        <tr>
-                            <td><span class="badge ${classeCss} badge-rounded badge-status-processo">${situacao}</span></td>
-                            ${novas_atividades}
-                            ${novos_andamentos}
-                        </tr>
-                    </table>
-                `;
-            }
-        });
-        
-        this.addField({
-            name: 'outras_informacao',
-            title: 'Outras Informações',
-            width: 15,
-            onLoad: (data, row) =>  {
-                return `
-                    <table class="row-informacoes-processo">
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANEXOS_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAnexoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANEXOS_PROCESSO} Documento(s) Anexos</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ATIVIDADE_PROCESSO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAtividadeProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ATIVIDADE_PROCESSO} Atividade(s)</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <i class="fas fa-search icone-informaçoes-processo mr-4 cursos-pointer" onclick="onClickExibirModalAndamentoProcesso(${row.CODIGO_PROCESSO});"></i><span class="ml-3 mb-2 badge badge-secondary badge-rounded badge-informacoes-processo ${(row.QTDE_ANDAMENTO > 0) ? `weight-500` : ``}" onclick="onClickExibirModalAndamentoProcesso(${row.CODIGO_PROCESSO});">${row.QTDE_ANDAMENTO} Andamento(s)</span>
-                                </div>
-                            </td>
-                        </tr>
                     </table>
                 `;
             }
