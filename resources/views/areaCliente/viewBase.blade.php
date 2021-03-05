@@ -77,8 +77,8 @@
             <div class="scroll-sidebar">
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" style="background-color: #20222a !important;">
-                        <li class="sidebar-item"> <a class="sidebar-link" href="{{ url('ac/home') }}" aria-expanded="false"><i class="fas fa-home"></i>
-							<span class="hide-menu">Início</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link" href="{{ url('ac/home') }}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i>
+							<span class="hide-menu">Serviços</span></a>
 						</li>
                         <li class="sidebar-item"> <a class="sidebar-link" href="{{ url('ac/mensagens') }}" aria-expanded="false"><i class="far fa-comments"></i>
 							<span class="hide-menu">Minhas Mensagens</span></a>

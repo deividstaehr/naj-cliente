@@ -261,7 +261,50 @@ class FinanceiroModel extends NajModel {
                        )
         ");
 
-        return ['total_pagar' => $total_pagar, 'total_pago' => $total_pago, 'total_receber' => $total_receber, 'total_recebido' => $total_recebido];
+        $total_pagar_atrasado = DB::select("
+			SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL,0.00,sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_PAGAR_ATRASADO
+			  FROM CONTA C
+		INNER JOIN CONTA_PARCELA CP
+		    	ON CP.CODIGO_CONTA = C.CODIGO
+		INNER JOIN NATUREZA_FINANCEIRA N
+				ON N.CODIGO = C.CODIGO_NATUREZA
+		     WHERE CP.SITUACAO IN('A','P')
+			   AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
+			   AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
+			   AND situacao = 'A'
+			   AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+			   #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
+			   AND (
+				     C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null)
+				   )
+        ");
+
+        $total_receber_atrasado = DB::select("
+                SELECT IF(sum(VALOR_PARCELA-VALOR_PARCIAL) IS NULL,0.00,sum(VALOR_PARCELA-VALOR_PARCIAL)) AS TOTAL_RECEBER_ATRASADO            
+                  FROM CONTA C
+            INNER JOIN CONTA_PARCELA CP 
+                    ON CP.CODIGO_CONTA = C.CODIGO
+            INNER JOIN NATUREZA_FINANCEIRA N
+                    ON N.CODIGO = C.CODIGO_NATUREZA
+                 WHERE CP.SITUACAO IN('A','P')
+                   AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
+                   AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
+                   AND situacao = 'A'
+                   AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
+                   AND (
+                         (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
+                        )
+        ");
+
+        return [
+			'total_pagar' => $total_pagar,
+			'total_pago' => $total_pago,
+			'total_receber' => $total_receber,
+			'total_recebido' => $total_recebido,
+			'total_pagar_atrasado' => $total_pagar_atrasado,
+			'total_receber_atrasado' => $total_receber_atrasado
+		];
     }
 
     public function getTotalRecebidoReceberAtrasado($parametro) {

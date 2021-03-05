@@ -71,7 +71,7 @@
         }
 
         .card-download-app {
-            height: 28vh;
+            height: 32vh;
         }
 
         .no-padding {
@@ -242,12 +242,14 @@
                                     <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-success"></i> A RECEBER</h4>
                                     <h5 class="text-dark mb-0"><span class="mr-2 align-right">Recebido</span>  <span class="text-success float-right" id="qtde_receber_recebido"></span> </h5>
                                     <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-success float-right" id="qtde_receber_aberto"></span> </h5>
+                                    <h5 class="text-dark mb-0"><span class="mr-2">Atrasado</span> <span class="text-success float-right" id="qtde_receber_atrasado"></span> </h5>
                                     <i class="fas fa-search text-info" style="margin-top: 10px; margin-left: 90%;"></i>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 ml-auto card-hover cursor-pointer p-2" id="content-financeiro-pagar">
                                     <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-danger"></i> A PAGAR</h4>
                                     <h5 class="text-dark mb-0"><span class="mr-2 align-right">Pago</span>  <span class="text-danger float-right" id="qtde_pagar_pago"></span> </h5>
                                     <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-danger float-right" id="qtde_pagar_aberto"></span> </h5>
+                                    <h5 class="text-dark mb-0"><span class="mr-2">Atrasado</span> <span class="text-danger float-right" id="qtde_pagar_atrasado"></span> </h5>
                                     <i class="fas fa-search text-info" style="margin-left: 90%; margin-top: 10px;"></i>
                                 </div>
                             </div>
