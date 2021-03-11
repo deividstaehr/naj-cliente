@@ -28,6 +28,7 @@ class ChatMensagemModel extends NajModel {
         $this->addColumn('file_size');
         $this->addColumn('file_path');
         $this->addColumn('file_type');
+        $this->addColumn('tag');
     }
 
     public function getAllMensagensChatPublico($id) {

@@ -1,5 +1,6 @@
 const chat = new Chat();
 const NajApi  = new Naj();
+const tag_mensagem_simples = 'CLIENTE, WEB';
 
 let limitAtualChat = 20;
 let id_chat_current;
@@ -159,6 +160,7 @@ async function sendMessage(mensagem = false) {
             "file_size"     : 0,
             "file_path"     : "",
             "id_atendimento": id_atendimento_current,
+            "tag"           : tag_mensagem_simples
         };
     
         let result = await NajApi.postData(`chat/mensagem`, data);
@@ -305,7 +307,8 @@ async function sendAnexos(dropzone) {
                 'file_size'   : dropzone.files[i].size,
                 'file_path'   : '',
                 'id_atendimento': id_atendimento_current,
-                'file_type'     : file_type
+                'file_type'     : file_type,
+                'tag'           : tag_mensagem_simples
             });
         }
         let result = await NajApi.postData(`chat/mensagem/anexo`, {'files': filesUpload});
