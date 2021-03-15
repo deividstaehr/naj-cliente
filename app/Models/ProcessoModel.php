@@ -45,13 +45,13 @@ class ProcessoModel extends NajModel {
 
       $this->setRawBaseSelect("
       select p.*,
-      if(p.ULTIMA_ATIVIDADE_DATA > p.ULTIMO_ANDAMENTO_DATA,
-         p.ULTIMA_ATIVIDADE_DATA,
-          if(p.ULTIMO_ANDAMENTO_DATA > p.DATA_CADASTRO,
-            p.ULTIMO_ANDAMENTO_DATA,
-            p.DATA_CADASTRO
-          )
-      ) as DATA_ORDER_BY
+      if(p.ULTIMA_ATIVIDADE_DATA <> '0001-01-01 00:00:00' OR p.ULTIMO_ANDAMENTO_DATA <> '0001-01-01 00:00:00',
+			if(p.ULTIMA_ATIVIDADE_DATA > p.ULTIMO_ANDAMENTO_DATA,
+				p.ULTIMA_ATIVIDADE_DATA,
+				p.ULTIMO_ANDAMENTO_DATA
+			),
+			DATE_SUB(p.data_cadastro,INTERVAL 100 year)			
+		) as DATA_ORDER_BY
       from(select 
          PC.CODIGO AS CODIGO_PROCESSO,
          IF((SELECT ATIVO FROM PRC_SITUACAO WHERE CODIGO = PC.CODIGO_SITUACAO)='S','EM ANDAMENTO','ENCERRADO') AS SITUACAO,
