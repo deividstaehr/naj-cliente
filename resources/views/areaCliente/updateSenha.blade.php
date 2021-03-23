@@ -246,18 +246,26 @@
                         return;
                     }
 
-                    let r = /^(?=.*\d)(?=.*[a-z])(?:([0-9a-z$*&@#])){4,}$/;
-
-                    if(!r.test(dados.novaSenha)) {
+                    if(dados.novaSenha.length < 4) {
                         NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
                         loadingDestroy('bloqueio-atualizar-dados');
                         return;
                     }
 
-                    let v = /^(?=.*\d)(?=.*[a-z])(?:([0-9a-z$*&@#])(?!\1)){4,}$/;
+                    if(!/\d/.test(dados.novaSenha)) {
+                        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
+                        loadingDestroy('bloqueio-atualizar-dados');
+                        return;
+                    }
 
-                    if(!v.test(dados.novaSenha)) {
-                        NajAlert.toastWarning("A nova senha não pode conter números ou letras repetidas!");
+                    if(!/[a-z]/.test(dados.novaSenha)) {
+                        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
+                        loadingDestroy('bloqueio-atualizar-dados');
+                        return;
+                    }
+
+                    if(!/(?=(?:.*?[0-9]){1})/.test(dados.novaSenha)) {
+                        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
                         loadingDestroy('bloqueio-atualizar-dados');
                         return;
                     }

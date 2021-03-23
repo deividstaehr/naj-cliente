@@ -15,6 +15,14 @@ $(document).ready(function() {
 
         updatePasswordUsuario();
     });
+
+    if($('[name=nome]').val())
+            $('[name=apelido]').val($('[name=nome]').val().split(' ')[0]);
+
+    $('[name=nome]').on('change', () => {
+        if($('[name=nome]').val())
+            $('[name=apelido]').val($('[name=nome]').val().split(' ')[0]);
+    });
 });
 
 async function onLoadPerfil() {
@@ -93,10 +101,26 @@ async function updatePasswordUsuario() {
         return;
     }
 
-    let r = /^(?=.*\d)(?=.*[a-z])(?:([0-9a-z$*&@#])(?!\1)){4,}$/;
+    if(dados.novaSenha.length < 4) {
+        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
+        loadingDestroy('bloqueio-atualizar-dados');
+        return;
+    }
 
-    if(!r.test(dados.novaSenha)) {
-        NajAlert.toastWarning("A nova senha deve conter nó minimo 4 digitos, sendo números e letras!");
+    if(!/\d/.test(dados.novaSenha)) {
+        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
+        loadingDestroy('bloqueio-atualizar-dados');
+        return;
+    }
+
+    if(!/[a-z]/.test(dados.novaSenha)) {
+        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
+        loadingDestroy('bloqueio-atualizar-dados');
+        return;
+    }
+
+    if(!/(?=(?:.*?[0-9]){1})/.test(dados.novaSenha)) {
+        NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
         loadingDestroy('bloqueio-atualizar-dados');
         return;
     }
