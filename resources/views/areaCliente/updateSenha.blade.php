@@ -192,7 +192,7 @@
                 transitionEffect: "fade",
                 titleTemplate: '<span class="step">#index#</span> #title#',
                 labels: {
-                    previous: "Anterior",
+                    previous: "Voltar",
                     next: "Próximo",
                     finish: "Confirmar"
                 },
@@ -227,7 +227,7 @@
                     };
 
                     if(!dados.nome || !dados.cpf || !dados.apelido || !dados.login || !dados.email_recuperacao || !dados.mobile_recuperacao) {
-                        NajAlert.toastWarning("Você deve preencher todos os campos para poder confirmar!");
+                        NajAlert.toastWarning("Clique em VOLTAR e informe todos os dados!");
                         loadingDestroy('bloqueio-atualizar-dados');
                         return;
                     }
@@ -309,6 +309,14 @@
                     
                     loadingDestroy('bloqueio-atualizar-dados');
                 }
+            });
+
+            if($('[name=nome]').val())
+                    $('[name=apelido]').val($('[name=nome]').val().split(' ')[0]);
+
+            $('[name=nome]').on('change', () => {
+                if($('[name=nome]').val())
+                    $('[name=apelido]').val($('[name=nome]').val().split(' ')[0]);
             });
 
             $('.actions .disabled').addClass('d-none')
