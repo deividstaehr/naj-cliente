@@ -291,8 +291,17 @@ async function sendAnexos(dropzone) {
     if(id_chat_current) {
         for(var i = 0; i < dropzone.files.length; i++) {
             let parseFile = await toBase64(dropzone.files[i]);
-            let is_image  = dropzone.files[i].type.search('image');
+            let is_image = dropzone.files[i].type.search('image');
+            let is_audio = dropzone.files[i].type.search('audio');
             let file_type = (is_image > -1) ? 0 : 1;
+
+            if(is_audio > -1) {
+                file_type = 2;
+            } else if(is_image > -1) {
+                file_type = 0;
+            } else {
+                file_type = 1;
+            }
     
             filesUpload.push({
                 'name_file'   : dropzone.files[i].name,
