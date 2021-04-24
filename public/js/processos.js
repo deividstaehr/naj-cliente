@@ -165,7 +165,7 @@ function dataIsBetweenTrintaDias(data) {
     if(!data) return false;
 
     const splitDate  = data.split('-');
-    const dataTrinta = getDateProperties(new Date(new Date().getTime() - (30 * 86400000))).fullDate
+    const dataTrinta = getDateProperties(new Date(new Date().getTime() - (31 * 86400000))).fullDate
 
     return moment(`${splitDate[0]}-${splitDate[1]}-${splitDate[2].split(' ')[0]}`).isAfter(dataTrinta);
 }
