@@ -169,5 +169,5 @@ function validaCampoLogin() {
 }
 
 //Mascaras
-$('.mascaracelular').mask("(000) 0 0000-0000", {placeholder: "(000) 0 0000-0000"});
+$('.mascaracelular').mask("(00) 0 0000-0000", {placeholder: "(00) 0 0000-0000"});
 $('.mascaracpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});
