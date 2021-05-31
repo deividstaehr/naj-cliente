@@ -127,6 +127,11 @@
                             <p class="m-0">* Combine letras maiúsculas e minúsculas, símbolos e números.</p>
                             <p class="m-0">* Não use informações pessoais como data de nascimento ou seu nome.</p>
                             <p class="m-0">* Para maior segurança, é obrigatório informar uma senha diferente da anterior.</p>
+                            <div class="custom-control custom-checkbox" style="margin-left: -5px;">
+                                <input class="custom-control-input" type="checkbox" id="check-permissao" name="check-permissao" checked="true">
+                                &emsp;
+                                <label class="custom-control-label" for="check-permissao" id="label-permissao"></label>
+                            </div>
                         </div>
                     </div>
                 </div>

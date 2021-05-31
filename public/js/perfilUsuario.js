@@ -4,14 +4,28 @@ const naj = new Naj('Perfil', null);
 $(document).ready(function() {
     onLoadPerfil();
 
+    let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
+
+    $('#label-permissao')[0].innerHTML = `Autorizo: ${nomeEmpresa} a entrar em contato utilizando minhas informações como: E-MAIL e TELEFONE MÓVEL para tratar de assuntos jurídicos.`;
+
     $('#submitEditarPerfil').on('click', function(e) {
         e.preventDefault();
+
+        let checkedPermissao = $('#check-permissao')[0].checked;
+
+        if(!checkedPermissao)
+            return NajAlert.toastWarning("Você deve MARCAR a caixa que AUTORIZA o prestador de serviços fazer contato com você!");
 
         updateUsuario();
     });
 
     $('#submitUpdateSenha').on('click', function(e) {
         e.preventDefault();
+
+        let checkedPermissao = $('#check-permissao')[0].checked;
+
+        if(!checkedPermissao)
+            return NajAlert.toastWarning("Você deve MARCAR a caixa que AUTORIZA o prestador de serviços fazer contato com você!");
 
         updatePasswordUsuario();
     });
