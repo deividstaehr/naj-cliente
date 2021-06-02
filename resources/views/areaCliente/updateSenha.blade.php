@@ -71,15 +71,6 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="login" class="col-sm-2 control-label label-center pr-2">Login</label>
-                                                    <div class="col-sm-9 input-alterar-dados">
-                                                        <div class="input-group">
-                                                            <input type="text" name="login" class="form-control mascaracpf"  required="" value="{{ Auth::user()->login }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
                                                     <label for="email_recuperacao" class="col-sm-2 control-label label-center pr-2">E-mail</label>
                                                     <div class="col-sm-9 input-alterar-dados">
                                                         <div class="input-group">
@@ -109,13 +100,13 @@
                                     <form class="form-horizontal mt-3" id="loginform" style="width: 65%; margin-top: -4% !important;">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1"><i class="ti-pencil"></i></span>
+                                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
                                             </div>
                                             <input type="password" id="password_nova" name="password_nova" class="form-control form-control-lg" placeholder="Digite a Nova Senha" aria-describedby="basic-addon1">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                                <span class="input-group-text" id="basic-addon2"><i class="fas fa-key"></i></span>
                                             </div>
                                             <input type="password" id="confirmar_senha" name="confirmar_senha" class="form-control form-control-lg" placeholder="Confirme a Nova Senha" aria-describedby="basic-addon1">
                                         </div>
@@ -126,6 +117,11 @@
                                             <p class="m-0">* Combine letras maiúsculas e minúsculas, símbolos e números.</p>
                                             <p class="m-0">* Não use informações pessoais como data de nascimento ou seu nome.</p>
                                             <p class="m-0">* Para maior segurança, é obrigatório informar uma senha diferente da anterior.</p>
+                                            <div class="custom-control custom-checkbox" style="margin-left: -5px;">
+                                                <input class="custom-control-input" type="checkbox" id="check-permissao" name="check-permissao" checked="true">
+                                                &emsp;
+                                                <label class="custom-control-label" for="check-permissao" id="label-permissao"></label>
+                                            </div>
                                         </div>
 
                                         <input type="hidden" name="_method" value="POST">
@@ -154,6 +150,9 @@
         <script src="{{ env('APP_URL') }}js/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
         <script>
             const baseURL = "{{ env('APP_URL') }}" + "{{ env('APP_ALIAS') }}" + "/";
+            const nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
+
+            $('#label-permissao')[0].innerHTML = `Autorizo: ${nomeEmpresa} a entrar em contato utilizando minhas informações como: E-MAIL e TELEFONE MÓVEL para tratar de assuntos jurídicos.`;
 
             $(window).on('load', () => {
                 identificador = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
@@ -197,6 +196,11 @@
                     finish: "Confirmar"
                 },
                 onFinished: async function(event, currentIndex) {
+                    let checkedPermissao = $('#check-permissao')[0].checked;
+
+                    if(!checkedPermissao)
+                        return NajAlert.toastWarning("Você deve MARCAR a caixa que AUTORIZA o prestador de serviços fazer contato com você!");
+
                     loadingStart('bloqueio-atualizar-dados');
 
                     let empresa = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
@@ -212,7 +216,7 @@
                         'nome'               : $('[name=nome]').val(),
                         'cpf'                : $('[name=cpf]').val(),
                         'apelido'            : $('[name=apelido]').val(),
-                        'login'              : $('[name=login]').val(),
+                        'login'              : $('[name=cpf]').val(),
                         'email_recuperacao'  : $('[name=email_recuperacao]').val(),
                         'mobile_recuperacao' : $('[name=mobile_recuperacao]').val().replace(/\D+/g, ''),
                         'status'             : $('[name=status]').val(),
@@ -226,7 +230,7 @@
                         ]
                     };
 
-                    if(!dados.nome || !dados.cpf || !dados.apelido || !dados.login || !dados.email_recuperacao || !dados.mobile_recuperacao) {
+                    if(!dados.nome || !dados.cpf || !dados.apelido || !dados.email_recuperacao || !dados.mobile_recuperacao) {
                         NajAlert.toastWarning("Clique em VOLTAR e informe todos os dados!");
                         loadingDestroy('bloqueio-atualizar-dados');
                         return;
@@ -267,12 +271,6 @@
                     if(!/(?=(?:.*?[0-9]){1})/.test(dados.novaSenha)) {
                         NajAlert.toastWarning("A nova senha deve conter no minimo 4 digitos, sendo números e letras!");
                         loadingDestroy('bloqueio-atualizar-dados');
-                        return;
-                    }
-
-                    if(!validaCampoLogin()) {
-                        loadingDestroy('bloqueio-atualizar-dados');
-                        NajAlert.toastWarning('O campo login deve ser igual ao campo CPF!');
                         return;
                     }
 
@@ -330,6 +328,7 @@
                 $('.content').addClass('naj-scrollable ');
             } else {
                 $('.content')[0].style.height = '62%';
+                $('.content')[0].style.paddingTop = '5px';
             }
 
             $('.mascaracelular').mask("(00) 0 0000-0000", {placeholder: "(00) 0 0000-0000"});

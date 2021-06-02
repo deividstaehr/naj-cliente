@@ -342,7 +342,7 @@
                 $('.content')[0].style.height = '62%';
             }
 
-            $('.mascaracelular').mask("(000) 0 0000-0000", {placeholder: "(000) 0 0000-0000"});
+            $('.mascaracelular').mask("(00) 0 0000-0000", {placeholder: "(00) 0 0000-0000"});
             $('.mascaracpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});
         </script>
         <script src="{{ env('APP_URL') }}js/cadastroUsuarioLogin.js"></script>
