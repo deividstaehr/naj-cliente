@@ -108,6 +108,7 @@ class ProcessoModel extends NajModel {
                SELECT DATA
                  FROM ATIVIDADE
 				    WHERE CODIGO_PROCESSO = PC.CODIGO
+                  AND ENVIAR = 'S'
 				 ORDER BY DATA DESC LIMIT 1
 			   ),
 			   '0001-01-01 00:00:00'

@@ -74,7 +74,7 @@
                                                     <label for="email_recuperacao" class="col-sm-2 control-label label-center pr-2">E-mail</label>
                                                     <div class="col-sm-9 input-alterar-dados">
                                                         <div class="input-group">
-                                                            <input type="email" name="email_recuperacao" class="form-control" placeholder="example@gmail.com" required="" value="{{ Auth::user()->email_recuperacao }}">
+                                                            <input type="email" name="email_recuperacao" class="form-control" placeholder="example@gmail.com" value="{{ Auth::user()->email_recuperacao }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -230,7 +230,7 @@
                         ]
                     };
 
-                    if(!dados.nome || !dados.cpf || !dados.apelido || !dados.email_recuperacao || !dados.mobile_recuperacao) {
+                    if(!dados.nome || !dados.cpf || !dados.apelido || !dados.mobile_recuperacao) {
                         NajAlert.toastWarning("Clique em VOLTAR e informe todos os dados!");
                         loadingDestroy('bloqueio-atualizar-dados');
                         return;

@@ -98,7 +98,7 @@
                                                     <label for="email_recuperacao" class="col-sm-2 control-label label-center pr-2">E-mail</label>
                                                     <div class="col-sm-9 input-alterar-dados">
                                                         <div class="input-group">
-                                                            <input type="email" name="email_recuperacao" class="form-control" placeholder="example@gmail.com" required="">
+                                                            <input type="email" name="email_recuperacao" class="form-control" placeholder="example@gmail.com">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@
                         ]
                     };
 
-                    if(!dados.nome || !dados.cpf || !dados.apelido || !dados.login || !dados.email_recuperacao || !dados.mobile_recuperacao) {
+                    if(!dados.nome || !dados.cpf || !dados.apelido || !dados.login  || !dados.mobile_recuperacao) {
                         NajAlert.toastWarning("Você deve preencher todos os campos para poder confirmar!");
                         loadingDestroy('bloqueio-cadastro-usuario');
                         return;

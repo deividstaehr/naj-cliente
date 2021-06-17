@@ -20,6 +20,9 @@ function validaCampoLogin() {
 }
 
 function validaCampoEmail() {
+    if(!$('[name=email_recuperacao]').val())
+        return true
+
     let usuario = $('[name=email_recuperacao]').val().substring(0, $('[name=email_recuperacao]').val().indexOf("@")),
         dominio = $('[name=email_recuperacao]').val().substring($('[name=email_recuperacao]').val().indexOf("@") + 1, $('[name=email_recuperacao]').val().length);
 
@@ -27,8 +30,8 @@ function validaCampoEmail() {
             && (usuario.search(" ")==-1) && (dominio.search(" ")==-1) && (dominio.search(".")!=-1) && (dominio.indexOf(".") >=1)
             && (dominio.lastIndexOf(".") < dominio.length - 1))
     {
-        return true;
+        return true
     }
 
-    return false;
+    return false
 }

@@ -203,6 +203,7 @@ class FinanceiroModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
                         (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
@@ -218,8 +219,8 @@ class FinanceiroModel extends NajModel {
                     ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
                         (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
@@ -235,8 +236,8 @@ class FinanceiroModel extends NajModel {
                     ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                         C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null)
@@ -256,6 +257,7 @@ class FinanceiroModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                         C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null)
@@ -272,7 +274,7 @@ class FinanceiroModel extends NajModel {
 		     WHERE CP.SITUACAO IN('A','P')
 			   AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
 			   AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
-			   AND situacao = 'A'
+                           AND C.DISPONIVEL_CLIENTE = 'S'
 			   AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
 			   #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
 			   AND (
@@ -290,8 +292,8 @@ class FinanceiroModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoClienteReceber})
                    AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
                          (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
@@ -328,6 +330,7 @@ class FinanceiroModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
                         (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
@@ -349,8 +352,8 @@ class FinanceiroModel extends NajModel {
                     ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
                         (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
@@ -373,8 +376,8 @@ class FinanceiroModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A RECEBER' (QUE O CLIENTE TEM PARA RECEBER)
                    AND (
                           (C.TIPO='R' AND C.PAGADOR='2') OR C.TIPO='P'
