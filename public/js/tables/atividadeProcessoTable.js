@@ -62,7 +62,12 @@ class AtividadeProcessoTable extends Table {
         this.addField({
             name: 'DESCRICAO',
             title: 'Histórico',
-            width: 45
+            width: 45,
+            onLoad: (data, row) =>  {
+                return `
+                    <span style="word-break: break-word;">${row.DESCRICAO}</span>
+                `;
+            }
         });
 
         this.addField({
