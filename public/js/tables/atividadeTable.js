@@ -63,7 +63,12 @@ class AtividadeTable extends Table {
         this.addField({
             name: 'DESCRICAO',
             title: 'Histórico',
-            width: 40
+            width: 40,
+            onLoad: (data, row) =>  {
+                return `
+                    <span style="word-break: break-word;">${row.DESCRICAO}</span>
+                `;
+            }
         });
 
         this.addField({
