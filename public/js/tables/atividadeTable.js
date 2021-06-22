@@ -71,63 +71,109 @@ class AtividadeTable extends Table {
             }
         });
 
-        this.addField({
-            name: 'informacoes_processo',
-            title: 'Informações do Processo',
-            width: 25,
-            onLoad: (data, row) =>  {
-                if(!row.NUMERO_PROCESSO_NEW && !row.CARTORIO && !row.COMARCA) {
-                    return 'Sem informações'
-                }
+        // this.addField({
+        //     name: 'informacoes_processo',
+        //     title: 'Informações do Processo',
+        //     width: 25,
+        //     onLoad: (data, row) =>  {
+        //         if(!row.NUMERO_PROCESSO_NEW && !row.CARTORIO && !row.COMARCA) {
+        //             return 'Sem informações'
+        //         }
 
-                return `
-                    <table>
-                        <tr>
-                            <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
-                        </tr>
-                        ${(row.NOME_ADVERSARIO)
-                            ?
-                            `<tr>
-                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
-                            </tr>
-                            `
-                            : ``
-                        }
-                        ${(row.NUMERO_PROCESSO_NEW)
-                            ?
-                            `<tr>
-                                <td>${row.NUMERO_PROCESSO_NEW}</td>
-                            </tr>
-                            `
-                            : ``
-                        }
-                        ${(row.CLASSE)
-                            ?
-                            `<tr>
-                                <td>${row.CLASSE}</td>
-                            </tr>
-                            `
-                            : ``
-                        }
-                        ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
-                            ?
-                            `<tr>
-                                <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
-                            </tr>
-                            `
-                            : ``
-                        }
-                    </table>
-                `;
-            }
-        });
+        //         return `
+        //             <table>
+        //                 <tr>
+        //                     <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
+        //                 </tr>
+        //                 ${(row.NOME_ADVERSARIO)
+        //                     ?
+        //                     `<tr>
+        //                         <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
+        //                     </tr>
+        //                     `
+        //                     : ``
+        //                 }
+        //                 ${(row.NUMERO_PROCESSO_NEW)
+        //                     ?
+        //                     `<tr>
+        //                         <td>${row.NUMERO_PROCESSO_NEW}</td>
+        //                     </tr>
+        //                     `
+        //                     : ``
+        //                 }
+        //                 ${(row.CLASSE)
+        //                     ?
+        //                     `<tr>
+        //                         <td>${row.CLASSE}</td>
+        //                     </tr>
+        //                     `
+        //                     : ``
+        //                 }
+        //                 ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
+        //                     ?
+        //                     `<tr>
+        //                         <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
+        //                     </tr>
+        //                     `
+        //                     : ``
+        //                 }
+        //             </table>
+        //         `;
+        //     }
+        // });
 
         this.addField({
             name: 'outras_informacao',
             title: 'Outras Informações',
-            width: 20,
+            width: 45,
             onLoad: (data, row) =>  {
+                let htmlProcess = `
+                    <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
+                `
+                if (row.NUMERO_PROCESSO_NEW && row.CARTORIO && row.COMARCA) {
+                    htmlProcess = `
+                        <table>
+                            <tr>
+                                <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
+                            </tr>
+                            ${(row.NOME_ADVERSARIO)
+                                ?
+                                `<tr>
+                                    <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
+                                </tr>
+                                `
+                                : ``
+                            }
+                            ${(row.NUMERO_PROCESSO_NEW)
+                                ?
+                                `<tr>
+                                    <td>${row.NUMERO_PROCESSO_NEW}</td>
+                                </tr>
+                                `
+                                : ``
+                            }
+                            ${(row.CLASSE)
+                                ?
+                                `<tr>
+                                    <td>${row.CLASSE}</td>
+                                </tr>
+                                `
+                                : ``
+                            }
+                            ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
+                                ?
+                                `<tr>
+                                    <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
+                                </tr>
+                                `
+                                : ``
+                            }
+                        </table>
+                    `
+                }
+
                 return `
+                    ${htmlProcess}
                     <table class="row-informacoes-processo">
                         <tr>
                             <td class="weight-500 text-dark">Responsável:</td>
