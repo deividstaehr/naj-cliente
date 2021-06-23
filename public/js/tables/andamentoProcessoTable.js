@@ -57,7 +57,12 @@ class AndamentoProcessoTable extends Table {
         this.addField({
             name: 'DESCRICAO_ANDAMENTO',
             title: 'Descrição no Tribunal',
-            width: 50
+            width: 50,
+            onLoad: (data, row) =>  {
+                return `
+                    <span style="word-break: break-word;">${row.DESCRICAO_ANDAMENTO}</span>
+                `;
+            }
         });
 
         this.addField({

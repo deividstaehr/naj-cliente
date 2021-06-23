@@ -39,6 +39,8 @@ class AtividadeModel extends NajModel {
                   ON P3.CODIGO = PC.CODIGO_CLIENTE
             LEFT JOIN PESSOA P2
                    ON P2.CODIGO = PC.CODIGO_ADVERSARIO
+            LEFT JOIN PESSOA PESSOA_CLIENTE
+                   ON PESSOA_CLIENTE.CODIGO = A.CODIGO_CLIENTE
             LEFT JOIN PRC_COMARCA CO 
                    ON CO.CODIGO = PC.CODIGO_COMARCA
             LEFT JOIN PRC_CARTORIO CA 
@@ -88,6 +90,7 @@ class AtividadeModel extends NajModel {
          ->addRawColumn("P1.NOME AS NOME_USUARIO")
          ->addRawColumn("P3.NOME AS NOME_CLIENTE")
          ->addRawColumn("P2.NOME AS NOME_ADVERSARIO")
+         ->addRawColumn("PESSOA_CLIENTE.NOME AS PESSOA_CLIENTE_NOME")
          ->addRawColumn("PC.QUALIFICA_ADVERSARIO")
          ->addRawColumn("PC.QUALIFICA_CLIENTE")
          ->addRawColumn("PC.NUMERO_PROCESSO")
