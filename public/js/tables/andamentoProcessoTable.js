@@ -49,7 +49,7 @@ class AndamentoProcessoTable extends Table {
                         <tr>
                             <td><span class="mt-1 mb-2 badge badge-warning badge-rounded badge-informacoes-processo">${string_days}</span></td>
                         </tr>
-                    </table>                    
+                    </table>
                 `;
             }
         });

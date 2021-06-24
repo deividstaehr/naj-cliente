@@ -57,7 +57,15 @@ class AtividadeTable extends Table {
         this.addField({
             name: 'TEMPO',
             title: 'Tempo',
-            width: 5
+            width: 5,
+            onLoad: (data, row) =>  {
+                if (!row.TEMPO)
+                    return `00:00:00`
+
+                return `
+                    <span>${row.TEMPO}</span>
+                `
+            }
         });
         
         this.addField({
@@ -82,7 +90,7 @@ class AtividadeTable extends Table {
                     html = `
                         <table>
                             <tr>
-                                <td class="td-nome-parte-cliente">${row.PESSOA_CLIENTE_NOME}</td>
+                                <td class="td-nome-parte-cliente">${row.PESSOA_CLIENTE_NOME} (Cliente)</td>
                             </tr>
                         </table>
                     `
