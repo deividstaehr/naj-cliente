@@ -56,7 +56,15 @@ class AtividadeProcessoTable extends Table {
         this.addField({
             name: 'TEMPO',
             title: 'Tempo',
-            width: 10
+            width: 10,
+            onLoad: (data, row) =>  {
+                if (!row.TEMPO)
+                    return `00:00:00`
+
+                return `
+                    <span>${row.TEMPO}</span>
+                `
+            }
         });
         
         this.addField({
