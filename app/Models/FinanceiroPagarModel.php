@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\PessoaRelacionamentoUsuarioModel;
 
 /**
- * Modelo do financeiro.
+ * Modelo do financeiro a pagar.
  *
  * @since 2020-08-10
  */
@@ -16,9 +16,8 @@ class FinanceiroPagarModel extends NajModel {
     protected function loadTable() {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
-        if($codigoCliente == "") {
+        if($codigoCliente == "")
             $codigoCliente = "-1";
-        }
 
         $this->setTable('conta');
         $this->addColumn('CODIGO', true)->setHidden();
@@ -60,26 +59,23 @@ class FinanceiroPagarModel extends NajModel {
     public function getRelacionamentoClientes() {
         $codigo_usuario = request()->get('filterUser');
 
-        if($codigo_usuario) {
-           $codigo_usuario = json_decode(base64_decode($codigo_usuario));
-        } else {
-           return [];
-        }
+        if (!$codigo_usuario)
+            return [];
+
+        $codigo_usuario = json_decode(base64_decode($codigo_usuario));
 
         $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
         $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloFinanceiroContasPagar($codigo_usuario[0]->val);
         $aCodigo = [];
 
-        foreach($relacionamentos as $relacionamento) {
+        foreach($relacionamentos as $relacionamento)
            $aCodigo[] = $relacionamento->pessoa_codigo;
-        }
 
         $rota = request()->route()->getName();
 
         //Se for paginate remove o filtro para não add duas vezes
-        if($rota == 'financeiro.pagar.paginate') {
+        if($rota == 'financeiro.pagar.paginate')
            request()->request->remove('filterUser');
-        }
 
         return $aCodigo;
     }
@@ -152,9 +148,8 @@ class FinanceiroPagarModel extends NajModel {
     public function getTotalPagoPagarAtrasado($parametro) {
         $codigoCliente = implode(',', $this->getRelacionamentoClientes());
 
-        if($codigoCliente == "") {
+        if($codigoCliente == "")
             $codigoCliente = "-1";
-        }
 
         $total_pago = DB::select("
                 SELECT (
@@ -169,6 +164,7 @@ class FinanceiroPagarModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                         C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null)
@@ -190,8 +186,8 @@ class FinanceiroPagarModel extends NajModel {
                     ON N.CODIGO = C.CODIGO_NATUREZA
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                         C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null)
@@ -214,8 +210,8 @@ class FinanceiroPagarModel extends NajModel {
                  WHERE CP.SITUACAO IN('A','P')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
-                   AND situacao = 'A'
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
+                   AND C.DISPONIVEL_CLIENTE = 'S'
                    #PARA CONTAS DA GUIA 'A PAGAR' (QUE O CLIENTE TEM PARA PAGAR PARA O ESCRITÓRIO)
                    AND (
                         C.TIPO='R' AND (C.PAGADOR='1' or C.PAGADOR is null)
