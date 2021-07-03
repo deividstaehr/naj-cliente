@@ -271,7 +271,7 @@ class FinanceiroModel extends NajModel {
 		    	ON CP.CODIGO_CONTA = C.CODIGO
 		INNER JOIN NATUREZA_FINANCEIRA N
 				ON N.CODIGO = C.CODIGO_NATUREZA
-		     WHERE CP.SITUACAO IN('A','P')
+		     WHERE CP.SITUACAO IN('A')
 			   AND C.CODIGO_PESSOA IN ({$codigoClientePagar})
 			   AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
                            AND C.DISPONIVEL_CLIENTE = 'S'
