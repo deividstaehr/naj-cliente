@@ -218,9 +218,9 @@ class FinanceiroPagarModel extends NajModel {
                        )            
                    #FILTRO POR DATA AQUI
                    AND (
-                         CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         CP.DATA_VENCIMENTO < DATE_FORMAT(now(),'%Y-%m-%d')
                          OR
-                         CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         CP.DATA_PAGAMENTO < DATE_FORMAT(now(),'%Y-%m-%d')
                        )
         ");
 
