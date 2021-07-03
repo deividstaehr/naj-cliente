@@ -350,7 +350,7 @@ class FinanceiroModel extends NajModel {
                     ON CP.CODIGO_CONTA = C.CODIGO
             INNER JOIN NATUREZA_FINANCEIRA N
                     ON N.CODIGO = C.CODIGO_NATUREZA
-                 WHERE CP.SITUACAO IN('A','P')
+                 WHERE CP.SITUACAO IN('A')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
                    AND C.DISPONIVEL_CLIENTE = 'S'
@@ -360,9 +360,11 @@ class FinanceiroModel extends NajModel {
                         )
                    #FILTRO POR DATA AQUI
                    AND (
-                         CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
-                         OR
-                         CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+						 CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         #CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+                         #OR
+                         #CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+						 #era como estava acima mas foi trocado por que tava dando pau em cliente
                        )
         ");
 
@@ -373,7 +375,7 @@ class FinanceiroModel extends NajModel {
                     ON CP.CODIGO_CONTA = C.CODIGO
             INNER JOIN NATUREZA_FINANCEIRA N
                     ON N.CODIGO = C.CODIGO_NATUREZA
-                 WHERE CP.SITUACAO IN('A','P')
+                 WHERE CP.SITUACAO IN('A')
                    AND C.CODIGO_PESSOA IN ({$codigoCliente})
                    AND data_vencimento < DATE_FORMAT(now(),'%Y-%m-%d')
                    AND (N.TIPO_SUB NOT IN('M','J','C') OR N.TIPO_SUB IS NULL)
@@ -384,9 +386,11 @@ class FinanceiroModel extends NajModel {
                         )
                    #FILTRO POR DATA AQUI
                    AND (
-                         CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
-                         OR
-                         CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+						CP.DATA_VENCIMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'                         
+						AND
+						CP.DATA_VENCIMENTO < DATE_FORMAT(now(),'%Y-%m-%d')
+						#CP.DATA_PAGAMENTO BETWEEN '{$parametro->data_inicial}' and '{$parametro->data_final}'
+						#era como estava acima mas foi trocado por que tava dando pau em cliente
                        )
         ");
 
