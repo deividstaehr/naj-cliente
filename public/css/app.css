@@ -1538,3 +1538,10 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .modal-65vh {
     height: 65vh !important;
 }
+
+.content-observation {
+    background-color: #d0d0d057;
+    border-radius: 5px;
+    height: 45vh;
+    padding: 20px 10px 20px 10px;
+}

@@ -126,7 +126,11 @@ class ProcessoModel extends NajModel {
           PC.DATA_DISTRIBUICAO,
          #DATE_FORMAT(PC.DATA_DISTRIBUICAO,'%d/%m/%Y') AS DATA_DISTRIBUICAO,
          #não pode ter data formatada, então eu comentei
-         PC.VALOR_CAUSA
+         PC.ID_GRAU_RISCO,
+         PC.VALOR_RISCO,
+         PC.VALOR_CAUSA,
+         PC.OBSERVACAO,
+         PGR.DESCRICAO
       
          FROM PRC PC
          LEFT JOIN PESSOA P1 ON P1.CODIGO = PC.CODIGO_CLIENTE
@@ -136,6 +140,7 @@ class ProcessoModel extends NajModel {
          LEFT JOIN PRC_COMARCA CO ON CO.CODIGO = PC.CODIGO_COMARCA
          LEFT JOIN PRC_CARTORIO CA ON CA.CODIGO = PC.CODIGO_CARTORIO
          LEFT JOIN PRC_CLASSE CL ON CL.CODIGO = PC.CODIGO_CLASSE
+         LEFT JOIN PRC_GRAU_RISCO PGR ON PGR.ID = PC.ID_GRAU_RISCO
       
          WHERE PC.CODIGO_CLIENTE IN({$codigoCliente})
             OR PC.CODIGO IN (
@@ -379,5 +384,14 @@ class ProcessoModel extends NajModel {
 
     protected function useOderBy() {
        return false;
+    }
+
+    public function getObservation($codigo) {
+        return DB::select("
+			SELECT observacao
+			  FROM prc
+			 WHERE TRUE
+			   AND codigo = {$codigo}
+	    ");
     }
 }

@@ -109,6 +109,7 @@ Route::group([
     Route::get('processos/prcorgao'          , 'ProcessoController@getPrcOrgao')->name('processos.prcorgao');
     Route::get('processos/prcsituacao'       , 'ProcessoController@getPrcSituacao')->name('processos.prcsituacao');
     Route::get('processos/indicador/{parametro}', 'ProcessoController@getQtdeAtivoBaixado')->name('processos.indicador');
+    Route::get('processos/observacao/{codigo}', 'ProcessoController@getObservation')->name('processos.observation');
 
     //PROCESSOS ANDAMENTO
     Route::get('processos/andamento/paginate', 'AndamentoProcessoController@paginate')->name('processos.andamento.paginate');

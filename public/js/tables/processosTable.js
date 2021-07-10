@@ -163,10 +163,10 @@ class ProcessosTable extends Table {
             width: 32.5,
             onLoad: (data, row) =>  {
                 return `
-                    <table>
+                    <table style="width: 100%;">
                         <tr>
                             <td>${row.NUMERO_PROCESSO_NEW}</td>
-                        </tr>                        
+                        </tr>
                         ${(row.CLASSE)
                             ?
                             `<tr>
@@ -182,7 +182,39 @@ class ProcessosTable extends Table {
                             </tr>
                             `
                             : ``
-                        }                        
+                        }
+                        <tr>
+                            <td style="width: 50%;">
+                                ${(row.OBSERVACAO)
+                                    ?
+                                    `<span style="position: relative;">Observações <i class="fas fa-search icone-informaçoes-processo ml-2 mr-4 cursos-pointer" onclick="onClickObservacaoProcesso('${row.CODIGO_PROCESSO}');"></i></span>`
+                                    :
+                                    `<span style="position: relative;">Observações: - </span>`
+                                }
+                                
+                            </td>
+                            <td>
+                            ${(row.VALOR_CAUSA > 0)
+                                ?
+                                `<span>Valor Ação: <span class="weight-700">${convertIntToMoney(row.VALOR_CAUSA)}</span></span>`
+                                :
+                                `<span>Valor Ação: <span class="">${convertIntToMoney(row.VALOR_CAUSA)}</span></span>`
+                            }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;">
+                                <span>Grau de Risco: <span class="weight-700">${row.DESCRICAO || '-'}</span></span>
+                            </td>
+                            <td>
+                                ${(row.VALOR_RISCO > 0)
+                                    ?
+                                    `<span>Valor Risco: <span class="weight-700">${convertIntToMoney(row.VALOR_RISCO)}</span></span>`
+                                    :
+                                    `<span>Valor Risco: <span class="">${convertIntToMoney(row.VALOR_RISCO)}</span></span>`
+                                }
+                            </td>
+                        </tr>
                     </table>
                 `;
             }

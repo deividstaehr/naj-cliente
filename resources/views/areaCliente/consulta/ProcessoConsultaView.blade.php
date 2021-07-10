@@ -30,6 +30,9 @@
 @component('areaCliente.componentes.modalConsultaAnexoAtividade')
 @endcomponent
 
+@component('areaCliente.componentes.modalConsultaObservacao')
+@endcomponent
+
 @endsection
 
 @section('scripts')
