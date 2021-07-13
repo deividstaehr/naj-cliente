@@ -255,3 +255,15 @@ async function onClickDownloadAnexoAtividade(codigo, arquivoName) {
         loadingDestroy('loading-download-anexo-atividade');
     }
 }
+
+async function onClickObservacaoProcesso(processoCodigo) {
+    const result = await NajApi.getData(`processos/observacao/${processoCodigo}`);
+    $('#modal-consulta-observacao').modal('show')
+    $('#header-obersavao')[0].innerHTML = `Observações do Processo: ${processoCodigo}`
+
+    $('#content-observation')[0].innerHTML = ``
+
+    if (!result.data) return $('#content-observation')[0].innerHTML = `Não foi possível buscar as observações`
+
+    $('#content-observation')[0].innerHTML = `${result.data[0].observacao}`
+}

@@ -392,7 +392,7 @@ function convertMoneyToFloat(money){
  * @param {bool}    cifrao
  * @returns {string}
  */
-function convertIntToMoney(value, cifrao = false){
+function convertIntToMoney(value, cifrao = false) {
     let result = null;
     result = formatter.format(value);
     if(!cifrao){

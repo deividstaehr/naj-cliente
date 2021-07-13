@@ -162,6 +162,10 @@ class ProcessosTable extends Table {
             title: 'Informações do Processo',
             width: 32.5,
             onLoad: (data, row) =>  {
+                console.log(row.DESCRICAO)
+                console.log(row.OBSERVACAO)
+                console.log(row.VALOR_CAUSA)
+                console.log(row.VALOR_RISCO)
                 return `
                     <table style="width: 100%;">
                         <tr>
@@ -194,11 +198,11 @@ class ProcessosTable extends Table {
                                 
                             </td>
                             <td>
-                            ${(row.VALOR_CAUSA > 0)
+                            ${(row.VALOR_CAUSA)
                                 ?
                                 `<span>Valor Ação: <span class="weight-700">${convertIntToMoney(row.VALOR_CAUSA)}</span></span>`
                                 :
-                                `<span>Valor Ação: <span class="">${convertIntToMoney(row.VALOR_CAUSA)}</span></span>`
+                                `<span>Valor Ação: <span class="">0,00</span></span>`
                             }
                             </td>
                         </tr>
@@ -207,11 +211,11 @@ class ProcessosTable extends Table {
                                 <span>Grau de Risco: <span class="weight-700">${row.DESCRICAO || '-'}</span></span>
                             </td>
                             <td>
-                                ${(row.VALOR_RISCO > 0)
+                                ${(row.VALOR_RISCO)
                                     ?
                                     `<span>Valor Risco: <span class="weight-700">${convertIntToMoney(row.VALOR_RISCO)}</span></span>`
                                     :
-                                    `<span>Valor Risco: <span class="">${convertIntToMoney(row.VALOR_RISCO)}</span></span>`
+                                    `<span>Valor Risco: <span class="">0,00</span></span>`
                                 }
                             </td>
                         </tr>
@@ -455,6 +459,7 @@ class ProcessosTable extends Table {
             fillById(totalCounter, numberWithCommas(data.total));
             fillById(totalPages, this.totalPages);
         } catch(e) {
+            debugger
             NajAlert.toastError('Erro ao efetuar a requisição!');
         }
 

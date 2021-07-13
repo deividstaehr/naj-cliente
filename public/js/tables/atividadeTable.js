@@ -96,42 +96,86 @@ class AtividadeTable extends Table {
                     `
                 } else {
                     html = `
-                        <table>
+                        <table style="width: 100%;">
                             <tr>
-                                <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
+                                <td>
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td class="td-nome-parte-cliente">${row.NOME_CLIENTE} (${row.QUALIFICA_CLIENTE})</td>
+                                        </tr>
+                                        ${(row.NOME_ADVERSARIO)
+                                            ?
+                                            `<tr>
+                                                <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
+                                            </tr>
+                                            `
+                                            : ``
+                                        }
+                                        ${(row.NUMERO_PROCESSO_NEW)
+                                            ?
+                                            `<tr>
+                                                <td>${row.NUMERO_PROCESSO_NEW}</td>
+                                            </tr>
+                                            `
+                                            : ``
+                                        }
+                                        ${(row.CLASSE)
+                                            ?
+                                            `<tr>
+                                                <td>${row.CLASSE}</td>
+                                            </tr>
+                                            `
+                                            : ``
+                                        }
+                                        ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
+                                            ?
+                                            `<tr>
+                                                <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
+                                            </tr>
+                                            `
+                                            : ``
+                                        }
+                                    </table>
+                                </td>
                             </tr>
-                            ${(row.NOME_ADVERSARIO)
-                                ?
-                                `<tr>
-                                    <td>${row.NOME_ADVERSARIO} (${row.QUALIFICA_ADVERSARIO})</td>
-                                </tr>
-                                `
-                                : ``
-                            }
-                            ${(row.NUMERO_PROCESSO_NEW)
-                                ?
-                                `<tr>
-                                    <td>${row.NUMERO_PROCESSO_NEW}</td>
-                                </tr>
-                                `
-                                : ``
-                            }
-                            ${(row.CLASSE)
-                                ?
-                                `<tr>
-                                    <td>${row.CLASSE}</td>
-                                </tr>
-                                `
-                                : ``
-                            }
-                            ${(row.CARTORIO && row.COMARCA && row.COMARCA_UF)
-                                ?
-                                `<tr>
-                                    <td>${row.CARTORIO} - ${row.COMARCA} (${row.COMARCA_UF})</td>
-                                </tr>
-                                `
-                                : ``
-                            }
+                            <tr>
+                                <td>
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="width: 50%;">
+                                                ${(row.OBSERVACAO)
+                                                    ?
+                                                    `<span style="position: relative;">Observações <i class="fas fa-search icone-informaçoes-processo ml-2 mr-4 cursos-pointer" onclick="onClickObservacaoProcesso('${row.CODIGO_PROCESSO}');"></i></span>`
+                                                    :
+                                                    `<span style="position: relative;">Observações: - </span>`
+                                                }
+                                                
+                                            </td>
+                                            <td>
+                                            ${(row.VALOR_CAUSA)
+                                                ?
+                                                `<span>Valor Ação: <span class="weight-700">${convertIntToMoney(row.VALOR_CAUSA)}</span></span>`
+                                                :
+                                                `<span>Valor Ação: <span class="">0,00</span></span>`
+                                            }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 50%;">
+                                                <span>Grau de Risco: <span class="weight-700">${row.DESCRICAO_RISCO || '-'}</span></span>
+                                            </td>
+                                            <td>
+                                                ${(row.VALOR_RISCO)
+                                                    ?
+                                                    `<span>Valor Risco: <span class="weight-700">${convertIntToMoney(row.VALOR_RISCO)}</span></span>`
+                                                    :
+                                                    `<span>Valor Risco: <span class="">0,00</span></span>`
+                                                }
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                         </table>
                     `
                 }
