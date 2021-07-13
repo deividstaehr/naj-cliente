@@ -388,7 +388,9 @@ class ProcessoModel extends NajModel {
 
     public function getObservation($codigo) {
         return DB::select("
-			SELECT observacao
+			SELECT observacao,
+			       pedidos_processo,
+				   codigo
 			  FROM prc
 			 WHERE TRUE
 			   AND codigo = {$codigo}

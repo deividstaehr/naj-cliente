@@ -198,7 +198,7 @@ class ProcessosTable extends Table {
                                 
                             </td>
                             <td>
-                            ${(row.VALOR_CAUSA)
+                            ${(row.VALOR_CAUSA > 0)
                                 ?
                                 `<span>Valor Ação: <span class="weight-700">${convertIntToMoney(row.VALOR_CAUSA)}</span></span>`
                                 :
@@ -208,10 +208,10 @@ class ProcessosTable extends Table {
                         </tr>
                         <tr>
                             <td style="width: 50%;">
-                                <span>Grau de Risco: <span class="weight-700">${row.DESCRICAO || '-'}</span></span>
+                                <span>Grau de Risco: <span class="${row.DESCRICAO ? ' weight-700 ' : ''}">${row.DESCRICAO || '-'}</span></span>
                             </td>
                             <td>
-                                ${(row.VALOR_RISCO)
+                                ${(row.VALOR_RISCO > 0)
                                     ?
                                     `<span>Valor Risco: <span class="weight-700">${convertIntToMoney(row.VALOR_RISCO)}</span></span>`
                                     :

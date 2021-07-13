@@ -47,6 +47,8 @@ class AtividadeModel extends NajModel {
                    ON CA.CODIGO = PC.CODIGO_CARTORIO
             LEFT JOIN PRC_CLASSE CL 
                    ON CL.CODIGO = PC.CODIGO_CLASSE
+			LEFT JOIN PRC_GRAU_RISCO PGR
+                   ON PGR.ID = PC.ID_GRAU_RISCO
       ");
    }
 
@@ -99,7 +101,11 @@ class AtividadeModel extends NajModel {
          ->addRawColumn("CA.CARTORIO")
          ->addRawColumn("CO.COMARCA")
          ->addRawColumn("CO.UF AS COMARCA_UF")
+         ->addRawColumn("PC.ID_GRAU_RISCO")
+         ->addRawColumn("PC.VALOR_RISCO")
          ->addRawColumn("PC.VALOR_CAUSA")
+         ->addRawColumn("PC.OBSERVACAO")
+         ->addRawColumn("PGR.DESCRICAO AS DESCRICAO_RISCO")
          ->addRawColumn("PC.DATA_CADASTRO")
          ->addRawColumn("PC.DATA_DISTRIBUICAO")
          ->addRawColumn("

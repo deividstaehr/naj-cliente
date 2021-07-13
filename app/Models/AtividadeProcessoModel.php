@@ -34,8 +34,8 @@ class AtividadeProcessoModel extends NajModel {
                    ON CA.CODIGO = PC.CODIGO_CARTORIO
             LEFT JOIN PRC_CLASSE CL 
                    ON CL.CODIGO = PC.CODIGO_CLASSE
-			LEFT JOIN PRC_GRAU_RISCO PGR
-			       ON PGR.ID = PC.ID_GRAU_RISCO
+            LEFT JOIN PRC_GRAU_RISCO PGR
+                   ON PGR.ID = PC.ID_GRAU_RISCO
       ");
    }
 

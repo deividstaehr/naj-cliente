@@ -12,7 +12,6 @@
                 <div id="loading" class="loader loader-default" data-half></div>
                 <div class="card text-center">
                     <div class="card-body pb-0">
-                        <h4 class="card-title">Observações...</h4>
                         <div class="content-observation scrollable">
                             <p class="card-text" id="content-observation"></p>
                         </div>

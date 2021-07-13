@@ -240,5 +240,17 @@ async function onClickObservacaoProcesso(processoCodigo) {
 
     if (!result.data) return $('#content-observation')[0].innerHTML = `Não foi possível buscar as observações`
 
-    $('#content-observation')[0].innerHTML = `${result.data[0].observacao}`
+    let text = ``
+
+    if (result.data[0].pedidos_processo && result.data[0].observacao) {
+        text += `${result.data[0].pedidos_processo}`
+        text += `<br><hr>`
+        text += `${result.data[0].observacao}`
+    } else if (result.data[0].pedidos_processo) {
+        text += `${result.data[0].pedidos_processo}`
+    } else if (result.data[0].observacao) {
+        text += `${result.data[0].observacao}`
+    }
+
+    $('#content-observation')[0].innerHTML = text
 }
