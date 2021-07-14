@@ -108,6 +108,7 @@ class AtividadeModel extends NajModel {
          ->addRawColumn("PGR.DESCRICAO AS DESCRICAO_RISCO")
          ->addRawColumn("PC.DATA_CADASTRO")
          ->addRawColumn("PC.DATA_DISTRIBUICAO")
+         ->addRawColumn("PC.PEDIDOS_PROCESSO")
          ->addRawColumn("
             (
                 SELECT COUNT(0) 

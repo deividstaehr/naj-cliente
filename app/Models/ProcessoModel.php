@@ -130,7 +130,8 @@ class ProcessoModel extends NajModel {
          PC.VALOR_RISCO,
          PC.VALOR_CAUSA,
          PC.OBSERVACAO,
-         PGR.DESCRICAO
+         PGR.DESCRICAO,
+         PC.PEDIDOS_PROCESSO
       
          FROM PRC PC
          LEFT JOIN PESSOA P1 ON P1.CODIGO = PC.CODIGO_CLIENTE

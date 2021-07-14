@@ -189,7 +189,7 @@ class ProcessosTable extends Table {
                         }
                         <tr>
                             <td style="width: 50%;">
-                                ${(row.OBSERVACAO)
+                                ${(row.OBSERVACAO || row.PEDIDOS_PROCESSO)
                                     ?
                                     `<span style="position: relative;">Observações <i class="fas fa-search icone-informaçoes-processo ml-2 mr-4 cursos-pointer" onclick="onClickObservacaoProcesso('${row.CODIGO_PROCESSO}');"></i></span>`
                                     :
