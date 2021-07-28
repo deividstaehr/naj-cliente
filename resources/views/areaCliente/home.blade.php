@@ -312,6 +312,9 @@
 @component('areaCliente.componentes.modalAgendamentos')
 @endcomponent
 
+@component('areaCliente.componentes.modalPesquisaNpsRespostas')
+@endcomponent
+
 @endsection
 @section('scripts')
     <script src="{{ env('APP_URL') }}ampleAdmin/assets/libs/dropzone/dist/min/dropzone.min.js"></script>

@@ -5,54 +5,54 @@ let hasInfo   = false;
 
 $(document).ready(function() {
 
-    window.addEventListener("resize", getSizes, false);
+    window.addEventListener("resize", getSizesWindow, false)
 
-    getSizes();
+    getSizesWindow()
 
-    if(detectMob()) {
+    if(detectMobile()) {
         $('#row-mensagens-atividades').removeClass('row-mensagens-atividades');
         $('#row-processos-agendamentos').removeClass('row-processos-agendamentos');
     }
 
-    //Atualizando a data de acesso ao sistema
-    updateDataAcessoSistema();
+    updateDataAcessoSistema()//Atualizando a data de acesso ao sistema
     
     //Evento do click no bloco MINHAS MENSAGENS
     $('#content-minhas-mensagens').on('click', function() {
-        window.location.href = `${baseURL}mensagens`;
+        window.location.href = `${baseURL}mensagens`
     });
 
     //Evento do click no bloco MEUS PROCESSOS
     $('#content-meus-processos').on('click', function() {
-        window.location.href = `${baseURL}processos`;
+        window.location.href = `${baseURL}processos`
     });
 
     //Evento do click no bloco ATIVIDADES
     $('#content-atividades').on('click', function() {
-        window.location.href = `${baseURL}atividades`;
+        window.location.href = `${baseURL}atividades`
     });
 
     //Evento do click no bloco FINANCEIRO RECEBER
     $('#content-financeiro-receber').on('click', function() {
-        window.location.href = `${baseURL}financeiro/index/receber`;
+        window.location.href = `${baseURL}financeiro/index/receber`
     });
 
     //Evento do click no bloco FINANCEIRO PAGAR
     $('#content-financeiro-pagar').on('click', function() {
-        window.location.href = `${baseURL}financeiro/index/pagar`;
+        window.location.href = `${baseURL}financeiro/index/pagar`
     });
 
     $('#content-agendamentos').on('click', () => {
-        $('#modal-agendamentos').modal('show');
+        $('#modal-agendamentos').modal('show')
     });
 
-    let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa');
+    let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa')
 
-    if(nomeEmpresa) {
-        $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`;
-    }
+    if(nomeEmpresa)
+        $('#nomeEmpresa')[0].innerHTML = `${nomeEmpresa}`
 
-    loadContainers();
+    loadContainers() //Carrega os cards da pagina inicial
+
+    checkPesquisaNps() // Checando as pesquisas NPS
 
     setInterval(() => {
         //Somente se não tiver info é para animar
@@ -298,7 +298,7 @@ async function updateDataAcessoSistema() {
     }
 }
 
-function getSizes() { 
+function getSizesWindow() { 
     let zoom = ((window.outerWidth - 10) / window.innerWidth) * 100;
           
     if(zoom < 105) {
@@ -377,7 +377,7 @@ function getSizes() {
     }
 } 
 
-function detectMob() {
+function detectMobile() {
     const toMatch = [
         /Android/i,
         /webOS/i,
@@ -391,4 +391,14 @@ function detectMob() {
     return toMatch.some((toMatchItem) => {
         return navigator.userAgent.match(toMatchItem);
     });
+}
+
+async function checkPesquisaNps() {
+    const searches = await NajApi.getData(`pesquisa/nps/pendentes`)
+
+    console.log(searches)
+
+    if (!searches.data) return //Se não tiver achado nada retorna
+
+    $('#modal-pesquisa-nps-respostas').modal('show');
 }
