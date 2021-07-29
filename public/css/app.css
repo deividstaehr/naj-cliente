@@ -1570,3 +1570,8 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .color-white {
     color: #fff !important;
 }
+
+.button-note-nps-selected {
+    background-color: #3b3b3b !important;
+    border-color: #3b3b3b !important;
+}

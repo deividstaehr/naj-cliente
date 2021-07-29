@@ -398,7 +398,86 @@ async function checkPesquisaNps() {
 
     console.log(searches)
 
-    if (!searches.data) return //Se não tiver achado nada retorna
+    if (!searches.data.length > 0) return //Se não tiver achado nada retorna
+    let notes = ``
+
+    if (searches.data[0].range_max == 5) {
+        notes = `
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">0</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">1</span>
+            <span class="button-note-nps ml-2 color-white btn btn-warning btn-circle cursor-pointer">2</span>
+            <span class="button-note-nps ml-2 color-white btn btn-warning btn-circle cursor-pointer">3</span>
+            <span class="button-note-nps ml-2 btn btn-success btn-circle cursor-pointer">4</span>
+            <span class="button-note-nps mr-2 ml-2 btn btn-success btn-circle cursor-pointer">5</span>
+        `
+    } else if (searches.data[0].range_max == 10) {
+        notes = `
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">0</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">1</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">2</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">3</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">4</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">5</span>
+            <span class="button-note-nps ml-2 btn btn-danger btn-circle cursor-pointer">6</span>
+            <span class="button-note-nps ml-2 color-white btn btn-warning btn-circle cursor-pointer">7</span>
+            <span class="button-note-nps ml-2 color-white btn btn-warning btn-circle cursor-pointer">8</span>
+            <span class="button-note-nps ml-2 btn btn-success btn-circle cursor-pointer">9</span>
+            <span class="button-note-nps mr-2 ml-2 btn btn-success btn-circle cursor-pointer">10</span>
+        `
+    }
+
+    $('.content-title-pergunta-nps')[0].innerHTML = `${nomeUsuarioLogado} <br> ${searches.data[0].pergunta}`
+    $('.content-notes-respostas-nps')[0].innerHTML = `
+        <span class="font-weight-light fs-13">${searches.data[0].range_min_info}</span>
+        ${notes}
+        <span class="font-weight-light fs-13">${searches.data[0].range_max_info}</span>
+    `
+
+    // setando algumas informações que serão utilizadas na hora do envio da resposta
+    $('#id_resposta_nps').val(searches.data[0].id_resposta_nps)
+    $('#amount_open').val(searches.data[0].count)
+
+    $('.button-note-nps').on('click', (ref) => {
+        $('.button-note-nps').removeClass('button-note-nps-selected')
+        $(ref.currentTarget).addClass('button-note-nps-selected')
+    })
 
     $('#modal-pesquisa-nps-respostas').modal('show');
+}
+
+async function saveSearchNps() {
+    const data = {
+        id_search_nps : $('#id_pesquisa_nps').val(),
+        id_answer_nps : $('#id_resposta_nps').val(),
+        note : $('.button-note-nps-selected').text(),
+        motive: $('#motivo').val(),
+        data_hora_resposta: getDataHoraAtual(),
+        data_hora_visualizacao: getDataHoraAtual(),
+        amount_open: parseFloat($('#amount_open').val() || 0) + 1,
+    }
+
+    if (!data.note)
+        return NajAlert.toastWarning('Você deve informar uma nota para confirmar o envio da resposta!')
+
+    const result = await NajApi.postData(`pesquisa/nps/resposta`, data)
+
+    if(result) {
+        NajAlert.toastSuccess('Resposta registrada com sucesso!')
+        window.location.href = window.location.href
+    }
+}
+
+async function saveNotAnswerSearchNps() {
+    const data = {
+        id_answer_nps : $('#id_resposta_nps').val(),
+        data_hora_visualizacao: getDataHoraAtual(),
+        amount_open: parseFloat($('#amount_open').val() || 0) + 1,
+    }
+
+    const result = await NajApi.postData(`pesquisa/nps/naoresponder`, data)
+
+    if(result) {
+        NajAlert.toastSuccess('Resposta registrada com sucesso!')
+        window.location.href = window.location.href
+    }
 }

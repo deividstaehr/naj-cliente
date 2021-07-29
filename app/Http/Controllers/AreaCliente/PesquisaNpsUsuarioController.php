@@ -34,5 +34,17 @@ class PesquisaNpsUsuarioController extends NajController {
             DB::update('UPDATE pesquisa_respostas set lido = ? where id = ?', ['S', $model['id']]);
         }
     }
+
+    public function saveAnswer() {
+        $save = $this->getModel()->saveAnswer(request()->all());
+
+        return response()->json(['data' => $save]);
+    }
+
+    public function saveNotAnswer() {
+        $save = $this->getModel()->saveNotAnswer(request()->all());
+
+        return response()->json(['data' => $save]);
+    }
     
 }

@@ -60,14 +60,22 @@ class PesquisaNpsUsuarioModel extends NajModel {
     }
 
     public function searchsNotReadByUser($userId) {
-        $search = DB::select("
-            SELECT *
+		$data = date('Y-m-d');
+
+		$search = DB::select("
+            SELECT *,
+			       pesquisa_respostas.id as id_resposta_nps
               FROM pesquisa_respostas
 			  JOIN pesquisa_nps_csat
 				ON pesquisa_nps_csat.id = pesquisa_respostas.id_pesquisa
              WHERE TRUE
                AND id_usuario = {$userId}
-               AND status = 'P'
+			   AND status = 'P'
+			   AND (
+				     data_hora_exibicao BETWEEN '{$data} 00:00:00' AND '{$data} 23:59:59'
+					 OR
+					 data_hora_inicio BETWEEN '{$data} 00:00:00' AND '{$data} 23:59:59'
+				   )
         ");
 
         return $search;
@@ -92,6 +100,42 @@ class PesquisaNpsUsuarioModel extends NajModel {
 			   AND status <> 'P'
 			   AND id_pesquisa = {$pesquisa->pesquisa}
 		");
+	}
+
+	public function saveAnswer($data) {
+		$updateValues = [
+			'S',
+			$data['note'],
+			$data['motive'],
+			$data['data_hora_resposta'],
+			$data['data_hora_visualizacao'],
+			$data['amount_open'],
+			'R',
+			'WEB',
+			$data['id_answer_nps']
+		];
+
+		$save = DB::update("
+			UPDATE pesquisa_respostas set lido = ?, nota = ?, motivo = ?, data_hora_resposta = ?, data_hora_visualizacao = ?,
+				   count = ?, status = ?, device = ?
+			 WHERE id = ?
+			", $updateValues
+		);
+
+		return $save;
+	}
+
+	public function saveNotAnswer($data) {
+		$now = date('Y-m-d H:i');
+
+		$save = DB::update("
+			UPDATE pesquisa_respostas set lido = 'S', data_hora_visualizacao = '{$data['data_hora_visualizacao']}',
+			       data_hora_exibicao = DATE_ADD('{$now}', INTERVAL 7 DAY),
+				   count = {$data['amount_open']}, status = 'N', device = 'WEB'
+			 WHERE id = {$data['id_answer_nps']}
+		");
+
+		return $save;
 	}
 
 }
