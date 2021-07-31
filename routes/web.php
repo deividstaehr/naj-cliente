@@ -158,4 +158,5 @@ Route::group([
     Route::get('pesquisa/nps/pendentes', 'PesquisaNpsUsuarioController@searchsNotReadByUser')->name('pesquisa-nps-pendentes.searchsNotReadByUser');
     Route::post('pesquisa/nps/resposta', 'PesquisaNpsUsuarioController@saveAnswer')->name('pesquisa-nps-resposta.saveAnswer');
     Route::post('pesquisa/nps/naoresponder', 'PesquisaNpsUsuarioController@saveNotAnswer')->name('pesquisa-nps-resposta.saveNotAnswer');
+    Route::post('pesquisa/nps/refresh', 'PesquisaNpsUsuarioController@refreshNps')->name('pesquisa-nps-resposta.refresh');
 });

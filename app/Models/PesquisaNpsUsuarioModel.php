@@ -129,13 +129,25 @@ class PesquisaNpsUsuarioModel extends NajModel {
 		$now = date('Y-m-d H:i');
 
 		$save = DB::update("
-			UPDATE pesquisa_respostas set lido = 'S', data_hora_visualizacao = '{$data['data_hora_visualizacao']}',
+			UPDATE pesquisa_respostas set lido = 'S',
 			       data_hora_exibicao = DATE_ADD('{$now}', INTERVAL 7 DAY),
 				   count = {$data['amount_open']}, status = 'N', device = 'WEB'
 			 WHERE id = {$data['id_answer_nps']}
 		");
 
 		return $save;
+	}
+
+	public function refreshNps($data) {
+		$now = date('Y-m-d H:i');
+
+		$save = DB::update("
+            UPDATE pesquisa_respostas
+               SET data_hora_visualizacao = '{$now}'
+             WHERE id = {$data['id_answer_nps']}
+       ");
+
+	    return $save;
 	}
 
 }

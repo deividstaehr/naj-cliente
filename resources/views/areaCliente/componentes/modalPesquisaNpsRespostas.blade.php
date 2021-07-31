@@ -8,7 +8,7 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body-naj p-0" style="height: 52vh;">
+            <div class="modal-body-naj p-0" style="height: auto;">
                 <div class="content-resposta-nps">
                     <div class="row">
                         <input type="hidden" id="id_pesquisa_nps">
@@ -23,7 +23,7 @@
                             <div class="form-group row">
                                 <div class="col-12">
                                     <div class="input-group">
-                                        <textarea rows="5" class="form-control" name="motivo" id="motivo" placeholder="Qual o principal motivo para a sua nota?"></textarea>
+                                        <textarea rows="4" class="form-control" name="motivo" id="motivo" placeholder="Qual o principal motivo para a sua nota?"></textarea>
                                     </div>
                                 </div>
                             </div>

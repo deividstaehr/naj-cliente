@@ -46,5 +46,11 @@ class PesquisaNpsUsuarioController extends NajController {
 
         return response()->json(['data' => $save]);
     }
+
+    public function refreshNps() {
+        $save = $this->getModel()->refreshNps(request()->all());
+
+        return response()->json(['data' => $save]);
+    }
     
 }

@@ -426,7 +426,7 @@ async function checkPesquisaNps() {
         `
     }
 
-    $('.content-title-pergunta-nps')[0].innerHTML = `${nomeUsuarioLogado} <br> ${searches.data[0].pergunta}`
+    $('.content-title-pergunta-nps')[0].innerHTML = `${searches.data[0].pergunta.replace('{NOME}', nomeUsuarioLogado)}`
     $('.content-notes-respostas-nps')[0].innerHTML = `
         <span class="font-weight-light fs-13">${searches.data[0].range_min_info}</span>
         ${notes}
@@ -436,6 +436,8 @@ async function checkPesquisaNps() {
     // setando algumas informações que serão utilizadas na hora do envio da resposta
     $('#id_resposta_nps').val(searches.data[0].id_resposta_nps)
     $('#amount_open').val(searches.data[0].count)
+
+    await NajApi.postData(`pesquisa/nps/refresh`, {id_answer_nps: searches.data[0].id_resposta_nps, data_hora_visualizacao: getDataHoraAtual()})
 
     $('.button-note-nps').on('click', (ref) => {
         $('.button-note-nps').removeClass('button-note-nps-selected')
