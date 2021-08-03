@@ -426,7 +426,7 @@ async function checkPesquisaNps() {
         `
     }
 
-    $('.content-title-pergunta-nps')[0].innerHTML = `${searches.data[0].pergunta.replace('{NOME}', nomeUsuarioLogado)}`
+    $('.content-title-pergunta-nps')[0].innerHTML = `${searches.data[0].pergunta.replace('{NOME}', nomeUsuarioLogado).replace('{APELIDO}', apelidoUsuarioLogado)}`
     $('.content-notes-respostas-nps')[0].innerHTML = `
         <span class="font-weight-light fs-13">${searches.data[0].range_min_info}</span>
         ${notes}

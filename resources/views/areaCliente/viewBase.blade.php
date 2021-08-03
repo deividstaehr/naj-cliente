@@ -92,6 +92,9 @@
                         <li class="sidebar-item" id="sidebar-item-financeiro"> <a class="sidebar-link" href="{{ url('ac/financeiro/index/receber') }}" aria-expanded="false" id="sidebar-link-financeiro"><i class="fas fa-donate"></i>
 							<span class="hide-menu">Financeiro</span></a>
 						</li>
+                        <li class="sidebar-item" id="sidebar-item-agenda"> <a class="sidebar-link" href="{{ url('ac/agenda') }}" aria-expanded="false" id="sidebar-link-agenda"><i class="fas fa-calendar-alt"></i>
+							<span class="hide-menu">Agenda</span></a>
+						</li>
                     </ul>
                 </nav>
             </div>
@@ -131,6 +134,7 @@
         const appAlias          = "{{ env('APP_ALIAS') }}";
         const appUrl            = "{{ env('APP_URL') }}";
         const nomeUsuarioLogado = "{{ Auth::user()->nome }}";
+        const apelidoUsuarioLogado = "{{ Auth::user()->apelido }}";
         const tipoUsuarioLogado = "{{ Auth::user()->usuario_tipo_id }}";
         const idUsuarioLogado   = "{{ Auth::user()->id }}";
 

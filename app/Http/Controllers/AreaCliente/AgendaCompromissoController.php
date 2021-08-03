@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers\AreaCliente;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\User;
+use App\Http\Controllers\NajController;
+use App\Models\AgendaCompromissoModel;
 
-class AgendaCompromissoController extends Controller {
+/**
+ * Controller da agenda do cliente.
+ *
+ * @package    Controllers
+ * @subpackage AreaCliente
+ * @author     Roberto Oswaldo Klann
+ * @since      02/08/2021
+ */
+class AgendaCompromissoController extends NajController {
+
+    public function onLoad() {
+        $this->setModel(new AgendaCompromissoModel);
+    }
 
     public function index() {
-        return view('areaCliente/agendaCompromissos');
+        return view('areaCliente.consulta.AgendaConsultaView');
     }
 
 }

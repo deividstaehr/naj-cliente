@@ -132,7 +132,8 @@ Route::group([
     Route::get('atividades/processo/paginate', 'AtividadeProcessoController@paginate')->name('atividades.processo.paginate');
 
     //Agenda
-    Route::get('agendaCompromissos', 'AgendaCompromissoController@index')->name('agendaCompromissos.index');
+    Route::get('agenda', 'AgendaCompromissoController@index')->name('agenda.index');
+    Route::get('agenda/paginate', 'AgendaCompromissoController@paginate')->name('agenda.paginate');
 
     //DOCUMENTOS
     Route::get('documentos/show/{key}', 'DocumentosChatController@documentos')->name('documentos-show');
