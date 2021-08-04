@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\NajModel;
+use App\Models\PessoaRelacionamentoUsuarioModel;
 
 /**
  * Modelo da agenda do cliente.
@@ -35,19 +36,27 @@ class AgendaCompromissoModel extends NajModel {
 
         $this->addAllColumns();
 
+        $codigoCliente = implode(',', $this->getRelacionamentoClientes());
+
+        if ($codigoCliente == "")
+            $codigoCliente = "-1";
+
+        $this->addRawFilter("agenda.codigo_usuario IN ({$codigoCliente})");
+
         $this->setRawBaseSelect("
                 SELECT [COLUMNS]
                   FROM agenda
-                  JOIN agenda_tipo_compromisso atc
+             LEFT JOIN agenda_tipo_compromisso atc
                     ON atc.codigo = agenda.codigo_tipo
-                  JOIN prc
+             LEFT JOIN prc
                     ON prc.codigo = agenda.codigo_processo
         ");
     }
 
     public function addAllColumns() {
-        $this->addRawColumn("atc.descricao as descricaoTipo");
-            //  ->addRawColumn("usuarios.nome AS nomeUsuario")
+        $this->addRawColumn("atc.descricao as descricaoTipo")
+             ->addRawColumn("DATE_FORMAT(data_hora_inclusao,'%d/%m/%Y') AS data_hora_inclusao")
+             ->addRawColumn("DATE_FORMAT(data_hora_compromisso,'%d/%m/%Y') AS data_hora_compromisso");
             //  ->addRawColumn("
 			//     (
 			// 	  CASE WHEN pesquisa_respostas.status = 'R' THEN '1'
@@ -57,6 +66,20 @@ class AgendaCompromissoModel extends NajModel {
 			// 	) AS status2")
             //  ->addRawColumn("pesquisa_nps_csat.range_max AS rangeMax")
             //  ->addRawColumn("pesquisa_nps_csat.descricao AS pesquisaTitulo");
+    }
+
+    public function getRelacionamentoClientes() {
+        $aCodigo = [];
+
+        if (request()->get('codigo_usuario')) {
+            $PessoaRelUsuarioModel = new PessoaRelacionamentoUsuarioModel();
+            $relacionamentos       = $PessoaRelUsuarioModel->getRelacionamentosUsuarioModuloAgenda(request()->get('codigo_usuario'));
+    
+            foreach($relacionamentos as $relacionamento)
+                $aCodigo[] = $relacionamento->pessoa_codigo;
+        }
+
+        return $aCodigo;
     }
 
 }

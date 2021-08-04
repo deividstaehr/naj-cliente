@@ -78,4 +78,14 @@ class PessoaRelacionamentoUsuarioModel extends NajModel {
         ");
     }
 
+	public function getRelacionamentosUsuarioModuloAgenda($codigo) {
+        return DB::select("
+            SELECT *
+              FROM pessoa_rel_clientes
+             WHERE TRUE 
+               AND usuario_id = {$codigo}
+               AND agenda = '" . self::DB_SIM . "'
+        ");
+    }
+
 }
