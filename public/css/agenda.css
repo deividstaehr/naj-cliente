@@ -1,0 +1,54 @@
+.content-agenda {
+    /* padding: 5px 20px 5px 20px; */
+    padding: 10px;
+    height: 100%;
+}
+
+.content-agenda-buttons {
+    margin-left: 16%;
+}
+
+.btn-agenda {
+    height: 50px;
+    width: 75% !important;
+}
+
+.container-agenda {
+    height: 100%;
+    overflow-y: auto;
+    /* overflow-y: hidden; */
+    overflow-x: hidden;
+    /* background-color: #fff; */
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.display-4 {
+    font-size: 2.5rem !important;
+}
+
+.badge-info {
+    background-color: #1e87f0 !important;
+    color: #fff !important;
+    text-shadow: none !important;
+}
+
+.row-striped {
+    padding: 7px !important;
+    margin: 15px 0 15px 0;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 8%);
+}
+
+.row-striped:hover {
+    background-color: rgba(81, 201, 255, .05) !important;
+}
+
+/* .row-striped:nth-child(even) {
+    background: #f6f6f7;
+}
+
+.row-striped:nth-child(odd) {
+    background: #fff;
+} */
