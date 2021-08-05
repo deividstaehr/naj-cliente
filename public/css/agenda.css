@@ -18,9 +18,8 @@
     overflow-y: auto;
     /* overflow-y: hidden; */
     overflow-x: hidden;
-    /* background-color: #fff; */
     border-radius: 5px;
-    padding: 10px;
+    padding: 0 10px 0 10px;
     cursor: pointer;
 }
 
@@ -36,7 +35,7 @@
 
 .row-striped {
     padding: 7px !important;
-    margin: 15px 0 15px 0;
+    margin: 5px 0 15px 0;
     background-color: #fff;
     box-shadow: 0 5px 15px rgb(0 0 0 / 8%);
 }
@@ -44,11 +43,3 @@
 .row-striped:hover {
     background-color: rgba(81, 201, 255, .05) !important;
 }
-
-/* .row-striped:nth-child(even) {
-    background: #f6f6f7;
-}
-
-.row-striped:nth-child(odd) {
-    background: #fff;
-} */
