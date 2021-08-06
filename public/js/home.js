@@ -42,7 +42,8 @@ $(document).ready(function() {
     });
 
     $('#content-agendamentos').on('click', () => {
-        $('#modal-agendamentos').modal('show')
+        // $('#modal-agendamentos').modal('show')
+        window.location.href = `${baseURL}agenda`
     });
 
     let nomeEmpresa = sessionStorage.getItem('@NAJ_CLIENTE/nomeEmpresa')

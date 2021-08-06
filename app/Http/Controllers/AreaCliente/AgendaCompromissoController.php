@@ -23,4 +23,8 @@ class AgendaCompromissoController extends NajController {
         return view('areaCliente.consulta.AgendaConsultaView');
     }
 
+    public function all() {
+        return response()->json(['data' => $this->getModel()->allEvents()]);
+    }
+
 }
