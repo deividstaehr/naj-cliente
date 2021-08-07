@@ -14,11 +14,11 @@
     <div class="row" style="height: 100%;">
         <div class="col-6 pr-0 mr-0" style="height: 100%;">
             <div class="container">
-                <div class="card">
+                <div class="card" style="width: 100%;">
                     <h2 class="weight-500">Próximos Eventos</h2>
                     <hr/>
                     <div class="container-agenda naj-scrollable">
-                        <div class="row row-striped">
+                        <!-- <div class="row row-striped">
                             <div class="col-2 p-0 text-right">
                                 <h3 class="display-4"><span class="badge badge-info">05</span></h3>
                                 <h6>Julho/2021</h6>
@@ -197,7 +197,7 @@
                                 </ul>
                                 <p>Aqui vai qualqer que seja a descrição do evento apenas para ilustrar mesmo.</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
