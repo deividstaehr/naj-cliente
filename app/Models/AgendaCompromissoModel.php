@@ -96,7 +96,6 @@ class AgendaCompromissoModel extends NajModel {
         if ($codigoCliente == "")
             $codigoCliente = "-1";
 
-        dd($conditionCompromisso, $codigoCliente);
         $events = DB::select("
             SELECT A.ID AS ID_COMPROMISSO,
                    DATE_FORMAT(A.DATA_HORA_COMPROMISSO,'%d/%m/%Y') AS DATA,
