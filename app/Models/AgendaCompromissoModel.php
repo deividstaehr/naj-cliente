@@ -89,13 +89,14 @@ class AgendaCompromissoModel extends NajModel {
         $conditionCompromisso = '';
 
         if ($hasConfig)
-            $conditionCompromisso = 'AND A.CODIGO_TIPO IN(' . $hasConfig . ')';
+            $conditionCompromisso = ' AND A.CODIGO_TIPO IN(' . $hasConfig . ') ';
 
         $codigoCliente = implode(',', $this->getRelacionamentoClientes($filters->user_id));
 
         if ($codigoCliente == "")
             $codigoCliente = "-1";
 
+        dd($conditionCompromisso, $codigoCliente);
         $events = DB::select("
             SELECT A.ID AS ID_COMPROMISSO,
                    DATE_FORMAT(A.DATA_HORA_COMPROMISSO,'%d/%m/%Y') AS DATA,
@@ -109,11 +110,15 @@ class AgendaCompromissoModel extends NajModel {
                    CO.COMARCA,
                    PC.VALOR_CAUSA,
                    PC.DATA_CADASTRO,
-                   PC.DATA_DISTRIBUICAO
+                   PC.DATA_DISTRIBUICAO,
+                   P1.NOME AS NOME_CLIENTE,
+                   P2.NOME AS PARTE_CONTRARIA,
+                   P3.NOME AS RESPONSAVEL
               FROM AGENDA A
          LEFT JOIN PRC PC ON PC.CODIGO = A.CODIGO_PROCESSO
          LEFT JOIN PESSOA P1 ON P1.CODIGO = PC.CODIGO_CLIENTE
          LEFT JOIN PESSOA P2 ON P2.CODIGO = PC.CODIGO_ADVERSARIO
+         LEFT JOIN PESSOA P3 ON P3.CODIGO = A.CODIGO_PESSOA
          LEFT JOIN PRC_COMARCA CO ON CO.CODIGO = PC.CODIGO_COMARCA
          LEFT JOIN PRC_CARTORIO CA ON CA.CODIGO = PC.CODIGO_CARTORIO
          LEFT JOIN PRC_CLASSE CL ON CL.CODIGO = PC.CODIGO_CLASSE

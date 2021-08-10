@@ -40,7 +40,7 @@ async function loadEvents() {
         user_id: idUsuarioLogado
     }
 
-    const events = await NajApi.getData(`agenda/all?filters=${btoa(JSON.stringify(filters))}`)
+    const events = await NajApi.getData(`agenda/all?filters=${btoa(JSON.stringify(filters))}&XDEBUG_SESSION_START`)
 
     let eventsHtml = ''
 
@@ -61,6 +61,15 @@ async function loadEvents() {
         let week = dayWeek.getDay() - 1
         dayWeek = weekNames[week]
 
+        let eventTitle = item.RESPONSAVEL
+        let eventSubtitle = ''
+
+        if (item.NUMERO_PROCESSO) {
+            eventTitle = `${item.NOME_CLIENTE} X ${item.PARTE_CONTRARIA}`
+            eventSubtitle = item.RESPONSAVEL
+        }
+            
+
         eventsHtml += `
             <div class="row row-striped">
                 <div class="col-2 p-0 text-right">
@@ -68,7 +77,8 @@ async function loadEvents() {
                     <h6>${month}/${year}</h6>
                 </div>
                 <div class="col-10">
-                    <h5 class="text-uppercase"><strong>${item.CLASSE}</strong></h5>
+                    <h5 class="text-uppercase"><strong>${eventTitle}</strong></h5>
+                    <h6 class="text-uppercase"><strong>${eventSubtitle}</strong></h6>
                     <ul class="list-inline">
                         <li class="list-inline-item"><i class="fa fa-calendar-alt" aria-hidden="true"></i> ${dayWeek}</li>
                         <li class="list-inline-item"><i class="fa fa-clock" aria-hidden="true"></i> ${item.HORA}</li>
