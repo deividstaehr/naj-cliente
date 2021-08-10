@@ -66,7 +66,7 @@ async function loadEvents() {
 
         if (item.NUMERO_PROCESSO) {
             eventTitle = `${item.NOME_CLIENTE} X ${item.PARTE_CONTRARIA}`
-            eventSubtitle = item.RESPONSAVEL
+            eventSubtitle = `<i class="fa fa-user" aria-hidden="true"></i> ${item.RESPONSAVEL}`
         }
             
 
