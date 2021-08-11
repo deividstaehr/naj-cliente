@@ -58,8 +58,12 @@ async function loadEvents() {
 
         let dayWeek = dateFormat
 
-        let week = dayWeek.getDay() - 1
-        dayWeek = weekNames[week]
+        let week = dayWeek.getDay()
+
+        if (week == 0)
+            dayWeek = weekNames[week]
+        else
+            dayWeek = weekNames[week - 1]
 
         let eventTitle = item.RESPONSAVEL
         let eventSubtitle = ''
@@ -68,7 +72,19 @@ async function loadEvents() {
             eventTitle = `${item.NOME_CLIENTE} X ${item.PARTE_CONTRARIA}`
             eventSubtitle = `<i class="fa fa-user" aria-hidden="true"></i> ${item.RESPONSAVEL}`
         }
-            
+
+        let assunt = `<p>${item.ASSUNTO}</p>`
+
+        if (item.ASSUNTO.length > 500) {
+            assunt = `
+                ${item.ASSUNTO.substr(0, 500)}
+                <span class="action-icons">
+                    <a data-toggle="collapse" href="#item-agenda-${item.ID_COMPROMISSO}" data-key-processo="${item.ID_COMPROMISSO}" aria-expanded="false" onclick="onClickItemAgenda(${item.ID_COMPROMISSO}, this);">
+                        <i class="fas fa-chevron-circle-right icone-partes-processo-expanded" title="Clique para ver o assunto completo" data-toggle="tooltip"></i>
+                    </a>
+                </span>
+            `
+        }
 
         eventsHtml += `
             <div class="row row-striped">
@@ -77,14 +93,14 @@ async function loadEvents() {
                     <h6>${month}/${year}</h6>
                 </div>
                 <div class="col-10">
-                    <h5 class="text-uppercase"><strong>${eventTitle}</strong></h5>
-                    <h6 class="text-uppercase"><strong>${eventSubtitle}</strong></h6>
+                    <h5 class="text-uppercase"><strong>${eventSubtitle}</strong></h5>
+                    <h6 class="text-uppercase"><strong>${eventTitle}</strong></h6>
                     <ul class="list-inline">
                         <li class="list-inline-item"><i class="fa fa-calendar-alt" aria-hidden="true"></i> ${dayWeek}</li>
                         <li class="list-inline-item"><i class="fa fa-clock" aria-hidden="true"></i> ${item.HORA}</li>
                         <li class="list-inline-item"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> ${item.LOCAL}</li>
                     </ul>
-                    <p>${item.ASSUNTO}</p>
+                    <p id="item-agenda-hide-${item.ID_COMPROMISSO}">${assunt}</p>
                 </div>
             </div>
         `
@@ -153,7 +169,7 @@ async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina
             agendamentoRotina
         };
     
-        let result = await NajApi.postData(`chat/mensagem?XDEBUG_SESSION_START`, data);
+        let result = await NajApi.postData(`chat/mensagem`, data);
 
         if(!result || !result.model) {
             NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
@@ -181,7 +197,7 @@ async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina
             agendamentoRotina
         };
     
-        let result = await NajApi.postData(`chat/novo/atendimento?XDEBUG_SESSION_START`, data);
+        let result = await NajApi.postData(`chat/novo/atendimento`, data);
 
         if(!result) {
             NajAlert.toastError('Não foi possível enviar a mensagem, tente novamente mais tarde!');
@@ -199,5 +215,41 @@ async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina
             });
             $('#modal-agendamentos').modal('hide');
         }
+    }
+}
+
+async function onClickItemAgenda(codigo, el) {
+    const parameters = btoa(JSON.stringify({codigo}))
+    const event = await NajApi.getData(`agenda/show/${parameters}`)
+
+    if (!event.data) return
+
+    let classItem = ''
+
+    if(el.children) {
+        let className = el.children.item(0).className
+
+        classItem = 'fas fa-chevron-circle-right icone-partes-processo-expanded'
+
+        if(className == 'fas fa-chevron-circle-down icone-partes-processo-expanded') {
+            $(`#item-agenda-hide-${codigo}`)[0].innerHTML = `
+                ${event.data[0].assunto.substr(0, 500)}
+                <span class="action-icons">
+                    <a data-toggle="collapse" href="#item-agenda-${codigo}" data-key-processo="${codigo}" aria-expanded="false" onclick="onClickItemAgenda(${codigo}, this);">
+                        <i class="${classItem}" title="Clique para ver o assunto completo" data-toggle="tooltip"></i>
+                    </a>
+                </span>
+            `;
+        } else {
+            classItem = 'fas fa-chevron-circle-down icone-partes-processo-expanded'
+            $(`#item-agenda-hide-${codigo}`)[0].innerHTML = `
+                ${event.data[0].assunto}
+                <span class="action-icons">
+                    <a data-toggle="collapse" href="#item-agenda-${codigo}" data-key-processo="${codigo}" aria-expanded="false" onclick="onClickItemAgenda(${codigo}, this);">
+                        <i class="${classItem}" title="Clique para ver o assunto completo" data-toggle="tooltip"></i>
+                    </a>
+                </span>
+            `;
+        }   
     }
 }

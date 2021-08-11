@@ -144,11 +144,23 @@ class AgendaCompromissoModel extends NajModel {
 
                     )
                 )
+               AND DATE(A.DATA_HORA_COMPROMISSO) >= DATE(NOW())
         {$conditionCompromisso}
-          ORDER BY A.DATA_HORA_COMPROMISSO DESC
+          ORDER BY A.DATA_HORA_COMPROMISSO ASC
         ");
 
         return $events;
+    }
+
+    public function showEvent($filter) {
+        $data = DB::select("
+            SELECT assunto
+              FROM agenda
+             WHERE TRUE
+               AND id = {$filter->codigo}
+        ");
+
+        return $data;
     }
 
 }

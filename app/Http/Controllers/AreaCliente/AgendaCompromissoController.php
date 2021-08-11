@@ -27,4 +27,9 @@ class AgendaCompromissoController extends NajController {
         return response()->json(['data' => $this->getModel()->allEvents()]);
     }
 
+    public function showEvent($filter) {
+        $filter = json_decode(base64_decode($filter));
+        return response()->json(['data' => $this->getModel()->showEvent($filter)]);
+    }
+
 }

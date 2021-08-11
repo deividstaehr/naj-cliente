@@ -93,7 +93,7 @@
 							<span class="hide-menu">Financeiro</span></a>
 						</li>
                         <li class="sidebar-item" id="sidebar-item-agenda"> <a class="sidebar-link" href="{{ url('ac/agenda') }}" aria-expanded="false" id="sidebar-link-agenda"><i class="fas fa-calendar-alt"></i>
-							<span class="hide-menu">Agenda</span></a>
+							<span class="hide-menu">Agendamentos</span></a>
 						</li>
                     </ul>
                 </nav>
