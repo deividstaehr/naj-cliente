@@ -12,7 +12,7 @@
 <div class="content-agenda">
     <div id="loading-agendamento" class="loader loader-default" data-half></div>
     <div class="row" style="height: 100%;">
-        <div class="col-6 pr-0 mr-0" style="height: 100%;">
+        <div class="col-list-events col-lg-6 col-md-6 col-sm-12 pr-0" style="height: 100%;">
             <div class="container">
                 <div class="card card-novo-agendamento">
                     <h2 class="weight-500">Novo Agendamento</h2>
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="col-6 pl-0">
+        <div class="col-list-agendamento col-lg-6 col-md-6 col-sm-12 pl-0">
             <div class="container">
                 <div class="card" style="width: 100%;">
                     <h2 class="weight-500">Próximos Eventos</h2>

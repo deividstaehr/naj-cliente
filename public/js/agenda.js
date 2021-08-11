@@ -88,11 +88,11 @@ async function loadEvents() {
 
         eventsHtml += `
             <div class="row row-striped">
-                <div class="col-2 p-0 text-right">
+                <div class="col-day-calendar col-lg-2 col-md-2 col-sm-12 p-0 text-right">
                     <h3 class="display-4"><span class="badge badge-info">${day}</span></h3>
                     <h6>${month}/${year}</h6>
                 </div>
-                <div class="col-10">
+                <div class="col-infos-calendar col-lg-10 col-md-10 col-sm-12">
                     <h5 class="text-uppercase"><strong>${eventSubtitle}</strong></h5>
                     <h6 class="text-uppercase"><strong>${eventTitle}</strong></h6>
                     <ul class="list-inline">
