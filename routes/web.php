@@ -136,6 +136,7 @@ Route::group([
     Route::get('agenda/paginate', 'AgendaCompromissoController@paginate')->name('agenda.paginate');
     Route::get('agenda/all', 'AgendaCompromissoController@all')->name('agenda.all');
     Route::get('agenda/show/{key}', 'AgendaCompromissoController@showEvent')->name('agenda.show-event');
+    Route::get('agenda/amountEvents/{key}', 'AgendaCompromissoController@amountEventsByUser')->name('agenda.amount-events');
 
     //DOCUMENTOS
     Route::get('documentos/show/{key}', 'DocumentosChatController@documentos')->name('documentos-show');

@@ -86,6 +86,7 @@
 
 /* AJUSTES PARA TELAS PEQUENAS */
 @media only screen and (max-width: 766px) {
+
     .col-list-agendamento {
         padding: 5px !important;
     }

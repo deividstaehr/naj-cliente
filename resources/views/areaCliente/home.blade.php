@@ -221,8 +221,8 @@
                             <div class="d-flex align-items-center">
                                 <h2 class="mb-0 display-5"><i class="fas fa-calendar-alt text-info"></i></h2>
                                 <div class="cursorActive" style="margin-left: 28%;">
-                                    <h3 class="ml-3 font-medium"></h3>
-                                    <h5 class="text-info mb-0">Clique aqui</h5>
+                                    <h3 class="ml-3 font-medium" id="quantidade-agendamento"></h3>
+                                    <h5 class="text-info mb-0" id="text-agendamento">Clique aqui</h5>
                                 </div>
                             </div>
                             <i class="fas fa-search text-info icone-search-home-cards"></i>

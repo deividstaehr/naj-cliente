@@ -163,4 +163,51 @@ class AgendaCompromissoModel extends NajModel {
         return $data;
     }
 
+    public function amountEventsByUser($usuarioId) {
+        $Sysconfig = new SysConfigModel();
+        $hasConfig = $Sysconfig->searchSysConfig('AGENDA_NAJ_CLIENTE', 'TIPO_COMPROMISSO_EXIBIR');
+        $conditionCompromisso = '';
+
+        if ($hasConfig)
+            $conditionCompromisso = ' AND A.CODIGO_TIPO IN(' . $hasConfig . ') ';
+
+        $codigoCliente = implode(',', $this->getRelacionamentoClientes($usuarioId));
+
+        if ($codigoCliente == "")
+            $codigoCliente = "-1";
+
+        $events = DB::select("
+            SELECT COUNT(A.ID) AS quantidade_eventos
+              FROM AGENDA A
+             WHERE (
+                    (
+                        A.ID IN(
+                            SELECT ID_COMPROMISSO
+                              FROM AGENDA_MEMBRO
+                             WHERE CODIGO_PESSOA IN({$codigoCliente})
+                        )
+                    )
+                    OR 
+                    (
+                        A.CODIGO_PROCESSO IN(
+                            SELECT CODIGO
+                              FROM PRC
+                             WHERE CODIGO_CLIENTE IN({$codigoCliente})
+                                OR CODIGO IN(
+                                    SELECT CODIGO_PROCESSO
+                                      FROM PRC_GRUPO_CLIENTE
+                                     WHERE CODIGO_CLIENTE IN({$codigoCliente})
+                                )
+                        )
+
+                    )
+                )
+               AND DATE(A.DATA_HORA_COMPROMISSO) >= DATE(NOW())
+        {$conditionCompromisso}
+          ORDER BY A.DATA_HORA_COMPROMISSO ASC
+        ");
+
+        return $events;
+    }
+
 }

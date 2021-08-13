@@ -69,6 +69,7 @@ async function loadContainers() {
     await loadContainerAtividade();
     await loadContainerProcesso();
     await loadContainerFinanceiro();
+    await loadContainerAgenda();
 }
 
 async function loadContainerMensagens() {
@@ -237,6 +238,19 @@ async function loadContainerFinanceiro() {
     if(resultFinanceiro.total_pagar_atrasado[0]) {
         $('#qtde_pagar_atrasado')[0].innerHTML = `${formatter.format(resultFinanceiro.total_pagar_atrasado[0].TOTAL_PAGAR_ATRASADO)}`;
         if(resultFinanceiro.total_pagar_atrasado[0].TOTAL_PAGAR_ATRASADO && resultFinanceiro.total_pagar_atrasado[0].TOTAL_PAGAR_ATRASADO != '0.00') hasInfo = true;
+    }
+}
+
+async function loadContainerAgenda() {
+    const filter = await filterUsuario()
+    const events = await NajApi.getData(`agenda/amountEvents/${filter}`)
+
+    $('#quantidade-agendamento')[0].innerHTML = ``
+    $('#text-agendamento')[0].innerHTML = ``
+
+    if(events.data[0]) {
+        $('#quantidade-agendamento')[0].innerHTML = events.data[0].quantidade_eventos
+        $('#text-agendamento')[0].innerHTML = `Próximos Eventos`
     }
 }
 

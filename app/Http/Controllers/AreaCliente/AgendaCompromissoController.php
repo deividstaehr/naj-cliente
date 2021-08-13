@@ -24,12 +24,21 @@ class AgendaCompromissoController extends NajController {
     }
 
     public function all() {
-        return response()->json(['data' => $this->getModel()->allEvents()]);
+        $filters = json_decode(base64_decode(request()->get('filters')));
+
+        return response()->json(['data' => $this->getModel()->allEvents(), 'total_events' => $this->getModel()->amountEventsByUser($filters->user_id)]);
     }
 
     public function showEvent($filter) {
         $filter = json_decode(base64_decode($filter));
+
         return response()->json(['data' => $this->getModel()->showEvent($filter)]);
+    }
+
+    public function amountEventsByUser($filter) {
+        $filter = json_decode(base64_decode($filter));
+
+        return response()->json(['data' => $this->getModel()->amountEventsByUser($filter[0]->val)]);
     }
 
 }
