@@ -246,7 +246,6 @@ async function loadContainerAgenda() {
     const events = await NajApi.getData(`agenda/amountEvents/${filter}`)
 
     $('#quantidade-agendamento')[0].innerHTML = ``
-    $('#text-agendamento')[0].innerHTML = ``
 
     if(events.data[0]) {
         $('#quantidade-agendamento')[0].innerHTML = events.data[0].quantidade_eventos
