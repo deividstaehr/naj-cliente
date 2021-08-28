@@ -39,7 +39,7 @@
     </div>
 </div>
 
-@component('areaCliente.componentes.modalConsultaAnexoAtividade')
+@component('areaCliente.componentes.modalNovoAgendamento')
 @endcomponent
 
 @endsection

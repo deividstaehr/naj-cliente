@@ -97,16 +97,27 @@
 
     .content-agenda-buttons {
         margin-left: 0 !important;
-        margin-top: 30% !important;
     }
 
     .col-day-calendar {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        background-color: #1e87f0;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .text-month-year {
+        font-size: 18px !important;
+        margin-bottom: 2px;
+    }
+
+    .container-agenda {
+        height: 74vh !important;
     }
 
     .display-4 {
-        margin-right: 10px !important;
+        font-size: 2rem !important;
     }
 }

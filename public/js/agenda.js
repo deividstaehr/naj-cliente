@@ -40,25 +40,13 @@ async function loadEvents() {
         $('#row-content-agendamento')[0].innerHTML = `
             <div class="col-list-agendamento col-lg-6 col-md-6 col-sm-12 pl-0">
                 <div class="container">
-                    <div class="card" style="width: 100%;">
-                        <h2 class="weight-500" id="title-next-events">Próximos Eventos</h2>
+                    <div class="card" style="width: 100%; height: 100%;">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h2 style="font-size: 16px !important;" class="weight-500" id="title-next-events">Próximos Eventos</h2>
+                            <button class="ml-4 btn btn-info btn-rounded" style="margin-top: -10px !important;" onclick="showModalNewEvent()"><i class="fas fa-plus-circle"></i></button>
+                        </div>
                         <hr/>
                         <div class="container-agenda naj-scrollable"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-list-events col-lg-6 col-md-6 col-sm-12 pr-0" style="height: 100%;">
-                <div class="container">
-                    <div class="card card-novo-agendamento">
-                        <h2 class="weight-500">Novo Agendamento</h2>
-                        <hr/>
-                        <div class="content-agenda-buttons">                    
-                            <button class="btn-agenda btn btn-primary" onclick="onClickAgendarConsulta()">Agendar uma Consulta</button>
-                            <button class="btn-agenda btn btn-info" onclick="onClickAgendarReuniao()">Agendar uma Reunião</button>
-                            <button class="text-white btn-agenda btn btn-warning" onclick="onClickAgendarVisita()">Agendar uma Visita</button>
-                            <button class="btn-agenda btn btn-secondary" onclick="onClickOutroAgendamento()">Outro tipo de Agendamento</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -72,9 +60,12 @@ async function loadEvents() {
     const events = await NajApi.getData(`agenda/all?filters=${btoa(JSON.stringify(filters))}&XDEBUG_SESSION_START`)
 
     let eventsHtml = ''
-
-    if (!events.data)
-        $('.container-agenda')[0].innerHTML = `<div class="content-without-information-event"><span>Sem informações...</span></div>`;
+    console.log(events.data.length)
+    if (events.data.length == 0) {
+        $('#title-next-events')[0].innerHTML = `Próximos Eventos (${events.total_events[0].quantidade_eventos})`
+        $('.container-agenda')[0].innerHTML = `<div class="content-without-information-event"><span>Sem informações...</span></div>`
+        return
+    }
 
     events.data.forEach(item => {
         const dateFormat = new Date(`${item.DATA.split('/')[2]}/${item.DATA.split('/')[1]}/${item.DATA.split('/')[0]}`)
@@ -119,7 +110,7 @@ async function loadEvents() {
             <div class="row row-striped">
                 <div class="col-day-calendar col-lg-2 col-md-2 col-sm-12 p-0 text-right">
                     <h3 class="display-4"><span class="badge badge-info">${day}</span></h3>
-                    <h6>${month}/${year}</h6>
+                    <h6 class="text-month-year">${month}/${year}</h6>
                 </div>
                 <div class="col-infos-calendar col-lg-10 col-md-10 col-sm-12">
                     <h5 class="text-uppercase"><strong>${eventSubtitle}</strong></h5>
@@ -246,6 +237,8 @@ async function sendMessageAgendamento(message, messageSuccess, agendamentoRotina
             $('#modal-agendamentos').modal('hide');
         }
     }
+
+    $('#modal-novo-agendamento').modal('hide');
 }
 
 async function onClickItemAgenda(codigo, el) {
@@ -298,4 +291,8 @@ function isMobile() {
     return toMatch.some((toMatchItem) => {
         return navigator.userAgent.match(toMatchItem);
     });
+}
+
+function showModalNewEvent() {
+    $('#modal-novo-agendamento').modal('show');
 }
