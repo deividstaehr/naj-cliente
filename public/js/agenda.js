@@ -85,12 +85,15 @@ async function loadEvents() {
         else
             dayWeek = weekNames[week - 1]
 
-        let eventTitle = item.RESPONSAVEL
+        let eventTitle = `
+            <h5 class="text-uppercase"><strong><i class="fa fa-user" aria-hidden="true"></i> ${item.RESPONSAVEL}</strong></h5>
+        `
         let eventSubtitle = ''
 
         if (item.NUMERO_PROCESSO) {
-            eventTitle = `${item.NOME_CLIENTE} X ${item.PARTE_CONTRARIA}`
-            eventSubtitle = `<i class="fa fa-user" aria-hidden="true"></i> ${item.RESPONSAVEL}`
+            eventTitle = `<h6 class="text-uppercase"><strong>${item.NOME_CLIENTE} X ${item.PARTE_CONTRARIA}</strong></h6>`
+            
+            eventSubtitle = `<h5 class="text-uppercase"><strong><i class="fa fa-user" aria-hidden="true"></i> ${item.RESPONSAVEL}</strong></h5>`
         }
 
         let assunt = `<p>${item.ASSUNTO}</p>`
@@ -113,8 +116,8 @@ async function loadEvents() {
                     <h6 class="text-month-year">${month}/${year}</h6>
                 </div>
                 <div class="col-infos-calendar col-lg-10 col-md-10 col-sm-12">
-                    <h5 class="text-uppercase"><strong>${eventSubtitle}</strong></h5>
-                    <h6 class="text-uppercase"><strong>${eventTitle}</strong></h6>
+                    ${eventSubtitle}
+                    ${eventTitle}
                     <ul class="list-inline">
                         <li class="list-inline-item"><i class="fa fa-calendar-alt" aria-hidden="true"></i> ${dayWeek}</li>
                         <li class="list-inline-item"><i class="fa fa-clock" aria-hidden="true"></i> ${item.HORA}</li>
