@@ -6,6 +6,7 @@ use App\Models\NajModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AreaCliente\ChatMensagemStatusController;
+use App\Http\Controllers\Api\UsuarioDispositivoApiController;
 
 /**
  * Modelo de boletos.
@@ -32,14 +33,13 @@ class ChatMensagemModel extends NajModel {
     }
 
     public function getAllMensagensChatPublico($id) {
-        $queryFilters = request()->query('f');
-        $filterParse  = json_decode(base64_decode($queryFilters));
-        $limit        = $filterParse->limit;
-        $offset       = ($this->getOffsetPage($id) - $limit);
+        $queryFilters   = request()->query('f');
+        $filterParse    = json_decode(base64_decode($queryFilters));
+        $limit          = $filterParse->limit;
+        $offset         = ($this->getOffsetPage($id) - $limit);
 
-        if($offset < 0) {
+        if($offset < 0)
             $offset = 0;
-        }
 
         $this->setStatusMensagemLida($id);
 
@@ -51,6 +51,7 @@ class ChatMensagemModel extends NajModel {
                   c.tipo_conteudo,
                   c.data_hora,
                   c.file_size,
+                  c.file_type,
                   c.file_path,
                   c.status_atendimento,
                   c.id_usuario_atendimento,
@@ -69,6 +70,7 @@ class ChatMensagemModel extends NajModel {
                           cm.tipo as tipo_conteudo,
                           cm.data_hora,
                           cm.file_size,
+                          cm.file_type,
                           cm.file_path,
                           ca.status as status_atendimento,
                           ca.id_usuario as id_usuario_atendimento,
@@ -174,6 +176,170 @@ class ChatMensagemModel extends NajModel {
         return count($aCount);
     }
 
+    public function newMessagesFromChat($id) {
+		$queryFilters   = request()->query('f');
+        $filterParse    = json_decode(base64_decode($queryFilters));
+        $usuarioId      = Auth::user()->id;
+
+        $aData = DB::select("
+          select c.id_mensagem,
+                  c.id_chat,
+                  c.id_usuario_mensagem,
+                  c.conteudo,
+                  c.tipo_conteudo,
+                  c.data_hora,
+                  c.file_size,
+                  c.file_type,
+                  c.file_path,
+                  c.status_atendimento,
+                  c.id_usuario_atendimento,
+                  c.data_hora_inicio,
+                  c.data_hora_termino,
+                  cms2.status_mensagem,
+                  cms2.status,
+                  c.nome,
+                  c.usuario_tipo_id,
+                  c.id_atendimento
+            from (
+                    select cm.id as id_mensagem,
+                          cm.id_chat,
+                          cm.id_usuario as id_usuario_mensagem,
+                          cm.conteudo,
+                          cm.tipo as tipo_conteudo,
+                          cm.data_hora,
+                          cm.file_size,
+                          cm.file_type,
+                          cm.file_path,
+                          ca.status as status_atendimento,
+                          ca.id_usuario as id_usuario_atendimento,
+                          ca.data_hora_inicio,
+                          ca.data_hora_termino,
+                          ca.id as id_atendimento,
+                          usuarios.nome,
+                          usuarios.usuario_tipo_id
+                      from chat_mensagem cm
+                left join chat_atendimento_rel_mensagem cam 
+                        on cam.id_mensagem = cm.id
+                left join chat_atendimento ca 
+                        on ca.id = cam.id_atendimento
+                      join usuarios
+                        on usuarios.id = cm.id_usuario
+                  ) as c 
+        left join # pegando o último id que deve ser com a última data de status da mensagem
+                  (
+                    select max(s.id) as id_status,
+                          s.id_mensagem
+                      from chat_mensagem_status s
+                  group by s.id_mensagem
+                  ) as cms on cms.id_mensagem = c.id_mensagem
+        left join # relacionando o último id que possui a data e hora do último status com a mensagem
+                  (
+                    select id,
+                          status_data_hora as status_mensagem,
+                          status
+                      from chat_mensagem_status
+                  ) as cms2 on cms2.id = cms.id_status            
+            where c.id_chat = {$id}
+              and cms2.status = 1
+              and c.id_usuario_mensagem <> {$usuarioId} #ID DO USUÁRIO LOGADO
+          order by c.id_chat DESC,
+                  c.data_hora,
+                  c.id_mensagem
+        ");		
+
+        
+        $this->setStatusMensagemLida($id);
+
+		$messagesReadCurrentChat = $this->getMessagesReadCurrentChat($usuarioId, $id);
+
+        return ['data' => $aData, 'messagesReadCurrentChat' => $messagesReadCurrentChat];
+	}
+
+    public function oldMessagesFromChat($id) {
+		$queryFilters   = request()->query('f');
+        $filterParse    = json_decode(base64_decode($queryFilters));
+        $limit          = $filterParse->offset;
+        $totalMessages  = $this->getOffsetPage($id);
+        $offset = $limit;
+
+        if($limit > $totalMessages) {
+            $quantidePassou = $limit - $totalMessages;
+            $newOffsetProvisorio = 20 - $quantidePassou;
+
+            $offset = $totalMessages - $newOffsetProvisorio;
+        }
+
+        $aData = DB::select("
+          select c.id_mensagem,
+                  c.id_chat,
+                  c.id_usuario_mensagem,
+                  c.conteudo,
+                  c.tipo_conteudo,
+                  c.data_hora,
+                  c.file_size,
+                  c.file_type,
+                  c.file_path,
+                  c.status_atendimento,
+                  c.id_usuario_atendimento,
+                  c.data_hora_inicio,
+                  c.data_hora_termino,
+                  cms2.status_mensagem,
+                  cms2.status,
+                  c.nome,
+                  c.usuario_tipo_id,
+                  c.id_atendimento
+            from (
+                    select cm.id as id_mensagem,
+                          cm.id_chat,
+                          cm.id_usuario as id_usuario_mensagem,
+                          cm.conteudo,
+                          cm.tipo as tipo_conteudo,
+                          cm.data_hora,
+                          cm.file_size,
+                          cm.file_type,
+                          cm.file_path,
+                          ca.status as status_atendimento,
+                          ca.id_usuario as id_usuario_atendimento,
+                          ca.data_hora_inicio,
+                          ca.data_hora_termino,
+                          ca.id as id_atendimento,
+                          usuarios.nome,
+                          usuarios.usuario_tipo_id
+                      from chat_mensagem cm
+                left join chat_atendimento_rel_mensagem cam 
+                        on cam.id_mensagem = cm.id
+                left join chat_atendimento ca 
+                        on ca.id = cam.id_atendimento
+                      join usuarios
+                        on usuarios.id = cm.id_usuario
+                  ) as c 
+        left join # pegando o último id que deve ser com a última data de status da mensagem
+                  (
+                    select max(s.id) as id_status,
+                          s.id_mensagem
+                      from chat_mensagem_status s
+                  group by s.id_mensagem
+                  ) as cms on cms.id_mensagem = c.id_mensagem
+        left join # relacionando o último id que possui a data e hora do último status com a mensagem
+                  (
+                    select id,
+                          status_data_hora as status_mensagem,
+                          status
+                      from chat_mensagem_status
+                  ) as cms2 on cms2.id = cms.id_status            
+            where c.id_chat = {$id}
+          order by c.id_chat DESC,
+                  c.data_hora DESC,
+                  c.id_mensagem
+            LIMIT 20
+           OFFSET {$offset}
+        ");
+
+        $this->setStatusMensagemLida($id);
+        
+        return ['data' => $aData];
+	}
+
     public function getLastMessageByUserAndChat($id_usuario, $id_chat) {
       return DB::select("
             SELECT *
@@ -229,5 +395,20 @@ class ChatMensagemModel extends NajModel {
             ]);
         }
     }
+
+    private function getMessagesReadCurrentChat($usuarioId, $chatId) {
+		return DB::select("
+			SELECT cms.id_mensagem
+			  FROM chat_mensagem_status cms
+			  JOIN chat_mensagem
+			    ON chat_mensagem.id = cms.id_mensagem
+		     WHERE TRUE
+			   AND id_usuario = {$usuarioId}
+			   AND id_chat = {$chatId}
+			   AND status = 2
+		  ORDER BY cms.id DESC
+			 LIMIT 20
+		");
+	}
     
 }

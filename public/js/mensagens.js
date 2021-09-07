@@ -2,6 +2,7 @@ const chat = new Chat();
 const NajApi  = new Naj();
 const tag_mensagem_simples = 'CLIENTE, WEB';
 
+let offsetOldMessages = 0;
 let limitAtualChat = 20;
 let id_chat_current;
 let id_atendimento_current;
@@ -114,7 +115,7 @@ async function loadMessageChat() {
 
     if(result.chat.id_chat && !$('#content-upload-anexos-chat').is(":visible")) {
         let moveScroll = $('#content-chat-box-full').scrollTop() + $('#content-chat-box-full').innerHeight() == $('#content-chat-box-full')[0].scrollHeight;
-        await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);
+        await chat.loadNewMessages({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);
     }
 }
 
@@ -142,8 +143,8 @@ async function onLoadAtendimento() {
         return;
     }
 
-    await chat.loadMessageInChat({"id_chat" : result.chat.id_chat, "id_usuario_cliente" : result.chat.id_usuario}, true, false);
-    limitAtualChat          = 20;
+    await chat.startChat({"id_chat" : result.chat.id_chat, "id_usuario_cliente" : result.chat.id_usuario}, true, false);
+    limitAtualChat = 20;
 }
 
 async function sendMessage(mensagem = false) {
@@ -234,8 +235,8 @@ function onClickCancelarAnexos() {
 }
 
 async function onClickButtonMaisMensagemChat() {
-    limitAtualChat = limitAtualChat + 20;
-    await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, false);
+    offsetOldMessages = offsetOldMessages + 20;
+    await chat.moreMessagesOld({ "id_chat": id_chat_current, "id_usuario_cliente": id_usuario_current_chat }, false);
 }
 
 async function onClickSendAnexoEditor() {
@@ -323,7 +324,19 @@ async function sendAnexos(dropzone) {
         let result = await NajApi.postData(`chat/mensagem/anexo`, {'files': filesUpload});
 
         if(result.status_code == 200) {
-            await chat.loadMessageInChat({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, false);
+            result.data.forEach((item) => {
+                let anexo = {
+                    "id_mensagem": item.id,
+                    "status": item.status,
+                    "data_hora": item.data_hora,
+                    "usuario_tipo_id": tipoUsuarioLogado,
+                    "conteudo": item.conteudo,
+                    "file_type": item.file_type,
+                    "nome": nomeUsuarioLogado,
+                    "file_size": item.file_size
+                };
+                $(`#content-messages-chat`).append(chat.newContentAnexo(anexo, true));
+            });
         } else {
             loadingDestroy('loading-anexo-chat');
             NajAlert.toastWarning(result.mensagem);
@@ -364,10 +377,36 @@ async function sendAnexos(dropzone) {
     }
 }
 
-async function onClickDownloadAnexoChat(id_message, arquivoName) {
+async function onClickDownloadAnexoChat(id_message, arquivoName, fileType) {
     loadingStart('loading-upload-chat');
     let parametros = btoa(JSON.stringify({id_message, identificador}));
     let result     = await NajApi.getData(`chat/mensagem/download/${parametros}?XDEBUG_SESSION_START`, true);
+
+    if(fileType == 2 && result) {
+        let reader = new FileReader();
+        reader.readAsDataURL(result);
+        reader.onloadend = () => {
+            let base64data = reader.result;
+
+            let extensao = arquivoName.split('.')[1];
+            let binary = convertDataURIToBinary(base64data);
+            let blob = new Blob([binary], {type : `audio/${extensao}`});
+            let blobUrl = URL.createObjectURL(blob);
+
+            $(`#source-${id_message}`).attr("src", blobUrl);
+
+            let audio = $(`#audio-${id_message}`);
+            audio[0].pause();
+            audio[0].load(); //suspends and restores all audio element
+            audio[0].oncanplaythrough =  audio[0].play();
+
+            $(`#btn-download-${id_message}`).attr('disabled', true);
+
+            loadingDestroy('loading-upload-chat');
+        }
+
+        return;
+    }
 
     if(result) {
         const url = URL.createObjectURL(result);
@@ -415,4 +454,19 @@ function toBase64(file) {
         reader.onload = () => resolve(reader.result),
         reader.onerror = error => reject(error)
     });
+}
+
+function convertDataURIToBinary(dataURI) {
+    var BASE64_MARKER = ';base64,';
+    var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+    var base64 = dataURI.substring(base64Index);
+    var raw = window.atob(base64);
+    var rawLength = raw.length;
+    var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for(i = 0; i < rawLength; i++) {
+        array[i] = raw.charCodeAt(i);
+    }
+    
+    return array;
 }

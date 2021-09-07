@@ -81,6 +81,8 @@ Route::group([
     //CHAT - MENSAGEM
     Route::get('chat/mensagens'            , 'AtendimentoController@allMessages')->name('atendimento.all-messages');
     Route::get('chat/mensagem/publico/{id}', 'ChatMensagemController@getAllMensagensChatPublico')->name('atendimento.all-messages-chat-publico');
+    Route::get('chat/mensagem/new/{id}'    , 'ChatMensagemController@newMessagesFromChat')->name('atendimento.all-new-messages');
+    Route::get('chat/mensagem/old/{id}'    , 'ChatMensagemController@oldMessagesFromChat')->name('atendimento.all-new-messages');
     Route::post('chat/mensagem'            , 'ChatMensagemController@store')->name('atendimento.chat.mensagem.store');
 
     //CHAT - ANEXO

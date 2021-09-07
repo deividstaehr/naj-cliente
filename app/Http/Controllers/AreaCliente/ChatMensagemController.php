@@ -205,4 +205,19 @@ class ChatMensagemController extends NajController {
         return false;
     }
 
+    public function newMessagesFromChat($id) {
+        $data = $this->getModel()->newMessagesFromChat($id);
+
+        return response()->json([
+            'data' => $data['data'],
+            'messagesReadCurrentChat' => $data['messagesReadCurrentChat'],
+        ]);
+    }
+
+    public function oldMessagesFromChat($id) {
+        $data = $this->getModel()->oldMessagesFromChat($id);
+
+        return response()->json(['data' => $data['data']]);
+    }
+
 }
