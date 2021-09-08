@@ -166,6 +166,9 @@ class Chat {
 
         loadingDestroy('loading-message-chat');
 
+        if(moveScrollView)
+            this.scrollToBottom();
+
         // this.loadOthersInfoChat(key, moveScrollView, loadRascunho, useLoading, loadInfoUser);
     }
 
@@ -243,8 +246,6 @@ class Chat {
         } else if(!isOdd && (fileUpload.usuario_tipo_id == 3)) {
             classOdd = 'color-no-odd-naj-usuario-cliente-message';
         }
-
-        console.log(fileUpload)
 
         let extensao = fileUpload.conteudo.split('.')[1];
         let titleIconDownload = fileUpload.file_type == 2 ? 'Baixar áudio para ouvir' : 'Baixar';

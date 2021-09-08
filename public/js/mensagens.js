@@ -114,7 +114,8 @@ async function loadMessageChat() {
     }
 
     if(result.chat.id_chat && !$('#content-upload-anexos-chat').is(":visible")) {
-        let moveScroll = $('#content-chat-box-full').scrollTop() + $('#content-chat-box-full').innerHeight() == $('#content-chat-box-full')[0].scrollHeight;
+        const moveScroll = $('#content-chat-box-full').scrollTop() + $('#content-chat-box-full').innerHeight() == $('#content-chat-box-full')[0].scrollHeight;
+        console.log(moveScroll)
         await chat.loadNewMessages({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);
     }
 }
