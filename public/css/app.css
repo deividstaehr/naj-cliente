@@ -818,7 +818,7 @@ input[type='text'], input[type='number'], input[type='date'], select{
 
 .text-chat-messages {
     color: #303030 !important;
-    font-size: 14px;
+    font-size: 13px;
     white-space: pre-wrap;
     text-align: left;
     width: 100%;
@@ -977,15 +977,24 @@ input[type='text'], input[type='number'], input[type='date'], select{
 .content-info-anexo-chat {
     display: flex;
     color: gray;
+    border-radius: 3px;
+    border: 1px solid #d1d1d1;
+    padding: 5px;
 }
 
 .btn-download-chat {
     display: flex;
     background-color: #e1e4e6;
-    margin-right: 5px;
+    margin-left: 5px;
     border-color: #cccccc;
     border-radius: 50%;
     width: 31px;
+}
+
+.icon-anexo-chat {
+    margin-right: 5px;
+    color: #999;
+    font-size: 18px;
 }
 
 .content-size-anexo-chat {
@@ -996,9 +1005,11 @@ input[type='text'], input[type='number'], input[type='date'], select{
 }
 
 .icon-download-chat {
-    color: #4e4c4c;
+    color: #999;
     font-size: 20px;
-    margin-left: -8px;
+    margin-left: 5px;
+    margin-top: 3px;
+    cursor: pointer;
 }
 
 #content-button-rascunho-message-chat {

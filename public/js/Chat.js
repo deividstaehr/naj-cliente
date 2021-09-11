@@ -248,7 +248,15 @@ class Chat {
         }
 
         let extensao = fileUpload.conteudo.split('.')[1];
-        let titleIconDownload = fileUpload.file_type == 2 ? 'Baixar áudio para ouvir' : 'Baixar';
+        let titleIconDownload = fileUpload.file_type == 2 ? 'Baixar áudio para ouvir' : 'Baixar Arquivo';
+        let fileNameAttachment = ''
+
+        if (fileUpload.file_type != 2) {
+            const icon = (fileUpload.file_type == 0) ? '<i class="icon-anexo-chat fas fa-image"></i>' : '<i class="icon-anexo-chat fas fa-file"></i>'
+            fileNameAttachment = `
+                <p class="mb-0 text-chat-messages" style="margin-top: 4px; word-break: break-word;">${icon} ${fileUpload.conteudo}</p>
+            ` 
+        }
 
         return `
             <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item">
@@ -257,9 +265,8 @@ class Chat {
                         <h5 class="font-medium m-0">${fileUpload.nome}</h5>
                         <div class="mt-2 content-info-anexo-chat">
                             <div class="m-0 d-flex" style="max-height: 30px;">
-                                <button class="btn btn-sm btn-rounded btn-download-chat" id="btn-download-${fileUpload.id_mensagem}" onclick="onClickDownloadAnexoChat(${fileUpload.id_mensagem}, '${fileUpload.conteudo}', ${fileUpload.file_type});">
-                                    <i class="far fa-arrow-alt-circle-down icon-download-chat" data-toggle="tooltip" title="${titleIconDownload}"></i>
-                                </button>
+                                ${fileNameAttachment}
+                                <i id="btn-download-${fileUpload.id_mensagem}" onclick="onClickDownloadAnexoChat(${fileUpload.id_mensagem}, '${fileUpload.conteudo}', ${fileUpload.file_type});" class="fas fa-download icon-download-chat" data-toggle="tooltip" title="${titleIconDownload}"></i>
                                 ${(fileUpload.usuario_tipo_id == 3 && fileUpload.file_type == 2)
                                     ?
                                     `<button class="btn btn-sm btn-rounded btn-upload-anexo-ficha-pessoa-chat" onclick="onClickUploadAnexoFichaPessoaChat('${extensao}', ${fileUpload.file_size}, ${fileUpload.id_mensagem}, '${fileUpload.conteudo}');">
@@ -284,7 +291,6 @@ class Chat {
                                     ``
                                 }
                             </div>
-                            ${(fileUpload.file_type != 2) ? `<p class="mb-0 text-chat-messages" style="margin-top: 4px; word-break: break-word;">${fileUpload.conteudo}</p>` : ''}
                         </div>
                         <div class="m-0">
                             <div class="m-0 content-size-anexo-chat">${this.formaterSizeAnexo(fileUpload.file_size)}</div>
