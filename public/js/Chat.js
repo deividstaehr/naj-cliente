@@ -267,28 +267,12 @@ class Chat {
                             <div class="m-0 d-flex" style="max-height: 30px;">
                                 ${fileNameAttachment}
                                 <i id="btn-download-${fileUpload.id_mensagem}" onclick="onClickDownloadAnexoChat(${fileUpload.id_mensagem}, '${fileUpload.conteudo}', ${fileUpload.file_type});" class="fas fa-download icon-download-chat" data-toggle="tooltip" title="${titleIconDownload}"></i>
-                                ${(fileUpload.usuario_tipo_id == 3 && fileUpload.file_type == 2)
-                                    ?
-                                    `<button class="btn btn-sm btn-rounded btn-upload-anexo-ficha-pessoa-chat" onclick="onClickUploadAnexoFichaPessoaChat('${extensao}', ${fileUpload.file_size}, ${fileUpload.id_mensagem}, '${fileUpload.conteudo}');">
-                                        <i class="fas fa-paperclip icon-upload-anexo-ficha-pessoa-chat" data-toggle="tooltip" title="Anexar na ficha da pessoa"></i>
-                                    </button>`
-                                    :
-                                    ``
-                                }
                                 ${
                                     (fileUpload.file_type == 2) ?
                                     `<audio id="audio-${fileUpload.id_mensagem}" controls style="height: 30px;">
                                         <source id="source-${fileUpload.id_mensagem}" src="" type="audio/${extensao}"/>
                                     </audio>`
                                     : ''
-                                }
-                                ${(fileUpload.usuario_tipo_id == 3 && fileUpload.file_type != 2)
-                                    ?
-                                    `<button class="btn btn-sm btn-rounded btn-upload-anexo-ficha-pessoa-chat" onclick="onClickUploadAnexoFichaPessoaChat('${extensao}', ${fileUpload.file_size}, ${fileUpload.id_mensagem}, '${fileUpload.conteudo}');">
-                                        <i class="fas fa-paperclip icon-upload-anexo-ficha-pessoa-chat" data-toggle="tooltip" title="Anexar na ficha da pessoa"></i>
-                                    </button>`
-                                    :
-                                    ``
                                 }
                             </div>
                         </div>
