@@ -244,22 +244,26 @@ async function loadContainerFinanceiro() {
 async function loadContainerAgenda() {
     const filter = await filterUsuario()
     const events = await NajApi.getData(`agenda/amountEvents/${filter}`)
-
     $('#quantidade-agendamento')[0].innerHTML = ``
 
     if(events.data[0]) {
         $('#quantidade-agendamento')[0].innerHTML = `
             ${events.data[0].quantidade_eventos}
-            <div class="notify custom-notify-naj" style="top: -15px !important; left: -59px; z-index: 1;">
-                <span class="heartbit"></span>
-                <span class="point"></span>
-            </div>
         `;
 
         $('#text-agendamento')[0].innerHTML = `Próximos Eventos`
 
-        if (events.data[0].quantidade_eventos > 0)
+        if (events.data[0].quantidade_eventos > 0) {
+            $('#quantidade-agendamento')[0].innerHTML = `
+                ${events.data[0].quantidade_eventos}
+                <div class="notify custom-notify-naj" style="top: -15px !important; left: -59px; z-index: 1;">
+                    <span class="heartbit"></span>
+                    <span class="point"></span>
+                </div>
+            `;
+
             hasInfo = true
+        }   
     }
 }
 
