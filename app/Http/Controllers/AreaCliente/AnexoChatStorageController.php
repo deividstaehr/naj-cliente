@@ -48,6 +48,8 @@ class AnexoChatStorageController extends NajController {
             foreach($files as $oFile) {
                 $model = $oChatMensagemController->storeMessageAnexo($oFile, true);
 
+                $response[] = $model->original['model'];
+
                 $this->callStoreFile($oFile, $model->original['model']['file_path']);
             }
         } catch(Exception $e) {
@@ -56,7 +58,7 @@ class AnexoChatStorageController extends NajController {
         }
 
         $oChatMensagemController->commit();
-        return response()->json(['status_code' => 200, 'mensagem' => 'Anexo(s) enviado com sucesso!']);
+        return response()->json(['status_code' => 200, 'data' => $response, 'mensagem' => 'Anexo(s) enviado com sucesso!']);
     }
     
     public function callStoreFile($oFile, $nameFile) {

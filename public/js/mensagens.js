@@ -11,7 +11,6 @@ let id_usuario_current_chat;
 let filterDataChat;
 let usersNewAtendimento = [];
 
-//---------------------- Functions -----------------------//
 $(document).ready(function() {
     onLoadAtendimento();
 
@@ -40,9 +39,7 @@ $(document).ready(function() {
         
         if(keycode == '13') {
             event.preventDefault();
-            if(!$('#input-text-chat-enviar').val()) {
-                return;
-            }
+            if(!$('#input-text-chat-enviar').val()) return;
 
             chat.createUpdateRascunhoMessage(id_chat_current, null, true);
             sendMessage();
@@ -52,9 +49,7 @@ $(document).ready(function() {
     });
 
     $('#button-enviar-smartphone').on('click', function(event) {
-        if(!$('#input-text-chat-enviar').val()) {
-            return;
-        }
+        if(!$('#input-text-chat-enviar').val()) return;
 
         chat.createUpdateRascunhoMessage(id_chat_current, null, true);
         sendMessage();
@@ -96,9 +91,7 @@ $(document).ready(function() {
 async function loadMessageChat() {
     let result = await NajApi.getData(`mensagens/hasChat/${idUsuarioLogado}`);
 
-    if(!result.chat.id_chat || !result.chat.id_usuario) {
-        return;
-    }
+    if(!result.chat.id_chat || !result.chat.id_usuario) return;
 
     id_chat_current         = result.chat.id_chat;
     id_usuario_current_chat = result.chat.id_usuario;
@@ -115,7 +108,6 @@ async function loadMessageChat() {
 
     if(result.chat.id_chat && !$('#content-upload-anexos-chat').is(":visible")) {
         const moveScroll = $('#content-chat-box-full').scrollTop() + $('#content-chat-box-full').innerHeight() == $('#content-chat-box-full')[0].scrollHeight;
-        console.log(moveScroll)
         await chat.loadNewMessages({"id_chat" : id_chat_current, "id_usuario_cliente" : id_usuario_current_chat}, moveScroll, false, false);
     }
 }
@@ -228,9 +220,8 @@ function onClickCancelarAnexos() {
     $('#content-messages-chat').show();
     $('#input-text-chat-enviar').show();
 
-    if(!id_chat_current) {
+    if(!id_chat_current)
         $('.content-message-select-user-chat').show();
-    }
 
     chat.scrollToBottom();
 }
@@ -244,9 +235,8 @@ async function onClickSendAnexoEditor() {
     loadingStart('loading-anexo-chat-editor');
 
     //Se foi escrito algo
-    if($("#summernote").summernote('code')) {
+    if($("#summernote").summernote('code'))
         await sendMessage($("#summernote").summernote('code'));
-    }
     
     await sendAnexos(myDropzoneEditor);
 
@@ -286,9 +276,7 @@ async function sendAnexos(dropzone) {
     let data_hora = getDataHoraAtual();
     let identificador = sessionStorage.getItem('@NAJ_CLIENTE/identificadorEmpresa');
 
-    if(dropzone.files.length < 1) {
-        return;
-    }
+    if(dropzone.files.length < 1) return;
 
     if(id_chat_current) {
         for(var i = 0; i < dropzone.files.length; i++) {
@@ -324,7 +312,7 @@ async function sendAnexos(dropzone) {
         }
         let result = await NajApi.postData(`chat/mensagem/anexo`, {'files': filesUpload});
 
-        if(result.status_code == 200) {
+        if(result.status_code == 200 && result.data) {
             result.data.forEach((item) => {
                 let anexo = {
                     "id_mensagem": item.id,
@@ -372,9 +360,8 @@ async function sendAnexos(dropzone) {
             return;
         }
 
-        if(result.message) {
+        if(result.message)
             await onLoadAtendimento();
-        }
     }
 }
 
@@ -412,17 +399,9 @@ async function onClickDownloadAnexoChat(id_message, arquivoName, fileType) {
     if(result) {
         const url = URL.createObjectURL(result);
   
-        // Create a new anchor element
         const a = document.createElement('a');
-        
-        // Set the href and download attributes for the anchor element
-        // You can optionally set other attributes like `title`, etc
-        // Especially, if the anchor element will be attached to the DOM
         a.href = url;
         a.download = arquivoName || 'download';
-        
-        // Click handler that releases the object URL after the element has been clicked
-        // This is required for one-off downloads of the blob content
         const clickHandler = () => {
             setTimeout(() => {
                 URL.revokeObjectURL(url);
@@ -430,19 +409,9 @@ async function onClickDownloadAnexoChat(id_message, arquivoName, fileType) {
             }, 150);
         };
         
-        // Add the click event listener on the anchor element
-        // Comment out this line if you don't want a one-off download of the blob content
         a.addEventListener('click', clickHandler, false);
-        
-        // Programmatically trigger a click on the anchor element
-        // Useful if you want the download to happen automatically
-        // Without attaching the anchor element to the DOM
-        // Comment out this line if you don't want an automatic download of the blob content
         a.click();
         
-        // Return the anchor element
-        // Useful if you want a reference to the element
-        // in order to attach it to the DOM or use it in some other way
         loadingDestroy('loading-upload-chat');
     }
 }
