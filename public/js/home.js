@@ -5,14 +5,10 @@ let hasInfo   = false;
 
 $(document).ready(function() {
 
-    window.addEventListener("resize", getSizesWindow, false)
+    $('#main-wrapper').addClass('naj-scrollable')
 
-    getSizesWindow()
-
-    if(detectMobile()) {
-        $('#row-mensagens-atividades').removeClass('row-mensagens-atividades');
-        $('#row-processos-agendamentos').removeClass('row-processos-agendamentos');
-    }
+    if (isMobile())
+        $('.page-wrapper')[0].style.height = 'auto'
 
     updateDataAcessoSistema()//Atualizando a data de acesso ao sistema
     
@@ -324,101 +320,6 @@ async function updateDataAcessoSistema() {
     } else {
         console.log(result.mensagem);
     }
-}
-
-function getSizesWindow() { 
-    let zoom = ((window.outerWidth - 10) / window.innerWidth) * 100;
-          
-    if(zoom < 105) {
-        $('#content-scrollable').removeClass('naj-scrollable');
-        $('#content-scrollable').removeClass('add-overflow');
-        $('#row-processos-agendamentos').removeClass('row-processos-agendamentos-110');
-
-        $('#row-processos-agendamentos').addClass('row-processos-agendamentos');
-        $('#row-mensagens-atividades').addClass('row-mensagens-atividades');
-
-        $('.row-minhas-mensagens').addClass('col-lg-6');
-        $('.row-minhas-atividades').addClass('col-lg-6');
-        $('.row-meu-processos').addClass('col-lg-6');
-        $('.row-meus-agendamentos').addClass('col-lg-6');
-
-        $('.row-minhas-mensagens').addClass('col-md-6');
-        $('.row-minhas-atividades').addClass('col-md-6');
-        $('.row-meu-processos').addClass('col-md-6');
-        $('.row-meus-agendamentos').addClass('col-md-6');
-
-        $('#row-processos-agendamentos').addClass('row-processos-agendamentos');
-        $('#row-mensagens-atividades').addClass('row-mensagens-atividades');
-
-        $('.row-minhas-mensagens').removeClass('col-lg-12');
-        $('.row-minhas-atividades').removeClass('col-lg-12');
-        $('.row-meu-processos').removeClass('col-lg-12');
-        $('.row-meus-agendamentos').removeClass('col-lg-12');
-        $('.row-meu-processos').removeClass('col-sm-12');
-        $('.row-meus-agendamentos').removeClass('col-sm-12');
-
-        $('.row-minhas-mensagens').removeClass('no-padding');
-        $('.row-minhas-atividades').removeClass('no-padding');
-        $('.row-meu-processos').removeClass('no-padding');
-        $('.row-meus-agendamentos').removeClass('no-padding');
-        $('.row-financeiro').removeClass('no-padding');
-
-        $('#modal-agendamento').removeClass('modal-65vh');
-
-        $('#card-download-app').addClass('card-download-app');
-
-    } else if(zoom > 101) {
-        $('#content-scrollable').addClass('add-overflow');
-        $('#content-scrollable').addClass('naj-scrollable');
-
-        $('#row-processos-agendamentos').removeClass('row-processos-agendamentos-110');
-
-        $('.row-minhas-mensagens').removeClass('col-lg-6');
-        $('.row-minhas-atividades').removeClass('col-lg-6');
-        $('.row-meu-processos').removeClass('col-lg-6');
-        $('.row-meus-agendamentos').removeClass('col-lg-6');
-
-        $('.row-minhas-mensagens').removeClass('col-md-6');
-        $('.row-minhas-atividades').removeClass('col-md-6');
-        $('.row-meu-processos').removeClass('col-md-6');
-        $('.row-meus-agendamentos').removeClass('col-md-6');
-
-        $('#row-processos-agendamentos').removeClass('row-processos-agendamentos');
-        $('#row-mensagens-atividades').removeClass('row-mensagens-atividades');
-
-        $('.row-minhas-mensagens').addClass('col-lg-12');
-        $('.row-minhas-atividades').addClass('col-lg-12');
-        $('.row-meu-processos').addClass('col-lg-12');
-        $('.row-meus-agendamentos').addClass('col-lg-12');
-        $('.row-meu-processos').addClass('col-sm-12');
-        $('.row-meus-agendamentos').addClass('col-sm-12');
-
-        $('#modal-agendamento').addClass('modal-65vh');
-
-        $('.row-minhas-mensagens').addClass('no-padding');
-        $('.row-minhas-atividades').addClass('no-padding');
-        $('.row-meu-processos').addClass('no-padding');
-        $('.row-meus-agendamentos').addClass('no-padding');
-        $('.row-financeiro').addClass('no-padding');
-
-        $('#card-download-app').removeClass('card-download-app');
-    }
-} 
-
-function detectMobile() {
-    const toMatch = [
-        /Android/i,
-        /webOS/i,
-        /iPhone/i,
-        /iPad/i,
-        /iPod/i,
-        /BlackBerry/i,
-        /Windows Phone/i
-    ];
-
-    return toMatch.some((toMatchItem) => {
-        return navigator.userAgent.match(toMatchItem);
-    });
 }
 
 async function checkPesquisaNps() {

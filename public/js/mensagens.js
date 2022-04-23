@@ -366,9 +366,10 @@ async function sendAnexos(dropzone) {
 }
 
 async function onClickDownloadAnexoChat(id_message, arquivoName, fileType) {
-    loadingStart('loading-upload-chat');
-    let parametros = btoa(JSON.stringify({id_message, identificador}));
-    let result     = await NajApi.getData(`chat/mensagem/download/${parametros}?XDEBUG_SESSION_START`, true);
+    loadingStart('loading-upload-chat')
+
+    let parametros = btoa(JSON.stringify({id_message, identificador}))
+    let result = await NajApi.getData(`chat/mensagem/download/${parametros}?XDEBUG_SESSION_START`, true)
 
     if(fileType == 2 && result) {
         let reader = new FileReader();
@@ -397,22 +398,42 @@ async function onClickDownloadAnexoChat(id_message, arquivoName, fileType) {
     }
 
     if(result) {
-        const url = URL.createObjectURL(result);
-  
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = arquivoName || 'download';
-        const clickHandler = () => {
-            setTimeout(() => {
-                URL.revokeObjectURL(url);
-                this.removeEventListener('click', clickHandler);
-            }, 150);
-        };
-        
-        a.addEventListener('click', clickHandler, false);
-        a.click();
-        
-        loadingDestroy('loading-upload-chat');
+        let reader = new FileReader();
+        reader.readAsDataURL(result);
+
+        reader.onloadend = () => {
+            let base64data = reader.result;
+
+            let extensao = arquivoName.split('.').pop();
+            let binary = convertDataURIToBinary(base64data);
+
+            let blob;
+
+            if (extensao == 'pdf')
+                blob = new Blob([binary], {type : `application/pdf`});
+            else if (extensao == 'txt')
+                blob = new Blob([binary], {type : `text/plain`});
+            else
+                blob = new Blob([binary], {type : `image/${extensao}`});
+
+            let blobUrl = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = arquivoName || 'download';
+
+            const clickHandler = () => {
+                setTimeout(() => {
+                    (window.URL ? URL : webkitURL).revokeObjectURL(blobUrl);
+                    this.removeEventListener('click', clickHandler);
+                }, 150);
+            };
+            
+            a.addEventListener('click', clickHandler, false);
+            a.click();
+
+            loadingDestroy('loading-upload-chat');
+        }
     }
 }
 

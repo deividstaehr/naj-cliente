@@ -253,15 +253,14 @@ class Chat {
 
         if (fileUpload.file_type != 2) {
             const icon = (fileUpload.file_type == 0) ? '<i class="icon-anexo-chat fas fa-image"></i>' : '<i class="icon-anexo-chat fas fa-file"></i>'
-            fileNameAttachment = `
-                <p class="mb-0 text-chat-messages" style="margin-top: 4px; word-break: break-word;">${icon} ${fileUpload.conteudo}</p>
-            ` 
+
+            fileNameAttachment = `<p class="mb-0 text-chat-messages" style="margin-top: 4px; word-break: break-word;">${icon} ${fileUpload.conteudo}</p>`
         }
 
         return `
-            <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item">
-                <div class="chat-content">
-                    <div class="box bg-light-success p-2 ${classOdd}" style="max-width: 100%;">
+            <li class="${(!isOdd) ? 'no-odd-chat-naj' : 'odd-chat-naj odd '} chat-item" style="${(fileUpload.file_type == 2 && isMobile() ? 'width: 100% !important;' : '')}">
+                <div class="chat-content" style="${(fileUpload.file_type == 2 && isMobile() ? 'width: 95% !important;' : '')}">
+                    <div class="box bg-light-success p-2 ${classOdd}" style="max-width: 100%; ${(fileUpload.file_type == 2  && isMobile() ? 'width: 100%' : '')}">
                         <h5 class="font-medium m-0">${fileUpload.nome}</h5>
                         <div class="mt-2 content-info-anexo-chat">
                             <div class="m-0 d-flex" style="max-height: 30px;">

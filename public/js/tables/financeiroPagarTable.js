@@ -345,7 +345,6 @@ class FinanceiroPagarTable extends Table {
     
     //Sobreescreve o método
     async load() {
-        debugger;
         const { loading, notSearch, totalPages, totalCounter } = this.ids;
 
         loadingStart(loading);
