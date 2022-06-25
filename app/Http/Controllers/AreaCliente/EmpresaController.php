@@ -22,7 +22,7 @@ class EmpresaController extends NajController {
         $base = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/');
         @list($dir,) = explode('/public', $base);
 
-        $this->laravelStorageDir = $dir . '/naj-cliente/storage/app/logo_advocacia/';
+        $this->laravelStorageDir = $dir . '/storage/app/logo_advocacia/';
 
         parent::__construct();
     }
