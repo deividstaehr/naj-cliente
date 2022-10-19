@@ -4,7 +4,6 @@ namespace App\Http\Controllers\AreaCliente;
 
 use App\Http\Controllers\NajController;
 use App\Http\Controllers\AreaCliente\SysConfigController;
-use Google\Cloud\Storage\StorageClient;
 use Illuminate\Support\Facades\Storage;
 use App\Models\EmpresaModel;
 
@@ -22,7 +21,7 @@ class EmpresaController extends NajController {
         $base = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '/');
         @list($dir,) = explode('/public', $base);
 
-        $this->laravelStorageDir = $dir . '/storage/app/logo_advocacia/';
+        $this->laravelStorageDir = $dir . '/naj-cliente/storage/app/logo_advocacia/';
 
         parent::__construct();
     }
@@ -103,6 +102,11 @@ class EmpresaController extends NajController {
         $result = rename($temporaryFile, $destinationFile);
 
         Storage::disk('local')->delete("/logo_advocacia/logo_escritorio.png");
+        // Storage::disk('local')->delete("/logo_advocacia/logo_escritorio.png");
+        // Storage::disk('local')->delete("/logo_advocacia/logo_escritorio.png");
+        // Storage::disk('local')->delete("/logo_advocacia/logo_escritorio.png");
+        // Storage::disk('local')->delete("/logo_advocacia/logo_escritorio.png");
+        // Storage::disk('local')->delete("/logo_advocacia/logo_escritorio.png");
 
         return response()->json($result);
     }
