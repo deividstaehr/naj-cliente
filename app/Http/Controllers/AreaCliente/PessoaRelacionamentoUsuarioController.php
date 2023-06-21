@@ -38,6 +38,16 @@ class PessoaRelacionamentoUsuarioController extends NajController {
     public function getRelacionamentosUsuario($codigo) {
         return response()->json($this->getModel()->getRelacionamentosUsuario($codigo));
     }
+
+    public function permissions() {
+        return response()->json([
+            'contas_pagar' => $this->getModel()->getRelacionamentosUsuarioModuloFinanceiroContasPagar(),
+            'contas_receber' => $this->getModel()->getRelacionamentosUsuarioModuloFinanceiroContasReceber(),
+            'agenda' => $this->getModel()->getRelacionamentosUsuarioModuloAgenda(),
+            'processos' => $this->getModel()->getRelacionamentosUsuarioModuloProcessos(),
+            'atividades' => $this->getModel()->getRelacionamentosUsuarioModuloAtividades(),
+        ]);
+    }
     
     public function storeItems($model) {}
 

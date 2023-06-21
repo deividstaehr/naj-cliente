@@ -61,11 +61,32 @@ $(document).ready(function() {
 });
 
 async function loadContainers() {
+    await disableContainerWithoutPerm();
+    
     await loadContainerMensagens();
     await loadContainerAtividade();
     await loadContainerProcesso();
     await loadContainerFinanceiro();
     await loadContainerAgenda();
+}
+
+async function disableContainerWithoutPerm() {
+    const data = await NajApi.getData(`pessoa/permissions`);
+
+    if (data.agenda.length == 0)
+        $('#content-agendamentos').hide();
+
+    if (data.contas_receber.length == 0)
+        $('#content-financeiro-receber').hide();
+
+    if (data.contas_pagar.length == 0)
+        $('#content-financeiro-pagar').hide();
+
+    if (data.processos.length == 0)
+        $('#content-meus-processos').hide();
+
+    if (data.atividades.length == 0)
+        $('#content-atividades').hide();
 }
 
 async function loadContainerMensagens() {

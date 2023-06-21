@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use App\Models\NajModel;
 use Illuminate\Support\Facades\DB;
 
@@ -38,7 +39,10 @@ class PessoaRelacionamentoUsuarioModel extends NajModel {
         ");
     }
 
-    public function getRelacionamentosUsuarioModuloFinanceiroContasReceber($codigo) {
+    public function getRelacionamentosUsuarioModuloFinanceiroContasReceber($codigo = null) {
+        if (!$codigo)
+          $codigo = Auth::user()->id;
+
         return DB::select("
             SELECT *
               FROM pessoa_rel_clientes
@@ -48,7 +52,10 @@ class PessoaRelacionamentoUsuarioModel extends NajModel {
         ");
     }
 
-    public function getRelacionamentosUsuarioModuloFinanceiroContasPagar($codigo) {
+    public function getRelacionamentosUsuarioModuloFinanceiroContasPagar($codigo = null) {
+      if (!$codigo)
+          $codigo = Auth::user()->id;
+
         return DB::select("
             SELECT *
               FROM pessoa_rel_clientes
@@ -58,7 +65,10 @@ class PessoaRelacionamentoUsuarioModel extends NajModel {
         ");
     }
 
-    public function getRelacionamentosUsuarioModuloProcessos($codigo) {
+    public function getRelacionamentosUsuarioModuloProcessos($codigo = null) {
+        if (!$codigo)
+          $codigo = Auth::user()->id;
+
         return DB::select("
             SELECT *
               FROM pessoa_rel_clientes
@@ -68,7 +78,9 @@ class PessoaRelacionamentoUsuarioModel extends NajModel {
         ");
     }
 
-    public function getRelacionamentosUsuarioModuloAtividades($codigo) {
+    public function getRelacionamentosUsuarioModuloAtividades($codigo = null) {
+        if (!$codigo)
+            $codigo = Auth::user()->id;
         return DB::select("
             SELECT *
               FROM pessoa_rel_clientes
@@ -78,7 +90,10 @@ class PessoaRelacionamentoUsuarioModel extends NajModel {
         ");
     }
 
-	public function getRelacionamentosUsuarioModuloAgenda($codigo) {
+	public function getRelacionamentosUsuarioModuloAgenda($codigo = null) {
+    if (!$codigo)
+      $codigo = Auth::user()->id;
+
         return DB::select("
             SELECT *
               FROM pessoa_rel_clientes
