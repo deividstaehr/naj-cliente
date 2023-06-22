@@ -69,6 +69,16 @@
             }
         }
 
+        .disabledEvent {
+            cursor: none;
+            pointer-events: none;
+        }
+
+        .moduleDisableTitle {
+            font-size: 9px;
+            margin-left: 5px;
+        }
+
         .no-padding {
             padding: 2px !important;
         }
@@ -108,7 +118,7 @@
 
             <div class="card card-hover cardHome cursorActive height30" id="content-atividades">
                 <div class="card-body">
-                    <h5 class="card-title text-uppercase">ATIVIDADES</h5>
+                    <h5 class="card-title text-uppercase d-flex align-items-center">ATIVIDADES <span class="moduleDisableTitle"></span></h5>
                     <div class="d-flex align-items-center justify-content-between">
                         <h2 class="mb-0 display-5"><i class="fas fa-tasks text-info"></i></h2>
                         <div class="cursorActive atividade-todos">
@@ -126,7 +136,7 @@
 
             <div class="card card-hover cardHome cursorActive height30" id="content-meus-processos">
                 <div class="card-body">
-                    <h5 class="card-title text-uppercase">Processos</h5>
+                    <h5 class="card-title text-uppercase d-flex align-items-center">Processos <span class="moduleDisableTitle"></span></h5>
                     <div class="d-flex align-items-center justify-content-between">
                         <h2 class="mb-0 display-5"><i class="fas fa-balance-scale text-info"></i></h2>
                         <div class="cursorActive content-processos-todos">
@@ -144,7 +154,7 @@
 
             <div class="card card-hover cardHome cursorActive height30" id="content-agendamentos">
                 <div class="card-body">
-                    <h5 class="card-title text-uppercase">Agendamentos</h5>
+                    <h5 class="card-title text-uppercase d-flex align-items-center">Agendamentos <span class="moduleDisableTitle"></span></h5>
                     <div class="d-flex align-items-center" style="gap: 28%;">
                         <h2 class="mb-0 display-5"><i class="fas fa-calendar-alt text-info"></i></h2>
                         <div class="cursorActive">
@@ -162,14 +172,14 @@
                     <div class="d-flex no-block align-items-center row">
                         <h2 class="mb-0 display-5 ml-4"><i class="fas fa-donate text-info"></i></h2>
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto card-hover cursor-pointer p-2" id="content-financeiro-receber">
-                            <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-success"></i> A RECEBER</h4>
+                            <h4 class="font-medium bold d-flex align-items-center"><i class="fas fa-dollar-sign text-success"></i> A RECEBER <span class="moduleDisableTitle"></span></h4>
                             <h5 class="text-dark mb-0"><span class="mr-2 align-right">Recebido</span>  <span class="text-success float-right" id="qtde_receber_recebido"></span> </h5>
                             <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-success float-right" id="qtde_receber_aberto"></span> </h5>
                             <h5 class="text-dark mb-0"><span class="mr-2">Atrasado</span> <span class="text-success float-right" id="qtde_receber_atrasado"></span> </h5>
                             <i class="fas fa-search text-info" style="margin-top: 10px; margin-left: 90%;"></i>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12 ml-auto card-hover cursor-pointer p-2" id="content-financeiro-pagar">
-                            <h4 class="font-medium bold"><i class="fas fa-dollar-sign text-danger"></i> A PAGAR</h4>
+                            <h4 class="font-medium bold d-flex align-items-center"><i class="fas fa-dollar-sign text-danger"></i> A PAGAR <span class="moduleDisableTitle"></span></h4>
                             <h5 class="text-dark mb-0"><span class="mr-2 align-right">Pago</span>  <span class="text-danger float-right" id="qtde_pagar_pago"></span> </h5>
                             <h5 class="text-dark mb-0"><span class="mr-2">Em Aberto</span> <span class="text-danger float-right" id="qtde_pagar_aberto"></span> </h5>
                             <h5 class="text-dark mb-0"><span class="mr-2">Atrasado</span> <span class="text-danger float-right" id="qtde_pagar_atrasado"></span> </h5>

@@ -73,20 +73,30 @@ async function loadContainers() {
 async function disableContainerWithoutPerm() {
     const data = await NajApi.getData(`pessoa/permissions`);
 
-    if (data.agenda.length == 0)
-        $('#content-agendamentos').hide();
+    if (data.agenda.length == 0) {
+        $('#content-agendamentos').addClass('disabledEvent');
+        $('#content-agendamentos .moduleDisableTitle').text('(Funcionalidade Indisponível)')
+    }
 
-    if (data.contas_receber.length == 0)
-        $('#content-financeiro-receber').hide();
+    if (data.contas_receber.length == 0) {
+        $('#content-financeiro-receber').addClass('disabledEvent');
+        $('#content-financeiro-receber .moduleDisableTitle').text('(Funcionalidade Indisponível)')
+    }
 
-    if (data.contas_pagar.length == 0)
-        $('#content-financeiro-pagar').hide();
+    if (data.contas_pagar.length == 0) {
+        $('#content-financeiro-pagar .moduleDisableTitle').text('(Funcionalidade Indisponível)')
+        $('#content-financeiro-pagar').addClass('disabledEvent');
+    }
 
-    if (data.processos.length == 0)
-        $('#content-meus-processos').hide();
+    if (data.processos.length == 0) {
+        $('#content-meus-processos .moduleDisableTitle').text('(Funcionalidade Indisponível)')
+        $('#content-meus-processos').addClass('disabledEvent');
+    }
 
-    if (data.atividades.length == 0)
-        $('#content-atividades').hide();
+    if (data.atividades.length == 0) {
+        $('#content-atividades .moduleDisableTitle').text('(Funcionalidade Indisponível)')
+        $('#content-atividades').addClass('disabledEvent');
+    }
 }
 
 async function loadContainerMensagens() {
