@@ -122,7 +122,8 @@ class ChatMensagemController extends NajController {
                 $toStore['file_path'] = $nextId;
             }
 
-            $data['model'] = $toStore;
+            $data['model'] = array_merge(['id' => $nextId], $toStore);
+            $data['model']['id'] = $nextId;
 
             $model->fill($toStore);
 

@@ -40,6 +40,7 @@ class AnexoChatStorageController extends NajController {
 
 	public function uploadAnexoChat() {
         $files = request()->get('files');
+        $response = [];
 
         $oChatMensagemController = new ChatMensagemController();
         try {
