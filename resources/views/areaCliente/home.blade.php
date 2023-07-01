@@ -218,7 +218,9 @@
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
-                        <img src="{{ env('APP_URL') }}imagens/playstore.png" alt="logo-play-store" class="dark-logo"  style="height: 40px;"/>
+                        <a href="https://play.google.com/store/apps/details?id=com.najdesk" target="_blank">
+                            <img src="{{ env('APP_URL') }}imagens/playstore.png" alt="logo-play-store" class="dark-logo"  style="height: 40px;"/>
+                        </a>
                     </div>
                     <div class="mt-2 d-flex align-items-center justify-content-center">
                         <h5 class="font-medium">Baixe gratuitamente</h5>
